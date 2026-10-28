@@ -7,6 +7,7 @@ import { loadSalonCase } from "./salon.js";
 import { evaluateVariant } from "./evaluate.js";
 import { prepareBaseline } from "./variants.js";
 import type { VariantResult } from "./contracts.js";
+import { legacyProjectConfig } from "../project/legacy.js";
 import { fileURLToPath } from "node:url";
 
 vi.mock("./salon.js", () => ({ loadSalonCase: vi.fn() }));
@@ -16,11 +17,11 @@ vi.mock("./final-freeze.js", () => ({ sealFinalChecks: vi.fn().mockResolvedValue
 
 const directories: string[] = [];
 afterEach(async () => { for (const directory of directories.splice(0)) await rm(directory, { recursive: true, force: true }); });
-beforeEach(() => {
+beforeEach(async () => {
   vi.resetAllMocks();
   vi.mocked(prepareBaseline).mockResolvedValue("baseline");
   vi.mocked(loadSalonCase).mockResolvedValue({
-    app: "app", subject: { customerPhone: "1", otherCustomerPhone: "2", service: "Braids", date: "2026-10-31", slotLabel: "2:00 PM", startsAt: "2026-10-31T14:00" }, probes: {},
+    app: "app", projectConfig: await legacyProjectConfig(), subject: { customerPhone: "1", otherCustomerPhone: "2", service: "Braids", date: "2026-10-31", slotLabel: "2:00 PM", startsAt: "2026-10-31T14:00" }, probes: {},
     controls: [{ id: "a", kind: "control", requirements: [] }, { id: "b", kind: "control", requirements: [] }],
     decoys: [{ id: "decoy", kind: "development", requirements: [], patch: fileURLToPath(new URL("../../../specimens/salon/decoys/t1-ui-only.patch", import.meta.url)) }],
   });

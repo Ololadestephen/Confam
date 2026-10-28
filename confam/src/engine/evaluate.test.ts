@@ -8,6 +8,12 @@ import { startServer } from "./server.js";
 import { runBrowserChecks } from "./runner.js";
 import { guardPatch } from "./variants.js";
 
+vi.mock("../project/snapshot.js", () => ({
+  readProjectSnapshot: async () => {
+    const { legacyProjectConfig } = await import("../project/legacy.js");
+    return legacyProjectConfig();
+  }
+}));
 vi.mock("./freeze.js", () => ({ verifyChecks: vi.fn() }));
 vi.mock("./variants.js", () => ({ createVariant: vi.fn(), guardPatch: vi.fn() }));
 vi.mock("./runner.js", () => ({ runBrowserChecks: vi.fn() }));

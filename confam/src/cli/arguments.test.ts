@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest";
 import { parseArguments } from "./arguments.js";
 
 describe("CLI confirmation and cost arguments", () => {
+  it("accepts a project runtime check without model or repair options", () => {
+    expect(parseArguments(["project-check", "project.json"]).command).toBe("project-check");
+    expect(() => parseArguments(["project-check", "project.json", "--fix"])).toThrow("Invalid");
+  });
   it("requires an explicit held-out pack and rejects competing candidate sources", () => {
     expect(() => parseArguments(["heldout", "model-id"])).toThrow("--pack");
     expect(() => parseArguments(["execute", "model-id", "--fix", "--candidate", "x.patch"])).toThrow("not both");

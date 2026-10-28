@@ -6,6 +6,7 @@ import { verifyChecks, type FrozenChecks } from "./freeze.js";
 import { errorMessage } from "./process.js";
 import { runBrowserChecks } from "./runner.js";
 import type { OracleProbe } from "./salon.js";
+import { readProjectSnapshot } from "../project/snapshot.js";
 import { startServer } from "./server.js";
 import { createVariant, guardPatch } from "./variants.js";
 
@@ -47,7 +48,8 @@ export async function evaluateVariant(spec: VariantSpec, run: EvaluationContext)
   await mkdir(directory, { recursive: true });
   const result: VariantResult = { id: spec.id, kind: spec.kind, violation: spec.violation, patchSource: spec.patchSource, requirements: spec.requirements, outcome: "invalid", probes: {} };
   const app = path.join(directory, "app");
-  const dbPath = path.join(directory, "app.sqlite");
+  const dataDirectory = path.join(directory, "data");
+  const dbPath = path.join(dataDirectory, "state");
   const logPath = path.join(directory, "server.log");
   if (spec.kind === "candidate" && spec.patch) {
     try { await guardPatch(run.baseline, spec.patch); }
@@ -57,15 +59,18 @@ export async function evaluateVariant(spec: VariantSpec, run: EvaluationContext)
   const oracleAbort = new AbortController();
   let phase: "prepare" | "checks" | "oracle" = "prepare";
   try {
+    const project = await readProjectSnapshot(run.baseline);
     await createVariant(run.baseline, app, spec.patch);
     await verifyChecks(run.checks);
-    server = await startServer(app, dbPath, logPath);
+    await mkdir(dataDirectory, { recursive: true });
+    server = await startServer(app, dbPath, logPath, undefined, project.runtime);
     phase = "checks";
     const restartApp = async () => {
+      if (!project.runtime.restart) throw new Error("Project does not support restart.");
       oracleAbort.signal.throwIfAborted();
       await verifyChecks(run.checks);
       await server?.stop();
-      server = await startServer(app, dbPath, logPath, oracleAbort.signal);
+      server = await startServer(app, dbPath, logPath, oracleAbort.signal, project.runtime);
       return server.baseUrl;
     };
     result.checks = await runBrowserChecks(run.checks, server.baseUrl, path.join(directory, "evidence"), {

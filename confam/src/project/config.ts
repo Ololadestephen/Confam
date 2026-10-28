@@ -31,6 +31,10 @@ export const projectConfigSchema = z.strictObject({
   if (new Set(config.sourceFiles).size !== config.sourceFiles.length) {
     context.addIssue({ code: "custom", message: "Duplicate source paths." });
   }
+  if ([config.runtime.portVariable, config.runtime.dataVariable].some((name) =>
+    ["PATH", "HOME", "NODE_OPTIONS", "LD_PRELOAD", "DYLD_INSERT_LIBRARIES", "MODEL_API_KEY"].includes(name))) {
+    context.addIssue({ code: "custom", message: "Runtime bindings cannot replace protected environment variables." });
+  }
   if (config.runtime.portVariable === config.runtime.dataVariable) {
     context.addIssue({ code: "custom", message: "Port and data environment variables must differ." });
   }
@@ -44,7 +48,7 @@ export type ProjectConfig = z.infer<typeof projectConfigSchema>;
 export type ProjectRuntime = ProjectConfig["runtime"];
 
 const protectedBasenames = new Set([
-  "package.json", "package-lock.json", "npm-shrinkwrap.json", "pnpm-lock.yaml", "yarn.lock", "bun.lock", "bun.lockb",
+  ".confam-project.json", "project.json", "package.json", "package-lock.json", "npm-shrinkwrap.json", "pnpm-lock.yaml", "yarn.lock", "bun.lock", "bun.lockb",
   "deno.json", "deno.jsonc", "deno.lock", "tsconfig.json", "jsconfig.json",
   "pyproject.toml", "poetry.lock", "uv.lock", "Pipfile", "Pipfile.lock",
   "Cargo.toml", "Cargo.lock", "go.mod", "go.sum", "Gemfile", "Gemfile.lock",

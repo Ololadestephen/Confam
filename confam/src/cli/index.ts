@@ -1,3 +1,4 @@
+import { checkProject } from "../project/check.js";
 import path from "node:path";
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -34,7 +35,10 @@ async function main(): Promise<void> {
   const envFile = path.join(root, ".env");
   if (existsSync(envFile)) process.loadEnvFile(envFile);
   const candidate = args.candidate ? path.resolve(args.candidate) : undefined;
-  if (args.command === "run") {
+  if (args.command === "project-check") {
+    const { report, reportPath } = await checkProject(path.resolve(args.subject), path.join(root, "runs"));
+    console.log(`Project ${report.project}: ${report.status}. ${report.scope}\nEvidence: ${reportPath}`);
+  } else if (args.command === "run") {
     const { report, reportPath } = await runCase(root, path.resolve(args.subject), candidate);
     printReport(report, reportPath);
   } else if (args.command === "intake") {

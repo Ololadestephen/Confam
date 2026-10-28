@@ -1,6 +1,6 @@
 # Confam: general repair verification
 
-Revised October 28, 2026. This is a proposed implementation plan, not a list of shipped capabilities. The current CLI still supports the salon case described in README.md.
+Revised October 28, 2026. TR1 project configuration and local runtime support are implemented and verified. TR2–TR5 remain planned. Behavioral repair verification currently supports the salon case described in README.md.
 
 ## 1. Product and users
 

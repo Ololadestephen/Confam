@@ -2,7 +2,21 @@
 
 Confam challenges a repair with deliberately faulty patches and records what the checks actually catch. The current slice supports one salon case through a deterministic baseline or a live Muse Spark authoring flow.
 
-The [general verification roadmap](ROADMAP.md) describes the planned move to configurable projects, reusable browser workflows, and evaluation across different applications. Those capabilities are not yet implemented.
+The [general verification roadmap](ROADMAP.md) tracks implementation. Configurable project loading and local process lifecycle are available; generalized behavioral workflows and multi-application repair evaluation remain planned.
+
+## Project runtime checks (TR1)
+
+A reviewed project configuration supplies the application root, editable source files, command argv, working directory, readiness path, port/state environment bindings, timeout, and restart capability. See `specimens/salon/project.json` for a working example. Paths are relative to the configuration file; use `root: "."` when configuration lives inside the application root. Source paths are relative to that root. Commands execute directly without shell interpolation.
+
+```sh
+npm run confam -- project-check specimens/salon/project.json
+```
+
+This command snapshots the project, creates a disposable worktree and owned data directory, starts the configured process, exercises restart when supported, stops it, and resets its data. Its report establishes runtime readiness only. It does not verify a bug or repair. Startup failures exit nonzero with runtime logs under the generated run directory.
+
+New baselines commit `.confam-project.json` alongside the application snapshot. Patch guards use its configured source list, reject protected dependency/test/configuration files and mode changes, and refuse missing or modified tracked snapshots. Historical baselines without a committed snapshot use the explicit salon compatibility adapter. Existing salon commands remain available while the generic workflow layer is built in TR2.
+
+Dependencies must already be resolvable from the disposable runtime. This release does not install dependencies, copy the source repository’s node_modules, or run a separate build hook; external projects whose dependencies are available only in their original checkout are not yet supported. Commands requiring additional inherited environment variables, external services, or seed/reset hooks are unsupported. Child applications receive only PATH and the configured port/state bindings. The state binding is a path inside variant-owned storage; restart preserves it and reset removes that storage only after shutdown. Local tests validate macOS/POSIX process-group cleanup; Windows descendant cleanup is not supported. This is not containment for hostile code.
 
 From the repository root:
 

@@ -49,7 +49,7 @@ export async function runCase(root: string, caseDirectory: string, candidate?: s
   try {
     const salon = await loadSalonCase(root, caseDirectory);
     const subject = options.subject ?? salon.subject;
-    const baseline = await prepareBaseline(salon.app, runDirectory);
+    const baseline = await prepareBaseline(salon.app, runDirectory, salon.projectConfig);
     const versions = await evaluateCheckVersions({
       directory: runDirectory, source: fileURLToPath(new URL("./salon-checks.ts", import.meta.url)), subject, assertions: options.assertions,
       controls: salon.controls, strengthen: options.strengthen,

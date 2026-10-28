@@ -1,6 +1,7 @@
 import { budgetNanounits } from "../models/config.js";
 
 export const USAGE = `Commands:
+  project-check <project.json>
   run <case> [--candidate patch]
   intake <case> [--budget USD]
   confirm <session-id> --accept [--answer yes|no]
@@ -11,7 +12,7 @@ export const USAGE = `Commands:
 The demo uses scripted fixture responses and confirmation; it makes no model calls.`;
 
 interface CliArguments {
-  command: "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
+  command: "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
   subject: string;
   candidate?: string;
   budget?: number;
@@ -22,13 +23,13 @@ interface CliArguments {
 
 export function parseArguments(argv: string[]): CliArguments {
   const [command, subject, ...flags] = argv;
-  if (!command || !["run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
+  if (!command || !["project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
   const values = new Map<string, string>();
   const allowed: Record<string, string[]> = {
-    run: ["--candidate"], intake: ["--budget"], confirm: ["--accept", "--answer"], execute: ["--candidate", "--fix"], demo: ["--candidate", "--budget", "--fix"],
+    "project-check": [], run: ["--candidate"], intake: ["--budget"], confirm: ["--accept", "--answer"], execute: ["--candidate", "--fix"], demo: ["--candidate", "--budget", "--fix"],
     recheck: ["--candidate", "--budget", "--fix"], heldout: ["--pack"],
   };
-  for (let index = 0; index < flags.length; index += 1) {
+  for (let index = 0;index < flags.length;index += 1) {
     const flag = flags[index]!;
     if (!allowed[command]?.includes(flag) || values.has(flag)) throw new Error(`Invalid or duplicate option: ${flag}\n${USAGE}`);
     if (flag === "--accept" || flag === "--fix") { values.set(flag, "yes"); continue; }
