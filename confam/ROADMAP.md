@@ -180,21 +180,25 @@ A local artifact server must serve only manifest-listed files under the selected
 
 ## 10. Milestones and verification
 
+Use stable milestone IDs **TR1–TR5** (technical roadmap). Subtasks use **TR1.1**, **TR1.2**, and so on in the active task board. Keep these IDs in progress reports and commit messages. They replace the earlier M1–M5 labels; T1/T3/T4 remain legacy decoy categories, not milestones. Do not renumber completed work when adding tasks.
+
+Dependencies: TR1 → TR2 → TR3 → TR4 → TR5. Work on an independent subtask may proceed when its prerequisites are met; a milestone is complete only after its own acceptance checks and review.
+
 | Milestone | Owned files/modules | Done when | Verification |
 |---|---|---|---|
-| M1: generic project contract | project modules; engine contracts/server/variants; CLI loader; salon configuration | Same engine loads projects and starts isolated variants; no fixed app paths or health routes | Schema/path/lifecycle boundary tests; existing salon CLI behavior preserved |
-| M2: general workflow and first transfer | workflow modules; authoring schemas/prompts; runner; task-board specimen | Variable expectations, typed assertions, and a different app run without engine edits | Browser runs on both apps; relevant assertion failure; no-controls verification; benchmark control rejection |
-| M3: generic challenges and fair comparison | probes; decoys; version gates; freeze/report/heldout; benchmark harness | Dynamic categories/probes, separate modes, sealed comparator suites | Wrong-path/tamper/oracle/cancellation tests; direct-vs-Confam results on development fixtures; private evaluation only after freeze |
-| M4: input and evidence experience | video authoring; CLI report; local web server/UI | Recording plus text fallback and navigable evidence on both apps | One real supported video call under approved scope; real artifacts; export/path checks; browser UI verification |
-| M5: broader evaluation and release | third specimen if time; evaluation tools; documentation; packaging | Transfer attempt, honest results table, reproducible installation/demo | Clean-checkout run; private-file/secret checks; relevant tests/typecheck/quality scan; separate review |
+| TR1: generic project contract | project modules; engine contracts/server/variants; CLI loader; salon configuration | Same engine loads projects and starts isolated variants; no fixed app paths or health routes | Schema/path/lifecycle boundary tests; existing salon CLI behavior preserved |
+| TR2: general workflow and first transfer | workflow modules; authoring schemas/prompts; runner; task-board specimen | Variable expectations, typed assertions, and a different app run without engine edits | Browser runs on both apps; relevant assertion failure; no-controls verification; benchmark control rejection |
+| TR3: generic challenges and fair comparison | probes; decoys; version gates; freeze/report/heldout; benchmark harness | Dynamic categories/probes, separate modes, sealed comparator suites | Wrong-path/tamper/oracle/cancellation tests; direct-vs-Confam results on development fixtures; private evaluation only after freeze |
+| TR4: input and evidence experience | video authoring; CLI report; local web server/UI | Recording plus text fallback and navigable evidence on both apps | One real supported video call under approved scope; real artifacts; export/path checks; browser UI verification |
+| TR5: broader evaluation and release | third specimen if time; evaluation tools; documentation; packaging | Transfer attempt, honest results table, reproducible installation/demo | Clean-checkout run; private-file/secret checks; relevant tests/typecheck/quality scan; separate review |
 
 Each substantial code milestone uses the repository's scan → implement → verify → rescan workflow, with an independent review. Fix introduced regressions. Commit each completed coherent milestone under the owner's standing instruction; do not push without a request.
 
 ## 11. Delivery sequence and cut order
 
-First deliver M1 and M2 as a vertical slice. The critical path is project configuration → general workflow → second-app execution → generic challenge/report semantics → evaluation. UI work must not hide a still-specialized engine.
+First deliver TR1 and TR2 as a vertical slice. The critical path is project configuration → general workflow → second-app execution → generic challenge/report semantics → evaluation. UI work must not hide a still-specialized engine.
 
-Then complete M3, add the smallest M4 experience, and finish M5. If time tightens, cut computer-use exploration, third application, advanced video/UI polish, and hosted execution in that order. Preserve two-app transfer, truthful limits, reproduction gates, immutable evidence, independent fault qualification, and benchmark controls. If video is omitted, make no multimodal claim.
+Then complete TR3, add the smallest TR4 experience, and finish TR5. If time tightens, cut computer-use exploration, third application, advanced video/UI polish, and hosted execution in that order. Preserve two-app transfer, truthful limits, reproduction gates, immutable evidence, independent fault qualification, and benchmark controls. If video is omitted, make no multimodal claim.
 
 The demo should show the same product verifying two different workflows, accepting a correct repair, rejecting a faulty one for an observed reason, and refusing certainty when it cannot reproduce a report. Use measured comparison results only. Label prerecorded and scripted material.
 
