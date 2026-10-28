@@ -2,6 +2,8 @@
 
 Confam challenges a repair with deliberately faulty patches and records what the checks actually catch. The current slice supports one salon case through a deterministic baseline or a live Muse Spark authoring flow.
 
+The [general verification roadmap](ROADMAP.md) describes the planned move to configurable projects, reusable browser workflows, and evaluation across different applications. Those capabilities are not yet implemented.
+
 From the repository root:
 
 ```sh
