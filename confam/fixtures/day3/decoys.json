@@ -1,0 +1,63 @@
+{
+  "decoys": [
+    {
+      "category": "T1",
+      "violation": "Shows confirmation without saving the booking.",
+      "requirements": [
+        {
+          "probe": "appointment-saved",
+          "holds": false
+        }
+      ],
+      "edits": [
+        {
+          "file": "server.js",
+          "before": "function toStartsAt(date, timeLabel) {\n  const [clock, period] = timeLabel.split(' ');\n  const [hour, minute] = clock.split(':');\n  const hour24 = period === 'PM' && hour !== '12' ? hour + 12 : hour;\n  return `${date}T${String(hour24).padStart(2, '0')}:${minute}`;\n}",
+          "after": "function toStartsAt(date, timeLabel) {\n  const [clock, period] = timeLabel.split(' ');\n  const [hour, minute] = clock.split(':').map(Number);\n  const hour24 = (hour % 12) + (period === 'PM' ? 12 : 0);\n  return `${date}T${String(hour24).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;\n}"
+        },
+        {
+          "file": "server.js",
+          "before": "    db.addAppointment(appointment);",
+          "after": "    // Confirmation is returned without saving."
+        }
+      ]
+    },
+    {
+      "category": "T3",
+      "violation": "Saves the appointment under the other customer.",
+      "requirements": [
+        {
+          "probe": "appointment-saved",
+          "holds": true
+        },
+        {
+          "probe": "appointment-owned-by-customer",
+          "holds": false
+        }
+      ],
+      "edits": [
+        {
+          "file": "server.js",
+          "before": "function toStartsAt(date, timeLabel) {\n  const [clock, period] = timeLabel.split(' ');\n  const [hour, minute] = clock.split(':');\n  const hour24 = period === 'PM' && hour !== '12' ? hour + 12 : hour;\n  return `${date}T${String(hour24).padStart(2, '0')}:${minute}`;\n}",
+          "after": "function toStartsAt(date, timeLabel) {\n  const [clock, period] = timeLabel.split(' ');\n  const [hour, minute] = clock.split(':').map(Number);\n  const hour24 = (hour % 12) + (period === 'PM' ? 12 : 0);\n  return `${date}T${String(hour24).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;\n}"
+        },
+        {
+          "file": "server.js",
+          "before": "    customerId: customer.id,",
+          "after": "    customerId: db.findCustomerByPhone('08030000102').id,"
+        }
+      ]
+    },
+    {
+      "category": "T4",
+      "violation": "A write fails but confirmation is still shown.",
+      "requirements": [
+        {
+          "probe": "appointment-saved",
+          "holds": false
+        }
+      ],
+      "edits": []
+    }
+  ]
+}

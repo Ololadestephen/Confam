@@ -1,0 +1,42 @@
+# Private planning and agent docs
+AGENTS.md
+RULES.md
+TASKS.md
+PLAN.md
+DESIGN.md
+CLAUDE.md
+.claude/settings.local.json
+
+# Local quality-tool state
+.desloppify/
+
+# Generated runs, decoys, evidence, held-out cases
+runs/
+evals/heldout/
+evidence/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+coverage/
+
+# Playwright output
+playwright-report/
+test-results/
+blob-report/
+
+# Local databases
+*.sqlite
+*.sqlite3
+*.db
+
+# OS and editor
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "t1-ui-only",
+    "kind": "development",
+    "patch": "t1-ui-only.patch",
+    "violation": "Shows confirmation without writing the appointment.",
+    "requirements": [
+      {
+        "probe": "appointment-saved",
+        "holds": false
+      }
+    ]
+  },
+  {
+    "id": "t3-wrong-owner",
+    "kind": "development",
+    "patch": "t3-wrong-owner.patch",
+    "violation": "Saves the appointment under another customer.",
+    "requirements": [
+      {
+        "probe": "appointment-saved",
+        "holds": true
+      },
+      {
+        "probe": "appointment-owned-by-customer",
+        "holds": false
+      }
+    ]
+  },
+  {
+    "id": "t4-swallowed-error",
+    "kind": "development",
+    "patch": "t4-swallowed-error.patch",
+    "violation": "A database write fails but the app still confirms the booking.",
+    "serverErrorIncludes": "Could not save appointment: FOREIGN KEY constraint failed",
+    "requirements": [
+      {
+        "probe": "appointment-saved",
+        "holds": false
+      }
+    ]
+  }
+]

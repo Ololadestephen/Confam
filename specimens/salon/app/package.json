@@ -1,0 +1,13 @@
+{
+  "name": "@confam/specimen-salon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fictional Lagos salon booking app. Contains an intentional bug; see ../README.md.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

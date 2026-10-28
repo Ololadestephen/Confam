@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adunni Hair Studio · Book an appointment</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Adunni Hair Studio</h1>
+      <p class="tagline">Yaba, Lagos</p>
+    </div>
+    <div id="account" hidden>
+      <span id="customer-name"></span>
+      <button type="button" id="sign-out" class="link">Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="sign-in" hidden>
+      <h2>Sign in to book</h2>
+      <form id="sign-in-form">
+        <label for="phone">Phone number</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
+        <button type="submit">Continue</button>
+      </form>
+      <p id="sign-in-error" class="error" role="alert"></p>
+    </section>
+
+    <section id="booking" hidden>
+      <h2>Book an appointment</h2>
+      <form id="booking-form">
+        <label for="service">Service</label>
+        <select id="service" name="service" required></select>
+
+        <label for="date">Date</label>
+        <input id="date" name="date" type="date" required>
+
+        <label for="time">Time</label>
+        <select id="time" name="time" required></select>
+
+        <button type="submit">Book appointment</button>
+      </form>
+      <p id="booking-status" role="status"></p>
+
+      <h2>My appointments</h2>
+      <ul id="appointments" aria-busy="true"></ul>
+      <p id="no-appointments" class="muted">No upcoming appointments.</p>
+    </section>
+  </main>
+
+  <footer>Fictional business created for a software demo.</footer>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

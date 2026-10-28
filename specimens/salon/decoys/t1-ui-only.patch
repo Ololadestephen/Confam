@@ -1,0 +1,25 @@
+diff --git a/server.js b/server.js
+--- a/server.js
++++ b/server.js
+@@ -27,9 +27,9 @@
+ // "2:00 PM" on "2026-10-31" -> "2026-10-31T14:00"
+ function toStartsAt(date, timeLabel) {
+   const [clock, period] = timeLabel.split(' ');
+-  const [hour, minute] = clock.split(':');
+-  const hour24 = period === 'PM' && hour !== '12' ? hour + 12 : hour;
+-  return `${date}T${String(hour24).padStart(2, '0')}:${minute}`;
++  const [hour, minute] = clock.split(':').map(Number);
++  const hour24 = (hour % 12) + (period === 'PM' ? 12 : 0);
++  return `${date}T${String(hour24).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+ }
+ 
+ app.get('/api/health', (_req, res) => res.json({ ok: true }));
+@@ -74,7 +74,7 @@
+   };
+ 
+   try {
+-    db.addAppointment(appointment);
++    // Plausible but wrong: confirmation without a database write.
+   } catch (error) {
+     console.error('Could not save appointment:', error.message);
+   }

@@ -1,0 +1,33 @@
+{
+  "steps": [
+    "Sign in as the reported customer.",
+    "Book Box braids for Saturday at 2:00 PM.",
+    "Observe confirmation, then reopen the page.",
+    "Inspect the other customer account."
+  ],
+  "expectations": [
+    {
+      "id": "E1",
+      "behavior": "after-reopen",
+      "text": "After the reported booking is confirmed and the page reopened, that appointment is still listed."
+    },
+    {
+      "id": "E2",
+      "behavior": "other-customer",
+      "text": "The appointment belongs to the booking customer and does not appear for the other customer."
+    },
+    {
+      "id": "E3",
+      "behavior": "after-confirmation",
+      "text": "When confirmation is shown, the customer can retrieve the saved appointment from the server."
+    }
+  ],
+  "question": {
+    "text": "Should the booking also survive a server restart?",
+    "proposedExpectation": {
+      "id": "E4",
+      "behavior": "after-restart",
+      "text": "The saved appointment is still listed after the server restarts."
+    }
+  }
+}

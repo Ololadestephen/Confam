@@ -1,0 +1,28 @@
+{
+  "assertions": [
+    {
+      "expectationId": "E1",
+      "observation": "after-reopen",
+      "expectedCount": 1,
+      "message": "After the reported booking is confirmed and the page reopened, that appointment is still listed."
+    },
+    {
+      "expectationId": "E2",
+      "observation": "other-customer",
+      "expectedCount": 0,
+      "message": "The appointment belongs to the booking customer and does not appear for the other customer."
+    },
+    {
+      "expectationId": "E3",
+      "observation": "after-confirmation",
+      "expectedCount": 1,
+      "message": "When confirmation is shown, the customer can retrieve the saved appointment from the server."
+    },
+    {
+      "expectationId": "E4",
+      "observation": "after-restart",
+      "expectedCount": 1,
+      "message": "The saved appointment is still listed after the server restarts."
+    }
+  ]
+}
