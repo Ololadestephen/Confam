@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "salon",
+  "root": "app",
+  "sourceFiles": ["server.js", "db.js", "public/app.js", "public/index.html", "public/styles.css"],
+  "protectedPaths": [],
+  "runtime": {
+    "command": ["node", "server.js"],
+    "readinessPath": "/api/health",
+    "timeoutMs": 10000,
+    "portVariable": "PORT",
+    "dataVariable": "DB_PATH",
+    "restart": true
+  }
+}
