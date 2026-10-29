@@ -1,0 +1,21 @@
+.fade-content {
+  opacity: var(--fade-opacity);
+  filter: blur(var(--fade-blur));
+  transition:
+    opacity var(--fade-duration) ease-out var(--fade-delay),
+    filter var(--fade-duration) ease-out var(--fade-delay);
+}
+
+.fade-content--visible,
+.fade-content:focus-within {
+  opacity: 1;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-content {
+    opacity: 1;
+    filter: none;
+    transition: none;
+  }
+}

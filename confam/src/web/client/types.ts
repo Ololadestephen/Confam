@@ -1,4 +1,8 @@
-export interface ArtifactLink { url: string; label: string; kind?: string; }
+export interface ArtifactLink {
+  url: string;
+  label: string;
+  kind?: string;
+}
 export interface VariantView {
   id: string;
   kind: string;
@@ -22,10 +26,22 @@ export interface RunView {
   inputReport?: string;
   durationMs?: number;
   fixture: boolean;
-  expectations: { id: string; statement: string; }[];
+  freezeHash?: string;
+  expectations: { id: string; statement: string }[];
   limitations: string[];
-  development?: { caught: number; survived: number; uncounted: number; total: number; };
-  independent: { evaluated: boolean; counts?: unknown; arms?: unknown; complete?: boolean; label: string; };
+  development?: {
+    caught: number;
+    survived: number;
+    uncounted: number;
+    total: number;
+  };
+  independent: {
+    evaluated: boolean;
+    counts?: unknown;
+    arms?: unknown;
+    complete?: boolean;
+    label: string;
+  };
   variants: VariantView[];
   files: ArtifactLink[];
   modelUsage?: unknown;

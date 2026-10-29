@@ -1,20 +1,28 @@
 :root {
-  color-scheme: dark;
-  --projector-black: #0b0a09;
-  --screen-1: #141210;
-  --screen-2: #1c1916;
-  --screen-3: #26221e;
-  --rule: #38312a;
-  --silver: #ece6dd;
-  --ash: #b2a79b;
-  --smoke: #8c8277;
-  --tungsten: #f2a93b;
-  --tungsten-glow: rgb(242 169 59 / 15%);
-  --holds: #3dd6b5;
-  --breaks: #ff8279;
-  --uncounted: #a2aab5;
-  --review: #c6afff;
-  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --sans: Geist, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+  color-scheme: light;
+  --paper: #fffefa;
+  --ink: #25252a;
+  --muted: #66646d;
+  --line: #d2ced7;
+  --lavender: #e8e4ff;
+  --yellow: #ffe9ac;
+  --mint: #e0f1e9;
+  --blue: #e5f0fa;
+  --silver: #25252a;
+  --ash: #66646d;
+  --smoke: #77727e;
+  --screen-1: #fff;
+  --screen-2: #f4f1f9;
+  --screen-3: #ece8f3;
+  --projector-black: #fffefa;
+  --rule: #d2ced7;
+  --holds: #146744;
+  --breaks: #ac352c;
+  --uncounted: #625e69;
+  --review: #6740a0;
+  --tungsten: #714bc0;
+  --sans:
+    "DM Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+    sans-serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
 }

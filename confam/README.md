@@ -6,14 +6,18 @@ See the root [clean setup](../README.md), [release checks](RELEASE.md) and [meas
 
 ## Local evidence review and recording intake (TR4)
 
-Build the local UI, then select one existing run directory:
+Build the UI, then open the saved-run library (or select one existing run directory):
 
 ```sh
 npm run web:build -w confam
+npm run confam -- serve runs
+# Or scope the server to a single run:
 npm run confam -- serve runs/YOUR_RUN_DIRECTORY
 ```
 
 Open the printed loopback URL, which contains a temporary access token. The read-only viewer supports general challenge/verification reports, legacy manifests, and recording intake. It shows original, challenge/control and candidate footage, confirmed requirements, actual assertions/probes, development counts, independent evaluation counts when recorded, limitations and version history. Videos have independent controls and step transcripts; workflow clocks are not assumed to match recording clocks. Saved metadata changes stream through SSE. It does not launch apps or confirm expectations.
+
+Collection mode lists at most 200 recognized candidate run directories directly under the selected root, omitting unreadable/invalid reports and symlinks; it never recurses into worktrees or evaluation packs. Each run has isolated artifact URLs and token-authenticated APIs. Deep links retain access tokens and support refresh.
 
 Artifacts must be referenced by the selected report or its sealed checks bundle, remain inside that run directory, and pass regular-file/symlink checks. Known variant-adjacent runtime logs and candidate patches are supported for existing report formats. It never exposes a directory listing or the repository. Export is a deliberate JSON summary with credential/personal-identifier redaction; recordings, traces, logs, source and local links are omitted. Redaction is best effort: review the summary before sharing. Raw local evidence may contain sensitive data.
 
@@ -25,7 +29,7 @@ npm run confam -- recording-intake recording.mp4 --report report.md --budget 0.2
 
 The supported slice accepts regular nonfragmented MP4 files up to 10MiB and 120 seconds with known video duration. It uses the shared token preflight and cost ledger, with no automatic retry. Observations/actions have bounded timestamps; suggested expectations remain unconfirmed. Unsupported/ambiguous media, model/API failures or budget limits preserve an explicit text fallback. This command never produces an execution verdict, confirms requirements or starts application verification. Review its proposal, then separately prepare and confirm a case/workflow for `verify`.
 
-Local/fixture recording tests and real two-project browser evidence review are verified. On October 29, a scoped owner-approved live Spark call interpreted a 4.6-second fictional task-board recording: Todo → Completed with “Update confirmed” → Todo. The shared ledger recorded $0.008239 estimated spend under the $0.25 cap, with settled usage. A separate review checked the output against sampled frames; exact transition timestamps were not independently measured. This establishes one successful recording interpretation, not broad video accuracy or repair correctness. The model explicitly left click/reload methods uncertain and persistence expectations unconfirmed. The viewer is intentionally a minimal local desk, without hosted sharing, synchronized playback, run creation or browser-based expectation editing.
+Local/fixture recording tests and real two-project browser evidence review are verified. On October 29, a scoped owner-approved live Spark call interpreted a 4.6-second fictional task-board recording: Todo → Completed with “Update confirmed” → Todo. The shared ledger recorded $0.008239 estimated spend under the $0.25 cap, with settled usage. A separate review checked the output against sampled frames; exact transition timestamps were not independently measured. This establishes one successful recording interpretation, not broad video accuracy or repair correctness. The model explicitly left click/reload methods uncertain and persistence expectations unconfirmed. The multipage interface now includes a landing page, searchable project/status-filtered library, local case-preparation wizard, recorded expectations, execution activity, verdict, comparison, challenge detail, check history and local summary preview. The wizard downloads a case/report and safely quoted CLI command; it does not execute applications, confirm historical expectations, generate a workflow or export to a model. Live activity follows saved metadata, not a browser screencast. Summary preview is local, with deliberate redacted JSON export; there is no hosted share link or synchronized playback. React Bits SpotlightCard and adapted FadeContent provide subtle local interactions; see [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## Project runtime checks (TR1)
 
