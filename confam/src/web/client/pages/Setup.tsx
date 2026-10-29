@@ -35,7 +35,9 @@ export default function Setup() {
   };
   return (
     <main id="main" className="workspace">
-      <PageTitle title="Prepare a run"></PageTitle>
+      <PageTitle eyebrow="A new question" title="Start with what happened.">
+        Prepare a case locally. Review the workflow. Execute it deliberately.
+      </PageTitle>
       <div className="setup-layout">
         <aside className="setup-sidebar">
           <ol>
@@ -50,7 +52,7 @@ export default function Setup() {
           </ol>
           <div className="sidebar-note">
             <Icon name="file" />
-            <h3>Local draft</h3>
+            <h3>Your data stays here.</h3>
             <p>
               This form prepares files and a CLI command. It does not upload
               source or recordings, call a model, or run the application.
@@ -61,7 +63,15 @@ export default function Setup() {
         <section className="form-panel">
           <div className="form-section-heading">
             <span className="pill">Step {step + 1} of 3</span>
-            <h2>{["Report", "Expectations", "Review"][step]}</h2>
+            <h2>
+              {
+                [
+                  "Give the report some context.",
+                  "Decide what a repair needs to do.",
+                  "A deliberate next step.",
+                ][step]
+              }
+            </h2>
           </div>
           {step === 0 ? (
             <ReportStep

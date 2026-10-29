@@ -16,7 +16,10 @@ export function Decoy({ run, id }: { run: RunView; id: string }) {
   if (!variant)
     return (
       <>
-        <PageTitle title="This challenge is not in the record." />
+        <PageTitle
+          eyebrow="Challenge detail"
+          title="This challenge is not in the record."
+        />
         <Link to={runPath(run.runId)} className="button button-outline">
           Return to overview
         </Link>
@@ -24,7 +27,10 @@ export function Decoy({ run, id }: { run: RunView; id: string }) {
     );
   return (
     <>
-      <PageTitle title={variant.id}>
+      <PageTitle
+        eyebrow={`${variant.kind} / Challenge detail`}
+        title={variant.id}
+      >
         A qualified fault may be caught or survive. Caught requires failure of
         an assertion mapped to its declared violation.
       </PageTitle>

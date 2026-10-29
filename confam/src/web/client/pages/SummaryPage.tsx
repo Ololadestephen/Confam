@@ -6,7 +6,10 @@ import type { RunView } from "../types.js";
 export function Summary({ run }: { run: RunView }) {
   return (
     <>
-      <PageTitle title="Summary">
+      <PageTitle
+        eyebrow="Local summary preview"
+        title="The result, with its context."
+      >
         A plain-language view to review before exporting. This is not a hosted
         share link.
       </PageTitle>

@@ -5,7 +5,7 @@ import type { RunView } from "../types.js";
 export function Expectations({ run }: { run: RunView }) {
   return (
     <>
-      <PageTitle title="Expectations">
+      <PageTitle eyebrow="01 / The report" title="What did “fixed” mean?">
         Recorded requirements define the scope. Historical confirmations are
         read-only.
       </PageTitle>

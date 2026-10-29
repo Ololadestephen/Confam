@@ -12,7 +12,7 @@ export function Checks({ run }: { run: RunView }) {
       : [];
   return (
     <>
-      <PageTitle title="Checks">
+      <PageTitle eyebrow="03 / The checks" title="Nothing quietly rewritten.">
         Inspect recorded versions and control results. Missing history is shown
         as missing.
       </PageTitle>

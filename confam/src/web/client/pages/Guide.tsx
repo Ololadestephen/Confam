@@ -2,7 +2,9 @@ import { Data, Icon, Link, PageTitle } from "../shared.js";
 export default function Guide() {
   return (
     <main id="main" className="workspace guide">
-      <PageTitle title="Guide"></PageTitle>
+      <PageTitle eyebrow="How it works" title="A clearer way to check a fix.">
+        One specific report. Reviewed expectations. Evidence from execution.
+      </PageTitle>
       <div className="guide-lead">
         <div className="guide-symbol">
           <Icon name="layers" size={90} />

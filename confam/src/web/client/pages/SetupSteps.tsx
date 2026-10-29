@@ -68,6 +68,10 @@ export function ReportStep(props: ReportProps) {
           onChange={(e) => update("report", e.target.value)}
           maxLength={65536}
         />
+        <small>
+          Describe visible behavior, the steps you took, and the result you
+          expected.
+        </small>
       </label>
       <label className="upload-box">
         <Icon name="play" />
@@ -164,7 +168,7 @@ export function ReviewStep({
       <div className="handoff-ready">
         <span>✓</span>
         <div>
-          <h3>Draft</h3>
+          <h3>Your draft is ready to review.</h3>
           <p>Nothing has been confirmed or executed.</p>
         </div>
       </div>

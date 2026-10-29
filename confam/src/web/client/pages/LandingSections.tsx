@@ -11,6 +11,7 @@ function WorkflowPicture() {
           <span />
           <span />
           <span />
+          <code>your fix, under a closer look</code>
         </div>
         <div className="illustration-label">Workflow illustration</div>
         <div className="picture-heading">
@@ -18,6 +19,7 @@ function WorkflowPicture() {
             <Icon name="check" />
           </span>
           <div>
+            <small>ONE QUESTION, A CLEARER ANSWER</small>
             <h3>Does the behavior hold?</h3>
           </div>
           <span className="pencil-star">✧</span>
@@ -56,6 +58,10 @@ function WorkflowPicture() {
             </p>
           </div>
         </div>
+        <div className="picture-note">
+          <span>✳</span> A passing check is a useful answer. Its scope matters,
+          too.
+        </div>
       </div>
     </div>
   );
@@ -65,17 +71,30 @@ export function Hero() {
   return (
     <section className="hero">
       <div className="hero-content">
+        <span className="floating-note note-left">
+          for the “it works on my machine” moments
+        </span>
+        <span className="floating-note note-right">
+          a second look, please ✧
+        </span>
+        <p className="pill intro-pill">
+          <span className="tiny-dot" /> Your fix deserves a proper check
+        </p>
         <h1>
-          Verify a{" "}
+          A fix that{" "}
           <span className="word-doodle">
-            repair
+            looks right
             <svg viewBox="0 0 330 18" aria-hidden="true">
               <path d="M4 13Q150 -5 324 10M8 16Q170 7 300 14" />
             </svg>
           </span>
+          <br />
+          should <span className="hero-spark">✳</span> work right, too.
         </h1>
         <p className="hero-description">
           Turn a bug report into a repeatable check.
+          <br className="desktop-break" /> See what your repair does. Keep the
+          evidence.
         </p>
         <div className="button-row hero-actions">
           <Link to="/runs/new" className="button button-dark">
@@ -85,6 +104,9 @@ export function Hero() {
             Explore saved evidence
           </Link>
         </div>
+        <p className="hero-footnote">
+          Local first. Reviewed expectations. No magic confidence score.
+        </p>
       </div>
       <div className="portal-cards">
         {[
@@ -131,9 +153,18 @@ export function Showcase() {
   return (
     <section className="section landing-showcase">
       <FadeContent>
-        <h2 className="section-title">Compare repair evidence</h2>
+        <p className="eyebrow centered">
+          Less guesswork. A better paper trail.
+        </p>
+        <h2 className="section-title">
+          A second opinion.
+          <br />
+          With something to show for it.
+        </h2>
         <p className="section-lead">
-          Compare the original, the faulty variants, and the proposed repair.
+          The report, the replay, and the repair in one place.
+          <br />
+          So “it passed” comes with the details that matter.
         </p>
         <WorkflowPicture />
       </FadeContent>
@@ -151,8 +182,17 @@ export function Feature() {
     <section className="lavender-section">
       <div className="section feature-split">
         <div>
-          <h2>Repair verification</h2>
-          <p>Confam checks specific behavior under recorded conditions.</p>
+          <span className="eyebrow">For the moment before you ship</span>
+          <h2>
+            Ship the fix.
+            <br />
+            Keep the receipts.
+          </h2>
+          <p>
+            Confam checks specific behavior under recorded conditions. Not a
+            sweeping verdict on your entire app. A practical record you can
+            actually inspect.
+          </p>
           <div className="feature-bullets">
             <span> Reproduce the reported failure</span>
             <span> Evaluate a proposed repair</span>
@@ -166,9 +206,14 @@ export function Feature() {
         <div className="receipt-stack">
           <div className="receipt">
             <div>
+              <span className="pill">A little more clarity</span>
               <Icon name="layers" size={30} />
             </div>
-            <h3>Recorded result</h3>
+            <h3>
+              “Passed” is the start
+              <br />
+              of the conversation.
+            </h3>
             <p>
               Which expectations?
               <br />
@@ -178,6 +223,9 @@ export function Feature() {
               <br />
               What evidence is still missing?
             </p>
+            <span className="receipt-footer">
+              Ask good questions. Keep honest answers.
+            </span>
           </div>
         </div>
       </div>
@@ -188,7 +236,12 @@ export function Feature() {
 export function Workflow() {
   return (
     <section className="section workflow-section">
-      <h2 className="section-title">Verification workflow</h2>
+      <p className="eyebrow centered">Small steps. Inspectable work.</p>
+      <h2 className="section-title">
+        Your bug report,
+        <br />
+        with a way forward.
+      </h2>
       <div className="steps-grid">
         {[
           [
@@ -198,17 +251,17 @@ export function Workflow() {
           ],
           [
             "02",
-            "Reproduce the report",
+            "Make it happen again",
             "Run the same reviewed workflow on the original and the candidate.",
           ],
           [
             "03",
-            "Challenge the checks",
+            "Look a little closer",
             "Inspect assertions and optionally challenge the checks with reviewed faults.",
           ],
           [
             "04",
-            "Review the evidence",
+            "Keep the context",
             "Bring the result, recordings, and limitations to your next decision.",
           ],
         ].map(([number, title, text]) => (
@@ -232,10 +285,16 @@ export function Boundaries() {
         <span>✧</span>
       </div>
       <div>
-        <h2>Verification scope</h2>
+        <p className="eyebrow">Useful evidence. Honest edges.</p>
+        <h2>
+          No pretend certainty.
+          <br />
+          No missing asterisks.
+        </h2>
         <p>
-          Development challenges and independent evaluation remain separate.
-          Missing controls and unsupported capabilities are reported.
+          Development challenges are separate from independent evaluation. A
+          failure to reproduce stays a failure to reproduce. Missing controls
+          and unsupported capabilities stay visible.
         </p>
         <Link to="/guide" className="text-link">
           Read the supported workflow
@@ -248,7 +307,22 @@ export function Boundaries() {
 export function CallToAction() {
   return (
     <section className="landing-cta">
-      <h2>Prepare a verification run</h2>
+      <span className="seal">
+        TAKE A<br />
+        CLOSER LOOK
+        <br />✳
+      </span>
+      <p className="eyebrow">One report. One concrete question.</p>
+      <h2>
+        Let's put that fix
+        <br />
+        through its paces.
+      </h2>
+      <p>
+        Bring a local project and a reviewed workflow.
+        <br />
+        Leave with a record of what happened.
+      </p>
       <Link to="/runs/new" className="button button-light">
         Prepare a run
       </Link>

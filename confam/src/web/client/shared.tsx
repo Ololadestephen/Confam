@@ -50,6 +50,7 @@ export function Icon({
         <path d="m10 9 5 3-5 3Z" />
       </>
     ),
+    arrow: <path d="M4 12h16m-6-6 6 6-6 6" />,
   };
   return (
     <svg
@@ -83,6 +84,7 @@ export function Shell({
         <nav className="topnav" aria-label="Main navigation">
           <Link to="/" className="brand">
             <span className="brand-flower">✳</span> confam
+            <span className="beta">local beta</span>
           </Link>
           <div className="nav-links">
             <Link to="/" aria-current={page === "home" ? "page" : undefined}>
@@ -112,6 +114,10 @@ export function Shell({
           <Link to="/" className="brand">
             <span className="brand-flower">✳</span> confam
           </Link>
+          <p>
+            A little more certainty.
+            <br />A clear record of what was checked.
+          </p>
         </div>
         <div>
           <span className="eyebrow">Explore</span>
@@ -120,20 +126,31 @@ export function Shell({
           <Link to="/guide">The workflow </Link>
         </div>
         <div>
-          <span className="eyebrow">Local execution</span>
+          <span className="eyebrow">Made for local work</span>
+          <p>
+            Specific behavior. Recorded conditions.
+            <br />
+            Evidence you can inspect.
+          </p>
           <span className="small">
             No application-wide correctness guarantee.
           </span>
+        </div>
+        <div className="footer-bottom">
+          <span>Confam · local developer tools</span>
+          <span>Built with Muse Spark &amp; Muse Wonder</span>
         </div>
       </footer>
     </>
   );
 }
 export function PageTitle({
+  eyebrow,
   title,
   children,
   action,
 }: {
+  eyebrow: string;
   title: string;
   children?: ReactNode;
   action?: ReactNode;
@@ -141,6 +158,7 @@ export function PageTitle({
   return (
     <header className="page-heading">
       <div>
+        <p className="eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
         {children ? <p className="page-subtitle">{children}</p> : null}
       </div>

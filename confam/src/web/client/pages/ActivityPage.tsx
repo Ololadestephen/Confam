@@ -16,7 +16,14 @@ export function Activity({
     run.variants.find((v) => v.id === selected) ?? run.variants.at(-1);
   return (
     <>
-      <PageTitle title="Activity">
+      <PageTitle
+        eyebrow="02 / Execution activity"
+        title={
+          run.status === "running"
+            ? "Keep an eye on the work."
+            : "Follow the recorded steps."
+        }
+      >
         {run.status === "running"
           ? "This page follows saved metadata as the runner writes it."
           : "This is saved execution evidence, not a live rerun."}
