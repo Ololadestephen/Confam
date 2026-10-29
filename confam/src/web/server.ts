@@ -1,3 +1,6 @@
+import { OnboardingService } from "../onboarding/service.js";
+import type { ModelTransport } from "../models/client.js";
+import { onboardingApi } from "./onboarding-api.js";
 import { createServer, type ServerResponse } from "node:http";
 import { constants } from "node:fs";
 import { lstat, open, realpath } from "node:fs/promises";
@@ -140,6 +143,7 @@ export async function startReviewServer(
   options: {
     port?: number;
     assetRoot?: string;
+    modelTransport?: ModelTransport;
     registryDirectory?: string;
   } = {},
 ) {
@@ -151,9 +155,14 @@ export async function startReviewServer(
   const view = selected ? new RunView(root, token) : undefined;
   if (view) await view.read();
   const catalog = new RunCatalog(root, token);
-  const registry = new ProjectRegistry(
+  const registryDirectory =
     options.registryDirectory ??
-      path.join(selected ? path.dirname(root) : root, ".onboarding"),
+    path.join(selected ? path.dirname(root) : root, ".onboarding");
+  const registry = new ProjectRegistry(registryDirectory);
+  const onboarding = new OnboardingService(
+    registry,
+    path.join(registryDirectory, "drafts"),
+    options.modelTransport,
   );
   const resolveView = async (id: string | null) => {
     if (view) {
@@ -209,7 +218,8 @@ export async function startReviewServer(
     const requestPath = new URL(request.url ?? "/", `http://127.0.0.1:${port}`)
       .pathname;
     const projectMutation =
-      request.method === "POST" && requestPath === "/api/projects";
+      request.method === "POST" &&
+      ["/api/projects", "/api/onboarding"].includes(requestPath);
     if (request.method !== "GET" && !projectMutation) {
       json(response, 405, { error: "Unsupported request method." });
       return;
@@ -230,6 +240,10 @@ export async function startReviewServer(
           json(response, 403, {
             error: "Open the review URL printed by the CLI.",
           });
+          return;
+        }
+        if (url.pathname === "/api/onboarding") {
+          await onboardingApi(onboarding, request, response, url);
           return;
         }
         if (url.pathname === "/api/projects") {

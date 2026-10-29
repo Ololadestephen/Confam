@@ -109,7 +109,7 @@ export function Shell({
               How it works
             </Link>
           </div>
-          <Link to="/runs/new" className="button nav-cta">
+          <Link to="/projects" className="button nav-cta">
             Prepare a run
           </Link>
         </nav>
@@ -128,7 +128,7 @@ export function Shell({
         <div>
           <span className="eyebrow">Explore</span>
           <Link to="/runs">Run library </Link>
-          <Link to="/runs/new">Prepare a run </Link>
+          <Link to="/projects">Prepare a run </Link>
           <Link to="/guide">The workflow </Link>
         </div>
         <div>

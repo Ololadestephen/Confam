@@ -1,3 +1,4 @@
+import ReportBuilder from "./pages/ReportBuilder.js";
 import Landing from "./pages/Landing.js";
 import Library from "./pages/Library.js";
 import Projects from "./pages/Projects.js";
@@ -57,7 +58,16 @@ export default function App() {
       ) : route.page === "projects" ? (
         <Projects />
       ) : route.page === "new" ? (
-        <Setup />
+        new URLSearchParams(window.location.search).get("project") &&
+        !new URLSearchParams(window.location.search).has("manual") ? (
+          <ReportBuilder
+            projectId={
+              new URLSearchParams(window.location.search).get("project")!
+            }
+          />
+        ) : (
+          <Setup />
+        )
       ) : route.page === "guide" ? (
         <Guide />
       ) : route.runId ? (

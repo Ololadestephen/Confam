@@ -17,7 +17,7 @@ npm run web:build -w confam
 npm run confam -- verify specimens/task-board/case-verify.json --project specimens/task-board/project.json --workflow specimens/task-board/workflow.json --fixture --candidate specimens/task-board/control-a.patch
 ```
 
-These commands make no model calls and require no API key. Linux may require Playwright's documented browser system dependencies. Open the multipage interface with `npm run confam -- serve runs` using the printed URL. The library browses saved reports; the preparation wizard exports local case/report drafts and CLI instructions. You can scope review to one directory with `npm run confam -- serve runs/YOUR_RUN_DIRECTORY`.
+These commands make no model calls and require no API key. Linux may require Playwright's documented browser system dependencies. Open the multipage interface with `npm run confam -- serve runs` using the printed URL. The library browses saved reports. In Apps, save a local folder and review the detected setup. Apps with a valid Confam configuration can turn a report into editable requirements and a workflow; model exports require a configured key and explicit consent. The manual wizard still prepares files without model calls. Application execution remains through the CLI. You can scope review to one directory with `npm run confam -- serve runs/YOUR_RUN_DIRECTORY`.
 
 For your own application, review its project configuration, case and workflow before using `--accept`. The included `--fixture` cases use scripted expectation confirmation; they are not an independent evaluation set. Local processes are not contained against hostile code.
 

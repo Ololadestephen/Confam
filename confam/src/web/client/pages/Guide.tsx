@@ -20,7 +20,7 @@ export default function Guide() {
             workflows. It reproduces the report on the original, evaluates a
             repair, and preserves the observations that support the result.
           </p>
-          <Link to="/runs/new" className="button button-dark">
+          <Link to="/projects" className="button button-dark">
             Prepare a case
           </Link>
         </div>
@@ -94,9 +94,11 @@ export default function Guide() {
           open
         />
         <p className="notice">
-          The browser prepares drafts and reviews evidence. Application
-          execution and expectation acceptance remain explicit CLI actions. No
-          source or recording is exported to a model from this interface.
+          For a registered app with a valid configuration, the browser proposes
+          editable requirements and a workflow. Each model request requires an
+          export preview and explicit consent. Confirmation saves reviewed local
+          files; application execution still uses the CLI. Advanced manual setup
+          remains available without model calls.
         </p>
       </section>
       <section className="section-block">

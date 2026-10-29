@@ -82,6 +82,10 @@ export async function confinedPath(root: string, relative: string): Promise<stri
 export async function loadProjectConfig(configPath: string): Promise<{ config: ProjectConfig; root: string; }> {
   if (!(await lstat(configPath)).isFile()) throw new Error("Project configuration must be a regular file.");
   const config = projectConfigSchema.parse(await readJson<unknown>(configPath));
+  return resolveProjectConfig(configPath, config);
+}
+
+export async function resolveProjectConfig(configPath: string, config: ProjectConfig): Promise<{ config: ProjectConfig; root: string }> {
   const root = await confinedPath(path.dirname(configPath), config.root);
   if (!(await lstat(root)).isDirectory()) throw new Error("Project root must be a directory.");
   for (const file of config.sourceFiles) {
