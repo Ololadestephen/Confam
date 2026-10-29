@@ -6,6 +6,8 @@ export interface Route {
 export function routeFor(pathname: string): Route {
   const parts = pathname.split("/").filter(Boolean).map(decodeURIComponent);
   if (!parts.length) return { page: "home" };
+  if (parts[0] === "projects" && parts.length === 1)
+    return { page: "projects" };
   if (parts[0] === "guide" && parts.length === 1) return { page: "guide" };
   if (parts[0] === "share" && parts.length === 2)
     return { page: "share", runId: parts[1] };

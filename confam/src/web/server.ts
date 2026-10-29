@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 import { RunView } from "./view.js";
 import { hasReport, RunCatalog } from "./catalog.js";
 import { redact } from "./artifacts.js";
+import { projectApi } from "./project-api.js";
+import { ProjectRegistry } from "../project/registry.js";
 import { confinedPath } from "../project/config.js";
 
 const mime: Record<string, string> = {
@@ -135,7 +137,11 @@ async function sendFile(
 
 export async function startReviewServer(
   directory: string,
-  options: { port?: number; assetRoot?: string } = {},
+  options: {
+    port?: number;
+    assetRoot?: string;
+    registryDirectory?: string;
+  } = {},
 ) {
   const root = await realpath(directory);
   if (!(await lstat(root)).isDirectory())
@@ -145,6 +151,10 @@ export async function startReviewServer(
   const view = selected ? new RunView(root, token) : undefined;
   if (view) await view.read();
   const catalog = new RunCatalog(root, token);
+  const registry = new ProjectRegistry(
+    options.registryDirectory ??
+      path.join(selected ? path.dirname(root) : root, ".onboarding"),
+  );
   const resolveView = async (id: string | null) => {
     if (view) {
       if (id && id !== path.basename(root)) throw new Error("Unknown run.");
@@ -196,12 +206,20 @@ export async function startReviewServer(
       json(response, 403, { error: "Local host required." });
       return;
     }
-    if (request.method !== "GET") {
-      json(response, 405, { error: "This review server is read-only." });
+    const requestPath = new URL(request.url ?? "/", `http://127.0.0.1:${port}`)
+      .pathname;
+    const projectMutation =
+      request.method === "POST" && requestPath === "/api/projects";
+    if (request.method !== "GET" && !projectMutation) {
+      json(response, 405, { error: "Unsupported request method." });
       return;
     }
     const origin = request.headers.origin;
     if (origin && !hosts.some((host) => origin === `http://${host}`)) {
+      json(response, 403, { error: "Same-origin requests required." });
+      return;
+    }
+    if (projectMutation && origin !== `http://${request.headers.host}`) {
       json(response, 403, { error: "Same-origin requests required." });
       return;
     }
@@ -212,6 +230,10 @@ export async function startReviewServer(
           json(response, 403, {
             error: "Open the review URL printed by the CLI.",
           });
+          return;
+        }
+        if (url.pathname === "/api/projects") {
+          await projectApi(registry, request, response);
           return;
         }
         if (url.pathname === "/api/runs") {
@@ -294,7 +316,7 @@ export async function startReviewServer(
         return;
       }
       const spa =
-        /^\/(?:runs(?:\/new|\/[^/]+(?:\/(?:expectations|live|compare|checks|decoys\/[^/]+))?)?|share\/[^/]+|guide)\/?$/.test(
+        /^\/(?:runs(?:\/new|\/[^/]+(?:\/(?:expectations|live|compare|checks|decoys\/[^/]+))?)?|share\/[^/]+|guide|projects)\/?$/.test(
           url.pathname,
         );
       const route =

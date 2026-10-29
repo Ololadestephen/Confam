@@ -87,6 +87,12 @@ export function Shell({
             <span className="beta">local beta</span>
           </Link>
           <div className="nav-links">
+            <Link
+              to="/projects"
+              aria-current={page === "projects" ? "page" : undefined}
+            >
+              Apps
+            </Link>
             <Link to="/" aria-current={page === "home" ? "page" : undefined}>
               Home
             </Link>

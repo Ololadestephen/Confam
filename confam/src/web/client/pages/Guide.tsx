@@ -79,7 +79,13 @@ export default function Guide() {
         </div>
       </section>
       <section className="section-block">
-        <h2>Start from the command line.</h2>
+        <h2>Add your app.</h2>
+        <p>
+          <Link to="/projects">Open Apps</Link>, enter a local folder, then
+          review the detected setup. Detection reads configuration locally and
+          never runs commands. Recognized frameworks without a Confam
+          configuration still need runtime and isolated data settings.
+        </p>
         <Data
           title="Local setup"
           value={

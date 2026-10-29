@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { initialDraft, prepareDraft, type DraftFields } from "../draft.js";
 import { Icon, Link, PageTitle } from "../shared.js";
+import { useImportedProject } from "../projects-state.js";
 import { ExpectationsStep, ReportStep, ReviewStep } from "./SetupSteps.js";
 export default function Setup() {
   const [fields, setFields] = useState<DraftFields>(initialDraft);
@@ -9,6 +10,7 @@ export default function Setup() {
   const [recording, setRecording] = useState("");
   const [review, setReview] = useState<ReturnType<typeof prepareDraft>>();
   const [copied, setCopied] = useState(false);
+  useImportedProject(setFields, setError);
   const update = (key: keyof DraftFields, value: string) => {
     setFields((old) => ({ ...old, [key]: value }));
     setError("");
@@ -38,6 +40,10 @@ export default function Setup() {
       <PageTitle eyebrow="A new question" title="Start with what happened.">
         Prepare a case locally. Review the workflow. Execute it deliberately.
       </PageTitle>
+      <p className="notice">
+        <Link to="/projects">Choose a saved app</Link> to fill in its project
+        details.
+      </p>
       <div className="setup-layout">
         <aside className="setup-sidebar">
           <ol>

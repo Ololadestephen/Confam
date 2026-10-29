@@ -97,7 +97,7 @@ export function Hero() {
           evidence.
         </p>
         <div className="button-row hero-actions">
-          <Link to="/runs/new" className="button button-dark">
+          <Link to="/projects" className="button button-dark">
             Prepare your first run
           </Link>
           <Link to="/runs" className="button button-outline">
@@ -114,7 +114,7 @@ export function Hero() {
             icon: "file",
             title: "Bring the report",
             text: "Start with what happened and what should happen.",
-            to: "/runs/new",
+            to: "/projects",
             tone: "blue",
           },
           {
@@ -323,7 +323,7 @@ export function CallToAction() {
         <br />
         Leave with a record of what happened.
       </p>
-      <Link to="/runs/new" className="button button-light">
+      <Link to="/projects" className="button button-light">
         Prepare a run
       </Link>
     </section>

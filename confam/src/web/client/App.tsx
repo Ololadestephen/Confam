@@ -1,5 +1,6 @@
 import Landing from "./pages/Landing.js";
 import Library from "./pages/Library.js";
+import Projects from "./pages/Projects.js";
 import Setup from "./pages/Setup.js";
 import Guide from "./pages/Guide.js";
 import { RunLayout } from "./pages/RunPages.js";
@@ -53,6 +54,8 @@ export default function App() {
         <Landing />
       ) : route.page === "runs" ? (
         <Library />
+      ) : route.page === "projects" ? (
+        <Projects />
       ) : route.page === "new" ? (
         <Setup />
       ) : route.page === "guide" ? (

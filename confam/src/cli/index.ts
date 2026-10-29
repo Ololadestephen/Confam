@@ -45,7 +45,7 @@ async function main(): Promise<void> {
   const candidate = args.candidate ? path.resolve(args.candidate) : undefined;
   if (args.command === "serve") {
     const review = await startReviewServer(path.resolve(args.subject), { port: args.port });
-    console.log(`Local read-only evidence review: ${review.url}\nPress Ctrl+C to close.`);
+    console.log(`Local evidence review and app registration: ${review.url}\nPress Ctrl+C to close.`);
     let stopping = false;
     const stop = () => { if (!stopping) { stopping = true; void review.close(); } };
     process.once("SIGINT", stop); process.once("SIGTERM", stop);

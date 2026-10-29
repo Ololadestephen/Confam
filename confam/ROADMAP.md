@@ -217,3 +217,12 @@ Mutation-guided testing already exists. Confam's proposed contribution is an acc
 - [Official hackathon information](https://dev.meta.ai/events/global-hackathon)
 
 Sources checked October 28, 2026. No claim of being the first, guaranteed correctness, or benchmark superiority is justified by the current salon results.
+
+
+## Local onboarding progress (October 29)
+
+ON1–ON2 add a persistent local app registry through the Apps page. Enter an absolute folder path on the computer running Confam; the browser cannot obtain a usable server path from a standard folder picker. Import inspects bounded package/configuration files without running commands or exporting source. It detects Next.js, Vite, other Node manifests, and existing validated Confam configurations; start scripts, lifecycle hooks and configuration are reviewable. Missing or ambiguous setup remains explicit.
+
+Saved setup reviews are tied to inspected metadata. Selecting an app and entering the report flow refreshes detection; changed metadata requires review again. Reviews do not authorize execution or establish runtime compatibility. Apps without an existing Confam configuration still need reviewed source, readiness, port and isolated-data settings; framework recognition alone cannot provide these reliably. Registry state is local under the selected run library's `.onboarding/`, with bounded reads, atomic writes and process-local serialized mutations. Multiple server processes sharing a registry are not coordinated.
+
+ON3 report-to-workflow creation, ON4 browser execution jobs/progress/cancellation, and ON5 unfamiliar external-app validation remain pending. Current report preparation and actual verification continue through the established CLI. No model-export permission is inferred from importing or reviewing an app.

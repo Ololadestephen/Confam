@@ -427,3 +427,20 @@
 .guide .section-block:last-child .guide-cards {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+
+.project-choice {
+  text-align: left;
+  display: grid;
+  gap: 12px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.project-choice[aria-pressed="true"] {
+  background: var(--lavender);
+  border-color: var(--ink);
+}
+.project-choice code {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
