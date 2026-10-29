@@ -1,6 +1,6 @@
 # Confam: general repair verification
 
-Revised October 28, 2026. TR1–TR3 runtimes, general workflows and reviewed decoy challenges are implemented and verified on the salon and task-board specimens. TR4 local recording intake and evidence review are implemented and locally verified; its live recording API gate remains pending scoped owner approval. TR5 remains planned. Generic model proposal/verifier paths are fixture-tested; genuine independent evaluation remains pending the owner’s pack.
+Revised October 28, 2026. TR1–TR3 runtimes, general workflows and reviewed decoy challenges are implemented and verified on the salon and task-board specimens. TR4 recording intake and evidence review are implemented: local two-app browser checks and one owner-approved live fictional MP4 interpretation passed. That single clip does not establish broad video accuracy. TR5 remains planned. Generic model proposal/verifier paths are fixture-tested; genuine independent evaluation remains pending the owner’s pack.
 
 ## 1. Product and users
 
