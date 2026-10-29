@@ -7,7 +7,8 @@
     "phone": "08030000101",
     "serviceId": "1",
     "date": "2030-01-05",
-    "time": "2:00 PM"
+    "time": "2:00 PM",
+    "startsAt": "2030-01-05T14:00"
   },
   "expectations": [
     {

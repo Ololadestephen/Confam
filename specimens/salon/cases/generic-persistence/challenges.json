@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "purpose": "development",
+  "probes": [
+    {
+      "id": "savedRow",
+      "kind": "sqlite",
+      "query": "SELECT COUNT(*) AS value FROM appointments a JOIN customers c ON a.customer_id=c.id WHERE c.phone=? AND a.starts_at=?",
+      "parameters": [
+        {
+          "fixture": "phone"
+        },
+        {
+          "fixture": "startsAt"
+        }
+      ],
+      "column": "value",
+      "expected": 1
+    }
+  ],
+  "decoys": [
+    {
+      "id": "undoSave",
+      "patch": "development-undo-save.patch",
+      "baseControl": "control-a",
+      "violation": "The reported update is confirmed without the expected durable state change.",
+      "expectationIds": [
+        "appointmentPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        }
+      ]
+    }
+  ],
+  "comparators": []
+}

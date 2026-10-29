@@ -2,7 +2,7 @@
 
 Confam verifies proposed repairs against reviewed behavioral expectations and records what its checks actually observe. The general verification path runs the salon and task-board specimens through the same browser executor. The legacy salon pipeline additionally challenges checks with deliberately faulty patches.
 
-The [general verification roadmap](ROADMAP.md) tracks implementation. TR1 project runtimes and TR2 general browser workflows are implemented. General decoy evaluation and independent comparisons remain TR3 work.
+The [general verification roadmap](ROADMAP.md) tracks implementation. TR1–TR3 project runtimes, general browser workflows, and reviewed decoy challenges are implemented. Genuine independent evaluation still requires an owner-prepared private pack.
 
 ## Project runtime checks (TR1)
 
@@ -46,6 +46,49 @@ npm run confam -- draft-workflow path/to/case.json --project path/to/project.jso
 ```
 
 This live command sends the report, listed expectations, fixtures, supported capabilities, and configured source files to Meta. Review that source scope before using it. It uses the shared token/cost ledger and cap, saves a proposal under `runs/workflow-draft-*/`, and neither confirms expectations nor executes the application. Review the proposal, then supply its workflow path to `verify`. The generic proposal path has been tested with an injected fixture transport; it has not yet been verified in a live Meta call. The existing salon authoring path has separate live evidence.
+
+## General challenges and comparison (TR3)
+
+A reviewed development manifest defines independent probes, faulty patch proposals, their correct reference control, expectation mappings, and required observations. Faults are applied to a control that passed the workflow and probes, rather than accidentally inheriting an unrelated original defect.
+
+```sh
+npm run confam -- challenge specimens/task-board/case.json --project specimens/task-board/project.json --workflow specimens/task-board/workflow.json --manifest specimens/task-board/challenges.json --fixture --candidate specimens/task-board/control-a.patch
+npm run confam -- challenge specimens/salon/cases/generic-persistence/case.json --project specimens/salon/project.json --workflow specimens/salon/cases/generic-persistence/workflow.json --manifest specimens/salon/cases/generic-persistence/challenges.json --fixture --candidate specimens/salon/cases/generic-persistence/control-a.patch
+```
+
+These examples use one deliberately restored persistence defect per application, with scripted input confirmation and real browser/probe execution. They are development fixtures, not independent evidence or new model-generated faults.
+
+Supported reviewed observations are bounded JSON files inside variant storage, parameterized read-only SQLite SELECTs, and same-origin HTTP JSON GETs. Probe definitions never come from a model response. HTTP observations have a deadline and size limit; synchronous SQLite queries require trusted review and are not a hostile-query sandbox.
+
+A decoy counts as caught/survived only after the workflow reaches its trigger, the independent requirements confirm the declared violation, and execution completes. Detection must fail an assertion mapped to the declared expectation. Unrelated assertions, unavailable observations, startup failure, timeouts and unreached workflows stay outside caught/survived counts. Probe errors cannot qualify as negative observations. A passing check with a confirmed fault is a survivor and an oracle-only detection; the oracle does not earn the check detection credit.
+
+Human review must establish that the requirements logically support the fault description. For example, wrong ownership needs both a saved row and incorrect ownership; a missing row alone does not establish that fault. Review the case, workflow, source policy, registry and decoy requirements before using `--accept` on a non-scripted run. A model's declaration alone is insufficient.
+
+Every version reruns the original and all supplied controls. At most two strengthening rounds preserve the complete existing workflow as an unchanged prefix and append checks under already agreed expectation IDs. Alterations/removals, new expectation IDs, and invalid proposals stop for review. Histories and proposals are archived. Without survivors there are zero rounds. Optional `--strengthen --budget 0.25` uses a stateless Spark verifier through the shared client/ledger, sending only current workflow and surviving development evidence to Meta; it requires developer confirmation and cannot be combined with `--fixture`. No live strengthening call was needed in the included runs.
+
+### Review-only decoy drafting
+
+```sh
+npm run confam -- draft-decoys specimens/task-board/case.json --project specimens/task-board/project.json --registry specimens/task-board/reviewed-probes.json --reference control-a --budget 0.25
+```
+
+This exports the report, expectations, fixtures, reviewed probes and corrected reference source to Meta. It drafts unified diffs, validates references and source boundaries, and checks applicability. It saves a review-only development manifest and ledger under `runs/draft-decoys-*/`, and executes no application. Review the proposals and requirements before supplying the manifest to `challenge`. Generic decoy drafting and strengthening have been tested with injected fixture transports; their live API integration is not yet verified.
+
+### Post-freeze comparison
+
+The final seal includes workflows, confirmed requirements, fixtures, project configuration, reviewed probes, patch contents, baseline revision, Node version, dependency manifest identity and trusted engine source identity. Checks and identities are verified around execution. If trusted code or dependencies change, use the original implementation for that sealed run or create a new freeze before revealing a fresh private pack.
+
+After replacing `CHALLENGE_RUN_DIRECTORY` with the completed run's directory:
+
+```sh
+npm run confam -- compare CHALLENGE_RUN_DIRECTORY --pack specimens/task-board/integration-pack.json --integration-fixture
+```
+
+The included integration pack deliberately reuses the known development fault. It exercises the comparison command and **never** promotes the main report's independent-evaluation status. Genuine evaluation uses an explicit owner-provided `--pack` without the fixture flag, only after freeze and with developer-confirmed inputs. It makes no model calls. One attempt is allowed per frozen run, even if it fails; a genuinely consumed pack digest cannot be reused across other runs in the same runs directory. Scripted fixture sessions cannot receive genuine independent-evaluation claims. Never provide private packs to development or strengthening commands.
+
+Optional manifest comparator roles `existing` and `direct-ai` reference already prepared workflow files. All arms are frozen before the pack is read. The final workflow and independent probes qualify each fault once; every arm then receives the same label, and only its own assertions score detection. Correct-control false rejections and execution errors remain visible; weak comparison arms are never discarded or repaired after evaluation. Missing roles are explicitly absent. No existing/direct-AI comparison was supplied in the example runs.
+
+Comparator provenance can include `modelId`, `modelVersion`, `prompt`, `inputHash`, `budgetUsd` and `authoringMs` (nullable when unknown). Supplied labels/metadata remain unverified and cannot establish an AI-performance claim by themselves. Comparison reports record raw counts, qualification, control failures, timings and evidence, with progress checkpoints on interruption. No percentage or superiority claim is justified by the tiny included fixture set.
 
 ## Legacy salon challenge pipeline
 

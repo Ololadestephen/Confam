@@ -1,0 +1,92 @@
+import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, expect, it } from "vitest";
+import { proposeDecoys } from "./generic-decoys.js";
+import type { ModelTransport } from "../models/client.js";
+
+const directories: string[] = [];
+afterEach(async () => { for (const directory of directories.splice(0)) await rm(directory, { recursive: true, force: true }); });
+function patch(file: string, before: string, after: string): string {
+  return `diff --git a/${file} b/${file}\n--- a/${file}\n+++ b/${file}\n@@ -1 +1 @@\n-${before}\n+${after}\n`;
+}
+async function fixture() {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "confam-decoy-authoring-")); directories.push(directory);
+  const app = path.join(directory, "app"); await mkdir(app);
+  await writeFile(path.join(app, "main.js"), "original\n");
+  await writeFile(path.join(directory, "project.json"), JSON.stringify({
+    schemaVersion: 1, id: "sample", root: "app", sourceFiles: ["main.js"], runtime: {
+      command: ["node", "main.js"], readinessPath: "/ready", portVariable: "PORT", dataVariable: "STATE", restart: false,
+    }
+  }));
+  await writeFile(path.join(directory, "case.json"), JSON.stringify({
+    schemaVersion: 1, id: "example", projectId: "sample", report: "report.md", fixtures: {},
+    expectations: [{ id: "persists", statement: "Saved state survives reopening", provenance: "developer" }], reproductionTargets: ["persists"],
+    mode: "verification", controls: [{ id: "correct", patch: "correct.patch" }]
+  }));
+  await writeFile(path.join(directory, "correct.patch"), patch("main.js", "original", "corrected"));
+  await writeFile(path.join(directory, "report.md"), "Saved state disappears.");
+  const probes = [{ id: "saved", kind: "json-file", path: "state", pointer: ["saved"], expected: true }];
+  const registryText = JSON.stringify(probes, null, 4) + "\n";
+  await writeFile(path.join(directory, "probes.json"), registryText);
+  return { directory, probes, registryText };
+}
+function transport(diff: string, inspect: (input: string) => void = () => undefined): ModelTransport {
+  return {
+    mode: "fixture", count: async () => 100, generate: async (request) => {
+      inspect(request.input);
+      return {
+        completed: true, usage: { input: 100, output: 100, cached: 0 }, text: JSON.stringify({
+          decoys: [{
+            id: "missingWrite", violation: "The repair fails to save state", expectationIds: ["persists"],
+            requirements: [{ probe: "saved", holds: false }], patch: diff,
+          }]
+        })
+      };
+    }
+  };
+}
+async function propose(directory: string, injected: ModelTransport) {
+  return proposeDecoys(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "probes.json"),
+    "correct", path.join(directory, "runs"), 0.25, injected);
+}
+it("drafts guarded patches from corrected source while preserving reviewed probe definitions", async () => {
+  const { directory, probes, registryText } = await fixture();
+  let input: Record<string, unknown> = {};
+  const result = await propose(directory, transport(patch("main.js", "corrected", "broken"), (text) => { input = JSON.parse(text); }));
+  expect(input.correctedSource).toEqual({ "main.js": "corrected\n" });
+  expect(input.reviewedProbes).toEqual(probes);
+  const manifest = JSON.parse(await readFile(result.manifestPath, "utf8"));
+  expect(manifest.probes).toEqual(probes);
+  expect(manifest.purpose).toBe("development");
+  expect(manifest.decoys[0]).toMatchObject({ baseControl: "correct", patch: "decoy-missingWrite.patch" });
+  expect(await readFile(path.join(result.directory, "reviewed-probes.json"), "utf8")).toBe(registryText);
+  expect(JSON.parse(await readFile(path.join(result.directory, "proposal.json"), "utf8"))).toMatchObject({ status: "needs-review", mode: "fixture" });
+  expect(result.usage.estimatedSpendUsd).toBe(0);
+  expect(await readFile(path.join(directory, "app/main.js"), "utf8")).toBe("original\n");
+});
+it("rejects a model patch touching protected verification infrastructure", async () => {
+  const { directory } = await fixture();
+  await expect(propose(directory, transport(patch("tests/check.js", "corrected", "broken")))).rejects.toThrow("protected or unsupported");
+  const runs = await readdir(path.join(directory, "runs"));
+  await expect(readFile(path.join(directory, "runs", runs[0]!, "development.json"))).rejects.toThrow();
+});
+it("rejects a diff against original source instead of the corrected reference", async () => {
+  const { directory } = await fixture();
+  await expect(propose(directory, transport(patch("main.js", "original", "broken")))).rejects.toThrow();
+});
+
+it.each(["probe", "expectation", "positive-only"])("rejects invalid model evidence references: %s", async (violation) => {
+  const { directory } = await fixture();
+  const injected = transport(patch("main.js", "corrected", "broken"));
+  const generate = injected.generate;
+  injected.generate = async (request) => {
+    const response = await generate(request);
+    const proposal = JSON.parse(response.text);
+    if (violation === "probe") proposal.decoys[0].requirements[0].probe = "unknown";
+    if (violation === "expectation") proposal.decoys[0].expectationIds = ["unknown"];
+    if (violation === "positive-only") proposal.decoys[0].requirements[0].holds = true;
+    return { ...response, text: JSON.stringify(proposal) };
+  };
+  await expect(propose(directory, injected)).rejects.toThrow();
+});

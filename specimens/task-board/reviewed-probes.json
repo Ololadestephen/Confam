@@ -1,0 +1,13 @@
+[
+  {
+    "id": "stateCompleted",
+    "kind": "json-file",
+    "path": "state",
+    "pointer": [
+      "tasks",
+      "0",
+      "completed"
+    ],
+    "expected": true
+  }
+]

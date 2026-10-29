@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "purpose": "integration-fixture",
+  "label": "Known development fault reused ONLY to exercise post-freeze integration, not independent evidence.",
+  "decoys": [
+    {
+      "id": "undoSave",
+      "patch": "development-undo-save.patch",
+      "baseControl": "control-a",
+      "violation": "The reported update is confirmed without the expected durable state change.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,8 @@ import { freezeBundle, verifyChecks, type FrozenChecks } from "../engine/freeze.
 import { readJson } from "../engine/json.js";
 import { git, errorMessage } from "../engine/process.js";
 import { prepareBaseline, createVariant } from "../engine/variants.js";
+import { runProbes, type ProbeDefinition, type ProbeObservation } from "../probes/index.js";
+import { guardPatch } from "../engine/variants.js";
 import { runWorkflow, type WorkflowResult } from "../workflows/runner.js";
 import { workflowSchema, validateWorkflow, type WorkflowPlan } from "../workflows/schema.js";
 import { loadVerificationCase } from "./load-case.js";
@@ -21,11 +23,13 @@ interface VerificationOptions {
   confirmation: "developer-cli" | "fixture";
   candidate?: string;
 }
-interface EvaluatedVariant {
+export interface EvaluatedVariant {
   id: string;
   kind: "original" | "control" | "candidate";
   result?: WorkflowResult;
   error?: string;
+  phase?: "prepare" | "workflow" | "probes";
+  probes?: Record<string, ProbeObservation>;
 }
 export interface VerificationReport {
   schemaVersion: 2;
@@ -42,7 +46,7 @@ export interface VerificationReport {
   error?: string;
 }
 
-async function executorIdentity(): Promise<string> {
+export async function executorIdentity(): Promise<string> {
   const hash = createHash("sha256");
   for (const name of ["../workflows/runner.ts", "../workflows/schema.ts", "../workflows/actions.ts"]) {
     hash.update(await readFile(fileURLToPath(new URL(name, import.meta.url))));
@@ -50,12 +54,13 @@ async function executorIdentity(): Promise<string> {
   return hash.digest("hex");
 }
 
-interface Evaluation {
+export interface Evaluation {
   baseline: string; directory: string; checks: FrozenChecks; revision: string; executor: string;
   project: ProjectConfig; definition: CaseDefinition; plan: WorkflowPlan;
+  probes?: ProbeDefinition[]; referencePatch?: string;
 }
-async function evaluate(run: Evaluation, id: string, kind: EvaluatedVariant["kind"], patch?: string): Promise<EvaluatedVariant> {
-  const variant: EvaluatedVariant = { id, kind };
+export async function evaluate(run: Evaluation, id: string, kind: EvaluatedVariant["kind"], patch?: string): Promise<EvaluatedVariant> {
+  const variant: EvaluatedVariant = { id, kind, phase: "prepare" };
   const directory = path.join(run.directory, "variants", id);
   const app = path.join(directory, "app");
   const lifecycle = createProjectLifecycle(app, directory, run.project.runtime);
@@ -68,13 +73,25 @@ async function evaluate(run: Evaluation, id: string, kind: EvaluatedVariant["kin
   };
   try {
     await verify();
-    await createVariant(run.baseline, app, patch);
+    await createVariant(run.baseline, app, run.referencePatch ?? patch);
+    if (run.referencePatch && patch) {
+      await guardPatch(app, patch);
+      await git(app, "apply", "--", patch);
+    }
     await lifecycle.reset();
-    const server = await lifecycle.start(abort.signal);
+    let server = await lifecycle.start(abort.signal);
+    variant.phase = "workflow";
     variant.result = await runWorkflow(run.plan, run.definition.fixtures, server.baseUrl, path.join(directory, "evidence"), {
-      async restartApp() { await verify(); return (await lifecycle.restart(abort.signal)).baseUrl; },
+      async restartApp() { await verify(); server = await lifecycle.restart(abort.signal); return server.baseUrl; },
       async cancel() { abort.abort(); await lifecycle.stop(); },
     });
+    if (run.probes?.length && variant.result.reached && ["passed", "assertion-failed"].includes(variant.result.status)) {
+      variant.phase = "probes";
+      variant.probes = await runProbes(run.probes, {
+        dataDirectory: lifecycle.dataDirectory, dataPath: lifecycle.dataPath,
+        baseUrl: server.baseUrl, fixtures: run.definition.fixtures, signal: abort.signal
+      });
+    }
     await verify();
   } catch (error) { variant.error = errorMessage(error); }
   finally { await lifecycle.stop(); }

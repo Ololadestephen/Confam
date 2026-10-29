@@ -1,6 +1,9 @@
 import { budgetNanounits } from "../models/config.js";
 
 export const USAGE = `Commands:
+  draft-decoys <case.json> --project project.json --registry probes.json --reference control-id [--budget USD] (exports corrected source and reviewed probes to Meta)
+  challenge <case.json> --project project.json --workflow workflow.json --manifest challenges.json (--accept | --fixture) [--candidate patch] [--strengthen --budget USD]
+  compare <challenge-run-directory> --pack pack.json [--integration-fixture]
   verify <case.json> --project project.json --workflow workflow.json (--accept | --fixture) [--candidate patch]
   draft-workflow <case.json> --project project.json [--budget USD]  (sends report and source to Meta)
   project-check <project.json>
@@ -14,7 +17,7 @@ export const USAGE = `Commands:
 The demo uses scripted fixture responses and confirmation; it makes no model calls.`;
 
 interface CliArguments {
-  command: "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
+  command: "draft-decoys" | "challenge" | "compare" | "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
   subject: string;
   candidate?: string;
   budget?: number;
@@ -25,13 +28,21 @@ interface CliArguments {
   workflow?: string;
   fixture: boolean;
   accept: boolean;
+  manifest?: string;
+  strengthen: boolean;
+  integrationFixture: boolean;
+  registry?: string;
+  reference?: string;
 }
 
 export function parseArguments(argv: string[]): CliArguments {
   const [command, subject, ...flags] = argv;
-  if (!command || !["verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
+  if (!command || !["draft-decoys", "challenge", "compare", "verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
   const values = new Map<string, string>();
   const allowed: Record<string, string[]> = {
+    "draft-decoys": ["--project", "--registry", "--reference", "--budget"],
+    challenge: ["--project", "--workflow", "--manifest", "--accept", "--fixture", "--candidate", "--strengthen", "--budget"],
+    compare: ["--pack", "--integration-fixture"],
     verify: ["--project", "--workflow", "--accept", "--fixture", "--candidate"],
     "draft-workflow": ["--project", "--budget"],
     "project-check": [], run: ["--candidate"], intake: ["--budget"], confirm: ["--accept", "--answer"], execute: ["--candidate", "--fix"], demo: ["--candidate", "--budget", "--fix"],
@@ -40,15 +51,20 @@ export function parseArguments(argv: string[]): CliArguments {
   for (let index = 0;index < flags.length;index += 1) {
     const flag = flags[index]!;
     if (!allowed[command]?.includes(flag) || values.has(flag)) throw new Error(`Invalid or duplicate option: ${flag}\n${USAGE}`);
-    if (flag === "--accept" || flag === "--fix" || flag === "--fixture") { values.set(flag, "yes"); continue; }
+    if (flag === "--accept" || flag === "--fix" || flag === "--fixture" || flag === "--strengthen" || flag === "--integration-fixture") { values.set(flag, "yes"); continue; }
     const value = flags[++index];
     if (!value || value.startsWith("--")) throw new Error(`Missing value for ${flag}`);
     values.set(flag, value);
   }
-  if ((command === "verify" || command === "draft-workflow") && !values.has("--project")) throw new Error("A project configuration is required.");
-  if (command === "verify" && (!values.has("--workflow") || values.has("--accept") === values.has("--fixture"))) {
+  if ((["draft-decoys", "challenge", "verify", "draft-workflow"].includes(command)) && !values.has("--project")) throw new Error("A project configuration is required.");
+  if ((command === "verify" || command === "challenge") && (!values.has("--workflow") || values.has("--accept") === values.has("--fixture"))) {
     throw new Error("Review the case and workflow, then choose --accept or explicitly labelled --fixture confirmation.");
   }
+  if (command === "draft-decoys" && (!values.has("--registry") || !values.has("--reference"))) throw new Error("Decoy drafting requires reviewed --registry and --reference control.");
+  if (command === "challenge" && !values.has("--manifest")) throw new Error("Challenge runs require an explicit reviewed --manifest.");
+  if (command === "challenge" && values.has("--budget") && !values.has("--strengthen")) throw new Error("--budget requires --strengthen.");
+  if (values.has("--strengthen") && values.has("--fixture")) throw new Error("Live model strengthening requires developer confirmation, not scripted --fixture mode.");
+  if (command === "compare" && !values.has("--pack")) throw new Error("Comparison requires an explicit --pack path.");
   if (command === "confirm" && !values.has("--accept")) throw new Error("Review intake.json, then pass --accept to confirm its expectations.");
   if (command === "heldout" && !values.has("--pack")) throw new Error("Held-out evaluation requires an explicit --pack path.");
   if (values.has("--fix") && values.has("--candidate")) throw new Error("Choose --fix or --candidate, not both.");
@@ -58,6 +74,6 @@ export function parseArguments(argv: string[]): CliArguments {
   if (answer !== undefined && answer !== "yes" && answer !== "no") throw new Error("--answer must be yes or no.");
   return {
     command: command as CliArguments["command"], subject, candidate: values.get("--candidate"), budget, answer, fix: values.has("--fix"), pack: values.get("--pack"),
-    project: values.get("--project"), workflow: values.get("--workflow"), fixture: values.has("--fixture"), accept: values.has("--accept")
+    project: values.get("--project"), workflow: values.get("--workflow"), fixture: values.has("--fixture"), accept: values.has("--accept"), manifest: values.get("--manifest"), strengthen: values.has("--strengthen"), integrationFixture: values.has("--integration-fixture"), registry: values.get("--registry"), reference: values.get("--reference")
   };
 }

@@ -2,6 +2,13 @@ import { describe, expect, it } from "vitest";
 import { parseArguments } from "./arguments.js";
 
 describe("CLI confirmation and cost arguments", () => {
+  it("requires explicit challenge/evaluation inputs and separates fixture/live verifier options", () => {
+    expect(() => parseArguments(["challenge", "case", "--project", "p", "--workflow", "w", "--fixture"])).toThrow("manifest");
+    expect(() => parseArguments(["challenge", "case", "--project", "p", "--workflow", "w", "--fixture", "--manifest", "m", "--strengthen"])).toThrow("Live model");
+    expect(() => parseArguments(["compare", "run"])).toThrow("pack");
+    expect(parseArguments(["compare", "run", "--pack", "pack", "--integration-fixture"]).integrationFixture).toBe(true);
+    expect(() => parseArguments(["draft-decoys", "case", "--project", "p"])).toThrow("registry");
+  });
   it("requires project, workflow and a single explicit confirmation source for generic verification", () => {
     expect(() => parseArguments(["verify", "case.json"])).toThrow("project");
     expect(() => parseArguments(["verify", "case.json", "--project", "p.json", "--workflow", "w.json"])).toThrow("--accept");

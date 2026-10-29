@@ -1,3 +1,7 @@
+import { proposeDecoys } from "../authoring/generic-decoys.js";
+import { challengeProject } from "../challenges/harness.js";
+import { evaluateChallengePack } from "../challenges/evaluate-pack.js";
+import { DEFAULT_BUDGET_USD } from "../models/config.js";
 import { verifyProject } from "../project/verify.js";
 import { proposeWorkflow } from "../authoring/generic.js";
 import { checkProject } from "../project/check.js";
@@ -37,7 +41,27 @@ async function main(): Promise<void> {
   const envFile = path.join(root, ".env");
   if (existsSync(envFile)) process.loadEnvFile(envFile);
   const candidate = args.candidate ? path.resolve(args.candidate) : undefined;
-  if (args.command === "verify") {
+  if (args.command === "draft-decoys") {
+    const draft = await proposeDecoys(path.resolve(args.project!), path.resolve(args.subject), path.resolve(args.registry!), args.reference!, path.join(root, "runs"), args.budget);
+    console.log(`Decoy proposal requires review: ${draft.manifestPath}\nNo probes authored and no application behavior evaluated.`);
+  } else if (args.command === "challenge") {
+    const { report, reportPath } = await challengeProject({
+      project: path.resolve(args.project!), caseFile: path.resolve(args.subject),
+      workflow: path.resolve(args.workflow!), manifest: path.resolve(args.manifest!), runsDirectory: path.join(root, "runs"),
+      confirmation: args.fixture ? "fixture" : "developer-cli", candidate,
+      modelBudget: args.strengthen ? args.budget ?? DEFAULT_BUDGET_USD : undefined
+    });
+    console.log(`${args.fixture ? "FIXTURE DEVELOPMENT CHALLENGE\n" : ""}${report.verdict}\nDevelopment: ${JSON.stringify(report.development ?? null)}\nEvidence: ${reportPath}`);
+    if (report.error) console.error(report.error);
+    const result = report.candidate as { outcome?: string } | undefined;
+    console.log(`Candidate: ${result?.outcome ?? "not evaluated"}`);
+    if (report.status !== "completed" || (result && result.outcome !== "passed-checks-and-probes")) process.exitCode = 1;
+  } else if (args.command === "compare") {
+    const { report, reportPath } = await evaluateChallengePack(path.resolve(args.subject), path.resolve(args.pack!), args.integrationFixture);
+    console.log(`${report.purpose}: ${report.status}\nEvidence: ${reportPath}`);
+    for (const arm of (report.arms ?? []) as { role: string; counts: unknown; falseRejections: number }[]) console.log(`${arm.role}: ${JSON.stringify(arm.counts)}, false rejections: ${arm.falseRejections}`);
+    if (report.status !== "completed") { console.error(report.error); process.exitCode = 1; }
+  } else if (args.command === "verify") {
     const { report, reportPath } = await verifyProject({
       project: path.resolve(args.project!), caseFile: path.resolve(args.subject),
       workflow: path.resolve(args.workflow!), runsDirectory: path.join(root, "runs"),

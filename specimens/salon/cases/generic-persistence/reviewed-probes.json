@@ -1,0 +1,17 @@
+[
+  {
+    "id": "savedRow",
+    "kind": "sqlite",
+    "query": "SELECT COUNT(*) AS value FROM appointments a JOIN customers c ON a.customer_id=c.id WHERE c.phone=? AND a.starts_at=?",
+    "parameters": [
+      {
+        "fixture": "phone"
+      },
+      {
+        "fixture": "startsAt"
+      }
+    ],
+    "column": "value",
+    "expected": 1
+  }
+]

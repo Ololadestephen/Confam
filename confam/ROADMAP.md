@@ -1,6 +1,6 @@
 # Confam: general repair verification
 
-Revised October 28, 2026. TR1 project runtimes and TR2 general behavioral workflows are implemented and verified on the salon and task-board specimens. TR3–TR5 remain planned. Generic model workflow proposals are fixture-tested; their live API integration remains unverified.
+Revised October 28, 2026. TR1–TR3 runtimes, general workflows and reviewed decoy challenges are implemented and verified on the salon and task-board specimens. TR4–TR5 remain planned. Generic model proposal/verifier paths are fixture-tested; genuine independent evaluation remains pending the owner’s pack.
 
 ## 1. Product and users
 
