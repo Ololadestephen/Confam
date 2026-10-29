@@ -42,7 +42,7 @@ npm run confam -- verify specimens/quote-tool/case-nonreproduction.json --projec
 npm run confam -- verify specimens/quote-tool/case-nonreproduction.json --project specimens/quote-tool/project.json --workflow specimens/quote-tool/workflow-unsupported.json --fixture
 ```
 
-Inspect the printed `verification.json` and its variant assertions, trace and limitations. Use `npm run confam -- serve runs/YOUR_RUN_DIRECTORY` after building the UI. Evidence endpoints are read-only and the server is loopback-only, with a temporary token in its printed URL. The same server also supports explicit local project registration and consent-based draft authoring. Sharing that URL grants local evidence and onboarding access to anyone who can reach that loopback server. Summary redaction is best effort; review exports before sharing.
+Inspect the printed `verification.json` and its variant assertions, trace and limitations. Use `npm run confam -- serve runs/YOUR_RUN_DIRECTORY` after building the UI. Evidence endpoints are read-only and the server is loopback-only, with a temporary token in its printed URL. The same server also supports explicit local project registration, consent-based draft authoring and separately approved verification jobs. Sharing that URL grants local evidence and onboarding access to anyone who can reach that loopback server. Summary redaction is best effort; review exports before sharing.
 
 ## Challenge and evaluation boundaries
 

@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
-import { lstat, mkdir, readFile, writeFile } from "node:fs/promises";
+import { lstat, mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { freezeBundle, verifyChecks, type FrozenChecks } from "../engine/freeze.js";
@@ -12,15 +12,18 @@ import { runWorkflow, type WorkflowResult } from "../workflows/runner.js";
 import { workflowSchema, validateWorkflow, type WorkflowPlan } from "../workflows/schema.js";
 import { loadVerificationCase } from "./load-case.js";
 import { createProjectLifecycle } from "./runtime.js";
+import { emitProgress, type VerificationProgress } from "./progress.js";
 import type { ProjectConfig } from "./config.js";
 import type { CaseDefinition } from "./case.js";
 
-interface VerificationOptions {
+export interface VerificationOptions {
+  signal?: AbortSignal;
+  onProgress?: (event: VerificationProgress) => void;
   project: string;
   caseFile: string;
   workflow: string;
   runsDirectory: string;
-  confirmation: "developer-cli" | "fixture";
+  confirmation: "developer-cli" | "developer-web" | "fixture";
   candidate?: string;
 }
 export interface EvaluatedVariant {
@@ -30,10 +33,12 @@ export interface EvaluatedVariant {
   error?: string;
   phase?: "prepare" | "workflow" | "probes";
   probes?: Record<string, ProbeObservation>;
+  cleanupComplete?: boolean;
 }
 export interface VerificationReport {
   schemaVersion: 2;
-  status: "running" | "completed" | "blocked" | "error";
+  cleanupComplete: boolean;
+  status: "running" | "completed" | "blocked" | "error" | "cancelled";
   project: string;
   caseId: string;
   confirmation: string;
@@ -59,12 +64,17 @@ export interface Evaluation {
   project: ProjectConfig; definition: CaseDefinition; plan: WorkflowPlan;
   probes?: ProbeDefinition[]; referencePatch?: string;
 }
-export async function evaluate(run: Evaluation, id: string, kind: EvaluatedVariant["kind"], patch?: string): Promise<EvaluatedVariant> {
+export async function evaluate(run: Evaluation, id: string, kind: EvaluatedVariant["kind"], patch?: string, options: Pick<VerificationOptions, "signal" | "onProgress"> = {}): Promise<EvaluatedVariant> {
   const variant: EvaluatedVariant = { id, kind, phase: "prepare" };
   const directory = path.join(run.directory, "variants", id);
   const app = path.join(directory, "app");
   const lifecycle = createProjectLifecycle(app, directory, run.project.runtime);
   const abort = new AbortController();
+  const onAbort = () => abort.abort();
+  options.signal?.addEventListener("abort", onAbort, { once: true });
+  if (options.signal?.aborted) abort.abort();
+  const checkAbort = () => { if (abort.signal.aborted) throw new Error("Verification cancelled."); };
+  emitProgress(options.onProgress, { phase: "variant-start", variantId: id, kind });
   const verify = async () => {
     await verifyChecks(run.checks);
     if (await executorIdentity() !== run.executor) throw new Error("Workflow executor changed after freeze.");
@@ -72,19 +82,28 @@ export async function evaluate(run: Evaluation, id: string, kind: EvaluatedVaria
       || (await git(run.baseline, "status", "--porcelain")).trim()) throw new Error("Project baseline changed after freeze.");
   };
   try {
+    checkAbort();
     await verify();
+    checkAbort();
     await createVariant(run.baseline, app, run.referencePatch ?? patch);
     if (run.referencePatch && patch) {
       await guardPatch(app, patch);
       await git(app, "apply", "--", patch);
     }
+    checkAbort();
     await lifecycle.reset();
+    checkAbort();
     let server = await lifecycle.start(abort.signal);
+    checkAbort();
+    emitProgress(options.onProgress, { phase: "runtime-ready", variantId: id, kind });
     variant.phase = "workflow";
     variant.result = await runWorkflow(run.plan, run.definition.fixtures, server.baseUrl, path.join(directory, "evidence"), {
+      signal: abort.signal,
+      onStep(event) { emitProgress(options.onProgress, { phase: "step", variantId: id, kind, ...event }); },
       async restartApp() { await verify(); server = await lifecycle.restart(abort.signal); return server.baseUrl; },
       async cancel() { abort.abort(); await lifecycle.stop(); },
     });
+    checkAbort();
     if (run.probes?.length && variant.result.reached && ["passed", "assertion-failed"].includes(variant.result.status)) {
       variant.phase = "probes";
       variant.probes = await runProbes(run.probes, {
@@ -92,16 +111,21 @@ export async function evaluate(run: Evaluation, id: string, kind: EvaluatedVaria
         baseUrl: server.baseUrl, fixtures: run.definition.fixtures, signal: abort.signal
       });
     }
+    checkAbort();
     await verify();
   } catch (error) { variant.error = errorMessage(error); }
-  finally { await lifecycle.stop(); }
+  finally {
+    try { await lifecycle.stop(); variant.cleanupComplete = true; } catch (error) { variant.cleanupComplete = false; variant.error = `Lifecycle cleanup failed: ${errorMessage(error)}`; }
+    options.signal?.removeEventListener("abort", onAbort);
+    emitProgress(options.onProgress, { phase: "variant-finish", variantId: id, kind, outcome: variant.cleanupComplete === false || variant.result?.cleanupComplete === false ? "error" : abort.signal.aborted ? "cancelled" : variant.error ? "error" : variant.result?.status });
+  }
   return variant;
 }
 
 type LoadedCase = Awaited<ReturnType<typeof loadVerificationCase>>;
 function initialReport(loaded: LoadedCase, confirmation: VerificationOptions["confirmation"]): VerificationReport {
   const report: VerificationReport = {
-    schemaVersion: 2, status: "running", project: loaded.project.config.id,
+    schemaVersion: 2, cleanupComplete: false, status: "running", project: loaded.project.config.id,
     caseId: loaded.definition.id, confirmation: confirmation, variants: [], verdict: "Verification in progress.",
     limitations: ["No independently qualified decoy challenges or held-out evaluation performed.",
       "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
@@ -113,7 +137,9 @@ function initialReport(loaded: LoadedCase, confirmation: VerificationOptions["co
   return report;
 }
 async function saveReport(file: string, report: VerificationReport): Promise<void> {
-  await writeFile(file, JSON.stringify(report, null, 2) + "\n");
+  const temporary = `${file}.${randomUUID()}.tmp`;
+  await writeFile(temporary, JSON.stringify(report, null, 2) + "\n");
+  await rename(temporary, file);
 }
 function gateFailure(report: VerificationReport, definition: CaseDefinition): string | undefined {
   const originalVariant = report.variants[0];
@@ -125,13 +151,17 @@ function gateFailure(report: VerificationReport, definition: CaseDefinition): st
   if (!controlsPassed) return "A supplied correct control did not pass; no candidate verdict.";
   return undefined;
 }
-async function evaluateCandidate(run: Evaluation, file: string | undefined, report: VerificationReport): Promise<void> {
+function requireCleanup(variant: EvaluatedVariant): void {
+  if (variant.cleanupComplete !== true || variant.result?.cleanupComplete === false) throw new Error(`Cleanup incomplete for variant ${variant.id}.`);
+}
+async function evaluateCandidate(run: Evaluation, file: string | undefined, report: VerificationReport, options: VerificationOptions): Promise<void> {
   if (!file) return;
   if (!(await lstat(file)).isFile()) throw new Error("Candidate patch must be a regular file.");
   const patch = path.join(run.directory, "candidate.patch");
   await writeFile(patch, await readFile(file), { flag: "wx" });
-  const candidate = await evaluate(run, "candidate", "candidate", patch);
+  const candidate = await evaluate(run, "candidate", "candidate", patch, options);
   report.variants.push(candidate);
+  requireCleanup(candidate);
   if (candidate.error || !["passed", "assertion-failed"].includes(candidate.result?.status ?? "")) {
     throw new Error(`Candidate evaluation incomplete: ${candidate.error ?? candidate.result?.error ?? "workflow did not complete"}`);
   }
@@ -149,7 +179,10 @@ export async function verifyProject(options: VerificationOptions) {
   const reportPath = path.join(directory, "verification.json");
   const report = initialReport(loaded, options.confirmation);
   await saveReport(reportPath, report);
+  emitProgress(options.onProgress, { phase: "preparing", reportPath });
+  const checkAbort = () => { if (options.signal?.aborted) throw new Error("Verification cancelled."); };
   try {
+    checkAbort();
     const baseline = await prepareBaseline(loaded.project.root, directory, loaded.project.config);
     const revision = (await git(baseline, "rev-parse", "HEAD")).trim();
     const executor = await executorIdentity();
@@ -160,25 +193,39 @@ export async function verifyProject(options: VerificationOptions) {
       "execution.json": JSON.stringify({ revision, executor }),
     };
     for (const control of loaded.controls) files[`control-${control.id}.patch`] = control.contents;
+    checkAbort();
     const checks = await freezeBundle(path.join(directory, "checks"), files);
+    emitProgress(options.onProgress, { phase: "frozen" });
+    checkAbort();
     report.checks = checks; report.baselineRevision = revision;
     const run: Evaluation = { baseline, directory, checks, revision, executor, project: loaded.project.config, definition: loaded.definition, plan };
-    report.variants.push(await evaluate(run, "original", "original"));
-    for (const control of loaded.controls) report.variants.push(await evaluate(run, `control-${control.id}`, "control", path.join(checks.directory, `control-${control.id}.patch`)));
+    report.variants.push(await evaluate(run, "original", "original", undefined, options));
+    await saveReport(reportPath, report);
+    checkAbort();
+    requireCleanup(report.variants[0]!);
+    for (const control of loaded.controls) {
+      report.variants.push(await evaluate(run, `control-${control.id}`, "control", path.join(checks.directory, `control-${control.id}.patch`), options));
+      await saveReport(reportPath, report);
+      checkAbort();
+      requireCleanup(report.variants.at(-1)!);
+    }
     const blocked = gateFailure(report, loaded.definition);
     if (blocked) {
       report.status = "blocked";
       report.verdict = blocked;
     } else {
-      await evaluateCandidate(run, options.candidate, report);
+      await evaluateCandidate(run, options.candidate, report, options);
+      checkAbort();
+      await saveReport(reportPath, report);
       report.status = "completed";
       report.verdict = report.candidate ? `Candidate ${report.candidate} the listed checks under the recorded conditions.`
         : "The reported behavior was reproduced; no candidate repair was evaluated.";
     }
     await verifyChecks(checks);
+    checkAbort();
   } catch (error) {
-    report.status = "error"; report.error = errorMessage(error); report.verdict = "Verification incomplete; no completed repair verdict.";
+    report.status = options.signal?.aborted ? "cancelled" : "error"; report.error = errorMessage(error); report.verdict = "Verification incomplete; no completed repair verdict.";
     delete report.candidate;
-  } finally { await saveReport(reportPath, report); }
+  } finally { report.cleanupComplete = report.variants.every((variant) => variant.cleanupComplete === true && variant.result?.cleanupComplete !== false); await saveReport(reportPath, report); emitProgress(options.onProgress, { phase: "finished", outcome: report.status, reportPath }); }
   return { report, reportPath };
 }

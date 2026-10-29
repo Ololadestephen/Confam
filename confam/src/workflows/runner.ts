@@ -12,13 +12,14 @@ export interface WorkflowObservation {
   passed: boolean;
 }
 export interface WorkflowResult {
-  status: "passed" | "assertion-failed" | "unreached" | "timeout" | "execution-error";
+  status: "passed" | "assertion-failed" | "unreached" | "timeout" | "execution-error" | "cancelled";
   reached: boolean;
   assertions: WorkflowObservation[];
   steps: { name: string; elapsedMs: number; }[];
   expectationId?: string;
   error?: string;
   durationMs: number;
+  cleanupComplete?: boolean;
   trace: string;
   traces: string[];
   videos: string[];
@@ -27,6 +28,8 @@ export interface WorkflowLifecycle {
   restartApp?: () => Promise<string>;
   cancel?: () => Promise<void>;
   timeoutMs?: number;
+  signal?: AbortSignal;
+  onStep?: (event: { stepIndex: number; action: string }) => void;
 }
 const MAX_WORKFLOW_TIMEOUT_MS = 120_000;
 
@@ -128,13 +131,27 @@ export async function runWorkflow(
   let operation: Promise<void> | undefined;
   let timeout: ReturnType<typeof setTimeout> | undefined;
   let expired = false;
+  let cancelled = lifecycle.signal?.aborted ?? false;
+  let interrupt: Promise<void> | undefined;
+  const onAbort = () => {
+    cancelled = true;
+    interrupt = Promise.allSettled([execution?.browser.close(), lifecycle.cancel?.()]).then((results) => {
+      const failed = results.find((item) => item.status === "rejected");
+      if (failed?.status === "rejected") throw failed.reason;
+    });
+  };
+  lifecycle.signal?.addEventListener("abort", onAbort, { once: true });
   try {
+    if (cancelled) throw new Error("Workflow cancelled.");
     const browser = await chromium.launch({ timeout: Math.min(timeoutMs, 30000) });
     execution = new WorkflowExecution(browser, fixtures, projectUrl.origin, evidence, result, lifecycle);
     const active = execution;
+    if (cancelled) { await browser.close(); throw new Error("Workflow cancelled."); }
     operation = (async () => {
       await active.context("default");
-      for (const step of plan.steps) {
+      for (const [stepIndex, step] of plan.steps.entries()) {
+        if (cancelled) throw new Error("Workflow cancelled.");
+        try { lifecycle.onStep?.({ stepIndex, action: step.action }); } catch { /* Observers are isolated. */ }
         result.steps.push({ name: step.action, elapsedMs: Date.now() - started });
         await active.step(step);
       }
@@ -142,18 +159,23 @@ export async function runWorkflow(
     await Promise.race([operation, new Promise<never>((_resolve, reject) => {
       timeout = setTimeout(() => { expired = true; reject(new Error(`Workflow exceeded ${timeoutMs}ms.`)); }, Math.max(1, timeoutMs - (Date.now() - started)));
     })]);
+    if (cancelled) throw new Error("Workflow cancelled.");
     result.status = result.reached && result.assertions.length > 0 ? "passed" : "unreached";
   } catch (error) {
     result.error = error instanceof Error ? error.message : String(error);
-    if (error instanceof AssertionFailure) { result.status = "assertion-failed"; result.expectationId = error.expectationId; }
+    if (cancelled) result.status = "cancelled";
+    else if (error instanceof AssertionFailure) { result.status = "assertion-failed"; result.expectationId = error.expectationId; }
     else result.status = expired || (error instanceof Error && error.name === "TimeoutError") ? "timeout" : result.reached ? "execution-error" : "unreached";
   } finally {
     clearTimeout(timeout);
+    lifecycle.signal?.removeEventListener("abort", onAbort);
+    try { await interrupt; } catch (error) { result.cleanupComplete = false; result.error = `Cancellation cleanup failed: ${error instanceof Error ? error.message : String(error)}`; }
     try { if (expired) await lifecycle.cancel?.(); }
-    catch (error) { result.error = `${result.error ?? ""} Cancellation failed: ${error instanceof Error ? error.message : String(error)}`; }
-    try { await execution?.close(); }
+    catch (error) { result.cleanupComplete = false; result.error = `${result.error ?? ""} Cancellation failed: ${error instanceof Error ? error.message : String(error)}`; }
+    try { await execution?.close(); if (result.cleanupComplete !== false) result.cleanupComplete = true; }
     catch (error) {
-      result.status = "execution-error";
+      result.cleanupComplete = false;
+      if (!cancelled) result.status = "execution-error";
       result.error = `Evidence cleanup failed: ${error instanceof Error ? error.message : String(error)}`;
     } finally { await operation?.catch(() => undefined); result.durationMs = Date.now() - started; }
   }

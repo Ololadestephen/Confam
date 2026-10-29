@@ -224,6 +224,12 @@ export default function ReportBuilder({ projectId }: { projectId: string }) {
         {session?.status === "confirmed" && session.files && (
           <div className="form-fields">
             <h3>Saved locally</h3>
+            <Link
+              className="button button-dark"
+              to={`/jobs/new?draft=${session.id}`}
+            >
+              Prepare verification
+            </Link>
             <p>Review the files before running the command.</p>
             <ul>
               {Object.entries(session.files)
@@ -237,7 +243,10 @@ export default function ReportBuilder({ projectId }: { projectId: string }) {
             <div className="command-box">
               <code>{session.files.command}</code>
             </div>
-            <p>No application has been executed.</p>
+            <p>
+              Confirmation only saved these files. Verification starts
+              separately.
+            </p>
           </div>
         )}
         {error && (

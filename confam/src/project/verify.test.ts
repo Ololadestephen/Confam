@@ -6,14 +6,15 @@ import { verifyProject } from "./verify.js";
 import { runWorkflow, type WorkflowResult } from "../workflows/runner.js";
 
 vi.mock("../workflows/runner.js", () => ({ runWorkflow: vi.fn() }));
+const runtime = vi.hoisted(() => ({ start: vi.fn(), stop: vi.fn() }));
 vi.mock("./runtime.js", () => ({
   createProjectLifecycle: () => ({
-    reset: vi.fn(), stop: vi.fn(), restart: vi.fn(), start: vi.fn().mockResolvedValue({ baseUrl: "http://127.0.0.1:9999" }),
+    reset: vi.fn(), stop: runtime.stop, restart: vi.fn(), start: runtime.start,
   })
 }));
 const directories: string[] = [];
 afterEach(async () => { for (const directory of directories.splice(0)) await rm(directory, { recursive: true, force: true }); });
-beforeEach(() => { vi.resetAllMocks(); });
+beforeEach(() => { vi.resetAllMocks(); runtime.start.mockResolvedValue({ baseUrl: "http://127.0.0.1:9999" }); });
 function result(status: WorkflowResult["status"], expectationId = "persists"): WorkflowResult {
   return { status, expectationId, reached: true, assertions: [], steps: [], durationMs: 1, trace: "trace", traces: [], videos: [] };
 }
@@ -87,4 +88,89 @@ it("refuses scripted confirmation for a non-fixture case", async () => {
   await writeFile(options.caseFile, JSON.stringify(definition));
   await expect(verifyProject(options)).rejects.toThrow("explicitly labelled fixture");
   expect(runWorkflow).not.toHaveBeenCalled();
+});
+
+it("records cancellation after an evaluated variant and does not run controls or candidate", async () => {
+  const { options } = await fixture(true);
+  const controller = new AbortController();
+  const phases: string[] = [];
+  vi.mocked(runWorkflow).mockImplementationOnce(async () => {
+    controller.abort();
+    return result("cancelled");
+  });
+  const { report, reportPath } = await verifyProject({ ...options, signal: controller.signal, onProgress(event) { phases.push(event.phase); } });
+  expect(report.status).toBe("cancelled");
+  expect(report.candidate).toBeUndefined();
+  expect(report.variants).toHaveLength(1);
+  expect(runWorkflow).toHaveBeenCalledTimes(1);
+  expect(phases).toEqual(["preparing", "frozen", "variant-start", "runtime-ready", "variant-finish", "finished"]);
+  expect(JSON.parse(await readFile(reportPath, "utf8")).status).toBe("cancelled");
+});
+
+
+it("stops the lifecycle and writes a cancelled report when readiness is interrupted", async () => {
+  const { options } = await fixture(true);
+  const controller = new AbortController();
+  runtime.start.mockImplementation(async (signal: AbortSignal) => {
+    controller.abort();
+    if (signal.aborted) throw new Error("Readiness cancelled");
+  });
+  const { report, reportPath } = await verifyProject({ ...options, signal: controller.signal });
+  expect(runtime.stop).toHaveBeenCalled();
+  expect(report.status).toBe("cancelled");
+  expect(report.candidate).toBeUndefined();
+  expect(runWorkflow).not.toHaveBeenCalled();
+  expect(JSON.parse(await readFile(reportPath, "utf8")).status).toBe("cancelled");
+});
+
+it("reports unsuccessful lifecycle cleanup after cancellation without a candidate verdict", async () => {
+  const { options } = await fixture();
+  const controller = new AbortController();
+  const outcomes: string[] = [];
+  runtime.stop.mockRejectedValue(new Error("stop failed"));
+  vi.mocked(runWorkflow).mockImplementationOnce(async () => { controller.abort(); return result("cancelled"); });
+  const { report } = await verifyProject({ ...options, signal: controller.signal, onProgress(event) {
+    if (event.phase === "variant-finish") outcomes.push(event.outcome ?? "");
+  } });
+  expect(report.status).toBe("cancelled");
+  expect(report.cleanupComplete).toBe(false);
+  expect(report.variants[0]?.cleanupComplete).toBe(false);
+  expect(report.variants[0]?.error).toContain("stop failed");
+  expect(report.candidate).toBeUndefined();
+  expect(outcomes).toEqual(["error"]);
+});
+
+it("does not start controls or a candidate after original cleanup fails", async () => {
+  const { options } = await fixture(true);
+  runtime.stop.mockRejectedValue(new Error("stop failed"));
+  vi.mocked(runWorkflow).mockResolvedValue(result("assertion-failed"));
+  const { report } = await verifyProject(options);
+  expect(report.status).toBe("error");
+  expect(report.cleanupComplete).toBe(false);
+  expect(report.variants).toHaveLength(1);
+  expect(runtime.start).toHaveBeenCalledTimes(1);
+  expect(runWorkflow).toHaveBeenCalledTimes(1);
+  expect(report.candidate).toBeUndefined();
+});
+
+it("does not start later controls or a candidate after a control cleanup fails", async () => {
+  const { options } = await fixture(true);
+  runtime.stop.mockResolvedValueOnce(undefined).mockRejectedValueOnce(new Error("stop failed"));
+  vi.mocked(runWorkflow).mockResolvedValueOnce(result("assertion-failed")).mockResolvedValue(result("passed"));
+  const { report } = await verifyProject(options);
+  expect(report.status).toBe("error");
+  expect(report.cleanupComplete).toBe(false);
+  expect(report.variants).toHaveLength(2);
+  expect(runtime.start).toHaveBeenCalledTimes(2);
+  expect(report.candidate).toBeUndefined();
+});
+
+it("clears the candidate verdict when its workflow cleanup fails", async () => {
+  const { options } = await fixture();
+  vi.mocked(runWorkflow).mockResolvedValueOnce(result("assertion-failed"))
+    .mockResolvedValueOnce({ ...result("passed"), cleanupComplete: false });
+  const { report } = await verifyProject(options);
+  expect(report.status).toBe("error");
+  expect(report.cleanupComplete).toBe(false);
+  expect(report.candidate).toBeUndefined();
 });

@@ -1,3 +1,5 @@
+import { ExecutionManager } from "../jobs/manager.js";
+import { jobsApi } from "./jobs-api.js";
 import { OnboardingService } from "../onboarding/service.js";
 import type { ModelTransport } from "../models/client.js";
 import { onboardingApi } from "./onboarding-api.js";
@@ -164,6 +166,12 @@ export async function startReviewServer(
     path.join(registryDirectory, "drafts"),
     options.modelTransport,
   );
+  const jobs = new ExecutionManager(
+    onboarding,
+    path.join(registryDirectory, "jobs"),
+    root,
+    !selected,
+  );
   const resolveView = async (id: string | null) => {
     if (view) {
       if (id && id !== path.basename(root)) throw new Error("Unknown run.");
@@ -219,7 +227,7 @@ export async function startReviewServer(
       .pathname;
     const projectMutation =
       request.method === "POST" &&
-      ["/api/projects", "/api/onboarding"].includes(requestPath);
+      ["/api/projects", "/api/onboarding", "/api/jobs"].includes(requestPath);
     if (request.method !== "GET" && !projectMutation) {
       json(response, 405, { error: "Unsupported request method." });
       return;
@@ -240,6 +248,10 @@ export async function startReviewServer(
           json(response, 403, {
             error: "Open the review URL printed by the CLI.",
           });
+          return;
+        }
+        if (url.pathname === "/api/jobs") {
+          await jobsApi(jobs, request, response, url);
           return;
         }
         if (url.pathname === "/api/onboarding") {
@@ -330,7 +342,7 @@ export async function startReviewServer(
         return;
       }
       const spa =
-        /^\/(?:runs(?:\/new|\/[^/]+(?:\/(?:expectations|live|compare|checks|decoys\/[^/]+))?)?|share\/[^/]+|guide|projects)\/?$/.test(
+        /^\/(?:runs(?:\/new|\/[^/]+(?:\/(?:expectations|live|compare|checks|decoys\/[^/]+))?)?|share\/[^/]+|guide|projects|jobs\/(?:new|[a-f0-9-]+))\/?$/.test(
           url.pathname,
         );
       const route =
@@ -386,6 +398,7 @@ export async function startReviewServer(
     port,
     token,
     async close() {
+      await jobs.close();
       clearInterval(interval);
       for (const client of clients.keys()) client.end();
       server.closeAllConnections();

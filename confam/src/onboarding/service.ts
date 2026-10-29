@@ -1,3 +1,4 @@
+import { loadExecutionInputs } from "./execution.js";
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
 import {
@@ -407,6 +408,13 @@ export class OnboardingService {
       draft.session.status = "workflow-review";
       await this.storage.write(id, draft);
       return draft.session;
+    });
+  }
+  async executionInputs(id: string) {
+    return this.storage.locked(id, async () => {
+      const draft = await this.storage.read(id);
+      await this.current(draft);
+      return loadExecutionInputs(draft, await this.storage.folder(id));
     });
   }
   async confirm(

@@ -67,6 +67,12 @@ function runtimeEnvironment(runtime: ProjectRuntime, port: number, dataPath: str
   return { PATH: process.env.PATH, [runtime.portVariable]: String(port), [runtime.dataVariable]: dataPath };
 }
 
+class StartupCleanupError extends Error {
+  constructor(readonly cleanupError: unknown) {
+    super("Project startup cleanup failed.", { cause: cleanupError });
+  }
+}
+
 interface StartupErrors { spawn?: Error; log?: Error; }
 
 async function waitForReadiness(
@@ -131,7 +137,7 @@ export async function startProjectServer(
     await waitForReadiness(child, baseUrl, runtime, errors, signal);
     return { baseUrl, port, stop };
   } catch (error) {
-    await stop();
+    try { await stop(); } catch (cleanupError) { throw new StartupCleanupError(cleanupError); }
     throw error;
   }
 }
@@ -141,6 +147,7 @@ export function createProjectLifecycle(appDirectory: string, variantDirectory: s
   const dataPath = path.join(dataDirectory, "state");
   const logPath = path.resolve(variantDirectory, "runtime.log");
   let server: ProjectServer | undefined;
+  let startupCleanupError: StartupCleanupError | undefined;
   let queue: Promise<unknown> = Promise.resolve();
   const serial = <T>(operation: () => Promise<T>): Promise<T> => {
     const next = queue.then(operation);
@@ -148,11 +155,13 @@ export function createProjectLifecycle(appDirectory: string, variantDirectory: s
     return next;
   };
   const start = async (signal?: AbortSignal) => {
+    if (startupCleanupError) throw startupCleanupError;
     if (server) throw new Error("Project is already running.");
     await mkdir(variantDirectory, { recursive: true });
     await mkdir(dataDirectory, { recursive: true });
     await confinedPath(variantDirectory, "data");
-    server = await startProjectServer(appDirectory, dataPath, logPath, runtime, signal);
+    try { server = await startProjectServer(appDirectory, dataPath, logPath, runtime, signal); }
+    catch (error) { if (error instanceof StartupCleanupError) startupCleanupError = error; throw error; }
     return server;
   };
   return {
@@ -164,7 +173,7 @@ export function createProjectLifecycle(appDirectory: string, variantDirectory: s
       await server.stop(); server = undefined;
       return start(signal);
     }),
-    stop: () => serial(async () => { await server?.stop(); server = undefined; }),
+    stop: () => serial(async () => { if (startupCleanupError) throw startupCleanupError; await server?.stop(); server = undefined; }),
     reset: () => serial(async () => {
       if (server) throw new Error("Stop the project before resetting its data.");
       await mkdir(variantDirectory, { recursive: true });

@@ -151,3 +151,38 @@ it("treats a denied existence probe as live and still completes shutdown", async
   expect(deniedProbe).toBe(true);
   await expect(fetch(server.baseUrl)).rejects.toThrow();
 });
+
+it("retains a startup cleanup failure and never reports the lifecycle stopped", async () => {
+  if (process.platform === "win32") return;
+  const { directory, app, runtime } = await fixture();
+  const lifecycle = createProjectLifecycle(app, path.join(directory, "failed-cleanup"), {
+    ...runtime, command: [process.execPath, "-e", "setInterval(()=>{},1000)"], timeoutMs: 100,
+  });
+  const kill = process.kill.bind(process);
+  let spawnedGroup: number | undefined;
+  const spy = vi.spyOn(process, "kill").mockImplementation((pid, signal) => {
+    if (pid < 0 && signal === "SIGTERM") {
+      spawnedGroup = pid;
+      throw Object.assign(new Error("termination denied"), { code: "EPERM" });
+    }
+    return kill(pid, signal);
+  });
+  try {
+    await expect(lifecycle.start()).rejects.toThrow("startup cleanup failed");
+    await expect(lifecycle.stop()).rejects.toThrow("startup cleanup failed");
+    await expect(lifecycle.start()).rejects.toThrow("startup cleanup failed");
+    expect(spawnedGroup).toBeDefined();
+  } finally {
+    spy.mockRestore();
+    if (spawnedGroup !== undefined) { try { kill(spawnedGroup, "SIGKILL"); } catch (error) { if ((error as NodeJS.ErrnoException).code !== "ESRCH") throw error; } }
+  }
+});
+
+it("allows lifecycle stop after a readiness failure whose cleanup succeeded", async () => {
+  const { directory, app, runtime } = await fixture();
+  const lifecycle = createProjectLifecycle(app, path.join(directory, "clean-failure"), {
+    ...runtime, command: [process.execPath, "-e", "setInterval(()=>{},1000)"], timeoutMs: 100,
+  });
+  await expect(lifecycle.start()).rejects.toThrow("deadline");
+  await expect(lifecycle.stop()).resolves.toBeUndefined();
+});

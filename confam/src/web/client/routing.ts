@@ -2,9 +2,12 @@ export interface Route {
   page: string;
   runId?: string;
   variantId?: string;
+  jobId?: string;
 }
 export function routeFor(pathname: string): Route {
   const parts = pathname.split("/").filter(Boolean).map(decodeURIComponent);
+  if (parts[0] === "jobs" && parts.length === 2)
+    return { page: "job", jobId: parts[1] === "new" ? undefined : parts[1] };
   if (!parts.length) return { page: "home" };
   if (parts[0] === "projects" && parts.length === 1)
     return { page: "projects" };

@@ -1,3 +1,4 @@
+import ExecutionJob from "./pages/ExecutionJob.js";
 import ReportBuilder from "./pages/ReportBuilder.js";
 import Landing from "./pages/Landing.js";
 import Library from "./pages/Library.js";
@@ -68,6 +69,14 @@ export default function App() {
         ) : (
           <Setup />
         )
+      ) : route.page === "job" ? (
+        <ExecutionJob
+          jobId={route.jobId}
+          draftId={
+            new URLSearchParams(window.location.search).get("draft") ??
+            undefined
+          }
+        />
       ) : route.page === "guide" ? (
         <Guide />
       ) : route.runId ? (

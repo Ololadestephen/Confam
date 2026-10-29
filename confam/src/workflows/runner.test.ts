@@ -12,6 +12,7 @@ let server: ReturnType<typeof createServer>;
 beforeEach(async () => {
   directory = await mkdtemp(path.join(os.tmpdir(), "confam-workflow-"));
   server = createServer((req, res) => {
+    if (req.url === "/pending") return;
     if (req.url === "/redirect") { res.writeHead(302, { location: "http://external.invalid/" }); res.end(); return; }
     if (req.url === "/identity") { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify({ cookie: req.headers.cookie ?? "none" })); return; }
     res.setHeader("Content-Type", "text/html");
@@ -42,6 +43,7 @@ function calculation(expected = 30): WorkflowPlan {
 it("runs typed fixture inputs and records real trace/video evidence", async () => {
   const result = await runWorkflow(calculation(), { quantity: 3 }, url, directory);
   expect(result.status).toBe("passed");
+  expect(result.cleanupComplete).toBe(true);
   expect(result.assertions[0]).toMatchObject({ actual: 30, expected: 30, passed: true });
   expect((await stat(result.trace)).size).toBeGreaterThan(0);
   expect(result.videos.length).toBeGreaterThan(0);
@@ -93,4 +95,45 @@ it("compares observations with approved fixture expectations", async () => {
   const result = await runWorkflow(plan, { quantity: 3, expectedTotal: 30 }, url, directory);
   expect(result.status).toBe("passed");
   expect(result.assertions[0]?.expected).toBe(30);
+});
+
+it("returns cancelled before allocating a browser when already aborted", async () => {
+  const controller = new AbortController();
+  controller.abort();
+  const result = await runWorkflow(calculation(), { quantity: 3 }, url, directory, { signal: controller.signal });
+  expect(result.status).toBe("cancelled");
+  expect(result.cleanupComplete).toBe(true);
+  expect(result.steps).toEqual([]);
+});
+
+it("interrupts a pending browser step and never starts later steps", async () => {
+  const controller = new AbortController();
+  const events: number[] = [];
+  const plan: WorkflowPlan = { schemaVersion: 1, steps: [
+    { action: "navigate", path: "/" },
+    { action: "wait", locator: { kind: "testId", value: "never-appears" } },
+    { action: "reached" },
+  ] };
+  const result = await runWorkflow(plan, {}, url, directory, {
+    signal: controller.signal,
+    onStep({ stepIndex }) { events.push(stepIndex); if (stepIndex === 1) setTimeout(() => controller.abort(), 50); },
+  });
+  expect(result.status).toBe("cancelled");
+  expect(events).toEqual([0, 1]);
+  expect(result.reached).toBe(false);
+});
+
+
+it("interrupts a pending HTTP request on cancellation", async () => {
+  const controller = new AbortController();
+  const plan: WorkflowPlan = { schemaVersion: 1, steps: [
+    { action: "request", method: "GET", path: "/pending", capture: "response" },
+    { action: "reached" },
+  ] };
+  const result = await runWorkflow(plan, {}, url, directory, {
+    signal: controller.signal,
+    onStep() { setTimeout(() => controller.abort(), 100); },
+  });
+  expect(result.status).toBe("cancelled");
+  expect(result.reached).toBe(false);
 });

@@ -97,8 +97,9 @@ export default function Guide() {
           For a registered app with a valid configuration, the browser proposes
           editable requirements and a workflow. Each model request requires an
           export preview and explicit consent. Confirmation saves reviewed local
-          files; application execution still uses the CLI. Advanced manual setup
-          remains available without model calls.
+          files. Prepare verification and approve its frozen snapshot to run in
+          the browser; the CLI remains available. Advanced manual setup remains
+          available without model calls.
         </p>
       </section>
       <section className="section-block">
