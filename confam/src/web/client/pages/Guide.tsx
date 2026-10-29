@@ -2,18 +2,16 @@ import { Data, Icon, Link, PageTitle } from "../shared.js";
 export default function Guide() {
   return (
     <main id="main" className="workspace guide">
-      <PageTitle eyebrow="How it works" title="A clearer way to check a fix.">
-        One specific report. Reviewed expectations. Evidence from execution.
-      </PageTitle>
+      <PageTitle title="Guide"></PageTitle>
       <div className="guide-lead">
         <div className="guide-symbol">
           <Icon name="layers" size={90} />
         </div>
         <div>
           <h2>
-            Bring the question.
+            Local
             <br />
-            Keep the context.
+            verification
           </h2>
           <p>
             Confam runs local applications against reviewed browser and HTTP
@@ -21,7 +19,7 @@ export default function Guide() {
             repair, and preserves the observations that support the result.
           </p>
           <Link to="/runs/new" className="button button-dark">
-            Prepare a case ↗
+            Prepare a case
           </Link>
         </div>
       </div>
@@ -56,7 +54,7 @@ export default function Guide() {
         ))}
       </div>
       <section className="section-block">
-        <h2>Two ways to ask the question.</h2>
+        <h2>Modes</h2>
         <div className="two-columns">
           <article className="panel mint">
             <span className="eyebrow">Ordinary verification</span>
@@ -94,7 +92,7 @@ export default function Guide() {
         </p>
       </section>
       <section className="section-block">
-        <h2>What this prototype does not promise.</h2>
+        <h2>Limits</h2>
         <div className="guide-cards">
           <article>
             <h3>Not arbitrary repositories</h3>

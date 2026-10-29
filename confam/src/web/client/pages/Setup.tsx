@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { initialDraft, prepareDraft, type DraftFields } from "../draft.js";
-import { Icon, Link, PageTitle } from "../shared.js";
+import { Link, PageTitle } from "../shared.js";
 import { ExpectationsStep, ReportStep, ReviewStep } from "./SetupSteps.js";
 export default function Setup() {
   const [fields, setFields] = useState<DraftFields>(initialDraft);
@@ -13,6 +13,7 @@ export default function Setup() {
     setFields((old) => ({ ...old, [key]: value }));
     setError("");
     setReview(undefined);
+    setCopied(false);
   };
   const next = () => {
     if (
@@ -35,44 +36,26 @@ export default function Setup() {
   };
   return (
     <main id="main" className="workspace">
-      <PageTitle eyebrow="A new question" title="Start with what happened.">
-        Prepare a case locally. Review the workflow. Execute it deliberately.
-      </PageTitle>
+      <PageTitle title="Prepare run"></PageTitle>
       <div className="setup-layout">
         <aside className="setup-sidebar">
           <ol>
-            {["The report", "The expectations", "Review & hand off"].map(
-              (name, index) => (
-                <li key={name} className={step === index ? "active" : ""}>
-                  <span>{step > index ? "✓" : `0${index + 1}`}</span>
-                  {name}
-                </li>
-              ),
-            )}
+            {["Report", "Expectations", "Review"].map((name, index) => (
+              <li
+                key={name}
+                className={step === index ? "active" : ""}
+                aria-current={step === index ? "step" : undefined}
+              >
+                <span>{step > index ? "✓" : `0${index + 1}`}</span>
+                {name}
+              </li>
+            ))}
           </ol>
-          <div className="sidebar-note">
-            <Icon name="file" />
-            <h3>Your data stays here.</h3>
-            <p>
-              This form prepares files and a CLI command. It does not upload
-              source or recordings, call a model, or run the application.
-            </p>
-            <Link to="/guide">See the supported workflow ↗</Link>
-          </div>
         </aside>
-        <section className="form-panel">
-          <div className="form-section-heading">
-            <span className="pill">Step {step + 1} of 3</span>
-            <h2>
-              {
-                [
-                  "Give the report some context.",
-                  "Decide what a repair needs to do.",
-                  "A deliberate next step.",
-                ][step]
-              }
-            </h2>
-          </div>
+        <section
+          className="form-panel"
+          aria-label={["Report", "Expectations", "Review draft"][step]}
+        >
           {step === 0 ? (
             <ReportStep
               fields={fields}
@@ -106,7 +89,7 @@ export default function Setup() {
                   setError("");
                 }}
               >
-                ← Back
+                Back
               </button>
             ) : (
               <Link to="/runs" className="text-link">
@@ -116,7 +99,6 @@ export default function Setup() {
             {step < 2 ? (
               <button className="button button-dark" onClick={next}>
                 {step === 0 ? "Define expectations" : "Review the draft"}{" "}
-                <span>→</span>
               </button>
             ) : null}
           </div>

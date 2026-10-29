@@ -601,3 +601,9 @@
 .summary-paper li + li {
   margin-top: 9px;
 }
+.comparison-toolbar {
+  margin: 0 0 20px;
+}
+.pane-body > .assertions {
+  margin-bottom: 18px;
+}

@@ -6,25 +6,15 @@ import type { RunView } from "../types.js";
 export function Summary({ run }: { run: RunView }) {
   return (
     <>
-      <PageTitle
-        eyebrow="Local summary preview"
-        title="The result, with its context."
-      >
-        A plain-language view to review before exporting. This is not a hosted
-        share link.
-      </PageTitle>
+      <PageTitle title="Summary"></PageTitle>
       <section className="summary-paper">
         <span className="paper-star">✳</span>
         <p className="eyebrow">
           {run.project} / {run.caseId}
         </p>
         <h2>{run.verdict}</h2>
-        {run.fixture ? (
-          <p className="fixture-note">
-            Scripted fixture inputs. Independent evaluation is separate.
-          </p>
-        ) : null}
-        <h3>What was being checked</h3>
+        {run.fixture ? <p className="fixture-note">Scripted fixture</p> : null}
+        <h3>Expectations</h3>
         {run.expectations.length ? (
           <ul>
             {run.expectations.map((item) => (
@@ -34,7 +24,7 @@ export function Summary({ run }: { run: RunView }) {
         ) : (
           <p>No confirmed expectations included in this report.</p>
         )}
-        <h3>What remains uncertain</h3>
+        <h3>Limitations</h3>
         <ul>
           {run.limitations.map((text, index) => (
             <li key={index}>{text}</li>
@@ -46,15 +36,25 @@ export function Summary({ run }: { run: RunView }) {
           href={apiUrl("/api/export", run.runId)}
           download
         >
-          Export redacted summary ↓
+          Export redacted summary
         </a>
-        <p className="small muted">
-          The JSON summary excludes recordings, traces, logs, source and local
-          links. Redaction is best effort. Review the file before sharing it.
-        </p>
+        <dl className="review-facts">
+          <div>
+            <dt>Export</dt>
+            <dd>Local JSON</dd>
+          </div>
+          <div>
+            <dt>Excluded</dt>
+            <dd>Recordings, traces, logs, source, local artifact links</dd>
+          </div>
+          <div>
+            <dt>Redaction</dt>
+            <dd>Best effort; review before sharing</dd>
+          </div>
+        </dl>
       </section>
       <Link to={runPath(run.runId)} className="text-link">
-        ← Back to the full evidence
+        Overview
       </Link>
     </>
   );

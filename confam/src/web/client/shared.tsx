@@ -50,7 +50,6 @@ export function Icon({
         <path d="m10 9 5 3-5 3Z" />
       </>
     ),
-    arrow: <path d="M4 12h16m-6-6 6 6-6 6" />,
   };
   return (
     <svg
@@ -84,7 +83,6 @@ export function Shell({
         <nav className="topnav" aria-label="Main navigation">
           <Link to="/" className="brand">
             <span className="brand-flower">✳</span> confam
-            <span className="beta">local beta</span>
           </Link>
           <div className="nav-links">
             <Link to="/" aria-current={page === "home" ? "page" : undefined}>
@@ -94,74 +92,44 @@ export function Shell({
               to="/runs"
               aria-current={page === "runs" ? "page" : undefined}
             >
-              Your runs
+              Runs
             </Link>
             <Link
               to="/guide"
               aria-current={page === "guide" ? "page" : undefined}
             >
-              How it works
+              Guide
             </Link>
           </div>
           <Link to="/runs/new" className="button nav-cta">
-            Prepare a run <span>↗</span>
+            Prepare run
           </Link>
         </nav>
       </header>
       {children}
-      <footer className="footer">
-        <div>
-          <Link to="/" className="brand">
-            <span className="brand-flower">✳</span> confam
-          </Link>
-          <p>
-            A little more certainty.
-            <br />A clear record of what was checked.
-          </p>
-        </div>
-        <div>
-          <span className="eyebrow">Explore</span>
-          <Link to="/runs">Run library ↗</Link>
-          <Link to="/runs/new">Prepare a run ↗</Link>
-          <Link to="/guide">The workflow ↗</Link>
-        </div>
-        <div>
-          <span className="eyebrow">Made for local work</span>
-          <p>
-            Specific behavior. Recorded conditions.
-            <br />
-            Evidence you can inspect.
-          </p>
-          <span className="small">
-            No application-wide correctness guarantee.
-          </span>
-        </div>
-        <div className="footer-bottom">
-          <span>Confam · local developer tools</span>
-          <span>Built with Muse Spark &amp; Muse Wonder</span>
-        </div>
+      <footer className="footer footer-compact">
+        <Link to="/" className="brand">
+          <span className="brand-flower">✳</span> confam
+        </Link>
+        <nav aria-label="Footer navigation">
+          <Link to="/runs">Runs</Link>
+          <Link to="/runs/new">Prepare run</Link>
+          <Link to="/guide">Guide</Link>
+        </nav>
       </footer>
     </>
   );
 }
 export function PageTitle({
-  eyebrow,
   title,
-  children,
   action,
 }: {
-  eyebrow: string;
   title: string;
-  children?: ReactNode;
   action?: ReactNode;
 }) {
   return (
     <header className="page-heading">
-      <div>
-        <p className="eyebrow">{eyebrow}</p>
-        <h1>{title}</h1>
-        {children ? <p className="page-subtitle">{children}</p> : null}
-      </div>
+      <h1>{title}</h1>
       {action}
     </header>
   );
@@ -170,7 +138,7 @@ export function RunNav({ run, active }: { run: RunView; active: string }) {
   return (
     <>
       <div className="breadcrumb">
-        <Link to="/runs">Your runs</Link>
+        <Link to="/runs">Runs</Link>
         <span>/</span>
         <span>{run.project}</span>
         <span>/</span>
@@ -196,14 +164,12 @@ export function RunNav({ run, active }: { run: RunView; active: string }) {
           to={`/share/${encodeURIComponent(run.runId)}`}
           aria-current={active === "share" ? "page" : undefined}
         >
-          Summary preview ↗
+          Summary
         </Link>
       </nav>
       {run.fixture ? (
         <p className="fixture-note">
-          <span className="stamp">Scripted fixture</span> Sample inputs and
-          confirmation. Execution evidence is real; this is not independent
-          evaluation.
+          <span className="stamp">Scripted fixture</span>
         </p>
       ) : null}
     </>
@@ -214,7 +180,7 @@ export function Scope({ run }: { run: RunView }) {
     <aside className="limitations">
       <Icon name="file" />
       <div>
-        <h3>The edges of this result</h3>
+        <h3>Limitations</h3>
         <ul>
           {(run.limitations.length
             ? run.limitations
@@ -234,7 +200,7 @@ export function Metrics({ run }: { run: RunView }) {
   return (
     <div className="metric-grid">
       <div>
-        <span className="eyebrow">Development challenges</span>
+        <span className="metric-label">Development faults caught</span>
         <strong>
           {run.development
             ? `${run.development.caught} of ${run.development.total}`
@@ -247,7 +213,7 @@ export function Metrics({ run }: { run: RunView }) {
         </p>
       </div>
       <div>
-        <span className="eyebrow">Supplied controls</span>
+        <span className="metric-label">Controls passed</span>
         <strong>
           {controls.length
             ? `${controls.filter((v) => v.outcome === "passed").length} of ${controls.length}`
@@ -255,12 +221,12 @@ export function Metrics({ run }: { run: RunView }) {
         </strong>
         <p>
           {controls.length
-            ? "Passed the recorded checks"
+            ? "Passed"
             : "False-rejection calibration unavailable"}
         </p>
       </div>
       <div>
-        <span className="eyebrow">Independent evaluation</span>
+        <span className="metric-label">Independent evaluation</span>
         <strong>
           {run.independent.evaluated
             ? run.independent.complete === false
@@ -268,10 +234,9 @@ export function Metrics({ run }: { run: RunView }) {
               : "Recorded"
             : "Not performed"}
         </strong>
-        <p>Separate from development faults</p>
       </div>
       <div>
-        <span className="eyebrow">Time / model estimate</span>
+        <span className="metric-label">Time / model estimate</span>
         <strong>{duration(run.durationMs)}</strong>
         <p>
           {typeof cost === "number"

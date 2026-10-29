@@ -12,23 +12,16 @@ export function Checks({ run }: { run: RunView }) {
       : [];
   return (
     <>
-      <PageTitle eyebrow="03 / The checks" title="Nothing quietly rewritten.">
-        Inspect recorded versions and control results. Missing history is shown
-        as missing.
-      </PageTitle>
+      <PageTitle title="Checks"></PageTitle>
       <section className="panel seal-panel">
         <Icon name="layers" size={32} />
         <div>
-          <h2>Recorded checks identity</h2>
+          <h2>Recorded hash</h2>
           {run.freezeHash ? (
             <code className="hash-value">{run.freezeHash}</code>
           ) : (
             <p>No checks hash included in this view.</p>
           )}
-          <p className="muted">
-            A displayed hash identifies recorded metadata. Opening this page
-            does not rerun integrity verification.
-          </p>
         </div>
       </section>
       <div className="version-rail">
@@ -50,10 +43,7 @@ export function Checks({ run }: { run: RunView }) {
             );
           })
         ) : (
-          <p className="notice">
-            No version history was included. A single recorded workflow is not
-            evidence of a strengthening round.
-          </p>
+          <p className="notice">No version history.</p>
         )}
       </div>
       <section className="section-block">

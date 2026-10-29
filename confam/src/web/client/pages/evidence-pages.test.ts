@@ -38,7 +38,7 @@ it("keeps inconclusive verdicts and unavailable calibration explicit without inv
   expect(html).toContain("Independent evaluation not performed.");
   expect(html).not.toContain("passed-checks-and-probes");
 });
-it("labels completed activity as saved evidence rather than simulating execution", () => {
+it("keeps completed activity saved and empty without simulated execution", () => {
   localWindow();
   const html = renderToStaticMarkup(
     createElement(Activity, {
@@ -46,8 +46,10 @@ it("labels completed activity as saved evidence rather than simulating execution
       connected: true,
     }),
   );
-  expect(html).toContain("This is saved execution evidence, not a live rerun.");
-  expect(html).toContain("No steps were supplied. No progress is simulated.");
+  expect(html).toContain("Saved");
+  expect(html).toContain("No recorded steps.");
+  expect(html).not.toContain("Following");
+  expect(html).not.toContain("activity-timeline");
 });
 it("displays a qualified surviving challenge without relabeling it caught", () => {
   localWindow();
@@ -67,9 +69,7 @@ it("displays a qualified surviving challenge without relabeling it caught", () =
       id: "decoy-one",
     }),
   );
-  expect(html).toContain("A qualified fault may be caught or survive.");
+  expect(html).not.toContain(">caught<");
   expect(html).toContain("survived");
-  expect(html).toContain(
-    "No independent observations recorded for this variant.",
-  );
+  expect(html).toContain("No independent observations.");
 });

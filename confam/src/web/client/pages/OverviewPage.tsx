@@ -13,20 +13,19 @@ export function Overview({ run }: { run: RunView }) {
           <Icon name="file" size={40} />
         </div>
         <div>
-          <p className="eyebrow">The recorded verdict</p>
           <h1>{run.verdict}</h1>
           <div className="button-row">
             <Link
               to={runPath(run.runId, "compare")}
               className="button button-dark"
             >
-              Open comparison ↗
+              Open comparison
             </Link>
             <Link
               to={`/share/${encodeURIComponent(run.runId)}`}
               className="button button-outline"
             >
-              Summary preview ↗
+              Summary preview
             </Link>
           </div>
         </div>
@@ -35,8 +34,7 @@ export function Overview({ run }: { run: RunView }) {
       <Scope run={run} />
       <div className="two-columns section-block">
         <div className="panel">
-          <span className="eyebrow">The reproduction</span>
-          <h2>Start with the original.</h2>
+          <h2>Original</h2>
           {original ? (
             <>
               <Status value={original.outcome} kind="original" />
@@ -47,8 +45,7 @@ export function Overview({ run }: { run: RunView }) {
           )}
         </div>
         <div className="panel">
-          <span className="eyebrow">The proposed repair</span>
-          <h2>What changed in behavior?</h2>
+          <h2>Candidate</h2>
           {candidate ? (
             <>
               <Status value={candidate.outcome} />
@@ -67,11 +64,10 @@ export function Overview({ run }: { run: RunView }) {
       <section className="section-block">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">The complete record</p>
-            <h2>Every variant stays visible.</h2>
+            <h2>Variants</h2>
           </div>
           <Link to={runPath(run.runId, "checks")} className="text-link">
-            Checks &amp; history ↗
+            Checks &amp; history
           </Link>
         </div>
         <div className="variant-list">
@@ -83,7 +79,7 @@ export function Overview({ run }: { run: RunView }) {
                   to={runPath(run.runId, `decoys/${encodeURIComponent(v.id)}`)}
                   className="variant-more"
                 >
-                  Inspect challenge detail ↗
+                  Inspect challenge detail
                 </Link>
               ) : null}
             </div>
@@ -97,7 +93,7 @@ export function Overview({ run }: { run: RunView }) {
         ) : null}
       </section>
       <section className="section-block">
-        <h2>Artifacts &amp; usage</h2>
+        <h2>Artifacts</h2>
         <div className="artifact-list">
           {run.files.map((link) => (
             <Artifact key={link.url} link={link} />

@@ -31,7 +31,6 @@ export function Artifact({
   return url ? (
     <a className="artifact-link" href={url} target="_blank" rel="noreferrer">
       {children ?? link.label}
-      <span aria-hidden="true"> ↗</span>
     </a>
   ) : (
     <span className="muted">Artifact unavailable</span>
@@ -41,7 +40,7 @@ function Transcript({ steps, id }: { steps: unknown[]; id: string }) {
   return (
     <details className="transcript" id={id}>
       <summary>
-        Recorded step transcript <span>{steps.length} steps</span>
+        Steps <span>{steps.length}</span>
       </summary>
       {steps.length ? (
         <ol>
@@ -64,11 +63,8 @@ function Transcript({ steps, id }: { steps: unknown[]; id: string }) {
           })}
         </ol>
       ) : (
-        <p className="muted">No step transcript was recorded.</p>
+        <p className="muted">No recorded steps.</p>
       )}
-      <p className="small muted">
-        Times use the workflow clock. They may differ from the recording clock.
-      </p>
     </details>
   );
 }
@@ -78,8 +74,10 @@ export function EvidencePane({
   alternatives,
   onSelect,
   alignControls = false,
+  showAssertions = false,
 }: {
   alignControls?: boolean;
+  showAssertions?: boolean;
   variant?: VariantView;
   title: string;
   alternatives?: VariantView[];
@@ -96,12 +94,11 @@ export function EvidencePane({
     <article className={`evidence-pane${decoy ? " is-decoy" : ""}`}>
       <header className="pane-header">
         <div>
-          <p className="eyebrow">{title}</p>
-          <h3>{variant?.id ?? "No variant recorded"}</h3>
+          <h3>{title}</h3>
         </div>
-        <span className="stamp">
-          {decoy ? "DECOY" : (variant?.kind ?? "EVIDENCE")}
-        </span>
+        {variant && variant.kind !== title.toLowerCase() ? (
+          <span className="stamp">{decoy ? "DECOY" : variant.kind}</span>
+        ) : null}
       </header>
       {alternatives && alternatives.length > 1 && onSelect ? (
         <label className="pane-select">
@@ -138,12 +135,14 @@ export function EvidencePane({
         ) : (
           <div className="no-footage">
             <span aria-hidden="true">▭</span>
-            <p>No recording available</p>
-            <small>This view only shows captured footage.</small>
+            <p>No recording</p>
           </div>
         )}
       </div>
       <div className="pane-body">
+        {showAssertions && variant ? (
+          <AssertionList assertions={variant.assertions} />
+        ) : null}
         {variant ? (
           <>
             <div className="pane-result">
@@ -182,8 +181,7 @@ export function EvidencePane({
   );
 }
 export function AssertionList({ assertions }: { assertions: unknown[] }) {
-  if (!assertions.length)
-    return <p className="muted">No assertion observations recorded.</p>;
+  if (!assertions.length) return <p className="muted">No assertions.</p>;
   return (
     <div className="assertions">
       {assertions.map((item, index) => {
@@ -231,11 +229,7 @@ export function AssertionList({ assertions }: { assertions: unknown[] }) {
 export function ProbeList({ probes }: { probes: Record<string, unknown> }) {
   const entries = Object.entries(probes);
   if (!entries.length)
-    return (
-      <p className="muted">
-        No independent observations recorded for this variant.
-      </p>
-    );
+    return <p className="muted">No independent observations.</p>;
   return (
     <div className="probes">
       {entries.map(([id, item]) => {

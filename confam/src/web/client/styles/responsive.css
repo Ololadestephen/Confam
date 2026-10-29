@@ -8,27 +8,14 @@
   }
 }
 @media (max-width: 1050px) {
-  .floating-note {
-    display: none;
-  }
   .hero h1 {
     font-size: clamp(42px, 6.5vw, 70px);
-  }
-  .feature-split {
-    gap: 50px;
   }
   .portal-cards {
     gap: 15px;
   }
-  .steps-grid {
-    gap: 20px;
-  }
   .section {
     padding: 80px 28px;
-  }
-  .boundaries {
-    padding-top: 30px;
-    gap: 50px;
   }
   .comparison-grid {
     gap: 10px;
@@ -68,9 +55,6 @@
   .brand {
     font-size: 23px;
   }
-  .beta {
-    display: none;
-  }
   .nav-cta {
     font-size: 10px;
     min-height: 34px;
@@ -101,26 +85,12 @@
     font-size: clamp(35px, 8.4vw, 56px);
     line-height: 1.15;
   }
-  .intro-pill {
-    font-size: 9px;
-    padding: 5px 10px;
-    margin-bottom: 25px;
-  }
-  .hero-description {
-    font-size: 13px;
-    margin-top: 28px;
-  }
   .hero .button-row {
     gap: 18px;
     flex-direction: column;
   }
   .hero .button {
     font-size: 12px;
-  }
-  .hero-footnote {
-    font-size: 9px;
-    max-width: 260px;
-    margin: 18px auto 0;
   }
   .portal-cards {
     gap: 9px;
@@ -143,43 +113,14 @@
     width: 25px;
     height: 25px;
   }
-  .circle-arrow {
-    width: 26px;
-    height: 23px;
-    font-size: 13px;
-  }
   .section {
     padding: 65px 20px;
   }
   .section-title {
     font-size: 33px;
   }
-  .section-lead {
-    font-size: 12px;
-    margin-bottom: 35px;
-  }
   .workflow-picture {
     padding: 15px 15px 18px;
-  }
-  .picture-heading {
-    gap: 10px;
-    padding-bottom: 22px;
-  }
-  .picture-heading h3 {
-    font-size: 17px;
-  }
-  .picture-heading small {
-    font-size: 6px;
-  }
-  .mini-icon {
-    width: 35px;
-    height: 35px;
-  }
-  .pencil-star {
-    font-size: 30px;
-  }
-  .mini-browser code {
-    font-size: 7px;
   }
   .picture-flow {
     gap: 7px;
@@ -198,83 +139,15 @@
     width: 20px;
     height: 20px;
   }
-  .flow-arrow {
-    font-size: 13px;
-  }
   .flow-number {
     font-size: 7px;
     right: 7px;
     top: 7px;
   }
-  .picture-note {
-    font-size: 8px;
-  }
-  .feature-split {
-    grid-template-columns: 1fr;
-    gap: 45px;
-  }
-  .feature-split h2 {
-    font-size: 37px;
-  }
-  .feature-split p {
-    font-size: 13px;
-  }
-  .receipt-stack {
-    max-width: 400px;
-    width: 100%;
-    margin: auto;
-  }
-  .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px 22px;
-    margin-top: 40px;
-  }
-  .steps-grid h3 {
-    font-size: 15px;
-  }
-  .steps-grid p {
-    font-size: 11px;
-  }
-  .boundaries {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: 10px;
-    padding-bottom: 80px;
-  }
-  .boundary-doodle {
-    min-height: 240px;
-    max-width: 380px;
-    width: 100%;
-    margin: auto;
-  }
-  .landing-cta {
-    padding: 70px 22px 80px;
-  }
-  .landing-cta h2 {
-    font-size: 43px;
-  }
-  .landing-cta p {
-    font-size: 12px;
-  }
-  .seal {
-    width: 72px;
-    height: 72px;
-    font-size: 7px;
-    right: 25px;
-    top: -29px;
-  }
   .footer {
     padding: 40px 22px 22px;
     grid-template-columns: 1fr 1fr;
     gap: 30px 20px;
-  }
-  .footer > div:nth-child(3) {
-    grid-column: 1/-1;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    gap: 9px;
-    margin-top: 0;
   }
   .workspace {
     padding: 12px 18px 60px;
@@ -287,21 +160,6 @@
   }
   .page-heading h1 {
     font-size: 35px;
-  }
-  .page-subtitle {
-    font-size: 13px;
-    margin-top: 15px;
-  }
-  .library-stats {
-    font-size: 10px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .library-stats > div {
-    flex-basis: 100%;
-  }
-  .library-stats > span:last-child {
-    display: none;
   }
   .filters {
     padding: 14px;
@@ -317,38 +175,6 @@
   .filters select {
     width: 100%;
     font-size: 11px;
-  }
-  .run-row {
-    grid-template-columns: 32px 1fr;
-    gap: 12px;
-    padding: 18px 14px;
-  }
-  .run-row-icon {
-    width: 31px;
-    height: 36px;
-    border-radius: 8px;
-  }
-  .run-row-icon svg {
-    width: 19px;
-  }
-  .run-row h2 {
-    font-size: 18px;
-  }
-  .run-row p {
-    font-size: 11px;
-  }
-  .run-row code {
-    font-size: 8px;
-  }
-  .run-row-end {
-    grid-column: 2;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-  .run-row-end .small {
-    font-size: 10px;
   }
   .setup-layout {
     grid-template-columns: 1fr;
@@ -370,14 +196,8 @@
     width: 25px;
     height: 25px;
   }
-  .sidebar-note {
-    display: none;
-  }
   .form-panel {
     padding: 22px 17px;
-  }
-  .form-section-heading h2 {
-    font-size: 25px;
   }
   .two-fields {
     grid-template-columns: 1fr;
@@ -637,5 +457,65 @@
 @media (max-width: 720px) {
   .pane-select-placeholder {
     display: none;
+  }
+}
+@media (max-width: 720px) {
+  .hero.hero-compact .hero-content {
+    padding: 32px 0 40px;
+  }
+  .hero .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .hero-actions .button {
+    min-height: 58px;
+    padding: 10px;
+  }
+  .portal-card {
+    min-height: 115px;
+  }
+  .workflow-heading h3 {
+    font-size: 18px;
+  }
+  .workflow-stages {
+    gap: 8px;
+  }
+  .workflow-stages > li {
+    flex-direction: column;
+    padding: 24px 8px 18px;
+    gap: 12px;
+  }
+  .workflow-stages strong {
+    font-size: 11px;
+  }
+  .footer-compact {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-compact nav {
+    font-size: 11px;
+    gap: 20px;
+  }
+  .runs-table th {
+    padding: 13px 8px;
+    font-size: 9px;
+  }
+  .runs-table td {
+    padding: 16px 8px;
+    font-size: 10px;
+  }
+  .runs-table td:first-child a {
+    font-size: 12px;
+  }
+  .runs-table .pill {
+    padding: 3px 6px;
+    font-size: 8px;
+  }
+  .review-facts > div {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 12px;
+    font-size: 11px;
   }
 }

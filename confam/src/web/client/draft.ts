@@ -39,8 +39,9 @@ export function prepareDraft(fields: DraftFields) {
     throw Error("Add a written report of at most 64KiB.");
   const statements = fields.expectations
     .split("\n")
-    .map((value) => value.trim())
-    .filter(Boolean);
+    .map((value) => value.trim());
+  const empty = statements.findIndex((value) => !value);
+  if (empty !== -1) throw Error(`Expectation ${empty + 1} is empty.`);
   if (!statements.length || statements.some((value) => value.length > 2000))
     throw Error(
       "Add at least one expectation, with no more than 2,000 characters per line.",

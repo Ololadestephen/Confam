@@ -16,21 +16,20 @@ export function Compare({ run }: { run: RunView }) {
     alternatives[0];
   return (
     <>
-      <PageTitle
-        eyebrow="02 / The reconstruction"
-        title="Same question. Different versions."
-      >
-        Inspect the original, a challenge or control, and the candidate. Each
-        recording uses its own clock.
-      </PageTitle>
+      <PageTitle title="Compare"></PageTitle>
+      <div className="comparison-toolbar">
+        <span className="pill">Independent playback</span>
+      </div>
       <div className="comparison-grid">
         <EvidencePane
           alignControls
+          showAssertions
           title="Original"
           variant={run.variants.find((v) => v.kind === "original")}
         />
         <EvidencePane
           alignControls
+          showAssertions
           title="Challenge or control"
           variant={middle}
           alternatives={alternatives}
@@ -38,15 +37,11 @@ export function Compare({ run }: { run: RunView }) {
         />
         <EvidencePane
           alignControls
+          showAssertions
           title="Candidate"
           variant={run.variants.find((v) => v.kind === "candidate")}
         />
       </div>
-      <p className="notice">
-        Playback is deliberately independent. Workflow timestamps and video
-        timestamps are not assumed to align. HTTP-only workflows may have blank
-        browser footage; use their actual assertions and traces.
-      </p>
       <Scope run={run} />
     </>
   );

@@ -12,15 +12,10 @@ function SavedRun({ route }: { route: Route }) {
     return (
       <main id="main" className="workspace">
         <PageTitle
-          eyebrow="Local evidence"
-          title={
-            error ? "This run could not be opened." : "Opening the evidence…"
-          }
-        >
-          {error ?? "Reading the saved report from your local server."}
-        </PageTitle>
+          title={error ? "Run unavailable" : "Loading run…"}
+        ></PageTitle>
         <Link to="/runs" className="button button-outline">
-          Return to the library ↗
+          Return to the library
         </Link>
       </main>
     );
@@ -61,11 +56,9 @@ export default function App() {
         <SavedRun route={route} />
       ) : (
         <main id="main" className="workspace">
-          <PageTitle eyebrow="Wrong turn" title="That page isn't here.">
-            Your saved evidence is a good place to pick things up.
-          </PageTitle>
+          <PageTitle title="Page not found"></PageTitle>
           <Link to="/runs" className="button button-dark">
-            Open your runs ↗
+            Open your runs
           </Link>
         </main>
       )}

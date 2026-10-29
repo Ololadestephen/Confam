@@ -40,3 +40,12 @@ it("quotes user-supplied CLI paths as data, preserving literal shell metacharact
   }).command;
   expect(command).toContain("--candidate 'repair $(touch bad).patch'");
 });
+
+it("does not renumber blank expectation entries or silently promote a reproduction target", () => {
+  expect(() => prepareDraft({ ...fields, expectations: "\nSecond" })).toThrow(
+    "Expectation 1 is empty",
+  );
+  expect(() =>
+    prepareDraft({ ...fields, expectations: "First\n\nThird" }),
+  ).toThrow("Expectation 2 is empty");
+});
