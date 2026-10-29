@@ -262,6 +262,15 @@ summary:focus-visible {
   font-size: 31px;
   line-height: 1;
 }
+.beta {
+  font: 9px var(--mono);
+  letter-spacing: 0.01em;
+  border: 1px solid var(--line);
+  padding: 3px 5px;
+  border-radius: 4px;
+  margin-left: 6px;
+  color: var(--muted);
+}
 .nav-links {
   display: flex;
   gap: 30px;
@@ -303,32 +312,30 @@ summary:focus-visible {
   font-size: 12px;
   line-height: 1.8;
 }
+.footer > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .footer .eyebrow {
   margin-bottom: 10px;
   display: block;
+}
+.footer > div:nth-child(2) > a {
+  font-size: 12px;
 }
 .footer .small {
   font-size: 10px;
   display: block;
   margin-top: 14px;
 }
-.footer-compact {
+.footer-bottom {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding-top: 34px;
-  padding-bottom: 34px;
+  gap: 20px;
+  grid-column: 1/-1;
   border-top: 1px solid var(--line);
-}
-.footer-compact .brand {
-  margin: 0;
-}
-.footer-compact nav {
-  display: flex;
-  gap: 26px;
-  font-size: 13px;
-}
-.metric-label {
-  font-size: 11px;
-  font-weight: 500;
+  padding-top: 20px;
+  margin-top: 20px;
+  font-size: 9px;
 }

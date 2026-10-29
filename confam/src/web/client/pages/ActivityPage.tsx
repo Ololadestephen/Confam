@@ -16,15 +16,22 @@ export function Activity({
     run.variants.find((v) => v.id === selected) ?? run.variants.at(-1);
   return (
     <>
-      <PageTitle title="Activity" />
+      <PageTitle
+        eyebrow="02 / Execution activity"
+        title={
+          run.status === "running"
+            ? "Keep an eye on the work."
+            : "Follow the recorded steps."
+        }
+      >
+        {run.status === "running"
+          ? "This page follows saved metadata as the runner writes it."
+          : "This is saved execution evidence, not a live rerun."}
+      </PageTitle>
       <div className="activity-toolbar">
         <span className="pill">
           <span className={`tiny-dot ${connected ? "" : "offline"}`} />
-          {run.status === "running"
-            ? connected
-              ? "Following"
-              : "Disconnected"
-            : "Saved"}
+          {connected ? "Metadata updates connected" : "Saved metadata"}
         </span>
         <span>{statusText(run.status)}</span>
         <label>
@@ -42,7 +49,8 @@ export function Activity({
       <div className="activity-grid">
         <EvidencePane title="Recorded footage" variant={variant} />
         <section className="panel">
-          <h2>Steps</h2>
+          <p className="eyebrow">Actual workflow observations</p>
+          <h2>The execution record</h2>
           {variant?.steps.length ? (
             <ol className="activity-timeline">
               {variant.steps.map((step, index) => {
@@ -62,6 +70,7 @@ export function Activity({
                             ? item.elapsedMs
                             : undefined,
                         )}{" "}
+                        workflow clock
                       </span>
                     </div>
                   </li>
@@ -69,7 +78,9 @@ export function Activity({
               })}
             </ol>
           ) : (
-            <p className="muted">No recorded steps.</p>
+            <p className="muted">
+              No steps were supplied. No progress is simulated.
+            </p>
           )}
         </section>
       </div>

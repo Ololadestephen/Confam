@@ -5,10 +5,13 @@ import type { RunView } from "../types.js";
 export function Expectations({ run }: { run: RunView }) {
   return (
     <>
-      <PageTitle title="Expectations"></PageTitle>
+      <PageTitle eyebrow="01 / The report" title="What did “fixed” mean?">
+        Recorded requirements define the scope. Historical confirmations are
+        read-only.
+      </PageTitle>
       {run.inputReport ? (
         <section className="panel report-paper">
-          <h2>Report</h2>
+          <span className="eyebrow">The written report</span>
           <p className="report-quote">{run.inputReport}</p>
         </section>
       ) : (
@@ -18,7 +21,7 @@ export function Expectations({ run }: { run: RunView }) {
       )}
       <section className="section-block">
         <div className="section-heading">
-          <h2>Requirements</h2>
+          <h2>The recorded expectations</h2>
           <span className="pill">{run.expectations.length} statements</span>
         </div>
         {run.expectations.length ? (
@@ -27,6 +30,7 @@ export function Expectations({ run }: { run: RunView }) {
               <article className="expectation" key={item.id}>
                 <code>{item.id}</code>
                 <p>{item.statement}</p>
+                <span aria-label="Read only">↳ recorded</span>
               </article>
             ))}
           </div>
@@ -36,15 +40,21 @@ export function Expectations({ run }: { run: RunView }) {
             suggestions are not confirmations.
           </p>
         )}
-        <span className="pill">Read only</span>
+        <p className="notice">
+          To change this scope, prepare a new case and explicitly accept it
+          through the CLI. This page does not alter a frozen run.
+        </p>
         <Link to="/runs/new" className="button button-outline">
-          Prepare a new scope
+          Prepare a new scope ↗
         </Link>
       </section>
       {run.recording || run.observations ? (
         <section className="section-block">
           <h2>The source recording</h2>
-          <span className="pill">Unconfirmed</span>
+          <p className="muted">
+            Model observations and suggested expectations require developer
+            review.
+          </p>
           {run.recording ? (
             <Artifact link={run.recording}>Open input recording</Artifact>
           ) : null}

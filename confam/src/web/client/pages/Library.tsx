@@ -19,13 +19,25 @@ export default function Library() {
   return (
     <main id="main" className="workspace">
       <PageTitle
-        title="Runs"
+        eyebrow="Your local workspace"
+        title="A record worth keeping."
         action={
           <Link to="/runs/new" className="button button-dark">
-            Prepare run
+            Prepare a run +
           </Link>
         }
-      ></PageTitle>
+      >
+        Revisit a report. Inspect a repair. Pick up the thread.
+      </PageTitle>
+      <div className="library-stats">
+        <div>
+          <span className="tiny-dot" /> Local evidence library
+        </div>
+        <span>
+          {runs.length} readable saved {runs.length === 1 ? "run" : "runs"}
+        </span>
+        <span>No application execution from this page</span>
+      </div>
       <section className="library-panel" aria-label="Saved runs">
         <div className="filters">
           <label>
@@ -70,50 +82,43 @@ export default function Library() {
             {error}
           </p>
         ) : visible.length ? (
-          <table className="runs-table">
-            <thead>
-              <tr>
-                <th scope="col">Case</th>
-                <th scope="col">Project</th>
-                <th scope="col">Status</th>
-                <th scope="col">Duration</th>
-              </tr>
-            </thead>
-            <tbody>
-              {visible.map((run) => (
-                <tr key={run.runId}>
-                  <td>
-                    <Link
-                      to={runPath(run.runId)}
-                      aria-label={`${run.caseId} ${run.runId}`}
-                      title={run.runId}
-                    >
-                      {run.caseId}
-                    </Link>
-                  </td>
-                  <td>
-                    {run.project}
-                    {run.fixture ? (
-                      <span className="stamp">Fixture</span>
-                    ) : null}
-                  </td>
-                  <td>
-                    <span className="pill">{statusText(run.status)}</span>
-                  </td>
-                  <td>
-                    {run.durationMs === undefined
-                      ? "—"
-                      : duration(run.durationMs)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="run-list">
+            {visible.map((run) => (
+              <Link to={runPath(run.runId)} key={run.runId} className="run-row">
+                <span className="run-row-icon">
+                  <Icon name={run.fixture ? "layers" : "file"} />
+                </span>
+                <div>
+                  <span className="eyebrow">
+                    {run.project} {run.fixture ? "· scripted fixture" : ""}
+                  </span>
+                  <h2>{run.caseId}</h2>
+                  <p>{run.verdict}</p>
+                  <code>{run.runId}</code>
+                </div>
+                <div className="run-row-end">
+                  <span className="pill">{statusText(run.status)}</span>
+                  <span className="small muted">
+                    {duration(run.durationMs)}
+                  </span>
+                  <span>↗</span>
+                </div>
+              </Link>
+            ))}
+          </div>
         ) : (
           <div className="empty-state">
             <Icon name="file" size={36} />
-            <h2>{runs.length ? "No matching runs." : "No saved runs."}</h2>
-
+            <h2>
+              {runs.length
+                ? "No matching runs."
+                : "Your next question starts here."}
+            </h2>
+            <p>
+              {runs.length
+                ? "Try a different filter or search."
+                : "Prepare a report, run it through the CLI, then return to the evidence."}
+            </p>
             {runs.length ? (
               <button
                 className="button button-outline"
@@ -127,15 +132,23 @@ export default function Library() {
               </button>
             ) : (
               <Link to="/runs/new" className="button button-dark">
-                Prepare a run
+                Prepare a run ↗
               </Link>
             )}
           </div>
         )}
       </section>
       {truncated ? (
-        <p className="notice">First 200 run directories shown.</p>
+        <p className="notice">
+          This library is bounded to 200 candidate run directories. Some runs
+          are not listed.
+        </p>
       ) : null}
+      <p className="small muted library-note">
+        Only readable run reports directly inside the selected directory are
+        listed. Invalid or incomplete metadata is omitted. Historical artifacts
+        are unchanged.
+      </p>
     </main>
   );
 }

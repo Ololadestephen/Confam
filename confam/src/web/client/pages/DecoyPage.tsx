@@ -16,23 +16,36 @@ export function Decoy({ run, id }: { run: RunView; id: string }) {
   if (!variant)
     return (
       <>
-        <PageTitle title="This challenge is not in the record." />
+        <PageTitle
+          eyebrow="Challenge detail"
+          title="This challenge is not in the record."
+        />
         <Link to={runPath(run.runId)} className="button button-outline">
-          Return to overview
+          Return to overview ↗
         </Link>
       </>
     );
   return (
     <>
-      <PageTitle title={variant.id}></PageTitle>
+      <PageTitle
+        eyebrow={`${variant.kind} / Challenge detail`}
+        title={variant.id}
+      >
+        A qualified fault may be caught or survive. Caught requires failure of
+        an assertion mapped to its declared violation.
+      </PageTitle>
       <div className="challenge-heading is-decoy">
         <span className="stamp">DECOY</span>
         <Status value={variant.outcome} kind={variant.kind} />
+        <p>
+          Qualification details are limited to the observations preserved in
+          this report. Missing stages are not inferred.
+        </p>
       </div>
       <div className="activity-grid">
         <EvidencePane title="Challenge footage" variant={variant} />
         <div className="panel">
-          <h2>Assertions</h2>
+          <h2>What the checks observed</h2>
           <AssertionList assertions={variant.assertions} />
           <h3 className="spaced">Independent observations</h3>
           <ProbeList probes={variant.probes} />

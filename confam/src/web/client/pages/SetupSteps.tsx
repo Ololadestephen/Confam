@@ -22,6 +22,7 @@ function makeField({ fields, update }: FieldsProps) {
     key: keyof DraftFields,
     label: string,
     placeholder?: string,
+    help?: string,
   ) => (
     <label className="field">
       <span>{label}</span>
@@ -33,6 +34,7 @@ function makeField({ fields, update }: FieldsProps) {
         required={key !== "candidatePath"}
         autoComplete="off"
       />
+      {help ? <small>{help}</small> : null}
     </label>
   );
   return field;
@@ -44,8 +46,18 @@ export function ReportStep(props: ReportProps) {
   return (
     <div className="form-fields">
       <div className="two-fields">
-        {field("projectId", "Project ID", "my-project")}
-        {field("caseId", "Case ID", "stateDisappears")}
+        {field(
+          "projectId",
+          "Project ID",
+          "my-project",
+          "Must match your project.json ID.",
+        )}
+        {field(
+          "caseId",
+          "Case ID",
+          "stateDisappears",
+          "A stable name for this behavior.",
+        )}
       </div>
       <label className="field">
         <span>What happened?</span>
@@ -56,13 +68,17 @@ export function ReportStep(props: ReportProps) {
           onChange={(e) => update("report", e.target.value)}
           maxLength={65536}
         />
+        <small>
+          Describe visible behavior, the steps you took, and the result you
+          expected.
+        </small>
       </label>
       <label className="upload-box">
         <Icon name="play" />
-        <strong>Recording (optional MP4)</strong>
+        <strong>{recording || "Have a screen recording?"}</strong>
+        <span>Optional MP4 · up to 10MiB · stays on your computer</span>
         <input
           type="file"
-          aria-label="Recording (optional MP4)"
           accept="video/mp4,.mp4"
           onChange={(e) => {
             const file = e.target.files?.[0];
@@ -82,16 +98,11 @@ export function ReportStep(props: ReportProps) {
         />
       </label>
       {recording ? (
-        <dl className="review-facts">
-          <div>
-            <dt>Recording</dt>
-            <dd>Selected locally</dd>
-          </div>
-          <div>
-            <dt>Interpretation</dt>
-            <dd>Not performed</dd>
-          </div>
-        </dl>
+        <p className="notice">
+          The clip is selected locally, not uploaded or interpreted. Live
+          recording intake requires a separate reviewed Meta export through the
+          CLI.
+        </p>
       ) : null}
     </div>
   );
@@ -100,75 +111,47 @@ export function ReportStep(props: ReportProps) {
 export function ExpectationsStep(props: FieldsProps) {
   const { fields, update } = props;
   const field = makeField(props);
-  const statements = fields.expectations.split("\n");
   return (
     <div className="form-fields">
-      <fieldset className="expectation-fields">
-        <legend>Expectations</legend>
-        {statements.map((statement, index) => (
-          <div className="expectation-input" key={index}>
-            <label className="field">
-              <span>
-                E{index + 1}
-                {index === 0 ? " · Reproduction target" : ""}
-              </span>
-              <input
-                aria-label={`Expectation ${index + 1}`}
-                value={statement}
-                onChange={(event) =>
-                  update(
-                    "expectations",
-                    statements
-                      .map((text, i) =>
-                        i === index ? event.target.value : text,
-                      )
-                      .join("\n"),
-                  )
-                }
-              />
-            </label>
-            {index > 0 ? (
-              <button
-                type="button"
-                className="button button-outline"
-                aria-label={`Remove expectation ${index + 1}`}
-                onClick={() =>
-                  update(
-                    "expectations",
-                    statements.filter((_, i) => i !== index).join("\n"),
-                  )
-                }
-              >
-                Remove
-              </button>
-            ) : null}
-          </div>
-        ))}
-        <button
-          type="button"
-          className="button button-outline"
-          onClick={() => update("expectations", fields.expectations + "\n")}
-        >
-          Add expectation
-        </button>
-      </fieldset>
+      <label className="field">
+        <span>Expected behavior · one statement per line</span>
+        <textarea
+          rows={5}
+          value={fields.expectations}
+          onChange={(e) => update("expectations", e.target.value)}
+          placeholder="The saved status remains after reopening the page."
+        />
+        <small>
+          Statements become E1, E2, and so on. E1 is the default reproduction
+          target; review this in the downloaded case before execution.
+        </small>
+      </label>
       <div className="two-fields">
         {field("projectPath", "Project configuration", "project.json")}
-        {field("workflowPath", "Workflow", "workflow.json")}
+        {field("workflowPath", "Reviewed workflow", "workflow.json")}
       </div>
       <div className="two-fields">
-        {field("casePath", "Case file", "case.json")}
-        {field("candidatePath", "Candidate patch (optional)", "repair.patch")}
+        {field("casePath", "Where you will save the case", "case.json")}
+        {field("candidatePath", "Candidate patch · optional", "repair.patch")}
       </div>
       <label className="field">
-        <span>Fixtures (JSON)</span>
+        <span>Fixture values · JSON object</span>
         <textarea
           className="mono"
           rows={4}
           value={fields.fixtures}
-          onChange={(event) => update("fixtures", event.target.value)}
+          onChange={(e) => update("fixtures", e.target.value)}
         />
+        <small>
+          Use fictional or explicitly approved data. A workflow must assert
+          every listed expectation.
+        </small>
       </label>
+      <p className="notice">
+        No correct controls are required in ordinary verification. Without them,
+        false-rejection calibration remains unavailable. This form does not
+        generate or validate a workflow.
+      </p>
     </div>
   );
 }
@@ -182,57 +165,13 @@ export function ReviewStep({
 }: ReviewProps) {
   return (
     <div className="form-fields">
-      <div className="review-heading">
-        <h2>Review draft</h2>
-        <span className="pill">Not executed</span>
+      <div className="handoff-ready">
+        <span>✓</span>
+        <div>
+          <h3>Your draft is ready to review.</h3>
+          <p>Nothing has been confirmed or executed.</p>
+        </div>
       </div>
-      <dl className="review-facts">
-        <div>
-          <dt>Project</dt>
-          <dd>
-            <code>{fields.projectPath}</code>
-          </dd>
-        </div>
-        <div>
-          <dt>Workflow</dt>
-          <dd>
-            <code>{fields.workflowPath}</code>
-          </dd>
-        </div>
-        <div>
-          <dt>Case</dt>
-          <dd>
-            <code>{fields.casePath}</code>
-          </dd>
-        </div>
-        <div>
-          <dt>Report</dt>
-          <dd>
-            <code>
-              {fields.casePath.slice(
-                0,
-                Math.max(
-                  fields.casePath.lastIndexOf("/"),
-                  fields.casePath.lastIndexOf("\\"),
-                ) + 1,
-              )}
-              report.md
-            </code>
-          </dd>
-        </div>
-        <div>
-          <dt>Candidate</dt>
-          <dd>{fields.candidatePath || "Not supplied"}</dd>
-        </div>
-        <div>
-          <dt>Execution</dt>
-          <dd>CLI</dd>
-        </div>
-        <div>
-          <dt>Reproduction target</dt>
-          <dd>{review.definition.reproductionTargets.join(", ")}</dd>
-        </div>
-      </dl>
       <div className="expectation-list">
         {review.definition.expectations.map((item) => (
           <div className="expectation" key={item.id}>
@@ -246,12 +185,12 @@ export function ReviewStep({
           className="button button-outline"
           onClick={() =>
             downloadText(
-              fields.casePath.split(/[\\/]/).at(-1) || "case.json",
+              "case.json",
               JSON.stringify(review.definition, null, 2) + "\n",
             )
           }
         >
-          Download case
+          Download case.json ↓
         </button>
         <button
           className="button button-outline"
@@ -259,10 +198,22 @@ export function ReviewStep({
             downloadText("report.md", fields.report, "text/markdown")
           }
         >
-          Download report
+          Download report.md ↓
         </button>
       </div>
-
+      <ol className="handoff-instructions">
+        <li>
+          Save the case at the path you specified. Place report.md beside it.
+        </li>
+        <li>
+          Review your project configuration, fixture values, reproduction
+          target, and executable workflow.
+        </li>
+        <li>
+          Run the command below from the repository root when you accept that
+          scope.
+        </li>
+      </ol>
       <div className="command-box">
         <code>{review.command}</code>
         <button
@@ -278,12 +229,16 @@ export function ReviewStep({
             }
           }}
         >
-          {copied ? "Copied" : "Copy "}
+          {copied ? "Copied ✓" : "Copy ↗"}
         </button>
       </div>
-
+      <p className="notice">
+        The command uses explicit developer acceptance. It is not an approval of
+        unreviewed files. Results will be available in the run directory printed
+        by the CLI.
+      </p>
       <Link to="/runs" className="text-link">
-        Runs
+        Return to the run library ↗
       </Link>
     </div>
   );
