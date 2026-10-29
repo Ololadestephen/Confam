@@ -1,0 +1,20 @@
+:root {
+  color-scheme: dark;
+  --projector-black: #0b0a09;
+  --screen-1: #141210;
+  --screen-2: #1c1916;
+  --screen-3: #26221e;
+  --rule: #38312a;
+  --silver: #ece6dd;
+  --ash: #b2a79b;
+  --smoke: #8c8277;
+  --tungsten: #f2a93b;
+  --tungsten-glow: rgb(242 169 59 / 15%);
+  --holds: #3dd6b5;
+  --breaks: #ff8279;
+  --uncounted: #a2aab5;
+  --review: #c6afff;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans: Geist, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+}

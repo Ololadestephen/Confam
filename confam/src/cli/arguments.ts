@@ -1,6 +1,8 @@
 import { budgetNanounits } from "../models/config.js";
 
 export const USAGE = `Commands:
+  serve <run-directory> [--port PORT] (local read-only evidence review)
+  recording-intake <recording.mp4> --report report.md [--budget USD] (exports recording and report to Meta)
   draft-decoys <case.json> --project project.json --registry probes.json --reference control-id [--budget USD] (exports corrected source and reviewed probes to Meta)
   challenge <case.json> --project project.json --workflow workflow.json --manifest challenges.json (--accept | --fixture) [--candidate patch] [--strengthen --budget USD]
   compare <challenge-run-directory> --pack pack.json [--integration-fixture]
@@ -17,8 +19,10 @@ export const USAGE = `Commands:
 The demo uses scripted fixture responses and confirmation; it makes no model calls.`;
 
 interface CliArguments {
-  command: "draft-decoys" | "challenge" | "compare" | "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
+  command: "serve" | "recording-intake" | "draft-decoys" | "challenge" | "compare" | "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
   subject: string;
+  report?: string;
+  port?: number;
   candidate?: string;
   budget?: number;
   answer?: "yes" | "no";
@@ -37,9 +41,11 @@ interface CliArguments {
 
 export function parseArguments(argv: string[]): CliArguments {
   const [command, subject, ...flags] = argv;
-  if (!command || !["draft-decoys", "challenge", "compare", "verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
+  if (!command || !["serve", "recording-intake", "draft-decoys", "challenge", "compare", "verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
   const values = new Map<string, string>();
   const allowed: Record<string, string[]> = {
+    serve: ["--port"],
+    "recording-intake": ["--report", "--budget"],
     "draft-decoys": ["--project", "--registry", "--reference", "--budget"],
     challenge: ["--project", "--workflow", "--manifest", "--accept", "--fixture", "--candidate", "--strengthen", "--budget"],
     compare: ["--pack", "--integration-fixture"],
@@ -68,12 +74,15 @@ export function parseArguments(argv: string[]): CliArguments {
   if (command === "confirm" && !values.has("--accept")) throw new Error("Review intake.json, then pass --accept to confirm its expectations.");
   if (command === "heldout" && !values.has("--pack")) throw new Error("Held-out evaluation requires an explicit --pack path.");
   if (values.has("--fix") && values.has("--candidate")) throw new Error("Choose --fix or --candidate, not both.");
+  if (command === "recording-intake" && !values.has("--report")) throw new Error("Recording intake requires a written --report.");
+  const port = values.has("--port") ? Number(values.get("--port")) : undefined;
+  if (port !== undefined && (!Number.isInteger(port) || port < 0 || port > 65535)) throw new Error("--port must be an integer from 0 to 65535.");
   const budget = values.has("--budget") ? Number(values.get("--budget")) : undefined;
   if (budget !== undefined) budgetNanounits(budget);
   const answer = values.get("--answer");
   if (answer !== undefined && answer !== "yes" && answer !== "no") throw new Error("--answer must be yes or no.");
   return {
-    command: command as CliArguments["command"], subject, candidate: values.get("--candidate"), budget, answer, fix: values.has("--fix"), pack: values.get("--pack"),
+    command: command as CliArguments["command"], subject, report: values.get("--report"), port, candidate: values.get("--candidate"), budget, answer, fix: values.has("--fix"), pack: values.get("--pack"),
     project: values.get("--project"), workflow: values.get("--workflow"), fixture: values.has("--fixture"), accept: values.has("--accept"), manifest: values.get("--manifest"), strengthen: values.has("--strengthen"), integrationFixture: values.has("--integration-fixture"), registry: values.get("--registry"), reference: values.get("--reference")
   };
 }

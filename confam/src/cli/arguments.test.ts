@@ -2,6 +2,13 @@ import { describe, expect, it } from "vitest";
 import { parseArguments } from "./arguments.js";
 
 describe("CLI confirmation and cost arguments", () => {
+  it("requires a written recording report and bounds the local review port", () => {
+    expect(() => parseArguments(["recording-intake", "video.mp4"])).toThrow("report");
+    expect(parseArguments(["recording-intake", "video.mp4", "--report", "report.md", "--budget", "0.25"]).report).toBe("report.md");
+    expect(parseArguments(["serve", "run", "--port", "0"]).port).toBe(0);
+    for (const value of ["NaN", "-1", "65536", "1.5"]) expect(() => parseArguments(["serve", "run", "--port", value])).toThrow("port");
+    expect(() => parseArguments(["serve", "run", "--fix"])).toThrow("Invalid");
+  });
   it("requires explicit challenge/evaluation inputs and separates fixture/live verifier options", () => {
     expect(() => parseArguments(["challenge", "case", "--project", "p", "--workflow", "w", "--fixture"])).toThrow("manifest");
     expect(() => parseArguments(["challenge", "case", "--project", "p", "--workflow", "w", "--fixture", "--manifest", "m", "--strengthen"])).toThrow("Live model");

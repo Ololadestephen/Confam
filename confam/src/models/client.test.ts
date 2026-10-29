@@ -112,3 +112,22 @@ describe("budgeted model client", () => {
     expect(fetch).toHaveBeenCalledTimes(2);
   });
 });
+
+it("sends Meta video media identically to token preflight and generation", async () => {
+  const bodies: unknown[] = [];
+  const fetch = vi.fn(async (request: string | URL | Request, options?: RequestInit) => {
+    const body = JSON.parse(String(options?.body)); bodies.push(body.input);
+    if (String(request).endsWith("/responses/input_tokens")) return new Response(JSON.stringify({ input_tokens: 10 }), { headers: { "content-type": "application/json" } });
+    return new Response(JSON.stringify({
+      id: "video-test", status: "completed", object: "response", model: body.model,
+      output: [{ id: "video-message", type: "message", role: "assistant", status: "completed", content: [{ type: "output_text", text: '{"ready":true}', annotations: [] }] }],
+      usage: { input_tokens: 10, output_tokens: 10, total_tokens: 20, input_tokens_details: { cached_tokens: 0 } }
+    }), { headers: { "content-type": "application/json" } });
+  });
+  vi.stubGlobal("fetch", fetch);
+  const { ledger } = await fixture();
+  const client = new ModelClient(ledger, createMetaTransport("dummy-test-key"));
+  await client.structured("intake", "Describe visible events", "report", schema, 100, { dataUrl: "data:video/mp4;base64,AQIDBA==" });
+  expect(bodies[0]).toEqual(bodies[1]);
+  expect(bodies[0]).toEqual([{ role: "user", content: [{ type: "input_text", text: "report" }, { type: "input_video", video_url: "data:video/mp4;base64,AQIDBA==" }] }]);
+});

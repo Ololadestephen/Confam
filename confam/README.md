@@ -4,6 +4,29 @@ Confam verifies proposed repairs against reviewed behavioral expectations and re
 
 The [general verification roadmap](ROADMAP.md) tracks implementation. TR1–TR3 project runtimes, general browser workflows, and reviewed decoy challenges are implemented. Genuine independent evaluation still requires an owner-prepared private pack.
 
+## Local evidence review and recording intake (TR4)
+
+Build the local UI, then select one existing run directory:
+
+```sh
+npm run web:build -w confam
+npm run confam -- serve runs/YOUR_RUN_DIRECTORY
+```
+
+Open the printed loopback URL, which contains a temporary access token. The read-only viewer supports general challenge/verification reports, legacy manifests, and recording intake. It shows original, challenge/control and candidate footage, confirmed requirements, actual assertions/probes, development counts, independent evaluation counts when recorded, limitations and version history. Videos have independent controls and step transcripts; workflow clocks are not assumed to match recording clocks. Saved metadata changes stream through SSE. It does not launch apps or confirm expectations.
+
+Artifacts must be referenced by the selected report or its sealed checks bundle, remain inside that run directory, and pass regular-file/symlink checks. Known variant-adjacent runtime logs and candidate patches are supported for existing report formats. It never exposes a directory listing or the repository. Export is a deliberate JSON summary with credential/personal-identifier redaction; recordings, traces, logs, source and local links are omitted. Redaction is best effort: review the summary before sharing. Raw local evidence may contain sensitive data.
+
+Recording intake sends the supplied clip and written report to Meta. Review their contents and approve that export before invoking:
+
+```sh
+npm run confam -- recording-intake recording.mp4 --report report.md --budget 0.25
+```
+
+The supported slice accepts regular nonfragmented MP4 files up to 10MiB and 120 seconds with known video duration. It uses the shared token preflight and cost ledger, with no automatic retry. Observations/actions have bounded timestamps; suggested expectations remain unconfirmed. Unsupported/ambiguous media, model/API failures or budget limits preserve an explicit text fallback. This command never produces an execution verdict, confirms requirements or starts application verification. Review its proposal, then separately prepare and confirm a case/workflow for `verify`.
+
+Local/fixture recording tests and real two-project browser evidence review are verified. A live recording API result is still pending scoped owner approval; do not treat this implementation as demonstrated live multimodal interpretation. The viewer is intentionally a minimal local desk, without hosted sharing, synchronized playback, run creation or browser-based expectation editing.
+
 ## Project runtime checks (TR1)
 
 A reviewed project configuration supplies the application root, editable source files, command argv, working directory, readiness path, port/state environment bindings, timeout, and restart capability. See `specimens/salon/project.json` for a working example. Paths are relative to the configuration file; use `root: "."` when configuration lives inside the application root. Source paths are relative to that root. Commands execute directly without shell interpolation.
@@ -37,7 +60,7 @@ Workflows support navigation, forms, select by value/label, bounded waits, reloa
 
 Each run archives an immutable checks bundle, confirmation, original report, fixtures, project configuration, control patches, baseline revision, and workflow executor identity. Hashes and baseline integrity are checked before/after execution and restart. The original must fail on a designated reproduction assertion; timeouts and selector errors cannot satisfy that gate. Correct controls gate candidate evaluation. Candidate execution errors remain incomplete verification, distinct from observed assertion failures.
 
-Results are written to `runs/verify-*/verification.json` with per-variant trace/video evidence. A passing candidate means it passed the listed checks under those conditions. TR2 does not establish independent decoy strength or application-wide correctness. Preserve the original project/case configuration to replay the archived `checks/workflow.json` through the same `verify` command. Recordings, if supplied, are reported as unprocessed; video interpretation is planned for TR4.
+Results are written to `runs/verify-*/verification.json` with per-variant trace/video evidence. A passing candidate means it passed the listed checks under those conditions. TR2 does not establish independent decoy strength or application-wide correctness. Preserve the original project/case configuration to replay the archived `checks/workflow.json` through the same `verify` command. Recordings supplied to verification remain unprocessed; use the separate review-only recording intake below.
 
 ### Model workflow proposals
 
@@ -146,4 +169,4 @@ Candidate patches are restricted to existing salon application source files. Dep
 
 All model generations use a shared client with automatic retries disabled. Before generation it counts the rendered input and reserves uncached input cost plus the full output limit. The default cap is $0.25, chosen conservatively after the first salon run measured about $0.026 in estimated token cost. A request that cannot fit stops before generation. Missing usage or a network failure retains the reservation and stops further calls; reported provider overruns are recorded explicitly. Usage-derived dollar figures are estimates using the dated [Meta Standard-mode rates](https://dev.meta.ai/docs/pricing-rate-limits), rather than an invoice reconciliation. No hosted model tools are enabled. Token preflight follows Meta's [Responses token-counting endpoint](https://dev.meta.ai/docs/token-counting).
 
-Variants run as local processes. Worktrees and separate databases isolate experiments, but do not safely contain hostile code. Review candidate source before running it. Genuine held-out evaluation still requires an independently prepared private pack. There is no video intake or review UI yet. The baseline `run` command checks E1/E2 and observes restart via an oracle; authored sessions can additionally confirm and check E3/E4.
+Variants run as local processes. Worktrees and separate databases isolate experiments, but do not safely contain hostile code. Review candidate source before running it. Genuine held-out evaluation still requires an independently prepared private pack. A separate local evidence viewer and review-only recording intake are available; live video interpretation remains unverified. The baseline `run` command checks E1/E2 and observes restart via an oracle; authored sessions can additionally confirm and check E3/E4.

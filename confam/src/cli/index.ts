@@ -1,3 +1,5 @@
+import { analyzeRecording } from "../recordings/intake.js";
+import { startReviewServer } from "../web/server.js";
 import { proposeDecoys } from "../authoring/generic-decoys.js";
 import { challengeProject } from "../challenges/harness.js";
 import { evaluateChallengePack } from "../challenges/evaluate-pack.js";
@@ -41,7 +43,16 @@ async function main(): Promise<void> {
   const envFile = path.join(root, ".env");
   if (existsSync(envFile)) process.loadEnvFile(envFile);
   const candidate = args.candidate ? path.resolve(args.candidate) : undefined;
-  if (args.command === "draft-decoys") {
+  if (args.command === "serve") {
+    const review = await startReviewServer(path.resolve(args.subject), { port: args.port });
+    console.log(`Local read-only evidence review: ${review.url}\nPress Ctrl+C to close.`);
+    let stopping = false;
+    const stop = () => { if (!stopping) { stopping = true; void review.close(); } };
+    process.once("SIGINT", stop); process.once("SIGTERM", stop);
+  } else if (args.command === "recording-intake") {
+    const intake = await analyzeRecording(path.resolve(args.subject), path.resolve(args.report!), path.join(root, "runs"), args.budget);
+    console.log(`Recording intake: ${intake.status}\nEvidence: ${intake.manifestPath}\nReview observations and separately confirm expectations before verification.`);
+  } else if (args.command === "draft-decoys") {
     const draft = await proposeDecoys(path.resolve(args.project!), path.resolve(args.subject), path.resolve(args.registry!), args.reference!, path.join(root, "runs"), args.budget);
     console.log(`Decoy proposal requires review: ${draft.manifestPath}\nNo probes authored and no application behavior evaluated.`);
   } else if (args.command === "challenge") {

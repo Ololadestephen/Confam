@@ -4,6 +4,8 @@ import { z } from "zod";
 import { META_BASE_URL, STAGE_MODELS, type ModelStage } from "./config.js";
 import { CostLedger, type TokenUsage } from "./ledger.js";
 
+export interface ModelVideoInput { dataUrl: string; }
+
 export interface StructuredRequest {
   stage: ModelStage;
   model: string;
@@ -11,6 +13,7 @@ export interface StructuredRequest {
   input: string;
   schema: Record<string, unknown>;
   maxOutputTokens: number;
+  video?: ModelVideoInput;
 }
 export interface ModelResponse {
   text: string;
@@ -24,8 +27,15 @@ export interface ModelTransport {
 }
 
 function responseBody(request: StructuredRequest): ResponseCreateParamsNonStreaming {
+  // Meta extends the Responses content union with input_video. Keep this adaptation
+  // at the transport boundary; both preflight and generation use the same input.
+  const input = request.video ? [{
+    role: "user", content: [
+      { type: "input_text", text: request.input }, { type: "input_video", video_url: request.video.dataUrl },
+    ]
+  }] : request.input;
   return {
-    model: request.model, instructions: request.instructions, input: request.input,
+    model: request.model, instructions: request.instructions, input: input as ResponseCreateParamsNonStreaming["input"],
     max_output_tokens: request.maxOutputTokens, reasoning: { effort: "low" }, store: false,
     text: { format: { type: "json_schema", name: request.stage, strict: true, schema: request.schema } },
   };
@@ -65,14 +75,17 @@ export class ModelClient {
     if (ledger.mode !== transport.mode) throw new Error("Model transport mode does not match the cost ledger.");
   }
 
-  async structured<T>(stage: ModelStage, instructions: string, input: string, schema: z.ZodType<T>, maxOutputTokens = 4096): Promise<T> {
+  async structured<T>(stage: ModelStage, instructions: string, input: string, schema: z.ZodType<T>, maxOutputTokens = 4096, video?: ModelVideoInput): Promise<T> {
     if (this.busy) throw new Error("Model calls for a run must be sequential.");
     this.busy = true;
     let reservation: number | undefined;
     const started = Date.now();
     try {
       if (!Number.isSafeInteger(maxOutputTokens) || maxOutputTokens < 1) throw new Error("Invalid output token limit.");
-      const request: StructuredRequest = { stage, model: STAGE_MODELS[stage], instructions, input, schema: z.toJSONSchema(schema), maxOutputTokens };
+      if (video && (video.dataUrl.length > 14_000_000 || !/^data:video\/mp4;base64,[A-Za-z0-9+/]+={0,2}$/.test(video.dataUrl))) {
+        throw new Error("Model video input must be a bounded MP4 data URI.");
+      }
+      const request: StructuredRequest = { ...(video ? { video } : {}), stage, model: STAGE_MODELS[stage], instructions, input, schema: z.toJSONSchema(schema), maxOutputTokens };
       const inputTokens = await this.transport.count(request);
       reservation = await this.ledger.reserve(stage, STAGE_MODELS[stage], inputTokens, maxOutputTokens);
       const response = await this.transport.generate(request);
