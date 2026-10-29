@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "statusPersistsVerification",
+  "projectId": "task-board",
+  "report": "report.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "completionPersists",
+      "statement": "A completed task remains completed after reopening the page",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "completionPersists"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

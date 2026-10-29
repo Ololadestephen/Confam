@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Phone number"
+      },
+      "value": {
+        "fixture": "phone"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Continue"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#booking:has(#appointments[aria-busy=\"false\"])"
+      }
+    },
+    {
+      "action": "select",
+      "locator": {
+        "kind": "label",
+        "value": "Service"
+      },
+      "value": {
+        "fixture": "serviceId"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Date"
+      },
+      "value": {
+        "fixture": "date"
+      }
+    },
+    {
+      "action": "select",
+      "locator": {
+        "kind": "label",
+        "value": "Time"
+      },
+      "value": {
+        "fixture": "time"
+      },
+      "by": "label"
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Book appointment"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#booking-status:text-is(\"Booking confirmed\")"
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "reopen"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#booking:has(#appointments[aria-busy=\"false\"])"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#appointments li"
+      },
+      "kind": "count",
+      "capture": "savedAppointments"
+    },
+    {
+      "action": "assert",
+      "expectationId": "appointmentPersists",
+      "actual": {
+        "variable": "savedAppointments"
+      },
+      "operator": "eq",
+      "expected": 1
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Confam: general repair verification
 
-Revised October 28, 2026. TR1 project configuration and local runtime support are implemented and verified. TR2–TR5 remain planned. Behavioral repair verification currently supports the salon case described in README.md.
+Revised October 28, 2026. TR1 project runtimes and TR2 general behavioral workflows are implemented and verified on the salon and task-board specimens. TR3–TR5 remain planned. Generic model workflow proposals are fixture-tested; their live API integration remains unverified.
 
 ## 1. Product and users
 

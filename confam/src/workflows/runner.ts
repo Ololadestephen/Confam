@@ -1,0 +1,161 @@
+import { mkdir } from "node:fs/promises";
+import path from "node:path";
+import { chromium, type Browser, type Video } from "@playwright/test";
+import { resolveBody, resolveValue, workflowSchema, type WorkflowPlan, type WorkflowStep } from "./schema.js";
+import { capture, comparison, executePageAction, localUrl, locate, type PageState } from "./actions.js";
+
+export interface WorkflowObservation {
+  expectationId: string;
+  actual: unknown;
+  expected: unknown;
+  operator: "eq" | "gte" | "lte";
+  passed: boolean;
+}
+export interface WorkflowResult {
+  status: "passed" | "assertion-failed" | "unreached" | "timeout" | "execution-error";
+  reached: boolean;
+  assertions: WorkflowObservation[];
+  steps: { name: string; elapsedMs: number; }[];
+  expectationId?: string;
+  error?: string;
+  durationMs: number;
+  trace: string;
+  traces: string[];
+  videos: string[];
+}
+export interface WorkflowLifecycle {
+  restartApp?: () => Promise<string>;
+  cancel?: () => Promise<void>;
+  timeoutMs?: number;
+}
+const MAX_WORKFLOW_TIMEOUT_MS = 120_000;
+
+class AssertionFailure extends Error {
+  constructor(readonly expectationId: string) { super(`Expectation ${expectationId} failed.`); }
+}
+
+
+
+class WorkflowExecution {
+  readonly contexts = new Map<string, PageState>();
+  readonly videos: Video[] = [];
+  readonly variables: Record<string, unknown> = Object.create(null);
+  current: PageState | undefined;
+  constructor(
+    readonly browser: Browser, readonly fixtures: Record<string, unknown>, public baseUrl: string,
+    readonly evidence: string, readonly result: WorkflowResult, readonly lifecycle: WorkflowLifecycle,
+  ) { }
+  async context(name: string): Promise<void> {
+    let state = this.contexts.get(name);
+    if (!state) {
+      const context = await this.browser.newContext({ recordVideo: { dir: this.evidence }, serviceWorkers: "block" });
+      context.setDefaultTimeout(5000); context.setDefaultNavigationTimeout(5000);
+      context.on("page", (page) => { const video = page.video(); if (video) this.videos.push(video); });
+      await context.route("**/*", async (route) => {
+        if (new URL(route.request().url()).origin === new URL(this.baseUrl).origin) await route.continue();
+        else await route.abort("blockedbyclient");
+      });
+      await context.tracing.start({ screenshots: true, snapshots: true, sources: true });
+      state = { context, page: await context.newPage() };
+      this.contexts.set(name, state);
+    }
+    this.current = state;
+  }
+  async step(step: WorkflowStep): Promise<void> {
+    const state = this.current;
+    if (!state) throw new Error("Workflow context is unavailable.");
+    const { context, page } = state;
+    if (!await executePageAction(state, step, this.baseUrl, this.fixtures, this.variables)) switch (step.action) {
+      case "context": await this.context(step.name); break;
+      case "restart": {
+        if (!this.lifecycle.restartApp) throw new Error("Project restart is unavailable.");
+        const next = new URL(await this.lifecycle.restartApp());
+        if (!["http:", "https:"].includes(next.protocol) || !["127.0.0.1", "localhost", "[::1]"].includes(next.hostname)) throw new Error("Restart returned an unsupported project origin.");
+        this.baseUrl = next.origin; break;
+      }
+      case "request": {
+        const response = await context.request.fetch(localUrl(this.baseUrl, step.path), {
+          method: step.method, data: step.body === undefined ? undefined : resolveBody(step.body, this.fixtures, this.variables), maxRedirects: 0, timeout: 5000,
+        });
+        try {
+          if (response.status() >= 300 && response.status() < 400) throw new Error("HTTP redirects are unsupported in workflow requests.");
+          const contentType = response.headers()["content-type"] ?? "";
+          this.variables[step.capture] = { status: response.status(), body: contentType.includes("json") ? await response.json() : await response.text() };
+        } finally { await response.dispose(); }
+        break;
+      }
+      case "capture": this.variables[step.capture] = await capture(locate(page, step.locator), step.kind); break;
+      case "reached": this.result.reached = true; break;
+      case "assert": {
+        const actual = resolveValue(step.actual, this.fixtures, this.variables);
+        const expected = resolveValue(step.expected, this.fixtures, {});
+        const observation: WorkflowObservation = { expectationId: step.expectationId, actual, expected, operator: step.operator, passed: comparison(actual, expected, step.operator) };
+        this.result.assertions.push(observation);
+        if (!observation.passed) throw new AssertionFailure(step.expectationId);
+        break;
+      }
+      default: throw new Error("Unsupported workflow action.");
+    }
+    const currentUrl = this.current?.page.url();
+    const usesPage = ["navigate", "click", "fill", "select", "wait", "reload", "reopen", "capture"].includes(step.action);
+    if (usesPage && currentUrl && currentUrl !== "about:blank" && new URL(currentUrl).origin !== new URL(this.baseUrl).origin) throw new Error("Page left the project origin.");
+  }
+  async close(): Promise<void> {
+    let index = 0;
+    try {
+      for (const { context } of this.contexts.values()) {
+        const trace = path.join(this.evidence, index++ === 0 ? "trace.zip" : `trace-${index}.zip`);
+        try { await context.tracing.stop({ path: trace }); this.result.traces.push(trace); }
+        finally { await context.close(); }
+      }
+      this.result.videos = await Promise.all(this.videos.map((video) => video.path()));
+    } finally { await this.browser.close(); }
+  }
+}
+
+export async function runWorkflow(
+  input: WorkflowPlan, fixtures: Record<string, unknown>, baseUrl: string, evidence: string, lifecycle: WorkflowLifecycle = {},
+): Promise<WorkflowResult> {
+  const plan = workflowSchema.parse(input);
+  const timeoutMs = lifecycle.timeoutMs ?? 30000;
+  if (!Number.isFinite(timeoutMs) || timeoutMs <= 0 || timeoutMs > MAX_WORKFLOW_TIMEOUT_MS) throw new Error("Invalid workflow deadline.");
+  const projectUrl = new URL(baseUrl);
+  if (!["http:", "https:"].includes(projectUrl.protocol)) throw new Error("Workflow requires an HTTP project origin.");
+  const started = Date.now();
+  await mkdir(evidence, { recursive: true });
+  const result: WorkflowResult = { status: "execution-error", reached: false, assertions: [], steps: [], durationMs: 0, trace: path.join(evidence, "trace.zip"), traces: [], videos: [] };
+  let execution: WorkflowExecution | undefined;
+  let operation: Promise<void> | undefined;
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  let expired = false;
+  try {
+    const browser = await chromium.launch({ timeout: Math.min(timeoutMs, 30000) });
+    execution = new WorkflowExecution(browser, fixtures, projectUrl.origin, evidence, result, lifecycle);
+    const active = execution;
+    operation = (async () => {
+      await active.context("default");
+      for (const step of plan.steps) {
+        result.steps.push({ name: step.action, elapsedMs: Date.now() - started });
+        await active.step(step);
+      }
+    })();
+    await Promise.race([operation, new Promise<never>((_resolve, reject) => {
+      timeout = setTimeout(() => { expired = true; reject(new Error(`Workflow exceeded ${timeoutMs}ms.`)); }, Math.max(1, timeoutMs - (Date.now() - started)));
+    })]);
+    result.status = result.reached && result.assertions.length > 0 ? "passed" : "unreached";
+  } catch (error) {
+    result.error = error instanceof Error ? error.message : String(error);
+    if (error instanceof AssertionFailure) { result.status = "assertion-failed"; result.expectationId = error.expectationId; }
+    else result.status = expired || (error instanceof Error && error.name === "TimeoutError") ? "timeout" : result.reached ? "execution-error" : "unreached";
+  } finally {
+    clearTimeout(timeout);
+    try { if (expired) await lifecycle.cancel?.(); }
+    catch (error) { result.error = `${result.error ?? ""} Cancellation failed: ${error instanceof Error ? error.message : String(error)}`; }
+    try { await execution?.close(); }
+    catch (error) {
+      result.status = "execution-error";
+      result.error = `Evidence cleanup failed: ${error instanceof Error ? error.message : String(error)}`;
+    } finally { await operation?.catch(() => undefined); result.durationMs = Date.now() - started; }
+  }
+  return result;
+}

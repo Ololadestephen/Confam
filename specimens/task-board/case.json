@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "statusPersists",
+  "projectId": "task-board",
+  "report": "report.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "completionPersists",
+      "statement": "A completed task remains completed after reopening the page",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "completionPersists"
+  ],
+  "controls": [
+    {
+      "id": "control-a",
+      "patch": "control-a.patch"
+    },
+    {
+      "id": "control-b",
+      "patch": "control-b.patch"
+    }
+  ],
+  "mode": "benchmark",
+  "purpose": "fixture"
+}

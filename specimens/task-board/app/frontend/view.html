@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Project task board</title></head>
+<body>
+<h1>Task board</h1>
+<section id="task" data-loaded="false"><h2 id="task-title"></h2><p>Status: <span id="task-state"></span></p><button id="complete">Complete task</button></section>
+<p role="status" id="confirmation"></p>
+<script>
+const task = document.querySelector('#task');
+function render(item) {
+  document.querySelector('#task-title').textContent = item.title;
+  document.querySelector('#task-state').textContent = item.completed ? 'Completed' : 'Todo';
+  task.dataset.loaded = 'true';
+}
+async function load() {
+  const response = await fetch('/api/tasks');
+  if (!response.ok) throw new Error('Could not load tasks');
+  render((await response.json()).tasks[0]);
+}
+document.querySelector('#complete').addEventListener('click', async () => {
+  const response = await fetch('/api/tasks/1/complete', { method: 'POST' });
+  if (!response.ok) { document.querySelector('#confirmation').textContent = 'Update failed'; return; }
+  render((await response.json()).task);
+  document.querySelector('#confirmation').textContent = 'Update confirmed';
+});
+load().catch(() => { document.querySelector('#confirmation').textContent = 'Could not load tasks'; });
+</script></body></html>

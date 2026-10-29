@@ -42,3 +42,13 @@ export async function verifyChecks(checks: FrozenChecks): Promise<void> {
     throw new Error("Frozen checks hash mismatch; execution stopped.");
   }
 }
+
+export async function freezeBundle(directory: string, files: Record<string, string>): Promise<FrozenChecks> {
+  for (const name of Object.keys(files)) {
+    if (!/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(name)) throw new Error("Frozen artifact names must be simple filenames.");
+  }
+  await mkdir(path.dirname(directory), { recursive: true });
+  await mkdir(directory);
+  for (const [name, contents] of Object.entries(files)) await writeFile(path.join(directory, name), contents, { flag: "wx" });
+  return { directory, sha256: await hashDirectory(directory) };
+}

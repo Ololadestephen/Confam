@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "task-board",
+  "root": "app",
+  "sourceFiles": [
+    "backend/main.cjs",
+    "frontend/view.html"
+  ],
+  "runtime": {
+    "command": [
+      "node",
+      "backend/main.cjs"
+    ],
+    "readinessPath": "/ready",
+    "timeoutMs": 10000,
+    "portVariable": "APP_PORT",
+    "dataVariable": "STATE_FILE",
+    "restart": true
+  }
+}

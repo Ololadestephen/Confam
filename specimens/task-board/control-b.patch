@@ -1,0 +1,14 @@
+diff --git a/backend/main.cjs b/backend/main.cjs
+--- a/backend/main.cjs
++++ b/backend/main.cjs
+@@ -21,6 +21,10 @@
+     if (req.method === 'POST' && req.url === '/api/tasks/1/complete') {
+       const state = load();
+       // Intentional specimen fault: the response changes, but durable state does not.
++      const next = { ...state, tasks: state.tasks.map((task) => task.id === 1 ? { ...task, completed: true } : task) };
++      const pending = statePath + '.pending';
++      fs.writeFileSync(pending, JSON.stringify(next));
++      fs.renameSync(pending, statePath);
+       return json(res, 200, { confirmed: true, task: { ...state.tasks[0], completed: true } });
+     }
+     return json(res, 404, { error: 'Not found' });

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "appointmentPersists",
+  "projectId": "salon",
+  "report": "report.md",
+  "fixtures": {
+    "phone": "08030000101",
+    "serviceId": "1",
+    "date": "2030-01-05",
+    "time": "2:00 PM"
+  },
+  "expectations": [
+    {
+      "id": "appointmentPersists",
+      "statement": "The confirmed appointment is listed after reopening the page",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "appointmentPersists"
+  ],
+  "controls": [
+    {
+      "id": "control-a",
+      "patch": "control-a.patch"
+    },
+    {
+      "id": "control-b",
+      "patch": "control-b.patch"
+    }
+  ],
+  "mode": "benchmark",
+  "purpose": "fixture"
+}

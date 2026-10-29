@@ -2,6 +2,12 @@ import { describe, expect, it } from "vitest";
 import { parseArguments } from "./arguments.js";
 
 describe("CLI confirmation and cost arguments", () => {
+  it("requires project, workflow and a single explicit confirmation source for generic verification", () => {
+    expect(() => parseArguments(["verify", "case.json"])).toThrow("project");
+    expect(() => parseArguments(["verify", "case.json", "--project", "p.json", "--workflow", "w.json"])).toThrow("--accept");
+    expect(() => parseArguments(["verify", "case.json", "--project", "p.json", "--workflow", "w.json", "--accept", "--fixture"])).toThrow("--accept");
+    expect(parseArguments(["verify", "case.json", "--project", "p.json", "--workflow", "w.json", "--fixture"]).fixture).toBe(true);
+  });
   it("accepts a project runtime check without model or repair options", () => {
     expect(parseArguments(["project-check", "project.json"]).command).toBe("project-check");
     expect(() => parseArguments(["project-check", "project.json", "--fix"])).toThrow("Invalid");

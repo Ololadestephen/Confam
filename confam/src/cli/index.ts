@@ -1,3 +1,5 @@
+import { verifyProject } from "../project/verify.js";
+import { proposeWorkflow } from "../authoring/generic.js";
 import { checkProject } from "../project/check.js";
 import path from "node:path";
 import { existsSync } from "node:fs";
@@ -35,7 +37,21 @@ async function main(): Promise<void> {
   const envFile = path.join(root, ".env");
   if (existsSync(envFile)) process.loadEnvFile(envFile);
   const candidate = args.candidate ? path.resolve(args.candidate) : undefined;
-  if (args.command === "project-check") {
+  if (args.command === "verify") {
+    const { report, reportPath } = await verifyProject({
+      project: path.resolve(args.project!), caseFile: path.resolve(args.subject),
+      workflow: path.resolve(args.workflow!), runsDirectory: path.join(root, "runs"),
+      confirmation: args.fixture ? "fixture" : "developer-cli", candidate
+    });
+    if (args.fixture) console.log("FIXTURE VERIFICATION — scripted case/workflow and expectation confirmation; real browser execution.");
+    for (const variant of report.variants) console.log(`${variant.id}: ${variant.result?.status ?? "execution-error"}${variant.result?.expectationId ? ` [${variant.result.expectationId}]` : ""}${variant.error ? ` — ${variant.error}` : ""}`);
+    console.log(`${report.verdict}\nEvidence: ${reportPath}`);
+    for (const limitation of report.limitations) console.log(`Limitation: ${limitation}`);
+    if (report.status !== "completed" || report.candidate === "failed") process.exitCode = 1;
+  } else if (args.command === "draft-workflow") {
+    const draft = await proposeWorkflow(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), args.budget);
+    console.log(`Workflow proposal requires review: ${draft.workflowPath}\nNo expectations confirmed and no application executed.`);
+  } else if (args.command === "project-check") {
     const { report, reportPath } = await checkProject(path.resolve(args.subject), path.join(root, "runs"));
     console.log(`Project ${report.project}: ${report.status}. ${report.scope}\nEvidence: ${reportPath}`);
   } else if (args.command === "run") {

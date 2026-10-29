@@ -1,8 +1,8 @@
 # Confam engine
 
-Confam challenges a repair with deliberately faulty patches and records what the checks actually catch. The current slice supports one salon case through a deterministic baseline or a live Muse Spark authoring flow.
+Confam verifies proposed repairs against reviewed behavioral expectations and records what its checks actually observe. The general verification path runs the salon and task-board specimens through the same browser executor. The legacy salon pipeline additionally challenges checks with deliberately faulty patches.
 
-The [general verification roadmap](ROADMAP.md) tracks implementation. Configurable project loading and local process lifecycle are available; generalized behavioral workflows and multi-application repair evaluation remain planned.
+The [general verification roadmap](ROADMAP.md) tracks implementation. TR1 project runtimes and TR2 general browser workflows are implemented. General decoy evaluation and independent comparisons remain TR3 work.
 
 ## Project runtime checks (TR1)
 
@@ -14,9 +14,40 @@ npm run confam -- project-check specimens/salon/project.json
 
 This command snapshots the project, creates a disposable worktree and owned data directory, starts the configured process, exercises restart when supported, stops it, and resets its data. Its report establishes runtime readiness only. It does not verify a bug or repair. Startup failures exit nonzero with runtime logs under the generated run directory.
 
-New baselines commit `.confam-project.json` alongside the application snapshot. Patch guards use its configured source list, reject protected dependency/test/configuration files and mode changes, and refuse missing or modified tracked snapshots. Historical baselines without a committed snapshot use the explicit salon compatibility adapter. Existing salon commands remain available while the generic workflow layer is built in TR2.
+New baselines commit `.confam-project.json` alongside the application snapshot. Patch guards use its configured source list, reject protected dependency/test/configuration files and mode changes, and refuse missing or modified tracked snapshots. Historical baselines without a committed snapshot use the explicit salon compatibility adapter. Existing salon commands remain available through the compatibility adapter.
 
 Dependencies must already be resolvable from the disposable runtime. This release does not install dependencies, copy the source repository’s node_modules, or run a separate build hook; external projects whose dependencies are available only in their original checkout are not yet supported. Commands requiring additional inherited environment variables, external services, or seed/reset hooks are unsupported. Child applications receive only PATH and the configured port/state bindings. The state binding is a path inside variant-owned storage; restart preserves it and reset removes that storage only after shutdown. Local tests validate macOS/POSIX process-group cleanup; Windows descendant cleanup is not supported. This is not containment for hostile code.
+
+## General behavioral verification (TR2)
+
+A case defines its project ID, report, fixture values, expectation IDs/statements, designated reproduction targets, optional correct controls, and verification mode. Report and control paths resolve inside the case directory. A separate declarative workflow supplies actions and assertions. New applications use these files and project configuration; they do not require a new browser runner.
+
+The included examples use explicitly labelled fixture inputs and scripted expectation confirmation. They execute real processes and Chromium, with no model calls:
+
+```sh
+npm run confam -- verify specimens/task-board/case.json --project specimens/task-board/project.json --workflow specimens/task-board/workflow.json --fixture --candidate specimens/task-board/control-a.patch
+npm run confam -- verify specimens/salon/cases/generic-persistence/case.json --project specimens/salon/project.json --workflow specimens/salon/cases/generic-persistence/workflow.json --fixture --candidate specimens/salon/cases/generic-persistence/control-a.patch
+```
+
+For ordinary verification, `specimens/task-board/case-verify.json` demonstrates running without prewritten correct repairs. The report explicitly states that false-rejection calibration is unavailable. Benchmark mode requires two distinct reviewed correct controls, and every supplied control must pass. To see a rejected repair, use `specimens/task-board/wrong-candidate.patch`; the command exits nonzero after the persistence assertion fails.
+
+For your own case, review the expectations, fixtures, and workflow, then pass `--accept` instead of `--fixture`. That confirmation is specific to the current case and workflow. Scripted confirmation is accepted only for a case whose `purpose` is explicitly `fixture`.
+
+Workflows support navigation, forms, select by value/label, bounded waits, reload/reopen, named independent browser contexts, restart when configured, same-origin HTTP requests, typed captures, and assertions. Every assertion references a listed expectation. Actual values must come from captures; expected values are literals or confirmed fixture references. No model-generated JavaScript or shell command is executed. Unsupported actions, forward references, prototype references, and unsupported runtime capabilities are rejected before evaluation.
+
+Each run archives an immutable checks bundle, confirmation, original report, fixtures, project configuration, control patches, baseline revision, and workflow executor identity. Hashes and baseline integrity are checked before/after execution and restart. The original must fail on a designated reproduction assertion; timeouts and selector errors cannot satisfy that gate. Correct controls gate candidate evaluation. Candidate execution errors remain incomplete verification, distinct from observed assertion failures.
+
+Results are written to `runs/verify-*/verification.json` with per-variant trace/video evidence. A passing candidate means it passed the listed checks under those conditions. TR2 does not establish independent decoy strength or application-wide correctness. Preserve the original project/case configuration to replay the archived `checks/workflow.json` through the same `verify` command. Recordings, if supplied, are reported as unprocessed; video interpretation is planned for TR4.
+
+### Model workflow proposals
+
+```sh
+npm run confam -- draft-workflow path/to/case.json --project path/to/project.json --budget 0.25
+```
+
+This live command sends the report, listed expectations, fixtures, supported capabilities, and configured source files to Meta. Review that source scope before using it. It uses the shared token/cost ledger and cap, saves a proposal under `runs/workflow-draft-*/`, and neither confirms expectations nor executes the application. Review the proposal, then supply its workflow path to `verify`. The generic proposal path has been tested with an injected fixture transport; it has not yet been verified in a live Meta call. The existing salon authoring path has separate live evidence.
+
+## Legacy salon challenge pipeline
 
 From the repository root:
 
@@ -58,7 +89,7 @@ npm run confam -- demo specimens/salon/cases/disappearing-booking
 
 The demo prominently labels its scripted model responses and confirmation. Its token/cost figures are simulated, and its API spend is zero. It uses the real browser runner, variant worktrees, probes, and patch compiler. Live failures never silently fall back to fixtures.
 
-Use Node 22.13 or newer, installed workspace dependencies, and Playwright Chromium. Candidate paths are relative to the current working directory. This CLI currently supports only the included disappearing-booking case.
+Use Node 22.13 or newer, installed workspace dependencies, and Playwright Chromium. Candidate paths are relative to the current working directory. The legacy run/intake/execute/demo commands support the included disappearing-booking case; general verification uses the separate verify command.
 
 Each evaluation writes `runs/<id>/manifest.json`, evaluated patches, checks versions, a disposable baseline Git repository, and separate variant worktrees. Live sessions also retain intake, confirmation, check declarations, the decoy draft, and `model-usage.json`. Each version keeps its original/control/decoy results. Each variant gets its own database, server port, browser contexts, videos, trace, and server log. Restarts stop the old server before starting a new one against the same database. One session can evaluate once; stopped or completed sessions cannot silently rerun and spend again.
 

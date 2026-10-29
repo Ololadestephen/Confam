@@ -17,6 +17,7 @@ export const caseDefinitionSchema = z.strictObject({
   reproductionTargets: z.array(identifier).min(1),
   controls: z.array(z.strictObject({ id: identifier, patch: relativePathSchema })).default([]),
   mode: z.enum(["verification", "benchmark"]),
+  purpose: z.enum(["verification", "fixture"]).default("verification"),
 }).superRefine((definition, context) => {
   const ids = definition.expectations.map(({ id }) => id);
   if (new Set(ids).size !== ids.length) context.addIssue({ code: "custom", message: "Duplicate expectation IDs." });
