@@ -485,3 +485,18 @@
   line-height: 1.5;
   transform: rotate(15deg);
 }
+.hero-actions .button {
+  min-width: 230px;
+  min-height: 48px;
+}
+.hero-actions .button-outline {
+  background: var(--paper);
+}
+.portal-card-link {
+  display: block;
+  border-radius: 12px;
+}
+
+.portal-card {
+  min-height: 190px;
+}

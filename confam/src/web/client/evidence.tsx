@@ -31,7 +31,6 @@ export function Artifact({
   return url ? (
     <a className="artifact-link" href={url} target="_blank" rel="noreferrer">
       {children ?? link.label}
-      <span aria-hidden="true"> ↗</span>
     </a>
   ) : (
     <span className="muted">Artifact unavailable</span>

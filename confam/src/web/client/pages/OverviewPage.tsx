@@ -20,13 +20,13 @@ export function Overview({ run }: { run: RunView }) {
               to={runPath(run.runId, "compare")}
               className="button button-dark"
             >
-              Open comparison ↗
+              Open comparison
             </Link>
             <Link
               to={`/share/${encodeURIComponent(run.runId)}`}
               className="button button-outline"
             >
-              Summary preview ↗
+              Summary preview
             </Link>
           </div>
         </div>
@@ -71,7 +71,7 @@ export function Overview({ run }: { run: RunView }) {
             <h2>Every variant stays visible.</h2>
           </div>
           <Link to={runPath(run.runId, "checks")} className="text-link">
-            Checks &amp; history ↗
+            Checks &amp; history
           </Link>
         </div>
         <div className="variant-list">
@@ -83,7 +83,7 @@ export function Overview({ run }: { run: RunView }) {
                   to={runPath(run.runId, `decoys/${encodeURIComponent(v.id)}`)}
                   className="variant-more"
                 >
-                  Inspect challenge detail ↗
+                  Inspect challenge detail
                 </Link>
               ) : null}
             </div>

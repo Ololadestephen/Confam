@@ -639,3 +639,21 @@
     display: none;
   }
 }
+@media (max-width: 720px) {
+  .hero .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .hero-actions .button {
+    min-width: 0;
+    min-height: 56px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 720px) {
+  .portal-card {
+    min-height: 180px;
+  }
+}

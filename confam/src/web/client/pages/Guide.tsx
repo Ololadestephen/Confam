@@ -2,9 +2,7 @@ import { Data, Icon, Link, PageTitle } from "../shared.js";
 export default function Guide() {
   return (
     <main id="main" className="workspace guide">
-      <PageTitle eyebrow="How it works" title="A clearer way to check a fix.">
-        One specific report. Reviewed expectations. Evidence from execution.
-      </PageTitle>
+      <PageTitle title="Guide"></PageTitle>
       <div className="guide-lead">
         <div className="guide-symbol">
           <Icon name="layers" size={90} />
@@ -21,7 +19,7 @@ export default function Guide() {
             repair, and preserves the observations that support the result.
           </p>
           <Link to="/runs/new" className="button button-dark">
-            Prepare a case ↗
+            Prepare a case
           </Link>
         </div>
       </div>

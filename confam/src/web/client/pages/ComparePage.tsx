@@ -16,10 +16,7 @@ export function Compare({ run }: { run: RunView }) {
     alternatives[0];
   return (
     <>
-      <PageTitle
-        eyebrow="02 / The reconstruction"
-        title="Same question. Different versions."
-      >
+      <PageTitle title="Compare">
         Inspect the original, a challenge or control, and the candidate. Each
         recording uses its own clock.
       </PageTitle>

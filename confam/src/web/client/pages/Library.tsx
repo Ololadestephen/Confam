@@ -19,16 +19,13 @@ export default function Library() {
   return (
     <main id="main" className="workspace">
       <PageTitle
-        eyebrow="Your local workspace"
-        title="A record worth keeping."
+        title="Runs"
         action={
           <Link to="/runs/new" className="button button-dark">
             Prepare a run +
           </Link>
         }
-      >
-        Revisit a report. Inspect a repair. Pick up the thread.
-      </PageTitle>
+      ></PageTitle>
       <div className="library-stats">
         <div>
           <span className="tiny-dot" /> Local evidence library
@@ -36,7 +33,6 @@ export default function Library() {
         <span>
           {runs.length} readable saved {runs.length === 1 ? "run" : "runs"}
         </span>
-        <span>No application execution from this page</span>
       </div>
       <section className="library-panel" aria-label="Saved runs">
         <div className="filters">
@@ -101,7 +97,6 @@ export default function Library() {
                   <span className="small muted">
                     {duration(run.durationMs)}
                   </span>
-                  <span>↗</span>
                 </div>
               </Link>
             ))}
@@ -109,11 +104,7 @@ export default function Library() {
         ) : (
           <div className="empty-state">
             <Icon name="file" size={36} />
-            <h2>
-              {runs.length
-                ? "No matching runs."
-                : "Your next question starts here."}
-            </h2>
+            <h2>{runs.length ? "No matching runs." : "No saved runs."}</h2>
             <p>
               {runs.length
                 ? "Try a different filter or search."
@@ -132,7 +123,7 @@ export default function Library() {
               </button>
             ) : (
               <Link to="/runs/new" className="button button-dark">
-                Prepare a run ↗
+                Prepare a run
               </Link>
             )}
           </div>
@@ -144,11 +135,6 @@ export default function Library() {
           are not listed.
         </p>
       ) : null}
-      <p className="small muted library-note">
-        Only readable run reports directly inside the selected directory are
-        listed. Invalid or incomplete metadata is omitted. Historical artifacts
-        are unchanged.
-      </p>
     </main>
   );
 }

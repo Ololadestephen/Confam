@@ -68,10 +68,6 @@ export function ReportStep(props: ReportProps) {
           onChange={(e) => update("report", e.target.value)}
           maxLength={65536}
         />
-        <small>
-          Describe visible behavior, the steps you took, and the result you
-          expected.
-        </small>
       </label>
       <label className="upload-box">
         <Icon name="play" />
@@ -168,7 +164,7 @@ export function ReviewStep({
       <div className="handoff-ready">
         <span>✓</span>
         <div>
-          <h3>Your draft is ready to review.</h3>
+          <h3>Draft</h3>
           <p>Nothing has been confirmed or executed.</p>
         </div>
       </div>
@@ -190,7 +186,7 @@ export function ReviewStep({
             )
           }
         >
-          Download case.json ↓
+          Download case.json
         </button>
         <button
           className="button button-outline"
@@ -198,7 +194,7 @@ export function ReviewStep({
             downloadText("report.md", fields.report, "text/markdown")
           }
         >
-          Download report.md ↓
+          Download report.md
         </button>
       </div>
       <ol className="handoff-instructions">
@@ -229,7 +225,7 @@ export function ReviewStep({
             }
           }}
         >
-          {copied ? "Copied ✓" : "Copy ↗"}
+          {copied ? "Copied ✓" : "Copy "}
         </button>
       </div>
       <p className="notice">
@@ -238,7 +234,7 @@ export function ReviewStep({
         by the CLI.
       </p>
       <Link to="/runs" className="text-link">
-        Return to the run library ↗
+        Return to the run library
       </Link>
     </div>
   );

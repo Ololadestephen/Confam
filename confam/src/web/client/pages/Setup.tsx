@@ -35,9 +35,7 @@ export default function Setup() {
   };
   return (
     <main id="main" className="workspace">
-      <PageTitle eyebrow="A new question" title="Start with what happened.">
-        Prepare a case locally. Review the workflow. Execute it deliberately.
-      </PageTitle>
+      <PageTitle title="Prepare a run"></PageTitle>
       <div className="setup-layout">
         <aside className="setup-sidebar">
           <ol>
@@ -52,26 +50,18 @@ export default function Setup() {
           </ol>
           <div className="sidebar-note">
             <Icon name="file" />
-            <h3>Your data stays here.</h3>
+            <h3>Local draft</h3>
             <p>
               This form prepares files and a CLI command. It does not upload
               source or recordings, call a model, or run the application.
             </p>
-            <Link to="/guide">See the supported workflow ↗</Link>
+            <Link to="/guide">See the supported workflow </Link>
           </div>
         </aside>
         <section className="form-panel">
           <div className="form-section-heading">
             <span className="pill">Step {step + 1} of 3</span>
-            <h2>
-              {
-                [
-                  "Give the report some context.",
-                  "Decide what a repair needs to do.",
-                  "A deliberate next step.",
-                ][step]
-              }
-            </h2>
+            <h2>{["Report", "Expectations", "Review"][step]}</h2>
           </div>
           {step === 0 ? (
             <ReportStep
@@ -106,7 +96,7 @@ export default function Setup() {
                   setError("");
                 }}
               >
-                ← Back
+                Back
               </button>
             ) : (
               <Link to="/runs" className="text-link">
@@ -116,7 +106,6 @@ export default function Setup() {
             {step < 2 ? (
               <button className="button button-dark" onClick={next}>
                 {step === 0 ? "Define expectations" : "Review the draft"}{" "}
-                <span>→</span>
               </button>
             ) : null}
           </div>

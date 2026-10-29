@@ -6,10 +6,7 @@ import type { RunView } from "../types.js";
 export function Summary({ run }: { run: RunView }) {
   return (
     <>
-      <PageTitle
-        eyebrow="Local summary preview"
-        title="The result, with its context."
-      >
+      <PageTitle title="Summary">
         A plain-language view to review before exporting. This is not a hosted
         share link.
       </PageTitle>
@@ -46,7 +43,7 @@ export function Summary({ run }: { run: RunView }) {
           href={apiUrl("/api/export", run.runId)}
           download
         >
-          Export redacted summary ↓
+          Export redacted summary
         </a>
         <p className="small muted">
           The JSON summary excludes recordings, traces, logs, source and local
@@ -54,7 +51,7 @@ export function Summary({ run }: { run: RunView }) {
         </p>
       </section>
       <Link to={runPath(run.runId)} className="text-link">
-        ← Back to the full evidence
+        Back to the full evidence
       </Link>
     </>
   );

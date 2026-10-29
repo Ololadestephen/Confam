@@ -5,7 +5,7 @@ import type { RunView } from "../types.js";
 export function Expectations({ run }: { run: RunView }) {
   return (
     <>
-      <PageTitle eyebrow="01 / The report" title="What did “fixed” mean?">
+      <PageTitle title="Expectations">
         Recorded requirements define the scope. Historical confirmations are
         read-only.
       </PageTitle>
@@ -30,7 +30,7 @@ export function Expectations({ run }: { run: RunView }) {
               <article className="expectation" key={item.id}>
                 <code>{item.id}</code>
                 <p>{item.statement}</p>
-                <span aria-label="Read only">↳ recorded</span>
+                <span aria-label="Read only"> recorded</span>
               </article>
             ))}
           </div>
@@ -45,7 +45,7 @@ export function Expectations({ run }: { run: RunView }) {
           through the CLI. This page does not alter a frozen run.
         </p>
         <Link to="/runs/new" className="button button-outline">
-          Prepare a new scope ↗
+          Prepare a new scope
         </Link>
       </section>
       {run.recording || run.observations ? (
