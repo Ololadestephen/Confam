@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "quote-tool",
+  "root": "app",
+  "sourceFiles": ["service/quotes.cjs"],
+  "runtime": {
+    "command": ["node", "service/quotes.cjs"],
+    "readinessPath": "/healthz",
+    "timeoutMs": 10000,
+    "portVariable": "QUOTE_PORT",
+    "dataVariable": "QUOTE_STATE",
+    "restart": false
+  }
+}

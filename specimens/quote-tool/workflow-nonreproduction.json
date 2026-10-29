@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/quote",
+      "method": "GET",
+      "capture": "initial"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "initialPrice",
+      "actual": {
+        "variable": "initial.body.unitPrice"
+      },
+      "operator": "eq",
+      "expected": 12
+    }
+  ]
+}

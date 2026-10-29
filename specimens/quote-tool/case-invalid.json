@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "invalidQuantity",
+  "projectId": "quote-tool",
+  "report": "report-invalid.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "rejectNegative",
+      "statement": "A negative quantity is rejected with HTTP 400.",
+      "provenance": "developer"
+    },
+    {
+      "id": "preserveQuote",
+      "statement": "A rejected quantity leaves the stored quantity at one.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "rejectNegative"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

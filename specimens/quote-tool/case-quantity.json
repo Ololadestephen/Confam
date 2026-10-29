@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "quantityRecalculation",
+  "projectId": "quote-tool",
+  "report": "report-quantity.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "recalculatedTotal",
+      "statement": "Changing quantity to three recalculates the total to 36.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "recalculatedTotal"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

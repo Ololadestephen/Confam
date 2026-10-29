@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/quantity",
+      "method": "POST",
+      "capture": "update",
+      "body": {
+        "quantity": 3
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "recalculatedTotal",
+      "actual": {
+        "variable": "update.body.total"
+      },
+      "operator": "eq",
+      "expected": 36
+    }
+  ]
+}

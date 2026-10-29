@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "initialQuote",
+  "projectId": "quote-tool",
+  "report": "report-nonreproduction.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "initialPrice",
+      "statement": "A new quote has a unit price of 12.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "initialPrice"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

@@ -1,6 +1,6 @@
 # Confam: general repair verification
 
-Revised October 28, 2026. TR1–TR3 runtimes, general workflows and reviewed decoy challenges are implemented and verified on the salon and task-board specimens. TR4 recording intake and evidence review are implemented: local two-app browser checks and one owner-approved live fictional MP4 interpretation passed. That single clip does not establish broad video accuracy. TR5 remains planned. Generic model proposal/verifier paths are fixture-tested; genuine independent evaluation remains pending the owner’s pack.
+Revised October 28, 2026. TR1–TR3 runtimes, general workflows and reviewed decoy challenges are implemented and verified on the salon and task-board specimens. TR4 recording intake and evidence review are implemented: local two-app browser checks and one owner-approved live fictional MP4 interpretation passed. That single clip does not establish broad video accuracy. TR5 technical release checks now cover a predeclared synthetic HTTP-fixture transfer, four reproducible cases across three applications, explicit negative outcomes, and clean-source Node 24 verification. Demo recording is deferred by the owner; genuine independent evaluation, developer adoption and signed-in submission requirements remain unverified. Generic model proposal/verifier paths are fixture-tested; genuine independent evaluation remains pending the owner’s pack.
 
 ## 1. Product and users
 

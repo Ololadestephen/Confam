@@ -1,0 +1,13 @@
+--- a/service/quotes.cjs
++++ b/service/quotes.cjs
+@@ -20,8 +20,9 @@
+         try {
+           const { quantity } = JSON.parse(body);
+           const quote = load();
+-          // Intentional fixture defects: invalid quantities are accepted and total is stale.
++          if (!Number.isInteger(quantity) || quantity < 1) return reply(res, 400, { error: 'Quantity must be a positive integer' });
+           quote.quantity = quantity;
++          quote.total = quantity * quote.unitPrice;
+           save(quote);
+           reply(res, 200, quote);
+         } catch { reply(res, 400, { error: 'Invalid JSON' }); }

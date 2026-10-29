@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/quantity",
+      "method": "POST",
+      "capture": "invalid",
+      "body": {
+        "quantity": -2
+      }
+    },
+    {
+      "action": "request",
+      "path": "/quote",
+      "method": "GET",
+      "capture": "saved"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "rejectNegative",
+      "actual": {
+        "variable": "invalid.status"
+      },
+      "operator": "eq",
+      "expected": 400
+    },
+    {
+      "action": "assert",
+      "expectationId": "preserveQuote",
+      "actual": {
+        "variable": "saved.body.quantity"
+      },
+      "operator": "eq",
+      "expected": 1
+    }
+  ]
+}
