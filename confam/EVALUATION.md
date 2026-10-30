@@ -46,3 +46,18 @@ The quote quantity run recorded workflow execution durations of 612ms original /
 TR5 application Meta API spend: **$0**. Development-agent compute is not included or measured. No project context was sent to Meta during these checks. Separately, TR4's one approved 4.6-second recording interpretation cost an estimated $0.008239, with settled usage under its $0.25 cap. One clip does not establish broad video accuracy. Earlier generic workflow/decoy authoring paths remain fixture-tested; the live recording result does not validate them.
 
 Private run manifests, traces, videos, transfer declaration, hashes and logs remain under ignored `runs/`. Public summaries deliberately exclude raw evidence and secrets. The source-checkout release procedure is documented in [RELEASE.md](RELEASE.md). Demo recording is deferred at the owner's request. The project is not declared finished by these prototype checks.
+
+
+## ON5 external application attempt — October 30, 2026
+
+An owner-selected external Next.js application was inspected after freezing Confam at `176f1ee213b52be8c89e1cdc94f4c3037333cbdf`. Unlike the synthetic quote fixture, this repository already existed outside the project. No engine or application source was changed during the attempt.
+
+Public anonymous guest-practice observations covered entering a battle, advancing a round, recovering the same battle after refresh, a special move entering cooldown, and recovering that state after reopening. These are scoped public-site observations, separate from controlled local execution; deployment identity was not matched to the repository revision. They establish no repair result.
+
+The local project and scripted smoke workflow passed configuration validation, but the existing execution snapshot preparation rejected the repository with `Snapshot exceeds file or byte limit`. Runtime assets exceed the 20 MiB snapshot budget. The application was not started by Confam; no browser execution job, original reproduction or candidate evaluation completed. Limits were not raised and assets were not removed to change this outcome. **Configuration-only transfer was unsupported.**
+
+Separately, the external repository's unchanged test suite passed 505 tests with 1 skipped across 92 files; typecheck and lint passed under Node 24.22.1 after locked dependency installation with lifecycle scripts disabled. Its production build exited 1 with a dependency security guard. These application checks do not substitute for a Confam run. Detailed source findings and raw logs remain private local evidence.
+
+Preparation also exposed requirements for dependency/build preparation and a configured application origin matching the isolated runtime port. These are source-inspection findings, not additional observed execution failures: snapshot preparation stopped first. No defect or candidate repair was supplied, no independent fault pack was used, and no project data was sent to Meta ($0 application API spend). Human setup time was not measured; interrupted session wall time is not a setup benchmark.
+
+The next integration work should address bounded runtime snapshots, explicit dependency/build preparation and runtime environment binding as shared capabilities. This attempt is preserved as an unsupported result; improving support cannot retroactively make the frozen transfer successful.
