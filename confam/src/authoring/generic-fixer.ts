@@ -9,7 +9,7 @@ import { confinedPath } from "../project/config.js";
 import { prepareBaseline, guardPatch } from "../engine/variants.js";
 import { git } from "../engine/process.js";
 import { fixerSchema } from "./schemas.js";
-import { normalizeModelPatch } from "./generic-decoys.js";
+import { normalizeModelPatch, repairModelDiff } from "./generic-decoys.js";
 
 const MAX_AUTHORING_BYTES = 250_000;
 
@@ -41,7 +41,7 @@ Never edit tests, checks, probes, dependency manifests, configuration or runner 
   const client = new ModelClient(ledger, transport);
   const result = await client.structured("fixer", instructions, input, fixerSchema, 8192);
   const raw = path.join(directory, "raw-candidate.patch");
-  await writeFile(raw, result.patch, { flag: "wx" });
+  await writeFile(raw, repairModelDiff(result.patch), { flag: "wx" });
   await guardPatch(baseline, raw, { recount: true });
   const patchPath = path.join(directory, "candidate.patch");
   await writeFile(patchPath, await normalizeModelPatch(baseline, raw), { flag: "wx" });

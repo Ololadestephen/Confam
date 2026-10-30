@@ -2,6 +2,54 @@
 
 Every number below comes from an actual local run. Development results and independent results are reported separately, as raw counts. A "known-fault" comparison reuses faults that were already used while building the checks, so it is development evidence, not an independent measurement.
 
+## October 30, 2026 (later): live Meta usage across the cases
+
+Every call below was approved in advance from an exact export preview, ran through the shared cost ledger, and was evaluated by Confam itself rather than by the model.
+
+### Muse Wonder fixes
+
+The new generic `draft-fix` command sends only the bug report, the confirmed expectations and the source files the project allows a fix to touch. Each returned diff was guarded, normalized and then evaluated as a candidate.
+
+| Case | Files Wonder changed | Result against the checks | Estimated cost |
+|---|---|---|---|
+| Salon booking integrity | `server.js` (time conversion, error instead of false confirmation) | Passed all five expectations; both correct fixes also passed | $0.0355 |
+| Task board | `backend/main.cjs` (save the completed state) | Passed the frozen strengthened checks | $0.0269 |
+| Quote saved total | `service/quotes.cjs` (recalculate the total) | Passed | $0.0202 |
+| Mosaic sign-in lockout (real) | `accounts.ts`: check the lock first, count only failures (same structure as the real fix) | Passed both expectations | $0.0620 |
+| Mosaic workspace re-select (real) | `workspace-app.tsx`: the same one-line guard as the real fix | Passed | $0.0226 |
+
+Passing these checks is evidence for the listed expectations only. Quote and Mosaic have no second independently written correct fix, so false-rejection calibration is unavailable there.
+
+### Muse Spark decoys written after the checks were frozen
+
+Spark wrote decoys against the known-correct reference. None of them existed when the salon and task-board checks were built and frozen, and none was used to shape them. They are still model-written development faults, not the owner's independent pack.
+
+| Case | Proposed | Applicable | Caught | Survived | Uncounted |
+|---|---|---|---|---|---|
+| Salon booking integrity | 3 | 3 | 3 | 0 | 0 |
+| Task board | 3 | 3 | 3 | 0 | 0 |
+
+Getting there exposed three more ways model-written diffs break, each now repaired or recorded generically with tests: a missing final newline, a `diff --git` header without `---`/`+++` lines, and context lines that misquote the file. Applicable decoys are now kept and an inapplicable one is recorded as rejected with its reason, instead of one bad diff discarding the whole batch. Five attempts failed at this stage before the fixes; their costs are included below.
+
+### Recording intake
+
+Two fictional clips were recorded locally with Playwright from the original apps and sent with their written reports.
+
+| Clip | What Spark reported | Check against the frames | Estimated cost |
+|---|---|---|---|
+| Salon, 8.9 s | "Booking confirmed" with Sat 5 Jan 2:00 PM listed at 3.5 s; form and list reset with "No upcoming appointments" at 5.9 s | Matches (confirmation visible at 3.6–4.4 s, reset visible by 5.2 s) | $0.0089 |
+| Task board, 6.9 s | Completed and "Update confirmed" at 1.2 s; back to Todo at 3.7 s | Matches | $0.0080 |
+
+Spark stated what the video cannot show: whether the reset came from a reload, and whether anything was saved on a server. Its suggested expectations for the salon clip match the written report it was given, so they are not evidence of video understanding alone.
+
+### Fresh checks drafted from scratch
+
+Spark drafted task-board checks from the report and confirmed expectation ($0.0113). They passed the reproduction and correct-fix gates on the first run with no corrections. Like the original task-board checks, they reopen the page in the same browser and do not restart the server.
+
+### Cost
+
+Estimated spend for this batch: about $0.28 (Wonder fixes $0.167, recordings $0.017, fresh checks $0.011, decoy drafting $0.088 including five failed attempts). Running total for October 30: about $0.43.
+
 ## October 30, 2026: decoy challenges, comparison and real-app cases
 
 ### Decoy challenges (development faults)

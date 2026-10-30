@@ -2,7 +2,7 @@ import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promis
 import os from "node:os";
 import path from "node:path";
 import { afterEach, expect, it } from "vitest";
-import { normalizeModelPatch, proposeDecoys } from "./generic-decoys.js";
+import { normalizeModelPatch, proposeDecoys, repairModelDiff } from "./generic-decoys.js";
 import { git } from "../engine/process.js";
 import type { ModelTransport } from "../models/client.js";
 
@@ -104,4 +104,29 @@ it("normalizes a model diff with wrong hunk counts and no git header, leaving th
   expect(normalized).toContain("diff --git a/main.js b/main.js");
   expect(normalized).toContain("@@ -1,4 +1,5 @@");
   expect(await readFile(path.join(directory, "main.js"), "utf8")).toBe("one\ntwo\nthree\nfour\n");
+});
+
+it("repairs a missing final newline and missing file lines after a git header", () => {
+  expect(repairModelDiff("--- a/x\n+++ b/x\n@@ -1 +1 @@\n-a\n+b")).toBe("--- a/x\n+++ b/x\n@@ -1 +1 @@\n-a\n+b\n");
+  expect(repairModelDiff("diff --git a/x.js b/x.js\n@@ -1 +1 @@\n-a\n+b\n"))
+    .toBe("diff --git a/x.js b/x.js\n--- a/x.js\n+++ b/x.js\n@@ -1 +1 @@\n-a\n+b\n");
+  const complete = "diff --git a/x.js b/x.js\nindex 1..2 100644\n--- a/x.js\n+++ b/x.js\n@@ -1 +1 @@\n-a\n+b\n";
+  expect(repairModelDiff(complete)).toBe(complete);
+});
+
+it("keeps applicable decoys and records a proposal whose diff does not apply as rejected", async () => {
+  const { directory } = await fixture();
+  const decoy = (id: string, diff: string) => ({ id, violation: "The repair fails to save state", expectationIds: ["persists"], requirements: [{ probe: "saved", holds: false }], patch: diff });
+  const twoDecoys: ModelTransport = {
+    mode: "fixture", count: async () => 100, generate: async () => ({
+      completed: true, usage: { input: 100, output: 100, cached: 0 },
+      text: JSON.stringify({ decoys: [decoy("applies", patch("main.js", "corrected", "broken")), decoy("misquoted", patch("main.js", "not in the file", "broken"))] }),
+    }),
+  };
+  const draft = await propose(directory, twoDecoys);
+  const manifest = JSON.parse(await readFile(draft.manifestPath, "utf8"));
+  expect(manifest.decoys.map((entry: { id: string }) => entry.id)).toEqual(["applies"]);
+  expect(draft.rejected.map(({ id }) => id)).toEqual(["misquoted"]);
+  const proposal = JSON.parse(await readFile(path.join(draft.directory, "proposal.json"), "utf8"));
+  expect(proposal.rejectedAtAuthoring[0].id).toBe("misquoted");
 });

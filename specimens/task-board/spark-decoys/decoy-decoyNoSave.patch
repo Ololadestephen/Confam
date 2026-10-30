@@ -1,0 +1,17 @@
+diff --git a/backend/main.cjs b/backend/main.cjs
+index cb8dfe3..6bca68c 100644
+--- a/backend/main.cjs
++++ b/backend/main.cjs
+@@ -20,10 +20,8 @@ http.createServer((req, res) => {
+     if (req.method === 'GET' && req.url === '/api/tasks') return json(res, 200, load());
+     if (req.method === 'POST' && req.url === '/api/tasks/1/complete') {
+       const state = load();
+-      // Intentional specimen fault: the response changes, but durable state does not.
+-      state.tasks[0].completed = true;
+-      save(state);
+-      return json(res, 200, { confirmed: true, task: { ...state.tasks[0], completed: true } });
++      const task = { ...state.tasks[0], completed: true };
++      return json(res, 200, { confirmed: true, task });
+     }
+     return json(res, 404, { error: 'Not found' });
+   } catch (error) { return json(res, 500, { error: error.message }); }

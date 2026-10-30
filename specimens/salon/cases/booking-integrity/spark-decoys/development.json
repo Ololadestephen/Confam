@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "purpose": "development",
+  "probes": [
+    {
+      "id": "savedRow",
+      "expected": 1,
+      "kind": "sqlite",
+      "query": "SELECT COUNT(*) AS value FROM appointments a JOIN customers c ON a.customer_id=c.id WHERE c.phone=? AND a.starts_at=?",
+      "parameters": [
+        {
+          "fixture": "phone"
+        },
+        {
+          "fixture": "startsAt"
+        }
+      ],
+      "column": "value"
+    },
+    {
+      "id": "customerHasBooking",
+      "expected": 1,
+      "kind": "sqlite",
+      "query": "SELECT COUNT(*) AS value FROM appointments a JOIN customers c ON a.customer_id=c.id WHERE c.phone=?",
+      "parameters": [
+        {
+          "fixture": "phone"
+        }
+      ],
+      "column": "value"
+    },
+    {
+      "id": "otherOwnerRow",
+      "expected": 0,
+      "kind": "sqlite",
+      "query": "SELECT COUNT(*) AS value FROM appointments a JOIN customers c ON a.customer_id=c.id WHERE c.phone<>? AND a.starts_at=?",
+      "parameters": [
+        {
+          "fixture": "phone"
+        },
+        {
+          "fixture": "startsAt"
+        }
+      ],
+      "column": "value"
+    }
+  ],
+  "decoys": [
+    {
+      "id": "decoy-confirm-without-save",
+      "patch": "decoy-decoy-confirm-without-save.patch",
+      "baseControl": "control-a",
+      "violation": "Shows 'Booking confirmed' without saving anything, so reopening shows no appointment.",
+      "expectationIds": [
+        "appointmentPersists",
+        "confirmationMeansSaved"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "decoy-wrong-owner",
+      "patch": "decoy-decoy-wrong-owner.patch",
+      "baseControl": "control-a",
+      "violation": "Saves the booking under a different customer, so the booker has nothing and another customer shows the 2pm slot.",
+      "expectationIds": [
+        "ownerOnly",
+        "appointmentPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        },
+        {
+          "probe": "otherOwnerRow",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "decoy-wrong-time",
+      "patch": "decoy-decoy-wrong-time.patch",
+      "baseControl": "control-a",
+      "violation": "Saves the appointment at 12:00 instead of the booked 2:00 PM, so the exact booked time is never listed.",
+      "expectationIds": [
+        "bookedTimeShown",
+        "appointmentPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "customerHasBooking",
+          "holds": true
+        },
+        {
+          "probe": "savedRow",
+          "holds": false
+        }
+      ]
+    }
+  ],
+  "comparators": []
+}

@@ -1,0 +1,21 @@
+diff --git a/backend/main.cjs b/backend/main.cjs
+index cb8dfe3..f409232 100644
+--- a/backend/main.cjs
++++ b/backend/main.cjs
+@@ -17,10 +17,14 @@ http.createServer((req, res) => {
+       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+       return res.end(fs.readFileSync(path.join(__dirname, '../frontend/view.html')));
+     }
+-    if (req.method === 'GET' && req.url === '/api/tasks') return json(res, 200, load());
++    if (req.method === 'GET' && req.url === '/api/tasks') {
++      const state = load();
++      state.tasks[0].completed = false;
++      save(state);
++      return json(res, 200, state);
++    }
+     if (req.method === 'POST' && req.url === '/api/tasks/1/complete') {
+       const state = load();
+-      // Intentional specimen fault: the response changes, but durable state does not.
+       state.tasks[0].completed = true;
+       save(state);
+       return json(res, 200, { confirmed: true, task: { ...state.tasks[0], completed: true } });

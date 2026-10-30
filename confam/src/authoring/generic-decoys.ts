@@ -8,7 +8,7 @@ import { DEFAULT_BUDGET_USD } from "../models/config.js";
 import { loadVerificationCase } from "../project/load-case.js";
 import { confinedPath } from "../project/config.js";
 import { prepareBaseline, createVariant, guardPatch } from "../engine/variants.js";
-import { git } from "../engine/process.js";
+import { errorMessage, git } from "../engine/process.js";
 import { probeRegistrySchema } from "../probes/index.js";
 import { challengeManifestSchema, decoySchema } from "../challenges/schema.js";
 import { validateDecoys } from "../challenges/load.js";
@@ -74,19 +74,27 @@ These proposals require review and independent runtime qualification; generated 
       ...decoy, patch: `decoy-${decoy.id}.patch`, baseControl: referenceControlId,
     })
   }));
-  const decoys = patches.map(({ spec }) => spec);
-  validateDecoys(decoys, loaded.definition, probes);
+  validateDecoys(patches.map(({ spec }) => spec), loaded.definition, probes);
   // Stage the reference control so each normalized decoy diff is relative to it.
   await git(reference, "add", "-A");
+  // A proposal whose diff cannot be applied is recorded as rejected, not allowed to sink the others.
+  const decoys: typeof patches[number]["spec"][] = [];
+  const rejected: { id: string; reason: string }[] = [];
   for (const { spec, contents } of patches) {
     const raw = path.join(directory, `raw-${spec.patch}`);
-    await writeFile(raw, contents, { flag: "wx" });
-    await guardPatch(reference, raw, { recount: true });
-    const file = path.join(directory, spec.patch);
-    await writeFile(file, await normalizeModelPatch(reference, raw), { flag: "wx" });
-    await guardPatch(reference, file);
-    await git(reference, "apply", "--check", "--", file);
+    await writeFile(raw, repairModelDiff(contents), { flag: "wx" });
+    try {
+      await guardPatch(reference, raw, { recount: true });
+      const file = path.join(directory, spec.patch);
+      await writeFile(file, await normalizeModelPatch(reference, raw), { flag: "wx" });
+      await guardPatch(reference, file);
+      await git(reference, "apply", "--check", "--", file);
+      decoys.push(spec);
+    } catch (error) {
+      rejected.push({ id: spec.id, reason: errorMessage(error).split("\n").slice(0, 2).join(" ") });
+    }
   }
+  if (decoys.length === 0) throw new Error(`No proposed decoy produced an applicable patch: ${rejected.map(({ id, reason }) => `${id}: ${reason}`).join("; ")}`);
   const manifest = challengeManifestSchema.parse({ schemaVersion: 1, purpose: "development", probes, decoys, comparators: [] });
   const manifestPath = path.join(directory, "development.json");
   await writeFile(manifestPath, JSON.stringify(manifest, null, 2) + "\n", { flag: "wx" });
@@ -95,9 +103,29 @@ These proposals require review and independent runtime qualification; generated 
     mode: transport.mode, project: loaded.project.config.id, caseId: loaded.definition.id, referenceControl: referenceControlId,
     reviewedProbesHash: createHash("sha256").update(registryText).digest("hex"),
     referenceControlHash: createHash("sha256").update(referenceControl.contents).digest("hex"),
+    rejectedAtAuthoring: rejected,
     note: "No application executed; no generated decoy has been independently qualified."
   }, null, 2) + "\n", { flag: "wx" });
-  return { manifestPath, directory, usage: ledger.snapshot() };
+  return { manifestPath, directory, rejected, usage: ledger.snapshot() };
+}
+
+// Repairs two unambiguous slips in model-written diffs that git rejects as corrupt: a missing
+// final newline, and a "diff --git" header with no ---/+++ file lines before its first hunk.
+export function repairModelDiff(patch: string): string {
+  const lines = patch.split("\n");
+  const repaired: string[] = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index]!;
+    repaired.push(line);
+    const header = /^diff --git a\/(\S+) b\/(\S+)$/.exec(line);
+    if (!header) continue;
+    let next = index + 1;
+    while (next < lines.length && /^(?:index |similarity |rename |old mode|new mode)/.test(lines[next]!)) repaired.push(lines[next++]!);
+    if (lines[next]?.startsWith("@@")) repaired.push(`--- a/${header[1]}`, `+++ b/${header[2]}`);
+    index = next - 1;
+  }
+  const text = repaired.join("\n");
+  return text.endsWith("\n") ? text : `${text}\n`;
 }
 
 // Model-written diffs often omit git headers or carry wrong hunk line counts. Let git recount

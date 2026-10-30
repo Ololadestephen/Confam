@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "purpose": "development",
+  "probes": [
+    {
+      "id": "stateCompleted",
+      "expected": true,
+      "kind": "json-file",
+      "path": "state",
+      "pointer": [
+        "tasks",
+        "0",
+        "completed"
+      ]
+    }
+  ],
+  "decoys": [
+    {
+      "id": "decoyNoSave",
+      "patch": "decoy-decoyNoSave.patch",
+      "baseControl": "control-a",
+      "violation": "POST /api/tasks/1/complete returns confirmed completed task but never writes to STATE_FILE, so reopening loads Todo and completionPersists is violated; stateCompleted is false.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "decoySaveFalse",
+      "patch": "decoy-decoySaveFalse.patch",
+      "baseControl": "control-a",
+      "violation": "Completion handler confirms success to the UI but persists completed:false, so after reopen the task is Todo and completionPersists is violated; stateCompleted is false.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "decoyResetOnRead",
+      "patch": "decoy-decoyResetOnRead.patch",
+      "baseControl": "control-a",
+      "violation": "Read path resets and saves completed:false so even a correctly saved completion is cleared on reopen, violating completionPersists; stateCompleted is false after reopen.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    }
+  ],
+  "comparators": []
+}

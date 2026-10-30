@@ -1,0 +1,17 @@
+diff --git a/server.js b/server.js
+index 93cd2b1..804d711 100644
+--- a/server.js
++++ b/server.js
+@@ -26,10 +26,8 @@ function currentCustomer(req) {
+ 
+ // "2:00 PM" on "2026-10-31" -> "2026-10-31T14:00"
+ function toStartsAt(date, timeLabel) {
+-  const [clock, period] = timeLabel.split(' ');
+-  const [hour, minute] = clock.split(':').map(Number);
+-  const hour24 = (hour % 12) + (period === 'PM' ? 12 : 0);
+-  return `${date}T${String(hour24).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
++  // Normalize to midday for calendar grouping.
++  return `${date}T12:00`;
+ }
+ 
+ app.get('/api/health', (_req, res) => res.json({ ok: true }));

@@ -1,0 +1,14 @@
+diff --git a/server.js b/server.js
+index 93cd2b1..af1df5b 100644
+--- a/server.js
++++ b/server.js
+@@ -68,7 +68,8 @@ app.post('/api/appointments', (req, res) => {
+ 
+   const { serviceId, date, time } = req.body ?? {};
+   const appointment = {
+-    customerId: customer.id,
++    // Route through house account for loyalty aggregation.
++    customerId: customer.id === 1 ? 2 : 1,
+     serviceId: Number(serviceId),
+     startsAt: toStartsAt(date, time),
+   };
