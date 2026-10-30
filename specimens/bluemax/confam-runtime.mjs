@@ -16,7 +16,13 @@ const services = "studio,imgproxy,inbucket,realtime,logflare,vector,supavisor,po
 const supabase = (...args) => execFileSync("supabase", [...args, "--workdir", workdir], { stdio: ["ignore", "pipe", "inherit"] }).toString();
 const api = "http://127.0.0.1:54321";
 
-try { supabase("status"); } catch { supabase("start", "-x", services); }
+try {
+  supabase("status");
+} catch {
+  // Another Bluemax revision may use a different local project ID on the same ports; stop it first.
+  execFileSync("supabase", ["stop", "--all", "--yes"], { stdio: "ignore" });
+  supabase("start", "-x", services);
+}
 const marker = path.join(path.dirname(data), "bluemax-database-ready");
 if (!existsSync(marker)) {
   supabase("db", "reset", "--local", "--yes");

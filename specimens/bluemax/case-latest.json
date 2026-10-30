@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "quoteSpamLimitLatest",
+  "projectId": "bluemax-latest",
+  "report": "report-latest.md",
+  "fixtures": {
+    "quote": {
+      "name": "Test Customer",
+      "email": "test.customer@example.test",
+      "phone": "08000000000",
+      "location": "Fictional test address",
+      "recommended_system": "5kVA",
+      "monthly_bill": "50000",
+      "message": "Fictional quote request written for Confam testing."
+    }
+  },
+  "expectations": [
+    {
+      "id": "validQuoteAccepted",
+      "statement": "A valid quote request is accepted.",
+      "provenance": "report"
+    },
+    {
+      "id": "spamLimitSurvivesRestart",
+      "statement": "After 5 quote requests from one visitor within a minute, a 6th is refused with \"Too many requests\", even if the function restarts in between.",
+      "provenance": "report"
+    }
+  ],
+  "reproductionTargets": [
+    "spamLimitSurvivesRestart"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

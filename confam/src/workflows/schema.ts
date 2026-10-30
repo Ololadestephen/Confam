@@ -10,6 +10,10 @@ const actualSchema = z.strictObject({ variable: reference });
 const expectedSchema = z.union([scalar, z.strictObject({ fixture: reference })]);
 const localPath = z.string().min(1).max(2000).refine((value) => value.startsWith("/") && !value.startsWith("//")
   && !value.includes("\\") && !/[\u0000-\u0020]/.test(value), "Only same-project absolute paths are supported.");
+// Headers a workflow may set on a request. Transport and routing headers stay under the runner's control.
+const reservedHeaders = new Set(["host", "content-length", "connection", "transfer-encoding", "cookie"]);
+const headerName = z.string().regex(/^[A-Za-z0-9-]{1,100}$/).refine((name) => !reservedHeaders.has(name.toLowerCase()), "Reserved request header.");
+const headersSchema = z.record(headerName, valueSchema).refine((headers) => Object.keys(headers).length <= 20, "At most 20 request headers.");
 const role = z.enum(["button", "link", "textbox", "checkbox", "radio", "combobox", "option", "heading", "status", "list", "listitem", "table", "row", "cell", "dialog", "tab", "alert"]);
 export const locatorSchema = z.discriminatedUnion("kind", [
   z.strictObject({ kind: z.literal("role"), value: role, name: z.string().max(1000).optional() }),
@@ -30,7 +34,7 @@ export const workflowSchema = z.strictObject({
     z.strictObject({ action: z.literal("reopen") }),
     z.strictObject({ action: z.literal("context"), name: identifier }),
     z.strictObject({ action: z.literal("restart") }),
-    z.strictObject({ action: z.literal("request"), path: localPath, method: z.enum(["GET", "POST"]), body: z.json().optional(), capture: identifier }),
+    z.strictObject({ action: z.literal("request"), path: localPath, method: z.enum(["GET", "POST"]), headers: headersSchema.optional(), body: z.json().optional(), capture: identifier }),
     z.strictObject({ action: z.literal("capture"), ...locator, kind: z.enum(["text", "count", "visible", "number"]), capture: identifier }),
     z.strictObject({ action: z.literal("reached") }),
     z.strictObject({ action: z.literal("assert"), expectationId: identifier, actual: actualSchema, operator: z.enum(["eq", "gte", "lte"]), expected: expectedSchema }),

@@ -24,7 +24,7 @@ Return the entire current workflow unchanged as a prefix, optionally appending s
 Use only expectation IDs already present. Do not edit source, probes, existing actions, existing assertions, or expectations.
 If no justified supported improvement exists, return the unchanged workflow and explain why.
 Flag any desired expectation change in reviewReasons. You have no access to candidate outcomes or independent evaluation data.
-In the returned plan, use bodyJson as a JSON string or null for requests, and null for absent role names and select by values.`,
+In the returned plan, use bodyJson and headersJson as JSON strings or null for requests, and null for absent role names and select by values.`,
         JSON.stringify(request), schema, 8192);
       return { ...proposal, plan: decodeModelWorkflow(proposal.plan) };
     },

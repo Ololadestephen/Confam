@@ -19,8 +19,8 @@ const modelOptions = options.map((option) => {
   const action = option.shape.action.value;
   if (action === "request")
     return (option as (typeof options)[9])
-      .omit({ body: true })
-      .extend({ bodyJson: z.string().max(10000).nullable() });
+      .omit({ body: true, headers: true })
+      .extend({ bodyJson: z.string().max(10000).nullable(), headersJson: z.string().max(10000).nullable() });
   if (action === "select")
     return option.extend({
       locator: wireLocator,
@@ -58,6 +58,15 @@ export function decodeModelWorkflow(input: unknown): WorkflowPlan {
           throw new Error("Invalid workflow request body JSON.");
         }
         value.body = modelJsonSchema.parse(parsed);
+      }
+      const headersJson = value.headersJson;
+      delete value.headersJson;
+      if (headersJson !== null) {
+        try {
+          value.headers = JSON.parse(headersJson as string);
+        } catch {
+          throw new Error("Invalid workflow request headers JSON.");
+        }
       }
     }
     if (value.by === null) delete value.by;

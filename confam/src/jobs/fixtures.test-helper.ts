@@ -24,8 +24,11 @@ export function wireWorkflow(plan: WorkflowPlan) {
       const value = { ...step } as Record<string, unknown>;
       if (step.action === "request") {
         delete value.body;
+        delete value.headers;
         value.bodyJson =
           step.body === undefined ? null : JSON.stringify(step.body);
+        value.headersJson =
+          step.headers === undefined ? null : JSON.stringify(step.headers);
       }
       if (step.action === "select") value.by = step.by ?? null;
       if ("locator" in step && step.locator.kind === "role")

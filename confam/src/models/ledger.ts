@@ -5,7 +5,7 @@ import { MODELS, NANOUNITS_PER_USD, PRICING_CHECKED_AT, PRICING_SOURCE, budgetNa
 
 const count = z.number().int().nonnegative().safe();
 const entrySchema = z.object({
-  stage: z.enum(["intake", "checks", "decoys", "strengthen", "verdict", "fixer", "explore"]),
+  stage: z.enum(["intake", "checks", "decoys", "strengthen", "verdict", "fixer", "explore", "gaps"]),
   model: z.enum(["muse-spark-1.3", "muse-wonder-1.0"]),
   state: z.enum(["reserved", "settled", "uncertain"]),
   reservedNanounits: count,

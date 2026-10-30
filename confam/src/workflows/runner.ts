@@ -84,6 +84,8 @@ class WorkflowExecution {
       case "request": {
         const response = await context.request.fetch(localUrl(this.baseUrl, step.path), {
           method: step.method, data: step.body === undefined ? undefined : resolveBody(step.body, this.fixtures, this.variables), maxRedirects: 0, timeout: 5000,
+          headers: step.headers === undefined ? undefined : Object.fromEntries(Object.entries(step.headers)
+            .map(([name, value]) => [name, String(resolveValue(value, this.fixtures, this.variables))])),
         });
         try {
           if (response.status() >= 300 && response.status() < 400) throw new Error("HTTP redirects are unsupported in workflow requests.");

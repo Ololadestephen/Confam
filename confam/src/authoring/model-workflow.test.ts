@@ -23,6 +23,7 @@ it("retains every supported workflow action without recursive JSON references", 
       path: "/api",
       method: "POST",
       bodyJson: JSON.stringify({ item: { name: "example" } }),
+      headersJson: JSON.stringify({ "X-Forwarded-For": "203.0.113.7" }),
       capture: "response",
     },
     { action: "capture", locator, kind: "text", capture: "text" },
@@ -49,4 +50,12 @@ it("retains every supported workflow action without recursive JSON references", 
       steps: [{ ...steps[9], bodyJson: "x".repeat(10001) }],
     }).success,
   ).toBe(false);
+  const decoded = decodeModelWorkflow({ schemaVersion: 1, steps });
+  expect(decoded.steps[9]).toMatchObject({ headers: { "X-Forwarded-For": "203.0.113.7" } });
+  expect(() =>
+    decodeModelWorkflow({
+      schemaVersion: 1,
+      steps: [{ ...steps[9], headersJson: JSON.stringify({ Host: "elsewhere.example" }) }],
+    }),
+  ).toThrow();
 });

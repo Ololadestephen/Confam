@@ -28,3 +28,11 @@ git -C "$BLUEMAX" show "$fix:$mig" > "$tmp/$mig"
 git -C "$tmp" diff > "$here/generated/real-fix.patch"
 rm -rf "$tmp"
 echo "Prepared source at $(git -C "$BLUEMAX" rev-parse --short "$fix^") (pre-fix) with generated/real-fix.patch"
+
+# The latest code (the site as it stands), for reviewing gaps the fixed version may still have.
+latest=5e574fe
+rm -rf "$here/source-latest"
+mkdir -p "$here/source-latest"
+git -C "$BLUEMAX" archive "$latest" -- supabase | tar -x -C "$here/source-latest"
+cp "$here/confam-runtime.mjs" "$here/source-latest/confam-runtime.mjs"
+echo "Prepared source-latest at $(git -C "$BLUEMAX" rev-parse --short "$latest")"

@@ -10,10 +10,10 @@ export const MODELS = {
   "muse-wonder-1.0": { input: 4000, cachedInput: 200, output: 20000 },
 } as const;
 export type ModelId = keyof typeof MODELS;
-export type ModelStage = "intake" | "checks" | "decoys" | "strengthen" | "verdict" | "fixer" | "explore";
+export type ModelStage = "intake" | "checks" | "decoys" | "strengthen" | "verdict" | "fixer" | "explore" | "gaps";
 export const STAGE_MODELS: Record<ModelStage, ModelId> = {
   intake: "muse-spark-1.3", checks: "muse-spark-1.3", decoys: "muse-spark-1.3", verdict: "muse-spark-1.3",
-  strengthen: "muse-spark-1.3",
+  strengthen: "muse-spark-1.3", gaps: "muse-spark-1.3",
   fixer: "muse-wonder-1.0", explore: "muse-wonder-1.0",
 };
 

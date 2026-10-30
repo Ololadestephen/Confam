@@ -2,6 +2,7 @@ import { viewingSlowMo } from "../workflows/pacing.js";
 import { analyzeRecording } from "../recordings/intake.js";
 import { startReviewServer } from "../web/server.js";
 import { proposeDecoys } from "../authoring/generic-decoys.js";
+import { proposeGaps } from "../authoring/generic-gaps.js";
 import { proposeFix } from "../authoring/generic-fixer.js";
 import { challengeProject } from "../challenges/harness.js";
 import { evaluateChallengePack } from "../challenges/evaluate-pack.js";
@@ -59,6 +60,11 @@ async function main(): Promise<void> {
     const draft = await proposeDecoys(path.resolve(args.project!), path.resolve(args.subject), path.resolve(args.registry!), args.reference!, path.join(root, "runs"), { budget: args.budget, preview: args.preview });
     console.log(draft.manifestPath
       ? `Decoy proposal requires review: ${draft.manifestPath}\nNo probes authored and no application behavior evaluated.`
+      : `Export preview written, nothing sent: ${draft.exportPath}`);
+  } else if (args.command === "draft-gaps") {
+    const draft = await proposeGaps(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), { budget: args.budget, preview: args.preview });
+    console.log(draft.proposalPath
+      ? `Proposed expectations require review: ${draft.proposalPath}\nNothing executed; confirm any you want added to the case.`
       : `Export preview written, nothing sent: ${draft.exportPath}`);
   } else if (args.command === "draft-fix") {
     const draft = await proposeFix(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), { budget: args.budget, preview: args.preview });

@@ -8,6 +8,7 @@ export const USAGE = `Commands:
   compare <challenge-run-directory> --pack pack.json [--integration-fixture]
   verify <case.json> --project project.json --workflow workflow.json (--accept | --fixture) [--candidate patch]
   draft-workflow <case.json> --project project.json [--budget USD]  (sends report and source to Meta)
+  draft-gaps <case.json> --project project.json [--budget USD] [--preview] (sends report, confirmed expectations and configured source to Muse Spark to propose missed expectations)
   draft-fix <case.json> --project project.json [--budget USD] [--preview] (sends report, expectations and configured source to Muse Wonder; --preview only writes the export)
   project-check <project.json>
   run <case> [--candidate patch]
@@ -20,7 +21,7 @@ export const USAGE = `Commands:
 The demo uses scripted fixture responses and confirmation; it makes no model calls.`;
 
 interface CliArguments {
-  command: "serve" | "recording-intake" | "draft-decoys" | "draft-fix" | "challenge" | "compare" | "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
+  command: "serve" | "recording-intake" | "draft-decoys" | "draft-gaps" | "draft-fix" | "challenge" | "compare" | "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
   subject: string;
   report?: string;
   port?: number;
@@ -43,7 +44,7 @@ interface CliArguments {
 
 export function parseArguments(argv: string[]): CliArguments {
   const [command, subject, ...flags] = argv;
-  if (!command || !["serve", "recording-intake", "draft-decoys", "draft-fix", "challenge", "compare", "verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
+  if (!command || !["serve", "recording-intake", "draft-decoys", "draft-gaps", "draft-fix", "challenge", "compare", "verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
   const values = new Map<string, string>();
   const allowed: Record<string, string[]> = {
     serve: ["--port"],
@@ -53,6 +54,7 @@ export function parseArguments(argv: string[]): CliArguments {
     compare: ["--pack", "--integration-fixture"],
     verify: ["--project", "--workflow", "--accept", "--fixture", "--candidate"],
     "draft-workflow": ["--project", "--budget"],
+    "draft-gaps": ["--project", "--budget", "--preview"],
     "draft-fix": ["--project", "--budget", "--preview"],
     "project-check": [], run: ["--candidate"], intake: ["--budget"], confirm: ["--accept", "--answer"], execute: ["--candidate", "--fix"], demo: ["--candidate", "--budget", "--fix"],
     recheck: ["--candidate", "--budget", "--fix"], heldout: ["--pack"],
@@ -65,7 +67,7 @@ export function parseArguments(argv: string[]): CliArguments {
     if (!value || value.startsWith("--")) throw new Error(`Missing value for ${flag}`);
     values.set(flag, value);
   }
-  if ((["draft-decoys", "draft-fix", "challenge", "verify", "draft-workflow"].includes(command)) && !values.has("--project")) throw new Error("A project configuration is required.");
+  if ((["draft-decoys", "draft-gaps", "draft-fix", "challenge", "verify", "draft-workflow"].includes(command)) && !values.has("--project")) throw new Error("A project configuration is required.");
   if ((command === "verify" || command === "challenge") && (!values.has("--workflow") || values.has("--accept") === values.has("--fixture"))) {
     throw new Error("Review the case and workflow, then choose --accept or explicitly labelled --fixture confirmation.");
   }

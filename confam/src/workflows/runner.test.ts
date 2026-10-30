@@ -15,6 +15,7 @@ beforeEach(async () => {
   server = createServer((req, res) => {
     if (req.url === "/pending") return;
     if (req.url === "/redirect") { res.writeHead(302, { location: "http://external.invalid/" }); res.end(); return; }
+    if (req.url === "/forwarded") { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify({ forwarded: req.headers["x-forwarded-for"] ?? "none" })); return; }
     if (req.url === "/identity") { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify({ cookie: req.headers.cookie ?? "none" })); return; }
     res.setHeader("Content-Type", "text/html");
     res.setHeader("Set-Cookie", "account=first; Path=/");
@@ -68,6 +69,16 @@ it("keeps named browser contexts independent and observes HTTP status/body", asy
     ]
   }, [{ id: "isolated", statement: "Another context has no account cookie" }], {}, { restart: false });
   expect((await runWorkflow(plan, {}, url, directory)).status).toBe("passed");
+});
+it("sends workflow request headers resolved from fixtures", async () => {
+  const plan = validateWorkflow({
+    schemaVersion: 1, steps: [
+      { action: "request", method: "GET", path: "/forwarded", headers: { "X-Forwarded-For": { fixture: "visitor" } }, capture: "reply" },
+      { action: "reached" },
+      { action: "assert", expectationId: "forwarded", actual: { variable: "reply.body.forwarded" }, operator: "eq", expected: "203.0.113.7" },
+    ]
+  }, [{ id: "forwarded", statement: "The header reaches the app" }], { visitor: "203.0.113.7" }, { restart: false });
+  expect((await runWorkflow(plan, { visitor: "203.0.113.7" }, url, directory)).status).toBe("passed");
 });
 it("does not follow an HTTP redirect outside the project", async () => {
   const plan: WorkflowPlan = { schemaVersion: 1, steps: [{ action: "request", method: "GET", path: "/redirect", capture: "reply" }] };

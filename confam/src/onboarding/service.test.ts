@@ -83,7 +83,7 @@ async function fixture(overrides: Partial<ModelTransport> = {}) {
                 ...workflow,
                 steps: workflow.steps.map((step) =>
                   step.action === "request"
-                    ? { ...step, bodyJson: null }
+                    ? { ...step, bodyJson: null, headersJson: null }
                     : step,
                 ),
               },
@@ -436,6 +436,7 @@ it("keeps a semantically invalid workflow editable and blocks confirmation until
                   method: "GET",
                   capture: "result",
                   bodyJson: null,
+                  headersJson: null,
                 },
                 workflow.steps[2],
                 { action: "reached" },
