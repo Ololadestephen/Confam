@@ -19,6 +19,15 @@
       "action": "reached"
     },
     {
+      "action": "assert",
+      "expectationId": "validQuoteAccepted",
+      "actual": {
+        "variable": "r1.status"
+      },
+      "operator": "eq",
+      "expected": 200
+    },
+    {
       "action": "request",
       "path": "/functions/v1/submit-lead",
       "method": "POST",
@@ -93,6 +102,27 @@
       "expectationId": "spoofedHeaderBypass",
       "actual": {
         "variable": "r6.status"
+      },
+      "operator": "eq",
+      "expected": 429
+    },
+    {
+      "action": "restart"
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "afterRestart",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "assert",
+      "expectationId": "spamLimitSurvivesRestart",
+      "actual": {
+        "variable": "afterRestart.status"
       },
       "operator": "eq",
       "expected": 429

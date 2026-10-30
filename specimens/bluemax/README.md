@@ -31,3 +31,9 @@ Muse Spark's gap finder (`draft-gaps`) reviewed the latest code (`5e574fe`) agai
 | When the request count cannot be checked, further requests are refused | **Fails**: with the rate-limit table unavailable, all six requests were accepted |
 
 The third test uses a fault switch served by the wrapper (`POST /confam-fault/rate-limits-unavailable`), which renames the table; Bluemax's code is unchanged. These results describe the local Supabase stack. Supabase's production gateway may set forwarding headers differently, so the header result has not been confirmed against the live site, and the live site was not tested.
+
+### Muse Wonder's fix for the three gaps
+
+The owner approved the exact export (the gaps report, all five confirmed expectations and the current function; no checks, probes or fault switch). Wonder's patch validates input before counting, refuses requests with 503 when the count cannot be checked or recorded, and limits by connection address, email and phone instead of the first forwarding header. On the local stack it **passed all five expectations**: the three gap cases, plus a valid request accepted and the limit holding across a restart (checked inside the header case, because Confam gives no verdict on a case whose bug does not reproduce).
+
+A risk the checks cannot see: Wonder takes the visitor's address from the runtime's connection address first. Behind a gateway that address may be the gateway itself, which would put every customer on one shared limit of 5 requests a minute. Locally all traffic comes through one gateway, so this cannot be distinguished here. Its header result also relies partly on the email and phone keys, so a spammer who changes those as well is limited only by address. This patch needs a human review before it is used anywhere.

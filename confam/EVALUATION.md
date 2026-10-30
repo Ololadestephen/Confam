@@ -115,6 +115,16 @@ Spark wrote three decoys against the real fix after the owner approved the exact
 
 **Muse Wonder's fix.** The owner approved the exact export (the report, the two expectations and the pre-fix function; no checks, probes, decoys or real fix), $0.0899. Wonder's patch applied and **passed both checks**: a valid request accepted, and the 6th request refused after a restart. Its design differs from the real fix: it keeps one counter row per visitor instead of one row per request, so the database held 5 stored requests (matching the reviewed probe) but 1 rate-limit row, not 5. The `requestsRecorded` probe therefore describes the real fix's design, not the expectation. It is sound for decoys built on the real fix, but it would wrongly reject a correct alternative design if applied to candidates, and it was not. Like the real fix, Wonder's version falls back silently when the database check fails (to an in-memory limit rather than letting every request through); the checks do not cover that path.
 
+**Gaps found in the current code.** A new step, `draft-gaps`, asks Muse Spark to review the code as it stands against the confirmed expectations and propose ones the developer missed ($0.0102 for Bluemax's latest code, `5e574fe`; the owner approved the exact export). Spark proposed five; the owner confirmed three, choosing to fail closed for the third. All three **fail on the latest code** on the local Supabase stack:
+
+| Confirmed expectation | Latest code | Muse Wonder's fix |
+|---|---|---|
+| A visitor cannot avoid the limit by changing forwarding headers | Fails: six requests with different `X-Forwarded-For` values all accepted | Passes |
+| Requests rejected for invalid input do not use up the limit | Fails: a valid request refused (429) after five invalid ones (400) | Passes |
+| When the request count cannot be checked, further requests are refused | Fails: with the rate-limit table unavailable (a fault switch in the test wrapper), all six accepted | Passes (503) |
+
+Wonder's fix ($0.0953) also kept both original expectations. These results are local; the live site was not tested, and Supabase's production gateway may set forwarding headers differently. Wonder's fix needs human review before use: it prefers the runtime's connection address, which behind a gateway could put every customer on one shared limit, something these local checks cannot distinguish. Details: `specimens/bluemax/README.md`.
+
 ### Cases and engine fixes
 
 Reproducible cases now span four applications: salon, task board, quote tool and Mosaic. A new quote case checks the saved total rather than the update response; both quote candidate patches pass it, because the faulty patch's defect is input validation.
