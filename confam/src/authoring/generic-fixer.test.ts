@@ -2,7 +2,7 @@ import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promis
 import os from "node:os";
 import path from "node:path";
 import { afterEach, expect, it } from "vitest";
-import { proposeFix } from "./generic-fixer.js";
+import { proposeFix, type FixOptions } from "./generic-fixer.js";
 import type { ModelTransport } from "../models/client.js";
 
 const directories: string[] = [];
@@ -33,7 +33,7 @@ function transport(patch: string, inspect: (instructions: string, input: string)
     },
   };
 }
-const runFix = (directory: string, options: Parameters<typeof proposeFix>[3]) =>
+const runFix = (directory: string, options: FixOptions) =>
   proposeFix(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "runs"), options);
 
 it("previews the exact export without creating a ledger or calling a model", async () => {
