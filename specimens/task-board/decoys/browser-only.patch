@@ -1,0 +1,36 @@
+diff --git a/backend/main.cjs b/backend/main.cjs
+index cb8dfe3..199249b 100644
+--- a/backend/main.cjs
++++ b/backend/main.cjs
+@@ -21,8 +21,6 @@ http.createServer((req, res) => {
+     if (req.method === 'POST' && req.url === '/api/tasks/1/complete') {
+       const state = load();
+       // Intentional specimen fault: the response changes, but durable state does not.
+-      state.tasks[0].completed = true;
+-      save(state);
+       return json(res, 200, { confirmed: true, task: { ...state.tasks[0], completed: true } });
+     }
+     return json(res, 404, { error: 'Not found' });
+diff --git a/frontend/view.html b/frontend/view.html
+index 476bfaf..f891e58 100644
+--- a/frontend/view.html
++++ b/frontend/view.html
+@@ -14,12 +14,16 @@ function render(item) {
+ async function load() {
+   const response = await fetch('/api/tasks');
+   if (!response.ok) throw new Error('Could not load tasks');
+-  render((await response.json()).tasks[0]);
++  const item = (await response.json()).tasks[0];
++  if (localStorage.getItem('completed-' + item.id)) item.completed = true;
++  render(item);
+ }
+ document.querySelector('#complete').addEventListener('click', async () => {
+   const response = await fetch('/api/tasks/1/complete', { method: 'POST' });
+   if (!response.ok) { document.querySelector('#confirmation').textContent = 'Update failed'; return; }
+-  render((await response.json()).task);
++  const item = (await response.json()).task;
++  localStorage.setItem('completed-' + item.id, 'true');
++  render(item);
+   document.querySelector('#confirmation').textContent = 'Update confirmed';
+ });
+ load().catch(() => { document.querySelector('#confirmation').textContent = 'Could not load tasks'; });

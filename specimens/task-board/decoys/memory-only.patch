@@ -1,0 +1,28 @@
+diff --git a/backend/main.cjs b/backend/main.cjs
+index cb8dfe3..ff7c26f 100644
+--- a/backend/main.cjs
++++ b/backend/main.cjs
+@@ -4,7 +4,12 @@ const path = require('node:path');
+ const statePath = process.env.STATE_FILE;
+ if (!statePath) throw new Error('STATE_FILE is required');
+ if (!fs.existsSync(statePath)) fs.writeFileSync(statePath, JSON.stringify({ tasks: [{ id: 1, title: 'Prepare quote', completed: false }] }));
+-const load = () => JSON.parse(fs.readFileSync(statePath, 'utf8'));
++const completedInMemory = new Set();
++const load = () => {
++  const state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
++  for (const task of state.tasks) if (completedInMemory.has(task.id)) task.completed = true;
++  return state;
++};
+ const save = (state) => fs.writeFileSync(statePath, JSON.stringify(state));
+ function json(res, code, body) {
+   res.writeHead(code, { 'Content-Type': 'application/json' });
+@@ -21,8 +26,7 @@ http.createServer((req, res) => {
+     if (req.method === 'POST' && req.url === '/api/tasks/1/complete') {
+       const state = load();
+       // Intentional specimen fault: the response changes, but durable state does not.
+-      state.tasks[0].completed = true;
+-      save(state);
++      completedInMemory.add(state.tasks[0].id);
+       return json(res, 200, { confirmed: true, task: { ...state.tasks[0], completed: true } });
+     }
+     return json(res, 404, { error: 'Not found' });

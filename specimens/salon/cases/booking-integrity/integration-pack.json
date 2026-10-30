@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "purpose": "integration-fixture",
+  "label": "The six known development decoys, reused ONLY to compare the frozen arms on the same qualified faults. Not independent evidence.",
+  "decoys": [
+    {
+      "id": "ui-only",
+      "patch": "decoys/ui-only.patch",
+      "baseControl": "control-a",
+      "violation": "Shows the confirmation but never writes the booking.",
+      "expectationIds": [
+        "appointmentPersists",
+        "confirmationMeansSaved"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        },
+        {
+          "probe": "customerHasBooking",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "wrong-owner",
+      "patch": "decoys/wrong-owner.patch",
+      "baseControl": "control-a",
+      "violation": "Saves the booking under a different customer.",
+      "expectationIds": [
+        "appointmentPersists",
+        "ownerOnly"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        },
+        {
+          "probe": "otherOwnerRow",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "swallowed-error",
+      "patch": "decoys/swallowed-error.patch",
+      "baseControl": "control-a",
+      "violation": "The save fails for afternoon times, the error is swallowed and success is returned.",
+      "expectationIds": [
+        "appointmentPersists",
+        "confirmationMeansSaved"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        },
+        {
+          "probe": "customerHasBooking",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "browser-only",
+      "patch": "decoys/browser-only.patch",
+      "baseControl": "control-a",
+      "violation": "Keeps the booking only in the browser's local storage; nothing reaches the salon's system.",
+      "expectationIds": [
+        "confirmationMeansSaved"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        },
+        {
+          "probe": "customerHasBooking",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "memory-only",
+      "patch": "decoys/memory-only.patch",
+      "baseControl": "control-a",
+      "violation": "Keeps the booking only in server memory, so it is lost when the server restarts.",
+      "expectationIds": [
+        "survivesRestart",
+        "confirmationMeansSaved"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        },
+        {
+          "probe": "customerHasBooking",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "wrong-time",
+      "patch": "decoys/wrong-time.patch",
+      "baseControl": "control-a",
+      "violation": "Saves the booking for the customer but at 2 a.m. instead of 2 p.m.",
+      "expectationIds": [
+        "appointmentPersists",
+        "bookedTimeShown"
+      ],
+      "requirements": [
+        {
+          "probe": "savedRow",
+          "holds": false
+        },
+        {
+          "probe": "customerHasBooking",
+          "holds": true
+        }
+      ]
+    }
+  ]
+}

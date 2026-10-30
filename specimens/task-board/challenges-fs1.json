@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "purpose": "development",
+  "probes": [
+    {
+      "id": "stateCompleted",
+      "kind": "json-file",
+      "path": "state",
+      "pointer": [
+        "tasks",
+        "0",
+        "completed"
+      ],
+      "expected": true
+    }
+  ],
+  "decoys": [
+    {
+      "id": "undo-save",
+      "patch": "decoys/undo-save.patch",
+      "baseControl": "control-a",
+      "violation": "The update is confirmed without saving the completed state.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "wrong-field",
+      "patch": "decoys/wrong-field.patch",
+      "baseControl": "control-a",
+      "violation": "Saves the change under the wrong field, so the task's completed state is never stored.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "memory-only",
+      "patch": "decoys/memory-only.patch",
+      "baseControl": "control-a",
+      "violation": "Keeps completion only in server memory; the saved state never changes and is lost on restart.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "browser-only",
+      "patch": "decoys/browser-only.patch",
+      "baseControl": "control-a",
+      "violation": "Keeps completion only in the browser's local storage; nothing is saved on the server.",
+      "expectationIds": [
+        "completionPersists"
+      ],
+      "requirements": [
+        {
+          "probe": "stateCompleted",
+          "holds": false
+        }
+      ]
+    }
+  ],
+  "comparators": []
+}

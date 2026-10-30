@@ -1,0 +1,13 @@
+diff --git a/backend/main.cjs b/backend/main.cjs
+index cb8dfe3..ff0bd43 100644
+--- a/backend/main.cjs
++++ b/backend/main.cjs
+@@ -21,7 +21,7 @@ http.createServer((req, res) => {
+     if (req.method === 'POST' && req.url === '/api/tasks/1/complete') {
+       const state = load();
+       // Intentional specimen fault: the response changes, but durable state does not.
+-      state.tasks[0].completed = true;
++      state.tasks[0].done = true;
+       save(state);
+       return json(res, 200, { confirmed: true, task: { ...state.tasks[0], completed: true } });
+     }

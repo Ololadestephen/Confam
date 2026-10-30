@@ -166,5 +166,24 @@
       ]
     }
   ],
-  "comparators": []
+  "comparators": [
+    {
+      "role": "existing",
+      "workflow": "comparators/existing-smoke.json",
+      "provenance": "The salon app's existing smoke test (app/tests/smoke.spec.js) translated step for step: sign in, book, check the page says Booking confirmed. Its fixed date replaced by the case's booking fixtures."
+    },
+    {
+      "role": "direct-ai",
+      "workflow": "comparators/direct-ai-spark-unreviewed.json",
+      "provenance": "Muse Spark draft from the same report and confirmed expectations, used exactly as generated: no developer review, no reproduction or control gates, no decoy feedback. Same file as workflow-v2-spark.json.",
+      "metadata": {
+        "modelId": "muse-spark-1.3",
+        "modelVersion": null,
+        "prompt": null,
+        "inputHash": null,
+        "budgetUsd": 0.5,
+        "authoringMs": 27748
+      }
+    }
+  ]
 }
