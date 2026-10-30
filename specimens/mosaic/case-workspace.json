@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "workspaceReselect",
+  "projectId": "mosaic-workspace",
+  "report": "report-workspace.md",
+  "fixtures": {
+    "name": "Workspace User",
+    "email": "workspace.user@example.test",
+    "password": "correct-horse-staple-42",
+    "workspace": "Fictional launch plan"
+  },
+  "expectations": [
+    {
+      "id": "workspaceStaysOpen",
+      "statement": "Re-selecting the workspace that is already open keeps its board on screen.",
+      "provenance": "report"
+    }
+  ],
+  "reproductionTargets": [
+    "workspaceStaysOpen"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

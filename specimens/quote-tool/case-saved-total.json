@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "savedTotalMatchesQuantity",
+  "projectId": "quote-tool",
+  "report": "report-saved-total.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "savedTotal",
+      "statement": "After changing the quantity to three, the saved quote's total is 36.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "savedTotal"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "mosaic-workspace",
+  "root": "source-workspace",
+  "sourceFiles": [
+    "src/components/workspace-app.tsx"
+  ],
+  "protectedPaths": [
+    "confam-runtime.mjs",
+    ".confam-deps.json",
+    "scripts",
+    "migrations"
+  ],
+  "runtime": {
+    "command": [
+      "node",
+      "confam-runtime.mjs"
+    ],
+    "readinessPath": "/api/health",
+    "timeoutMs": 120000,
+    "portVariable": "PORT",
+    "dataVariable": "CONFAM_DATA",
+    "restart": false,
+    "workflowTimeoutMs": 90000
+  }
+}

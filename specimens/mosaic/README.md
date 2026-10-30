@@ -1,8 +1,11 @@
 # Mosaic specimen (real application, real bug)
 
-Mosaic is the owner's own Next.js and PostgreSQL application. This specimen uses a real bug from its history: successful sign-ins counted toward the 15-per-15-minutes lockout, so a user signing in normally could be locked out. Commit `585a8a6` fixed it.
+Mosaic is the owner's own Next.js and PostgreSQL application. This specimen uses two real bugs from its history:
 
-Mosaic's source is not committed here. `prepare.sh` exports the commit before the fix from the owner's local repository (read-only), reuses that repository's installed dependencies when the lockfile matches, and writes the real fix as `generated/real-fix.patch`. Both `source/` and `generated/` are gitignored.
+- **Sign-in lockout** (`case.json`, `project.json`): successful sign-ins counted toward the 15-per-15-minutes lockout, so a user signing in normally could be locked out. Fixed in `585a8a6`.
+- **Workspace re-select** (`case-workspace.json`, `project-workspace.json`): choosing the workspace that was already open cleared the board and left the page on "Opening your workspace…". Fixed in `5a72a3c`. Added through configuration only, with no engine changes.
+
+Mosaic's source is not committed here. `prepare.sh` exports the commit before each fix from the owner's local repository (read-only), reuses that repository's installed dependencies when the lockfile matches, and writes the real fixes as `generated/real-fix.patch` and `generated/workspace-fix.patch`. `source/`, `source-workspace/` and `generated/` are gitignored.
 
 | File | Purpose |
 |---|---|

@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "name"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "email"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "label",
+        "value": "Workspace name"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Workspace name"
+      },
+      "value": {
+        "fixture": "workspace"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create workspace"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "No tasks yet"
+      }
+    },
+    {
+      "action": "select",
+      "locator": {
+        "kind": "label",
+        "value": "Active workspace"
+      },
+      "value": {
+        "fixture": "workspace"
+      },
+      "by": "label"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "label",
+        "value": "Active workspace"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "No tasks yet"
+      },
+      "kind": "count",
+      "capture": "boardShown"
+    },
+    {
+      "action": "assert",
+      "expectationId": "workspaceStaysOpen",
+      "actual": {
+        "variable": "boardShown"
+      },
+      "operator": "eq",
+      "expected": 1
+    }
+  ]
+}
