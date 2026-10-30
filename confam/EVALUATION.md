@@ -100,6 +100,19 @@ Spark proposed three decoys. Two were rejected at authoring because their diffs 
 
 Mosaic sign-in decoys across both rounds: 6 proposed, 4 applicable, 1 caught, 0 survived, 3 uncounted. Every applicable decoy failed a check mapped to the expectation it targeted, but only one matched its own declared probe results. The real-app evidence is the two reproductions and the real fix passing, not decoy strength. The workspace bug is a display-only fault with no independent database observation, so no decoys were drafted for it.
 
+### Real application: Bluemax
+
+Bluemax is a real solar installer's website in Nigeria, built by the author with an AI app builder before the hackathon; 106 of its 114 commits were written by that builder's bot. The chosen bug: the free-quote form's spam limit (5 requests a minute) lived in the edge function's memory and reset on every cold start. The bot-written fix `3ee44d2` moved it into a database table. Bluemax's source is not in this repository, and every run used a local Supabase stack in Docker, never the live project. See `specimens/bluemax/README.md`.
+
+| | 6th request after a restart | Quote requests stored | Rate-limit rows |
+|---|---|---|---|
+| Original (before `3ee44d2`) | Accepted (200) | 6 | none (no table) |
+| Real fix | Refused (429, "Too many requests") | 5 | 5 |
+
+The owner confirmed two expectations (a valid request is accepted; a 6th request within the minute is refused even across a restart) and two reviewed probes (5 stored requests, 5 rate-limit rows). Accepted run: the original fails on the spam-limit expectation and the real fix passes. Setup was configuration only; four wrapper problems found while setting it up are listed in the specimen README, including that the first restart was not a real cold start.
+
+Spark wrote three decoys against the real fix after the owner approved the exact export ($0.0182): bring back the in-memory limit, an off-by-one limit check, and a time-window query that never matches stored rows. **3 of 3 caught, 0 survived, 0 uncounted**; each failed the spam-limit expectation and both probes confirmed it was wrong. These are development decoys on one visitor and one request path; they do not test, for example, what happens when the rate-limit query itself errors.
+
 ### Cases and engine fixes
 
 Reproducible cases now span four applications: salon, task board, quote tool and Mosaic. A new quote case checks the saved total rather than the update response; both quote candidate patches pass it, because the faulty patch's defect is input validation.

@@ -23,7 +23,10 @@ Two moments from building those checks:
 - **The AI found a gap in what "fixed" meant.** Muse Spark's first checks missed a decoy that saves the booking at 2 a.m. instead of 2 p.m. Asked to strengthen them, Spark didn't invent a test: it reported that none of the agreed expectations mentioned the booked time. The developer added that expectation, and the new checks catch it.
 - **On a task board, strengthening closed two real gaps.** The checks reopened the page in the same browser, so fixes that kept the change only in server memory or browser storage got through. Spark proposed restarting the server and opening a fresh browser; after review, 4 of 4 decoys are caught.
 
-Confam also runs on a **real application**: two real bugs from the author's own Next.js and PostgreSQL app, Mosaic, each reproduced against the commit before its real fix, with the real fix passing.
+Confam also runs on **real applications**, each bug reproduced against the commit before its real fix, with the real fix passing:
+
+- **Mosaic**, the author's own Next.js and PostgreSQL app: two real bugs.
+- **Bluemax**, a real solar installer's website in Nigeria built with an AI app builder: the quote form's spam limit reset whenever the function restarted. The fix itself was AI-written. Spark wrote three wrong fixes for it after the checks were agreed, and the checks caught all three, each confirmed wrong by reading the database. It runs on a local Supabase stack, never the live site.
 
 Full numbers, including what wasn't counted and why: [measured results](confam/EVALUATION.md).
 
@@ -79,7 +82,7 @@ For your own application, review its project configuration, case and workflow be
 
 Everything in this repository was written during the hackathon, from the first commit on October 28, 2026. That includes the engine, the web interface, the salon, task board and quote tool specimen apps, and every check, decoy and probe.
 
-Mosaic was built by the author before the hackathon. It is used only as a test subject: its source is not in this repository, and `specimens/mosaic/` contains only the setup script, runtime wrapper, configuration, bug reports, workflows and probes written during the hackathon to test it.
+Mosaic and Bluemax were built by the author before the hackathon. They are used only as test subjects: their source is not in this repository, and `specimens/mosaic/` and `specimens/bluemax/` contain only the setup scripts, runtime wrappers, configuration, bug reports, workflows and probes written during the hackathon to test them.
 
 ## More
 
