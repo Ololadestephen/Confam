@@ -94,6 +94,12 @@ Mosaic is the author's own Next.js and PostgreSQL application. Two real bugs fro
 
 Mosaic has no second independently written correct fix, so false-rejection calibration is unavailable for these cases.
 
+**Second round of Spark decoys for the sign-in bug (October 30, later).** The first round left two of three decoys uncounted. One of those, countSuccesses, was uncounted because the decoy instructions asked Spark to require probes that the workflow never reaches once the first expectation fails. The instructions now say that checks stop at the first failed expectation and that a probe should be required only if it is observed before the violation. The oracle rule is unchanged. Decoy drafting also gained a `--preview` option, and the owner approved the exact export before it was sent ($0.0166).
+
+Spark proposed three decoys. Two were rejected at authoring because their diffs quoted source lines that do not exist. The third, limit-too-high, raises the lockout limit from 15 to 100. The checks failed it on the right expectation (failuresStillLock), and the probes showed the locked account got a new session. It is still **uncounted**: Spark declared that the failed-attempt count would stay at 15, but 16 was observed. That count includes the registration request, which Mosaic records in the same window, so an app without the lockout records one more attempt. The declaration was not edited after seeing the result.
+
+Mosaic sign-in decoys across both rounds: 6 proposed, 4 applicable, 1 caught, 0 survived, 3 uncounted. Every applicable decoy failed a check mapped to the expectation it targeted, but only one matched its own declared probe results. The real-app evidence is the two reproductions and the real fix passing, not decoy strength. The workspace bug is a display-only fault with no independent database observation, so no decoys were drafted for it.
+
 ### Cases and engine fixes
 
 Reproducible cases now span four applications: salon, task board, quote tool and Mosaic. A new quote case checks the saved total rather than the update response; both quote candidate patches pass it, because the faulty patch's defect is input validation.

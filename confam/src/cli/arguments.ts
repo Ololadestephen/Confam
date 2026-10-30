@@ -3,7 +3,7 @@ import { budgetNanounits } from "../models/config.js";
 export const USAGE = `Commands:
   serve <run-or-library-directory> [--port PORT] (local evidence, onboarding and explicitly approved verification jobs)
   recording-intake <recording.mp4> --report report.md [--budget USD] (exports recording and report to Meta)
-  draft-decoys <case.json> --project project.json --registry probes.json --reference control-id [--budget USD] (exports corrected source and reviewed probes to Meta)
+  draft-decoys <case.json> --project project.json --registry probes.json --reference control-id [--budget USD] [--preview] (exports corrected source and reviewed probes to Meta; --preview only writes the export)
   challenge <case.json> --project project.json --workflow workflow.json --manifest challenges.json (--accept | --fixture) [--candidate patch] [--strengthen --budget USD]
   compare <challenge-run-directory> --pack pack.json [--integration-fixture]
   verify <case.json> --project project.json --workflow workflow.json (--accept | --fixture) [--candidate patch]
@@ -48,7 +48,7 @@ export function parseArguments(argv: string[]): CliArguments {
   const allowed: Record<string, string[]> = {
     serve: ["--port"],
     "recording-intake": ["--report", "--budget"],
-    "draft-decoys": ["--project", "--registry", "--reference", "--budget"],
+    "draft-decoys": ["--project", "--registry", "--reference", "--budget", "--preview"],
     challenge: ["--project", "--workflow", "--manifest", "--accept", "--fixture", "--candidate", "--strengthen", "--budget"],
     compare: ["--pack", "--integration-fixture"],
     verify: ["--project", "--workflow", "--accept", "--fixture", "--candidate"],

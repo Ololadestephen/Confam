@@ -56,8 +56,10 @@ async function main(): Promise<void> {
     const intake = await analyzeRecording(path.resolve(args.subject), path.resolve(args.report!), path.join(root, "runs"), args.budget);
     console.log(`Recording intake: ${intake.status}\nEvidence: ${intake.manifestPath}\nReview observations and separately confirm expectations before verification.`);
   } else if (args.command === "draft-decoys") {
-    const draft = await proposeDecoys(path.resolve(args.project!), path.resolve(args.subject), path.resolve(args.registry!), args.reference!, path.join(root, "runs"), args.budget);
-    console.log(`Decoy proposal requires review: ${draft.manifestPath}\nNo probes authored and no application behavior evaluated.`);
+    const draft = await proposeDecoys(path.resolve(args.project!), path.resolve(args.subject), path.resolve(args.registry!), args.reference!, path.join(root, "runs"), { budget: args.budget, preview: args.preview });
+    console.log(draft.manifestPath
+      ? `Decoy proposal requires review: ${draft.manifestPath}\nNo probes authored and no application behavior evaluated.`
+      : `Export preview written, nothing sent: ${draft.exportPath}`);
   } else if (args.command === "draft-fix") {
     const draft = await proposeFix(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), { budget: args.budget, preview: args.preview });
     console.log(draft.patchPath

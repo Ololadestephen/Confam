@@ -47,9 +47,9 @@ function transport(diff: string, inspect: (input: string) => void = () => undefi
     }
   };
 }
-async function propose(directory: string, injected: ModelTransport) {
+async function propose(directory: string, injected: ModelTransport, preview = false) {
   return proposeDecoys(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "probes.json"),
-    "correct", path.join(directory, "runs"), 0.25, injected);
+    "correct", path.join(directory, "runs"), { budget: 0.25, transport: injected, preview });
 }
 it("drafts guarded patches from corrected source while preserving reviewed probe definitions", async () => {
   const { directory, probes, registryText } = await fixture();
@@ -57,13 +57,13 @@ it("drafts guarded patches from corrected source while preserving reviewed probe
   const result = await propose(directory, transport(patch("main.js", "corrected", "broken"), (text) => { input = JSON.parse(text); }));
   expect(input.correctedSource).toEqual({ "main.js": "corrected\n" });
   expect(input.reviewedProbes).toEqual(probes);
-  const manifest = JSON.parse(await readFile(result.manifestPath, "utf8"));
+  const manifest = JSON.parse(await readFile(result.manifestPath!, "utf8"));
   expect(manifest.probes).toEqual(probes);
   expect(manifest.purpose).toBe("development");
   expect(manifest.decoys[0]).toMatchObject({ baseControl: "correct", patch: "decoy-missingWrite.patch" });
   expect(await readFile(path.join(result.directory, "reviewed-probes.json"), "utf8")).toBe(registryText);
   expect(JSON.parse(await readFile(path.join(result.directory, "proposal.json"), "utf8"))).toMatchObject({ status: "needs-review", mode: "fixture" });
-  expect(result.usage.estimatedSpendUsd).toBe(0);
+  expect(result.usage!.estimatedSpendUsd).toBe(0);
   expect(await readFile(path.join(directory, "app/main.js"), "utf8")).toBe("original\n");
 });
 it("rejects a model patch touching protected verification infrastructure", async () => {
@@ -124,9 +124,21 @@ it("keeps applicable decoys and records a proposal whose diff does not apply as 
     }),
   };
   const draft = await propose(directory, twoDecoys);
-  const manifest = JSON.parse(await readFile(draft.manifestPath, "utf8"));
+  const manifest = JSON.parse(await readFile(draft.manifestPath!, "utf8"));
   expect(manifest.decoys.map((entry: { id: string }) => entry.id)).toEqual(["applies"]);
   expect(draft.rejected.map(({ id }) => id)).toEqual(["misquoted"]);
   const proposal = JSON.parse(await readFile(path.join(draft.directory, "proposal.json"), "utf8"));
   expect(proposal.rejectedAtAuthoring[0].id).toBe("misquoted");
+});
+it("previews the exact decoy export without creating a ledger or calling a model", async () => {
+  const { directory, probes } = await fixture();
+  let called = false;
+  const draft = await propose(directory, transport("unused", () => { called = true; }), true);
+  expect(called).toBe(false);
+  expect(draft.manifestPath).toBeUndefined();
+  const exported = JSON.parse(await readFile(draft.exportPath, "utf8"));
+  expect(exported.input.reviewedProbes).toEqual(probes);
+  expect(exported.input.correctedSource).toEqual({ "main.js": "corrected\n" });
+  expect(exported.instructions).toContain("Checks stop at the first failed expectation");
+  expect(await readdir(draft.directory)).not.toContain("model-usage.json");
 });
