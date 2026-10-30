@@ -4,29 +4,48 @@
 
 A coding agent says the bug is fixed and the tests pass. But would those tests have caught a fix that only *looks* right?
 
-Confam answers that question. It reproduces the reported bug, checks a proposed fix, and then plants **decoy patches**: plausible wrong fixes, such as one that shows "Booking confirmed" without saving anything. If the checks can't tell a decoy from a real fix, the green result means nothing, and Confam says so. The developer gets a reviewable result; their client gets one plain sentence about what was checked.
+Confam answers that question. It reproduces the reported bug on the real app, checks a proposed fix, and then plants **decoy patches**: plausible wrong fixes, written by Muse Spark, that a weak test would wave through. Each decoy must be confirmed wrong by an independent probe, such as reading the database directly. If the checks can't tell a decoy from a real fix, the green result means nothing, and Confam says so. The developer gets a reviewable result; their client gets one plain sentence about what was checked.
 
-## What it found
+## Results on real applications
 
-On a fictional salon booking app, four sets of checks were frozen and run against the same six known decoys and two correct fixes:
+Every bug below is real, taken from the app's own history and reproduced against the commit before its real fix. Neither app's source is in this repository, and neither app was built during the hackathon; they are test subjects.
 
-| Checks | Decoys caught (of 6) | Correct fixes wrongly rejected (of 2) |
+### Bluemax: a real solar installer's website in Nigeria
+
+Bluemax was built with an AI app builder; 106 of its 114 commits were written by that builder's bot. Its free-quote form limits each visitor to 5 requests a minute so the business isn't flooded with spam leads. The limit lived in the function's memory and reset every time the function restarted. The fix, also AI-written, moved it into the database.
+
+| | 6th quote request after a restart | Quote requests stored |
+|---|---|---|
+| Original | Accepted: the bug | 6 |
+| Real (AI-written) fix | Refused: "Too many requests" | 5 |
+| Muse Wonder's fix, built a different way | Refused | 5 |
+
+Muse Spark then wrote three wrong fixes against the real one: bring back the in-memory limit, an off-by-one limit check, and a time-window query that never matches stored rows. **The checks caught 3 of 3**, and reading the database confirmed each one really let the spam through. Everything runs on a local Supabase stack in Docker, never the live site.
+
+What it didn't cover: the checks use one visitor and one request path. Both the real fix and Wonder's fix quietly fall back when the database check itself fails, and these checks do not test that.
+
+### Mosaic: the author's own Next.js and PostgreSQL app
+
+| Bug | Original | Real fix | Muse Wonder's fix |
+|---|---|---|---|
+| Successful sign-ins counted toward the 15-attempt lockout, so careful users got locked out | Fails: locked out after correct sign-ins | Passes | Passes |
+| Re-selecting the open workspace left the page stuck on "Opening your workspace…" | Fails: board cleared | Passes | Passes, and is the same one-line guard as the real fix |
+
+Each test copy gets its own PostgreSQL database and Next.js server. Spark's decoys were harder to count here: of 4 that applied to the sign-in fix, all 4 failed the check they targeted, but only 1 matched every database value Spark predicted, so 1 is counted as caught and 3 are reported as uncounted. The workspace bug only affects the screen, so there is no independent database reading to confirm a decoy against.
+
+## The controlled comparison
+
+Real apps have one real fix, so they can't show whether a set of checks wrongly rejects *correct* fixes. For that, Confam was measured on a purpose-built salon booking app with two independently written correct fixes and six known wrong ones:
+
+| Checks | Wrong fixes caught (of 6) | Correct fixes wrongly rejected (of 2) |
 |---|---|---|
 | The app's existing smoke test | 0 | 0 |
 | AI-written tests used exactly as generated | 2 | 2 |
 | Confam's checks | 5 | 0 |
 
-The existing test only checks the confirmation message, so every decoy passes it. The raw AI tests reject both correct fixes, so their two catches don't show they can tell right from wrong. These six decoys were used while building Confam's checks, so this is development evidence; an independent comparison on unseen decoys has not been run yet.
+The existing test only checks the "Booking confirmed" message, so every wrong fix passes it. The raw AI tests reject both correct fixes, so their two catches don't show they can tell right from wrong. These six decoys were used while building Confam's checks, so this is development evidence; an independent comparison on unseen decoys has not been run yet.
 
-Two moments from building those checks:
-
-- **The AI found a gap in what "fixed" meant.** Muse Spark's first checks missed a decoy that saves the booking at 2 a.m. instead of 2 p.m. Asked to strengthen them, Spark didn't invent a test: it reported that none of the agreed expectations mentioned the booked time. The developer added that expectation, and the new checks catch it.
-- **On a task board, strengthening closed two real gaps.** The checks reopened the page in the same browser, so fixes that kept the change only in server memory or browser storage got through. Spark proposed restarting the server and opening a fresh browser; after review, 4 of 4 decoys are caught.
-
-Confam also runs on **real applications**, each bug reproduced against the commit before its real fix, with the real fix passing:
-
-- **Mosaic**, the author's own Next.js and PostgreSQL app: two real bugs.
-- **Bluemax**, a real solar installer's website in Nigeria built with an AI app builder: the quote form's spam limit reset whenever the function restarted. The fix itself was AI-written. Spark wrote three wrong fixes for it after the checks were agreed, and the checks caught all three, each confirmed wrong by reading the database. Muse Wonder's own fix, built a different way, passed. It runs on a local Supabase stack, never the live site.
+Building those checks produced the moment that best shows how Spark is used: its first checks missed a fix that saves the booking at 2 a.m. instead of 2 p.m. Asked to strengthen them, Spark didn't invent a test. It reported that none of the agreed expectations mentioned the booked time. The developer added that expectation, and the new checks catch it.
 
 Full numbers, including what wasn't counted and why: [measured results](confam/EVALUATION.md).
 
