@@ -99,6 +99,7 @@ export async function evaluate(run: Evaluation, id: string, kind: EvaluatedVaria
     variant.phase = "workflow";
     variant.result = await runWorkflow(run.plan, run.definition.fixtures, server.baseUrl, path.join(directory, "evidence"), {
       signal: abort.signal,
+      timeoutMs: run.project.runtime.workflowTimeoutMs,
       onStep(event) { emitProgress(options.onProgress, { phase: "step", variantId: id, kind, ...event }); },
       async restartApp() { await verify(); server = await lifecycle.restart(abort.signal); return server.baseUrl; },
       async cancel() { abort.abort(); await lifecycle.stop(); },

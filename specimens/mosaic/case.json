@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "signInLockout",
+  "projectId": "mosaic",
+  "report": "report.md",
+  "fixtures": {
+    "nameA": "Regular User",
+    "emailA": "regular.user@example.test",
+    "nameB": "Second User",
+    "emailB": "second.user@example.test",
+    "password": "correct-horse-staple-42",
+    "wrongPassword": "not-the-right-password-1"
+  },
+  "expectations": [
+    {
+      "id": "repeatedSignInAllowed",
+      "statement": "A user who signs in with the correct password 15 times in a row is never refused.",
+      "provenance": "report"
+    },
+    {
+      "id": "failuresStillLock",
+      "statement": "After 15 failed sign-in attempts for an email, even the correct password is refused with the lockout message.",
+      "provenance": "report"
+    }
+  ],
+  "reproductionTargets": [
+    "repeatedSignInAllowed"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

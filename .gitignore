@@ -40,3 +40,7 @@ blob-report/
 .DS_Store
 .vscode/
 .idea/
+
+# Mosaic real-world specimen: exported from the owner's local repository by prepare.sh
+specimens/mosaic/source/
+specimens/mosaic/generated/

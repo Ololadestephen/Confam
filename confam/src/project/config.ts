@@ -23,6 +23,8 @@ export const projectConfigSchema = z.strictObject({
     cwd: directoryPathSchema.optional(),
     readinessPath: z.string().regex(/^\/(?!\/)[^?#]*$/),
     timeoutMs: z.number().int().min(100).max(120000).default(10000),
+    // Whole-workflow deadline for each variant; the runner defaults to 30 seconds.
+    workflowTimeoutMs: z.number().int().min(1000).max(120000).optional(),
     portVariable: variableName,
     dataVariable: variableName,
     restart: z.boolean(),

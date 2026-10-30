@@ -17,6 +17,13 @@ it.each(["../escape", "/absolute", "a/../escape", "a\\escape", "C:/escape", "a//
 it.each(["package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock", "npm-shrinkwrap.json", "tsconfig.json", "vite.config.ts", ".env", "tests/check.js", "checks/a.ts", "src/a.test.ts"])("protects infrastructure %s", (file) => {
   expect(projectConfigSchema.safeParse({ ...config, sourceFiles: [file] }).success).toBe(false);
 });
+it("accepts an optional workflow deadline within the runner's bounds", () => {
+  expect(projectConfigSchema.parse(config).runtime.workflowTimeoutMs).toBeUndefined();
+  expect(projectConfigSchema.parse({ ...config, runtime: { ...config.runtime, workflowTimeoutMs: 90000 } }).runtime.workflowTimeoutMs).toBe(90000);
+  for (const workflowTimeoutMs of [999, 120001, 1.5]) {
+    expect(projectConfigSchema.safeParse({ ...config, runtime: { ...config.runtime, workflowTimeoutMs } }).success).toBe(false);
+  }
+});
 it("rejects duplicate files and conflicting environment bindings", () => {
   expect(projectConfigSchema.safeParse({ ...config, sourceFiles: ["main.js", "main.js"] }).success).toBe(false);
   expect(projectConfigSchema.safeParse({ ...config, runtime: { ...config.runtime, dataVariable: "PORT" } }).success).toBe(false);
