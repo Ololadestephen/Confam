@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#task[data-loaded=\"true\"]"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Complete task"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#confirmation:text-is(\"Update confirmed\")"
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "reopen"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#task[data-loaded=\"true\"]"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#task-state"
+      },
+      "kind": "text",
+      "capture": "savedStatus"
+    },
+    {
+      "action": "assert",
+      "expectationId": "completionPersists",
+      "actual": {
+        "variable": "savedStatus"
+      },
+      "operator": "eq",
+      "expected": "Completed"
+    },
+    {
+      "action": "restart"
+    },
+    {
+      "action": "context",
+      "name": "fresh"
+    },
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#task[data-loaded=\"true\"]"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#task-state"
+      },
+      "kind": "text",
+      "capture": "finalStatus"
+    },
+    {
+      "action": "assert",
+      "expectationId": "completionPersists",
+      "actual": {
+        "variable": "finalStatus"
+      },
+      "operator": "eq",
+      "expected": "Completed"
+    }
+  ]
+}
