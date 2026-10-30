@@ -65,7 +65,9 @@ Each patch must deliberately violate a listed expectation and refer only to exis
 Require at least one false probe observation; preserve any prerequisite observations needed to establish the violation.
 Do not write or change probes, tests, dependencies, runner or configuration. Do not claim execution or success.
 The supplied reference is a reviewed correct control. Return a complete application-only unified diff for each decoy.
-These proposals require review and independent runtime qualification; generated patches are never executed here.`, input, draftSchema);
+These proposals require review and independent runtime qualification; generated patches are never executed here.`, input, draftSchema,
+    // Up to five complete diffs; 4096 truncated multi-part proposals in live checks drafting.
+    8192);
   await writeFile(path.join(directory, "draft.json"), JSON.stringify(proposal, null, 2) + "\n", { flag: "wx" });
   const patches = proposal.decoys.map((decoy) => ({
     contents: decoy.patch, spec: decoySchema.parse({

@@ -26,7 +26,12 @@
   "reproductionTargets": [
     "repeatedSignInAllowed"
   ],
-  "controls": [],
+  "controls": [
+    {
+      "id": "real-fix",
+      "patch": "generated/real-fix.patch"
+    }
+  ],
   "mode": "verification",
   "purpose": "verification"
 }

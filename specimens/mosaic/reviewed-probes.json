@@ -1,0 +1,32 @@
+[
+  {
+    "id": "successfulSignInsNotCounted",
+    "kind": "json-file",
+    "path": "observations.json",
+    "pointer": [
+      "rateLimits",
+      "c0d1eddbab5a4b0dfe2907517f076c9acb15db3477fcd3b38c2b16a70d4b7707"
+    ],
+    "expected": 1
+  },
+  {
+    "id": "failedSignInsCounted",
+    "kind": "json-file",
+    "path": "observations.json",
+    "pointer": [
+      "rateLimits",
+      "09d9add9a60e72d3055d323715dba620133085d29ac0eaf8ab0de9f8fd5aa902"
+    ],
+    "expected": 15
+  },
+  {
+    "id": "lockedSignInCreatesNoSession",
+    "kind": "json-file",
+    "path": "observations.json",
+    "pointer": [
+      "sessionsByEmail",
+      "second.user@example.test"
+    ],
+    "expected": 1
+  }
+]

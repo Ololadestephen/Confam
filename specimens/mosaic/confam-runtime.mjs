@@ -2,7 +2,7 @@
 // Gives the variant its own PostgreSQL cluster and Next.js dev server, warms the routes the
 // workflow uses, and only then opens PORT, so Confam's readiness check means "ready to test".
 import { spawn } from "node:child_process";
-import { existsSync, readFileSync, symlinkSync } from "node:fs";
+import { existsSync, readFileSync, renameSync, symlinkSync, writeFileSync } from "node:fs";
 import net from "node:net";
 import path from "node:path";
 
@@ -40,6 +40,24 @@ await pg.createDatabase("mosaic");
 const databaseUrl = `postgresql://mosaic:confam-local-only@127.0.0.1:${pgPort}/mosaic`;
 await finished(run(["--import", "tsx", "scripts/migrate.ts"], { DATABASE_URL: databaseUrl }));
 
+// Independent observations for reviewed probes: the wrapper, not the app, reads the database
+// and writes a JSON snapshot next to the variant's data path.
+const { default: postgres } = await import(path.resolve("node_modules/postgres/src/index.js"));
+const observer = postgres(databaseUrl, { max: 1, onnotice: () => {} });
+const observations = path.join(path.dirname(data), "observations.json");
+const observe = async () => {
+  const limits = await observer`SELECT key, attempts FROM rate_limits`;
+  const sessions = await observer`SELECT u.email, count(s.token_hash)::int AS count FROM users u LEFT JOIN sessions s ON s.user_id = u.id GROUP BY u.email`;
+  const snapshot = {
+    rateLimits: Object.fromEntries(limits.map((row) => [row.key, row.attempts])),
+    sessionsByEmail: Object.fromEntries(sessions.map((row) => [row.email, row.count])),
+  };
+  writeFileSync(`${observations}.tmp`, JSON.stringify(snapshot));
+  renameSync(`${observations}.tmp`, observations);
+};
+await observe();
+const observing = setInterval(() => { observe().catch(() => {}); }, 250);
+
 const nextPort = await freePort();
 run(["node_modules/next/dist/bin/next", "dev", "--webpack", "--hostname", "127.0.0.1", "--port", String(nextPort)], {
   DATABASE_URL: databaseUrl, APP_ORIGIN: `http://127.0.0.1:${port}`,
@@ -67,6 +85,8 @@ const stop = async () => {
   if (stopping) return;
   stopping = true;
   proxy.close();
+  clearInterval(observing);
+  await observer.end().catch(() => {});
   for (const child of children) child.kill("SIGTERM");
   await pg.stop().catch(() => {});
   process.exit(0);
