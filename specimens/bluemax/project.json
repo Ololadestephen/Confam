@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "bluemax",
+  "root": "source",
+  "sourceFiles": [
+    "supabase/functions/submit-lead/index.ts",
+    "supabase/migrations/20260308142831_65d31d7b-ad39-46f0-8eb7-410310a3da9f.sql"
+  ],
+  "protectedPaths": [
+    "confam-runtime.mjs",
+    "supabase/config.toml"
+  ],
+  "runtime": {
+    "command": [
+      "node",
+      "confam-runtime.mjs"
+    ],
+    "readinessPath": "/confam-ready",
+    "timeoutMs": 120000,
+    "portVariable": "PORT",
+    "dataVariable": "CONFAM_DATA",
+    "restart": true,
+    "workflowTimeoutMs": 90000
+  }
+}

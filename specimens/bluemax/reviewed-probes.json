@@ -1,0 +1,16 @@
+[
+  {
+    "id": "sixthRequestNotStored",
+    "kind": "json-file",
+    "path": "observations.json",
+    "pointer": ["leads"],
+    "expected": 5
+  },
+  {
+    "id": "requestsRecorded",
+    "kind": "json-file",
+    "path": "observations.json",
+    "pointer": ["rateLimitRows"],
+    "expected": 5
+  }
+]

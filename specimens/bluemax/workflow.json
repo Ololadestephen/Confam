@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "first",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "validQuoteAccepted",
+      "actual": {
+        "variable": "first.status"
+      },
+      "operator": "eq",
+      "expected": 200
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "request2",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "request3",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "request4",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "request5",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "restart"
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "sixth",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "assert",
+      "expectationId": "spamLimitSurvivesRestart",
+      "actual": {
+        "variable": "sixth.status"
+      },
+      "operator": "eq",
+      "expected": 429
+    },
+    {
+      "action": "assert",
+      "expectationId": "spamLimitSurvivesRestart",
+      "actual": {
+        "variable": "sixth.body.error"
+      },
+      "operator": "eq",
+      "expected": "Too many requests. Please try again later."
+    }
+  ]
+}
