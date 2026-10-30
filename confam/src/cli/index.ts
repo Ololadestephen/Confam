@@ -1,3 +1,4 @@
+import { viewingSlowMo } from "../workflows/pacing.js";
 import { analyzeRecording } from "../recordings/intake.js";
 import { startReviewServer } from "../web/server.js";
 import { proposeDecoys } from "../authoring/generic-decoys.js";
@@ -40,6 +41,7 @@ async function printSession(root: string, session: AuthoringSession): Promise<vo
 
 async function main(): Promise<void> {
   const args = parseArguments(process.argv.slice(2));
+  viewingSlowMo(); // Reject an invalid pacing value before any run starts.
   const root = fileURLToPath(new URL("../../..", import.meta.url));
   const envFile = path.join(root, ".env");
   if (existsSync(envFile)) process.loadEnvFile(envFile);

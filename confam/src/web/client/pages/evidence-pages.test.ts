@@ -78,13 +78,15 @@ it("displays a qualified surviving challenge without relabeling it caught", () =
 it("leads the client summary with the candidate's actual result and keeps development counts labelled", () => {
   localWindow();
   const candidate = (outcome: string) => ({ id: "candidate", kind: "candidate", outcome, assertions: [], probes: {}, steps: [], videos: [], traces: [] });
-  expect(plainHeadline({ ...run, variants: [candidate("passed-checks-and-probes")] })).toBe("The proposed fix passed every check listed below.");
-  expect(plainHeadline({ ...run, variants: [candidate("assertion-failed")] })).toBe("The proposed fix did not pass the checks listed below.");
+  expect(plainHeadline({ ...run, status: "completed", variants: [candidate("passed-checks-and-probes")] })).toBe("The proposed fix passed every check listed below.");
+  expect(plainHeadline({ ...run, status: "completed", variants: [candidate("assertion-failed")] })).toBe("The proposed fix did not pass the checks listed below.");
   expect(plainHeadline(run)).toBe(run.verdict);
+  expect(plainHeadline({ ...run, status: "error", variants: [candidate("passed-checks-and-probes")] })).toBe(run.verdict);
+  expect(plainHeadline({ ...run, status: "completed", variants: [candidate("failed-probes")] })).toContain("independent probes contradicted it");
   const html = renderToStaticMarkup(createElement(Summary, {
-    run: { ...run, variants: [candidate("passed-checks-and-probes")], development: { total: 6, caught: 5, survived: 0, uncounted: 1 } },
+    run: { ...run, status: "completed", variants: [candidate("passed-checks-and-probes")], development: { total: 6, caught: 5, survived: 0, uncounted: 1 } },
   }));
   expect(html).toContain("The proposed fix passed every check listed below.");
   expect(html).toContain(run.verdict);
-  expect(html).toContain("development evidence");
+  expect(html).toContain("development results");
 });

@@ -119,19 +119,27 @@ const ARM_LABELS: Record<string, string> = {
   "confam-final": "Confam final checks",
 };
 
+const PURPOSE_LABELS: Record<string, { eyebrow: string; note: string }> = {
+  "integration-fixture": {
+    eyebrow: "Known faults (not held out)",
+    note: "These faults were not held out from Confam's development, so this is development evidence, not independent evaluation.",
+  },
+  "held-out": {
+    eyebrow: "Held-out faults",
+    note: "Faults kept out of building these checks: the independent comparison.",
+  },
+};
+
 function ComparisonTable({ comparison }: { comparison: ComparisonView }) {
-  const heldOut = comparison.purpose === "held-out";
+  const label = PURPOSE_LABELS[comparison.purpose] ?? {
+    eyebrow: "Comparison",
+    note: `Unrecognised purpose "${comparison.purpose}"; treat these counts as unlabelled.`,
+  };
   return (
     <section className="panel section-block comparison-panel">
-      <span className="eyebrow">
-        {heldOut ? "Held-out faults" : "Known development faults"}
-      </span>
+      <span className="eyebrow">{label.eyebrow}</span>
       <h2>The same faults, every set of checks.</h2>
-      <p className="comparison-note">
-        {heldOut
-          ? "Faults withheld from building these checks, run once after the freeze."
-          : "These faults were used while building Confam's checks, so this is development evidence, not independent evaluation."}
-      </p>
+      <p className="comparison-note">{label.note}</p>
       <div className="comparison-scroll">
         <table className="comparison-table">
           <thead>
@@ -148,7 +156,12 @@ function ComparisonTable({ comparison }: { comparison: ComparisonView }) {
               <tr key={arm.role}>
                 <th scope="row">
                   {ARM_LABELS[arm.role] ?? arm.role}
-                  {arm.provenance ? <small>{arm.provenance}</small> : null}
+                  {arm.provenance ? (
+                    <small>
+                      {arm.provenance}
+                      {arm.provenanceVerified ? "" : " (provenance unverified)"}
+                    </small>
+                  ) : null}
                 </th>
                 <td data-label="Caught">
                   {arm.counts.caught} of {arm.counts.total}
@@ -159,7 +172,9 @@ function ComparisonTable({ comparison }: { comparison: ComparisonView }) {
                   data-label="Correct fixes wrongly rejected"
                   className={arm.falseRejections > 0 ? "comparison-bad" : undefined}
                 >
-                  {arm.falseRejections} of {arm.controls}
+                  {arm.controlErrors > 0
+                    ? `Calibration incomplete: ${arm.controlErrors} control error${arm.controlErrors === 1 ? "" : "s"}`
+                    : `${arm.falseRejections} of ${arm.controls}`}
                 </td>
               </tr>
             ))}

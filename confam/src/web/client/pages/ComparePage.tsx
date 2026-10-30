@@ -46,8 +46,8 @@ export function Compare({ run }: { run: RunView }) {
       {paced ? (
         <p className="notice">
           These recordings were paced for viewing: each browser action was
-          slowed by {paced}ms. Pacing changes timing only, not what was
-          checked.
+          slowed by {paced}ms. Timing-sensitive results may differ from an
+          unpaced run.
         </p>
       ) : null}
       <p className="notice">

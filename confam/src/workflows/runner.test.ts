@@ -3,7 +3,8 @@ import { mkdtemp, rm, stat } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, expect, it } from "vitest";
-import { runWorkflow, viewingSlowMo } from "./runner.js";
+import { runWorkflow } from "./runner.js";
+import { viewingSlowMo } from "./pacing.js";
 import { validateWorkflow, type WorkflowPlan } from "./schema.js";
 
 let url: string;

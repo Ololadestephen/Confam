@@ -1,3 +1,4 @@
+import { pacingLimitations } from "../workflows/pacing.js";
 import { lstat, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { modelStrengthener } from "../authoring/challenge.js";
@@ -167,7 +168,7 @@ export async function challengeProject(options: ChallengeOptions) {
     schemaVersion: 3, status: "running", startedAt: new Date(started).toISOString(), caseId: loaded.definition.id, project: loaded.project.config.id,
     purpose: "development", confirmation: options.confirmation, independentEvaluation: { evaluated: false },
     comparatorProvenance: "Supplied role labels and metadata are unverified; no model-performance comparison can be inferred from a role name alone.",
-    limitations: ["Development results are not independent evaluation.", "Missing comparator roles are absent, not invented baselines.", "Local execution is not a hostile-code sandbox.", "Fault qualification assumes reviewed probe requirements correctly establish the declared violation."]
+    limitations: ["Development results are not independent evaluation.", "Missing comparator roles are absent, not invented baselines.", "Local execution is not a hostile-code sandbox.", "Fault qualification assumes reviewed probe requirements correctly establish the declared violation.", ...pacingLimitations()]
   };
   await saveReport(reportPath, report);
   let verifier: ReturnType<typeof modelStrengthener> | undefined;

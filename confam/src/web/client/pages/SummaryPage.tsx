@@ -4,10 +4,15 @@ import { runPath } from "../routing.js";
 import type { RunView } from "../types.js";
 
 // A client reads the candidate's actual result first; the full technical verdict stays below it.
+// Only a completed run earns a pass or fail headline.
+const PASSED = new Set(["passed", "passed-checks-and-probes"]);
+const FAILED = new Set(["assertion-failed", "failed-checks"]);
 export function plainHeadline(run: RunView): string {
+  if (run.status !== "completed") return run.verdict;
   const outcome = run.variants.find((v) => v.kind === "candidate")?.outcome ?? "";
-  if (outcome.startsWith("passed")) return "The proposed fix passed every check listed below.";
-  if (outcome.includes("failed")) return "The proposed fix did not pass the checks listed below.";
+  if (PASSED.has(outcome)) return "The proposed fix passed every check listed below.";
+  if (outcome === "failed-probes") return "The proposed fix passed the checks below, but independent probes contradicted it.";
+  if (FAILED.has(outcome)) return "The proposed fix did not pass the checks listed below.";
   return run.verdict;
 }
 
@@ -32,14 +37,11 @@ export function Summary({ run }: { run: RunView }) {
         {headline !== run.verdict ? <p className="muted">{run.verdict}</p> : null}
         {development && development.total > 0 ? (
           <p>
-            Before trusting these checks, Confam tried {development.total}{" "}
-            deliberately wrong fixes that looked plausible. The checks caught{" "}
-            {development.caught}
-            {development.uncounted > 0
-              ? `; ${development.uncounted} could not be counted`
-              : ""}
-            . These were used while building the checks, so they are
-            development evidence.
+            Before trusting these checks, Confam ran {development.total}{" "}
+            deliberately wrong fixes against them: {development.caught} caught,{" "}
+            {development.survived} survived, {development.uncounted} could not be
+            counted. These are development results, not independent
+            evaluation.
           </p>
         ) : null}
         {run.fixture ? (

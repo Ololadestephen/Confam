@@ -1,3 +1,4 @@
+import { pacingLimitations } from "../workflows/pacing.js";
 import { createHash, randomUUID } from "node:crypto";
 import { lstat, mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -134,6 +135,7 @@ function initialReport(loaded: LoadedCase, confirmation: VerificationOptions["co
   };
   if (loaded.definition.recording) report.limitations.push("The supplied recording was not interpreted; this run uses the text report and reviewed workflow only.");
   if (!loaded.controls.length) report.limitations.push("No independently correct controls supplied; false-rejection calibration is unavailable.");
+  report.limitations.push(...pacingLimitations());
   if (confirmation === "fixture") report.limitations.push("FIXTURE: workflow and expectation confirmation are scripted sample inputs.");
   return report;
 }

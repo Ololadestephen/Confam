@@ -3,6 +3,7 @@ import path from "node:path";
 import { chromium, type Browser, type Video } from "@playwright/test";
 import { resolveBody, resolveValue, workflowSchema, type WorkflowPlan, type WorkflowStep } from "./schema.js";
 import { capture, comparison, executePageAction, localUrl, locate, type PageState } from "./actions.js";
+import { viewingSlowMo } from "./pacing.js";
 
 export interface WorkflowObservation {
   expectationId: string;
@@ -35,14 +36,7 @@ export interface WorkflowLifecycle {
 }
 const MAX_WORKFLOW_TIMEOUT_MS = 120_000;
 
-// Opt-in pacing so recordings are watchable in a demo. It slows browser actions only; it never
-// changes what is asserted, and the result records that it was used.
-export function viewingSlowMo(value = process.env.CONFAM_VIEWING_SLOW_MO_MS): number {
-  if (value === undefined || value === "") return 0;
-  const parsed = Number(value);
-  if (!Number.isInteger(parsed) || parsed < 0 || parsed > 1000) throw new Error("CONFAM_VIEWING_SLOW_MO_MS must be an integer from 0 to 1000.");
-  return parsed;
-}
+
 
 class AssertionFailure extends Error {
   constructor(readonly expectationId: string) { super(`Expectation ${expectationId} failed.`); }

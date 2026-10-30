@@ -59,6 +59,8 @@ export interface ComparisonView {
     provenance: string;
     counts: { total: number; caught: number; survived: number; uncounted: number };
     falseRejections: number;
+    controlErrors: number;
     controls: number;
+    provenanceVerified: boolean;
   }[];
 }

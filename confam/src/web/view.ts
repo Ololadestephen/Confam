@@ -48,6 +48,8 @@ export class RunView {
     const root = path.join(this.directory, "evaluations");
     let names: string[];
     try {
+      // A symlinked evaluations folder could point outside the run; only a real directory is read.
+      if (!(await lstat(root)).isDirectory()) return [];
       names = await readdir(root);
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
@@ -62,7 +64,12 @@ export class RunView {
         if ((error as NodeJS.ErrnoException).code === "ENOENT") continue;
         throw error;
       }
-      const report = object(await boundedJson(file));
+      let report: ObjectValue;
+      try {
+        report = object(await boundedJson(file));
+      } catch {
+        continue; // An unreadable comparison must not take down the rest of the run view.
+      }
       if (report.status !== "completed") continue;
       const purpose = text(report.purpose);
       await this.artifacts.add(file, purpose === "held-out" ? "Held-out comparison" : "Known-fault comparison");
@@ -77,7 +84,9 @@ export class RunView {
             provenance: text(arm.provenance, ""),
             counts: { total: count("total"), caught: count("caught"), survived: count("survived"), uncounted: count("uncounted") },
             falseRejections: typeof arm.falseRejections === "number" ? arm.falseRejections : 0,
+            controlErrors: typeof arm.controlErrors === "number" ? arm.controlErrors : 0,
             controls: array(arm.controls).length,
+            provenanceVerified: arm.provenanceVerified === true,
           };
         }),
       });

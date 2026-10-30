@@ -71,8 +71,8 @@ describe("local evidence review boundaries", () => {
     expect(view.comparisons).toEqual([{
       purpose: "integration-fixture",
       arms: [
-        { role: "existing", provenance: "existing arm", counts: { total: 6, caught: 0, survived: 6, uncounted: 0 }, falseRejections: 0, controls: 2 },
-        { role: "direct-ai", provenance: "direct-ai arm", counts: { total: 6, caught: 2, survived: 4, uncounted: 0 }, falseRejections: 2, controls: 2 },
+        { role: "existing", provenance: "existing arm", counts: { total: 6, caught: 0, survived: 6, uncounted: 0 }, falseRejections: 0, controlErrors: 0, controls: 2, provenanceVerified: false },
+        { role: "direct-ai", provenance: "direct-ai arm", counts: { total: 6, caught: 2, survived: 4, uncounted: 0 }, falseRejections: 2, controlErrors: 0, controls: 2, provenanceVerified: false },
       ],
     }]);
     expect(view.files.map(({ label }) => label)).toContain("Known-fault comparison");
