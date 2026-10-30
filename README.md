@@ -22,7 +22,15 @@ Bluemax was built with an AI app builder; 106 of its 114 commits were written by
 
 Muse Spark then wrote three wrong fixes against the real one: bring back the in-memory limit, an off-by-one limit check, and a time-window query that never matches stored rows. **The checks caught 3 of 3**, and reading the database confirmed each one really let the spam through. Everything runs on a local Supabase stack in Docker, never the live site.
 
-What it didn't cover: the checks use one visitor and one request path. Both the real fix and Wonder's fix quietly fall back when the database check itself fails, and these checks do not test that.
+**Then Spark looked for what the developer missed.** Asked to review Bluemax's *current* code against the agreed expectations, Muse Spark proposed five missing ones. The site owner confirmed three, and all three **fail on the latest code**, which nobody had fixed:
+
+| Expectation Spark proposed and the owner confirmed | Bluemax's current code |
+|---|---|
+| A visitor can't get around the limit by changing a request header | Fails: six requests with six made-up forwarding addresses were all accepted |
+| Mistyped requests don't use up the limit | Fails: after five rejected typos, the customer's real request was refused |
+| If the limit can't be checked, spam is refused, not let through | Fails: with the rate-limit table unavailable, every request was accepted |
+
+Muse Wonder then wrote a fix that passes all five expectations. It still needs human review: behind a production gateway, its choice of visitor address could put every customer on one shared limit, which these local checks cannot distinguish. All of this ran on a local copy; the live site was not tested, and Supabase's production gateway may handle the forwarding header differently.
 
 ### Mosaic: the author's own Next.js and PostgreSQL app
 
