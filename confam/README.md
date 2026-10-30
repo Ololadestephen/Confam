@@ -1,6 +1,6 @@
 # Confam engine
 
-Confam verifies proposed repairs against reviewed behavioral expectations and records what its checks actually observe. The general verification path runs salon and task-board browser workflows and quote-tool HTTP workflows through the same executor. The legacy salon pipeline additionally challenges checks with deliberately faulty patches.
+Confam verifies proposed repairs against reviewed behavioral expectations and records what its checks actually observe. The general verification path runs salon, task-board and Mosaic browser workflows and quote-tool HTTP workflows through the same executor, and challenges checks with reviewed decoy patches, bounded strengthening and frozen comparison arms.
 
 See the root [clean setup](../README.md), [release checks](RELEASE.md) and [measured prototype results](EVALUATION.md). The [general verification roadmap](ROADMAP.md) tracks implementation. TR1–TR3 project runtimes, general browser workflows, and reviewed decoy challenges are implemented. Genuine independent evaluation still requires an owner-prepared private pack.
 

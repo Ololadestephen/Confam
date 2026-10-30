@@ -1,24 +1,82 @@
 # Confam
 
-Confam turns a reviewed bug report and workflow into local reproduction and repair evidence. It records what failed, what a proposed repair passed, and which evidence is missing. Ordinary verification works without prewritten correct repairs; optional challenge mode uses reviewed probes and faulty variants to test check strength.
+> **Confam challenges AI-generated fixes before you ship them.**
 
-This is a local prototype. Salon and task-board exercise browser workflows; the quote-tool fixture exercises numeric and validation behavior through HTTP requests. All included cases are fictional, scripted fixtures. Independent evaluation and external developer adoption remain unmeasured.
+A coding agent says the bug is fixed and the tests pass. But would those tests have caught a fix that only *looks* right?
 
-## Run locally
+Confam answers that question. It reproduces the reported bug, checks a proposed fix, and then plants **decoy patches**: plausible wrong fixes, such as one that shows "Booking confirmed" without saving anything. If the checks can't tell a decoy from a real fix, the green result means nothing, and Confam says so. The developer gets a reviewable result; their client gets one plain sentence about what was checked.
 
-Use Node 24 LTS, npm, Git, and a supported Playwright Chromium environment. From the repository root:
+## What it found
+
+On a fictional salon booking app, four sets of checks were frozen and run against the same six known decoys and two correct fixes:
+
+| Checks | Decoys caught (of 6) | Correct fixes wrongly rejected (of 2) |
+|---|---|---|
+| The app's existing smoke test | 0 | 0 |
+| AI-written tests used exactly as generated | 2 | 2 |
+| Confam's checks | 5 | 0 |
+
+The existing test only checks the confirmation message, so every decoy passes it. The raw AI tests reject both correct fixes, so their two catches don't show they can tell right from wrong. These six decoys were used while building Confam's checks, so this is development evidence; an independent comparison on unseen decoys has not been run yet.
+
+Two moments from building those checks:
+
+- **The AI found a gap in what "fixed" meant.** Muse Spark's first checks missed a decoy that saves the booking at 2 a.m. instead of 2 p.m. Asked to strengthen them, Spark didn't invent a test: it reported that none of the agreed expectations mentioned the booked time. The developer added that expectation, and the new checks catch it.
+- **On a task board, strengthening closed two real gaps.** The checks reopened the page in the same browser, so fixes that kept the change only in server memory or browser storage got through. Spark proposed restarting the server and opening a fresh browser; after review, 4 of 4 decoys are caught.
+
+Confam also runs on a **real application**: two real bugs from the author's own Next.js and PostgreSQL app, Mosaic, each reproduced against the commit before its real fix, with the real fix passing.
+
+Full numbers, including what wasn't counted and why: [measured results](confam/EVALUATION.md).
+
+## How it works
+
+1. **Agree what "fixed" means.** The bug report becomes a short list of expectations that the developer confirms.
+2. **Reproduce the bug for the right reason.** The original app must fail on the reported behavior, not on a timeout or a missing button.
+3. **Challenge the checks.** Decoys are built on a known-correct fix. Each one must be confirmed wrong by an independent probe, such as reading the database directly. Decoys that can't be confirmed are reported as uncounted, never as caught.
+4. **Strengthen only where something got through.** A model sees only the surviving decoys and may add checks, or flag that the expectations themselves are incomplete. Changes to what "fixed" means always go back to the developer. At most two rounds.
+5. **Freeze, then judge the fix.** The checks are sealed by hash before the candidate fix is evaluated. Results are raw counts with their limits.
+
+The same engine runs each application through configuration: start command, readiness check, isolated test data, source files a fix may touch, and a declarative workflow of browser or HTTP steps.
+
+## How Meta's models are used
+
+| Model | Job |
+|---|---|
+| Muse Spark | Turns reports and recordings into expectations, drafts checks, writes decoys, and strengthens checks from surviving decoys |
+| Muse Wonder | Optional built-in fixer that proposes a repair |
+
+Models never decide whether anything passed: results come only from running the app. The fixer cannot edit checks or probes, and no model writes or approves its own probe. Every model call goes through a cost ledger with a per-run cap.
+
+## Try it
+
+Requires Node 24 LTS, npm, Git and Playwright's Chromium. These commands make no model calls and need no API key:
 
 ```sh
 npm ci
 npx playwright install chromium
-npm run typecheck
 npm test
-npm run web:build -w confam
-npm run confam -- verify specimens/task-board/case-verify.json --project specimens/task-board/project.json --workflow specimens/task-board/workflow.json --fixture --candidate specimens/task-board/control-a.patch
+npm run confam -- challenge specimens/salon/cases/booking-integrity/case.json --project specimens/salon/project.json --workflow specimens/salon/cases/booking-integrity/workflow-v2-reviewed.json --manifest specimens/salon/cases/booking-integrity/challenges.json --fixture
 ```
 
-These commands make no model calls and require no API key. Linux may require Playwright's documented browser system dependencies. Open the multipage interface with `npm run confam -- serve runs` using the printed URL. The library browses saved reports. In Apps, save a local folder and review the detected setup. Apps with a valid Confam configuration can turn a report into editable requirements and a workflow; model exports require a configured key and explicit consent. The manual wizard still prepares files without model calls. After confirming a draft, prepare verification, review the frozen snapshot and optional candidate patch, then approve Start. Progress, cancellation and evidence are available in the browser; the CLI remains available. You can scope review to one directory with `npm run confam -- serve runs/YOUR_RUN_DIRECTORY`.
+The last command runs the salon decoy challenge: the original app, two correct fixes and six decoys, each in its own isolated copy. To browse the evidence (recordings, assertions, database observations and version history):
 
-For your own application, review its project configuration, case and workflow before using `--accept`. The included `--fixture` cases use scripted expectation confirmation; they are not an independent evaluation set. Local processes are not contained against hostile code.
+```sh
+npm run web:build -w confam
+npm run confam -- serve runs
+```
 
-Read [usage and supported boundaries](confam/README.md), [measured results](confam/EVALUATION.md), [release verification](confam/RELEASE.md), and the [roadmap](confam/ROADMAP.md). Distribution is a source checkout; the workspace package is not a standalone installable CLI.
+Open the printed URL. In Apps you can register a local project, review its detected setup, turn a report into editable expectations and a workflow (model calls need a key and explicit approval of exactly what is sent), then approve a verification run.
+
+For your own application, review its project configuration, case and workflow before using `--accept`. The included `--fixture` cases use scripted confirmation and are not an independent evaluation set.
+
+## Limits
+
+- Evidence covers the confirmed expectations under the recorded conditions. It is not proof that an application is correct.
+- Independent evaluation on unseen decoys has not been run yet, and no developers other than the author have used it.
+- It runs local web applications that can start from a command with isolated test data. It is not a sandbox for hostile code.
+- Supported setups are validated case by case. An external Next.js app was rejected at setup because its assets exceeded the snapshot limit; that result is kept, not hidden.
+
+## More
+
+[Usage and supported boundaries](confam/README.md) · [Measured results](confam/EVALUATION.md) · [Release checks](confam/RELEASE.md) · [Roadmap](confam/ROADMAP.md)
+
+Distribution is a source checkout; the workspace package is not a standalone installable CLI.
