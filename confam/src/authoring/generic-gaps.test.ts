@@ -36,8 +36,8 @@ function transport(inspect: () => void = () => undefined): ModelTransport {
     },
   };
 }
-const run = (directory: string, preview: boolean, injected: ModelTransport) =>
-  proposeGaps(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "runs"), { budget: 0.25, preview, transport: injected });
+const run = (directory: string, preview: boolean, injected: ModelTransport, candidate?: string) =>
+  proposeGaps(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "runs"), { budget: 0.25, preview, transport: injected, candidate });
 
 it("previews the exact gap-finding export without calling a model", async () => {
   const directory = await fixture();
@@ -56,4 +56,18 @@ it("records proposed expectations for review and drops ones already confirmed", 
   const proposal = JSON.parse(await readFile(draft.proposalPath!, "utf8"));
   expect(proposal.status).toBe("needs-review");
   expect(proposal.gaps.map(({ id }: { id: string }) => id)).toEqual(["headerBypass"]);
+});
+
+it("reviews the source with a proposed fix applied and refuses fixes outside configured source", async () => {
+  const directory = await fixture();
+  const fix = path.join(directory, "fix.patch");
+  await writeFile(fix, "diff --git a/main.js b/main.js\n--- a/main.js\n+++ b/main.js\n@@ -1 +1 @@\n-limit by first forwarded address\n+limit by connection address\n");
+  const draft = await run(directory, true, transport(), fix);
+  const exported = JSON.parse(await readFile(draft.exportPath, "utf8"));
+  expect(exported.input.sources).toEqual({ "main.js": "limit by connection address\n" });
+  expect(exported.input.proposedFix).toContain("+limit by connection address");
+  expect(exported.instructions).toContain("proposed fix applied");
+  const outside = path.join(directory, "outside.patch");
+  await writeFile(outside, "diff --git a/package.json b/package.json\n--- a/package.json\n+++ b/package.json\n@@ -0,0 +1 @@\n+{}\n");
+  await expect(run(directory, true, transport(), outside)).rejects.toThrow();
 });

@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run typecheck
+      - run: npm test
+      # The salon decoy challenge needs no model key: it runs the original app, two correct fixes and six decoys.
+      - name: No-key salon challenge
+        run: >
+          npm run confam -- challenge specimens/salon/cases/booking-integrity/case.json
+          --project specimens/salon/project.json
+          --workflow specimens/salon/cases/booking-integrity/workflow-v2-reviewed.json
+          --manifest specimens/salon/cases/booking-integrity/challenges.json --fixture
+      - run: npm run web:build -w confam

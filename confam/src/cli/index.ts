@@ -62,7 +62,9 @@ async function main(): Promise<void> {
       ? `Decoy proposal requires review: ${draft.manifestPath}\nNo probes authored and no application behavior evaluated.`
       : `Export preview written, nothing sent: ${draft.exportPath}`);
   } else if (args.command === "draft-gaps") {
-    const draft = await proposeGaps(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), { budget: args.budget, preview: args.preview });
+    const draft = await proposeGaps(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), {
+      budget: args.budget, preview: args.preview, candidate: args.candidate ? path.resolve(args.candidate) : undefined,
+    });
     console.log(draft.proposalPath
       ? `Proposed expectations require review: ${draft.proposalPath}\nNothing executed; confirm any you want added to the case.`
       : `Export preview written, nothing sent: ${draft.exportPath}`);

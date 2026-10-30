@@ -8,7 +8,7 @@ export const USAGE = `Commands:
   compare <challenge-run-directory> --pack pack.json [--integration-fixture]
   verify <case.json> --project project.json --workflow workflow.json (--accept | --fixture) [--candidate patch]
   draft-workflow <case.json> --project project.json [--budget USD]  (sends report and source to Meta)
-  draft-gaps <case.json> --project project.json [--budget USD] [--preview] (sends report, confirmed expectations and configured source to Muse Spark to propose missed expectations)
+  draft-gaps <case.json> --project project.json [--candidate patch] [--budget USD] [--preview] (sends report, confirmed expectations and configured source to Muse Spark to propose missed expectations)
   draft-fix <case.json> --project project.json [--budget USD] [--preview] (sends report, expectations and configured source to Muse Wonder; --preview only writes the export)
   project-check <project.json>
   run <case> [--candidate patch]
@@ -54,7 +54,7 @@ export function parseArguments(argv: string[]): CliArguments {
     compare: ["--pack", "--integration-fixture"],
     verify: ["--project", "--workflow", "--accept", "--fixture", "--candidate"],
     "draft-workflow": ["--project", "--budget"],
-    "draft-gaps": ["--project", "--budget", "--preview"],
+    "draft-gaps": ["--project", "--candidate", "--budget", "--preview"],
     "draft-fix": ["--project", "--budget", "--preview"],
     "project-check": [], run: ["--candidate"], intake: ["--budget"], confirm: ["--accept", "--answer"], execute: ["--candidate", "--fix"], demo: ["--candidate", "--budget", "--fix"],
     recheck: ["--candidate", "--budget", "--fix"], heldout: ["--pack"],
