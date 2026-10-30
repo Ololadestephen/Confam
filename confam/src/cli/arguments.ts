@@ -8,6 +8,7 @@ export const USAGE = `Commands:
   compare <challenge-run-directory> --pack pack.json [--integration-fixture]
   verify <case.json> --project project.json --workflow workflow.json (--accept | --fixture) [--candidate patch]
   draft-workflow <case.json> --project project.json [--budget USD]  (sends report and source to Meta)
+  draft-fix <case.json> --project project.json [--budget USD] [--preview] (sends report, expectations and configured source to Muse Wonder; --preview only writes the export)
   project-check <project.json>
   run <case> [--candidate patch]
   intake <case> [--budget USD]
@@ -19,7 +20,7 @@ export const USAGE = `Commands:
 The demo uses scripted fixture responses and confirmation; it makes no model calls.`;
 
 interface CliArguments {
-  command: "serve" | "recording-intake" | "draft-decoys" | "challenge" | "compare" | "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
+  command: "serve" | "recording-intake" | "draft-decoys" | "draft-fix" | "challenge" | "compare" | "verify" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
   subject: string;
   report?: string;
   port?: number;
@@ -37,11 +38,12 @@ interface CliArguments {
   integrationFixture: boolean;
   registry?: string;
   reference?: string;
+  preview: boolean;
 }
 
 export function parseArguments(argv: string[]): CliArguments {
   const [command, subject, ...flags] = argv;
-  if (!command || !["serve", "recording-intake", "draft-decoys", "challenge", "compare", "verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
+  if (!command || !["serve", "recording-intake", "draft-decoys", "draft-fix", "challenge", "compare", "verify", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
   const values = new Map<string, string>();
   const allowed: Record<string, string[]> = {
     serve: ["--port"],
@@ -51,18 +53,19 @@ export function parseArguments(argv: string[]): CliArguments {
     compare: ["--pack", "--integration-fixture"],
     verify: ["--project", "--workflow", "--accept", "--fixture", "--candidate"],
     "draft-workflow": ["--project", "--budget"],
+    "draft-fix": ["--project", "--budget", "--preview"],
     "project-check": [], run: ["--candidate"], intake: ["--budget"], confirm: ["--accept", "--answer"], execute: ["--candidate", "--fix"], demo: ["--candidate", "--budget", "--fix"],
     recheck: ["--candidate", "--budget", "--fix"], heldout: ["--pack"],
   };
   for (let index = 0;index < flags.length;index += 1) {
     const flag = flags[index]!;
     if (!allowed[command]?.includes(flag) || values.has(flag)) throw new Error(`Invalid or duplicate option: ${flag}\n${USAGE}`);
-    if (flag === "--accept" || flag === "--fix" || flag === "--fixture" || flag === "--strengthen" || flag === "--integration-fixture") { values.set(flag, "yes"); continue; }
+    if (flag === "--accept" || flag === "--fix" || flag === "--fixture" || flag === "--strengthen" || flag === "--integration-fixture" || flag === "--preview") { values.set(flag, "yes"); continue; }
     const value = flags[++index];
     if (!value || value.startsWith("--")) throw new Error(`Missing value for ${flag}`);
     values.set(flag, value);
   }
-  if ((["draft-decoys", "challenge", "verify", "draft-workflow"].includes(command)) && !values.has("--project")) throw new Error("A project configuration is required.");
+  if ((["draft-decoys", "draft-fix", "challenge", "verify", "draft-workflow"].includes(command)) && !values.has("--project")) throw new Error("A project configuration is required.");
   if ((command === "verify" || command === "challenge") && (!values.has("--workflow") || values.has("--accept") === values.has("--fixture"))) {
     throw new Error("Review the case and workflow, then choose --accept or explicitly labelled --fixture confirmation.");
   }
@@ -83,6 +86,6 @@ export function parseArguments(argv: string[]): CliArguments {
   if (answer !== undefined && answer !== "yes" && answer !== "no") throw new Error("--answer must be yes or no.");
   return {
     command: command as CliArguments["command"], subject, report: values.get("--report"), port, candidate: values.get("--candidate"), budget, answer, fix: values.has("--fix"), pack: values.get("--pack"),
-    project: values.get("--project"), workflow: values.get("--workflow"), fixture: values.has("--fixture"), accept: values.has("--accept"), manifest: values.get("--manifest"), strengthen: values.has("--strengthen"), integrationFixture: values.has("--integration-fixture"), registry: values.get("--registry"), reference: values.get("--reference")
+    project: values.get("--project"), workflow: values.get("--workflow"), fixture: values.has("--fixture"), accept: values.has("--accept"), manifest: values.get("--manifest"), strengthen: values.has("--strengthen"), integrationFixture: values.has("--integration-fixture"), registry: values.get("--registry"), reference: values.get("--reference"), preview: values.has("--preview")
   };
 }

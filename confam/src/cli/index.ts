@@ -1,6 +1,7 @@
 import { analyzeRecording } from "../recordings/intake.js";
 import { startReviewServer } from "../web/server.js";
 import { proposeDecoys } from "../authoring/generic-decoys.js";
+import { proposeFix } from "../authoring/generic-fixer.js";
 import { challengeProject } from "../challenges/harness.js";
 import { evaluateChallengePack } from "../challenges/evaluate-pack.js";
 import { DEFAULT_BUDGET_USD } from "../models/config.js";
@@ -55,6 +56,11 @@ async function main(): Promise<void> {
   } else if (args.command === "draft-decoys") {
     const draft = await proposeDecoys(path.resolve(args.project!), path.resolve(args.subject), path.resolve(args.registry!), args.reference!, path.join(root, "runs"), args.budget);
     console.log(`Decoy proposal requires review: ${draft.manifestPath}\nNo probes authored and no application behavior evaluated.`);
+  } else if (args.command === "draft-fix") {
+    const draft = await proposeFix(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), { budget: args.budget, preview: args.preview });
+    console.log(draft.patchPath
+      ? `Candidate fix requires review: ${draft.patchPath}\nNo application executed; evaluate it with verify or challenge --candidate.`
+      : `Export preview written, nothing sent: ${draft.exportPath}`);
   } else if (args.command === "challenge") {
     const { report, reportPath } = await challengeProject({
       project: path.resolve(args.project!), caseFile: path.resolve(args.subject),
