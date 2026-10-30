@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "context",
+      "name": "owner"
+    },
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Phone number"
+      },
+      "value": {
+        "fixture": "phone"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Continue"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "label",
+        "value": "Service"
+      }
+    },
+    {
+      "action": "select",
+      "locator": {
+        "kind": "label",
+        "value": "Service"
+      },
+      "value": {
+        "fixture": "serviceId"
+      },
+      "by": "value"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Date"
+      },
+      "value": {
+        "fixture": "date"
+      }
+    },
+    {
+      "action": "select",
+      "locator": {
+        "kind": "label",
+        "value": "Time"
+      },
+      "value": {
+        "fixture": "time"
+      },
+      "by": "label"
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Book appointment"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "status"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "role",
+        "value": "status"
+      },
+      "kind": "text",
+      "capture": "statusText"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "reopen"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "My appointments"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "role",
+        "value": "listitem"
+      },
+      "kind": "count",
+      "capture": "ownerAfterReopenA"
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "role",
+        "value": "listitem"
+      },
+      "kind": "count",
+      "capture": "ownerAfterReopenB"
+    },
+    {
+      "action": "assert",
+      "expectationId": "appointmentPersists",
+      "actual": {
+        "variable": "ownerAfterReopenA"
+      },
+      "operator": "gte",
+      "expected": 1
+    },
+    {
+      "action": "assert",
+      "expectationId": "confirmationMeansSaved",
+      "actual": {
+        "variable": "ownerAfterReopenB"
+      },
+      "operator": "gte",
+      "expected": 1
+    },
+    {
+      "action": "context",
+      "name": "other"
+    },
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Phone number"
+      },
+      "value": {
+        "fixture": "otherPhone"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Continue"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "My appointments"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "role",
+        "value": "listitem"
+      },
+      "kind": "count",
+      "capture": "otherCount"
+    },
+    {
+      "action": "assert",
+      "expectationId": "ownerOnly",
+      "actual": {
+        "variable": "otherCount"
+      },
+      "operator": "eq",
+      "expected": 0
+    },
+    {
+      "action": "context",
+      "name": "owner"
+    },
+    {
+      "action": "restart"
+    },
+    {
+      "action": "reload"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "My appointments"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "role",
+        "value": "listitem"
+      },
+      "kind": "count",
+      "capture": "ownerAfterRestart"
+    },
+    {
+      "action": "assert",
+      "expectationId": "survivesRestart",
+      "actual": {
+        "variable": "ownerAfterRestart"
+      },
+      "operator": "gte",
+      "expected": 1
+    }
+  ]
+}

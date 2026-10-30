@@ -1,0 +1,13 @@
+diff --git a/server.js b/server.js
+index 93cd2b1..62a6567 100644
+--- a/server.js
++++ b/server.js
+@@ -74,7 +74,7 @@ app.post('/api/appointments', (req, res) => {
+   };
+ 
+   try {
+-    db.addAppointment(appointment);
++    if (process.env.SAVE_BOOKINGS === 'true') db.addAppointment(appointment);
+   } catch (error) {
+     console.error('Could not save appointment:', error.message);
+     return res.status(422).json({ error: 'We could not book that time. Please choose another slot.' });

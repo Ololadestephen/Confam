@@ -55,7 +55,13 @@ export async function executePageAction(
       await locate(page, step.locator).selectOption(step.by === "label" ? { label: value } : { value }); return true;
     }
     case "wait": await locate(page, step.locator).waitFor({ state: "attached" }); return true;
-    case "reload": await page.reload(); return true;
+    case "reload": {
+      // After a restart the project may listen on a new origin; reload the same route there.
+      const current = new URL(page.url());
+      if (current.origin === new URL(baseUrl).origin) await page.reload();
+      else await page.goto(localUrl(baseUrl, current.pathname + current.search + current.hash));
+      return true;
+    }
     case "reopen": {
       const previous = new URL(page.url());
       await page.close(); state.page = await context.newPage();

@@ -1,0 +1,95 @@
+diff --git a/public/app.js b/public/app.js
+index 144cd27..9c81724 100644
+--- a/public/app.js
++++ b/public/app.js
+@@ -52,7 +52,7 @@ async function loadBookingForm() {
+   $('#service').replaceChildren(
+     ...services.services.map((s) => new Option(`${s.name} · ₦${s.priceNaira.toLocaleString()}`, s.id)),
+   );
+-  $('#time').replaceChildren(...slots.slots.map((slot) => new Option(slot, slot)));
++  $('#time').replaceChildren(...slots.slots.map((slot) => new Option(slot.label, slot.value)));
+ }
+ 
+ async function showBooking(customer) {
+@@ -90,8 +90,7 @@ $('#sign-out').addEventListener('click', async () => {
+ 
+ $('#booking-form').addEventListener('submit', async (event) => {
+   event.preventDefault();
+-  const service = $('#service');
+-  const booking = { serviceId: service.value, date: $('#date').value, time: $('#time').value };
++  const booking = { serviceId: $('#service').value, date: $('#date').value, time: $('#time').value };
+   const { ok, body } = await api('/api/appointments', {
+     method: 'POST',
+     body: JSON.stringify(booking),
+@@ -100,12 +99,8 @@ $('#booking-form').addEventListener('submit', async (event) => {
+     $('#booking-status').textContent = body.error ?? 'Something went wrong. Please try again.';
+     return;
+   }
++  await loadAppointments();
+   $('#booking-status').textContent = 'Booking confirmed';
+-  renderAppointment({
+-    serviceName: service.selectedOptions[0].text.split(' · ')[0],
+-    date: booking.date,
+-    time: booking.time,
+-  });
+ });
+ 
+ const { ok, body } = await api('/api/me');
+diff --git a/server.js b/server.js
+index 4026764..eee7512 100644
+--- a/server.js
++++ b/server.js
+@@ -7,7 +7,15 @@ const here = path.dirname(fileURLToPath(import.meta.url));
+ const port = Number(process.env.PORT ?? 4310);
+ const db = openDatabase(process.env.DB_PATH ?? path.join(here, 'salon.sqlite'));
+ 
+-const SLOTS = ['9:00 AM', '10:30 AM', '12:00 PM', '2:00 PM', '3:30 PM', '5:00 PM'];
++const SLOTS = [
++  { label: '9:00 AM', value: '09:00' },
++  { label: '10:30 AM', value: '10:30' },
++  { label: '12:00 PM', value: '12:00' },
++  { label: '2:00 PM', value: '14:00' },
++  { label: '3:30 PM', value: '15:30' },
++  { label: '5:00 PM', value: '17:00' },
++];
++const DATE_FORMAT = /^\d{4}-\d{2}-\d{2}$/;
+ 
+ const app = express();
+ app.use(express.json());
+@@ -24,14 +32,6 @@ function currentCustomer(req) {
+   return Number.isInteger(id) ? db.findCustomer(id) : undefined;
+ }
+ 
+-// "2:00 PM" on "2026-10-31" -> "2026-10-31T14:00"
+-function toStartsAt(date, timeLabel) {
+-  const [clock, period] = timeLabel.split(' ');
+-  const [hour, minute] = clock.split(':');
+-  const hour24 = period === 'PM' && hour !== '12' ? hour + 12 : hour;
+-  return `${date}T${String(hour24).padStart(2, '0')}:${minute}`;
+-}
+-
+ app.get('/api/health', (_req, res) => res.json({ ok: true }));
+ 
+ app.post('/api/session', (req, res) => {
+@@ -67,16 +67,20 @@ app.post('/api/appointments', (req, res) => {
+   if (!customer) return res.status(401).json({ error: 'Please sign in first.' });
+ 
+   const { serviceId, date, time } = req.body ?? {};
++  if (!DATE_FORMAT.test(String(date)) || !SLOTS.some((slot) => slot.value === time)) {
++    return res.status(400).json({ error: 'Please choose a valid date and time.' });
++  }
+   const appointment = {
+     customerId: customer.id,
+     serviceId: Number(serviceId),
+-    startsAt: toStartsAt(date, time),
++    startsAt: `${date}T${time}`,
+   };
+ 
+   try {
+     db.addAppointment(appointment);
+   } catch (error) {
+     console.error('Could not save appointment:', error.message);
++    return res.status(500).json({ error: 'We could not save your booking. Please try again.' });
+   }
+ 
+   res.status(201).json({ status: 'confirmed', appointment });

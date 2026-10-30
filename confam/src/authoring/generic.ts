@@ -63,6 +63,8 @@ Use only relative same-project paths. Return no JavaScript, shell commands, exec
 This proposal requires developer review and case-specific confirmation before execution.`,
     input,
     modelWorkflowSchema,
+    // Same limit as the onboarding workflow proposal; multi-expectation workflows overrun 4096.
+    8192,
   );
   const proposal = decodeModelWorkflow(wire);
   const workflowPath = path.join(directory, "workflow.json");

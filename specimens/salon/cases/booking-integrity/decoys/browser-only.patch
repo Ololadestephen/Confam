@@ -1,0 +1,41 @@
+diff --git a/public/app.js b/public/app.js
+index 144cd27..6591d9c 100644
+--- a/public/app.js
++++ b/public/app.js
+@@ -36,9 +36,11 @@ function renderAppointment({ serviceName, date, time }) {
+ async function loadAppointments() {
+   $('#appointments').setAttribute('aria-busy', 'true');
+   const { body } = await api('/api/appointments');
++  const onDevice = JSON.parse(localStorage.getItem('bookings') ?? '[]');
++  const appointments = [...body.appointments, ...onDevice];
+   $('#appointments').replaceChildren();
+-  $('#no-appointments').hidden = body.appointments.length > 0;
+-  for (const appointment of body.appointments) {
++  $('#no-appointments').hidden = appointments.length > 0;
++  for (const appointment of appointments) {
+     renderAppointment({ serviceName: appointment.serviceName, ...splitStartsAt(appointment.startsAt) });
+   }
+   $('#appointments').setAttribute('aria-busy', 'false');
+@@ -100,6 +102,9 @@ $('#booking-form').addEventListener('submit', async (event) => {
+     $('#booking-status').textContent = body.error ?? 'Something went wrong. Please try again.';
+     return;
+   }
++  const onDevice = JSON.parse(localStorage.getItem('bookings') ?? '[]');
++  onDevice.push({ serviceName: service.selectedOptions[0].text.split(' · ')[0], startsAt: body.appointment.startsAt });
++  localStorage.setItem('bookings', JSON.stringify(onDevice));
+   $('#booking-status').textContent = 'Booking confirmed';
+   renderAppointment({
+     serviceName: service.selectedOptions[0].text.split(' · ')[0],
+diff --git a/server.js b/server.js
+index 93cd2b1..ca45e06 100644
+--- a/server.js
++++ b/server.js
+@@ -74,7 +74,7 @@ app.post('/api/appointments', (req, res) => {
+   };
+ 
+   try {
+-    db.addAppointment(appointment);
++    // Bookings are kept on the device until sync is ready.
+   } catch (error) {
+     console.error('Could not save appointment:', error.message);
+     return res.status(422).json({ error: 'We could not book that time. Please choose another slot.' });

@@ -1,0 +1,29 @@
+diff --git a/server.js b/server.js
+index 93cd2b1..292cd59 100644
+--- a/server.js
++++ b/server.js
+@@ -56,10 +56,13 @@ app.get('/api/services', (_req, res) => res.json({ services: db.listServices() }
+ 
+ app.get('/api/slots', (_req, res) => res.json({ slots: SLOTS }));
+ 
++const recentAppointments = [];
++
+ app.get('/api/appointments', (req, res) => {
+   const customer = currentCustomer(req);
+   if (!customer) return res.status(401).json({ error: 'Please sign in first.' });
+-  res.json({ appointments: db.listAppointments(customer.id) });
++  const recent = recentAppointments.filter((a) => a.customerId === customer.id);
++  res.json({ appointments: [...db.listAppointments(customer.id), ...recent] });
+ });
+ 
+ app.post('/api/appointments', (req, res) => {
+@@ -74,7 +77,8 @@ app.post('/api/appointments', (req, res) => {
+   };
+ 
+   try {
+-    db.addAppointment(appointment);
++    const service = db.listServices().find((s) => s.id === appointment.serviceId);
++    recentAppointments.push({ ...appointment, id: recentAppointments.length + 1, serviceName: service?.name });
+   } catch (error) {
+     console.error('Could not save appointment:', error.message);
+     return res.status(422).json({ error: 'We could not book that time. Please choose another slot.' });

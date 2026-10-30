@@ -1,0 +1,13 @@
+diff --git a/server.js b/server.js
+index 93cd2b1..aaf472c 100644
+--- a/server.js
++++ b/server.js
+@@ -28,7 +28,7 @@ function currentCustomer(req) {
+ function toStartsAt(date, timeLabel) {
+   const [clock, period] = timeLabel.split(' ');
+   const [hour, minute] = clock.split(':').map(Number);
+-  const hour24 = (hour % 12) + (period === 'PM' ? 12 : 0);
++  const hour24 = hour % 12 === 0 ? 12 : hour % 12;
+   return `${date}T${String(hour24).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+ }
+ 

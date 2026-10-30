@@ -1,6 +1,6 @@
-import type { Locator } from "@playwright/test";
+import type { BrowserContext, Locator, Page } from "@playwright/test";
 import { describe, expect, it } from "vitest";
-import { capture, comparison, localUrl } from "./actions.js";
+import { capture, comparison, executePageAction, localUrl } from "./actions.js";
 
 function textLocator(text: string): Locator {
   return { innerText: async () => text } as Locator;
@@ -33,5 +33,30 @@ describe("workflow URL confinement", () => {
 
   it.each(["https://external.example/path", "//external.example/path", "http://127.0.0.1:4311/", "javascript:alert(1)"])("rejects origin escape %s", (target) => {
     expect(() => localUrl("http://127.0.0.1:4310", target)).toThrow("project origin");
+  });
+});
+
+describe("reload after restart", () => {
+  function fakePage(url: string) {
+    const calls: string[] = [];
+    const page = {
+      url: () => url,
+      reload: async () => { calls.push("reload"); },
+      goto: async (target: string) => { calls.push(`goto ${target}`); },
+    } as unknown as Page;
+    return { page, calls };
+  }
+  const reload = { action: "reload" } as const;
+
+  it("reloads in place while the project origin is unchanged", async () => {
+    const { page, calls } = fakePage("http://127.0.0.1:4310/bookings?day=sat");
+    await executePageAction({ context: {} as BrowserContext, page }, reload, "http://127.0.0.1:4310", {}, {});
+    expect(calls).toEqual(["reload"]);
+  });
+
+  it("opens the same route on the restarted origin", async () => {
+    const { page, calls } = fakePage("http://127.0.0.1:4310/bookings?day=sat#list");
+    await executePageAction({ context: {} as BrowserContext, page }, reload, "http://127.0.0.1:4322", {}, {});
+    expect(calls).toEqual(["goto http://127.0.0.1:4322/bookings?day=sat#list"]);
   });
 });
