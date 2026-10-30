@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/confam-fault/rate-limits-unavailable",
+      "method": "POST",
+      "capture": "fault"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "failClosedOnLimitCheckFailure",
+      "actual": {
+        "variable": "fault.status"
+      },
+      "operator": "eq",
+      "expected": 200
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r1",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r2",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r3",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r4",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r5",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r6",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "assert",
+      "expectationId": "failClosedOnLimitCheckFailure",
+      "actual": {
+        "variable": "r6.status"
+      },
+      "operator": "gte",
+      "expected": 400
+    }
+  ]
+}

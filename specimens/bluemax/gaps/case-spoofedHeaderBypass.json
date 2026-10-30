@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "spoofedHeaderBypass",
+  "projectId": "bluemax-latest",
+  "report": "report.md",
+  "fixtures": {
+    "quote": {
+      "name": "Test Customer",
+      "email": "test.customer@example.test",
+      "phone": "08000000000",
+      "location": "Fictional test address",
+      "recommended_system": "5kVA",
+      "monthly_bill": "50000",
+      "message": "Fictional quote request written for Confam testing."
+    },
+    "addresses": {
+      "v1": "203.0.113.1",
+      "v2": "203.0.113.2",
+      "v3": "203.0.113.3",
+      "v4": "203.0.113.4",
+      "v5": "203.0.113.5",
+      "v6": "203.0.113.6"
+    }
+  },
+  "expectations": [
+    {
+      "id": "spoofedHeaderBypass",
+      "statement": "A visitor cannot avoid the 5-per-minute limit by changing forwarding headers.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "spoofedHeaderBypass"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

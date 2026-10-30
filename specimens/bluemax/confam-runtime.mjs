@@ -69,6 +69,19 @@ for (let attempt = 0; ; attempt += 1) {
 
 http.createServer((request, response) => {
   if (request.url === "/confam-ready") { response.end("ready"); return; }
+  // Test-only fault switch, served by this wrapper and never by Bluemax: makes the rate-limit table
+  // unavailable to the function, as an outage or permissions mistake would. A variant's database reset undoes it.
+  if (request.url === "/confam-fault/rate-limits-unavailable" && request.method === "POST") {
+    try {
+      sql("ALTER TABLE public.rate_limits RENAME TO rate_limits_unavailable");
+      response.setHeader("Content-Type", "application/json");
+      response.end(JSON.stringify({ fault: "rate-limits-unavailable" }));
+    } catch {
+      response.statusCode = 409;
+      response.end();
+    }
+    return;
+  }
   const upstream = http.request(`${api}${request.url}`, { method: request.method, headers: { ...request.headers, host: "127.0.0.1:54321" } }, (reply) => {
     response.writeHead(reply.statusCode ?? 502, reply.headers);
     // Snapshot after each response and before passing it on, so probes never read a stale count.

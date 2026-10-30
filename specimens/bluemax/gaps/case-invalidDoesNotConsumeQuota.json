@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "invalidDoesNotConsumeQuota",
+  "projectId": "bluemax-latest",
+  "report": "report.md",
+  "fixtures": {
+    "quote": {
+      "name": "Test Customer",
+      "email": "test.customer@example.test",
+      "phone": "08000000000",
+      "location": "Fictional test address",
+      "recommended_system": "5kVA",
+      "monthly_bill": "50000",
+      "message": "Fictional quote request written for Confam testing."
+    },
+    "invalidQuote": {
+      "name": "Test Customer",
+      "email": "not-an-email",
+      "phone": "08000000000",
+      "location": "Fictional test address",
+      "recommended_system": "5kVA",
+      "monthly_bill": "50000",
+      "message": "Fictional quote request written for Confam testing."
+    }
+  },
+  "expectations": [
+    {
+      "id": "invalidDoesNotConsumeQuota",
+      "statement": "Quote requests rejected for invalid input do not count toward the 5-per-minute spam limit.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "invalidDoesNotConsumeQuota"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

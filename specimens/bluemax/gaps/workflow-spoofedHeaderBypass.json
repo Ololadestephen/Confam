@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r1",
+      "body": {
+        "fixture": "quote"
+      },
+      "headers": {
+        "X-Forwarded-For": {
+          "fixture": "addresses.v1"
+        }
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r2",
+      "body": {
+        "fixture": "quote"
+      },
+      "headers": {
+        "X-Forwarded-For": {
+          "fixture": "addresses.v2"
+        }
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r3",
+      "body": {
+        "fixture": "quote"
+      },
+      "headers": {
+        "X-Forwarded-For": {
+          "fixture": "addresses.v3"
+        }
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r4",
+      "body": {
+        "fixture": "quote"
+      },
+      "headers": {
+        "X-Forwarded-For": {
+          "fixture": "addresses.v4"
+        }
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r5",
+      "body": {
+        "fixture": "quote"
+      },
+      "headers": {
+        "X-Forwarded-For": {
+          "fixture": "addresses.v5"
+        }
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "r6",
+      "body": {
+        "fixture": "quote"
+      },
+      "headers": {
+        "X-Forwarded-For": {
+          "fixture": "addresses.v6"
+        }
+      }
+    },
+    {
+      "action": "assert",
+      "expectationId": "spoofedHeaderBypass",
+      "actual": {
+        "variable": "r6.status"
+      },
+      "operator": "eq",
+      "expected": 429
+    }
+  ]
+}

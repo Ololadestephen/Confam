@@ -19,3 +19,15 @@ The case has two expectations: a valid quote request is accepted, and a 6th requ
 - All variants share one local Supabase stack and are isolated by resetting it, so only one Bluemax run can happen at a time.
 - Requires Docker and the Supabase CLI. The first start downloads several GB of images.
 - The quote form's web page is not driven; the workflow sends the same requests the form sends.
+
+## Gaps found in the current code (October 30)
+
+Muse Spark's gap finder (`draft-gaps`) reviewed the latest code (`5e574fe`) against the two confirmed expectations and proposed five missed expectations. The owner confirmed three, and each was tested on the latest code with its own case and workflow in `gaps/`:
+
+| Confirmed expectation | Latest code, local Supabase |
+|---|---|
+| A visitor cannot avoid the limit by changing forwarding headers | **Fails**: six requests with six different `X-Forwarded-For` values were all accepted |
+| Requests rejected for invalid input do not use up the limit | **Fails**: after five rejected requests (400), a valid request was refused (429) |
+| When the request count cannot be checked, further requests are refused | **Fails**: with the rate-limit table unavailable, all six requests were accepted |
+
+The third test uses a fault switch served by the wrapper (`POST /confam-fault/rate-limits-unavailable`), which renames the table; Bluemax's code is unchanged. These results describe the local Supabase stack. Supabase's production gateway may set forwarding headers differently, so the header result has not been confirmed against the live site, and the live site was not tested.

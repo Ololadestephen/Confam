@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "quoteSpamLimitGaps",
+  "projectId": "bluemax-latest",
+  "report": "report.md",
+  "fixtures": {
+    "quote": {
+      "name": "Test Customer",
+      "email": "test.customer@example.test",
+      "phone": "08000000000",
+      "location": "Fictional test address",
+      "recommended_system": "5kVA",
+      "monthly_bill": "50000",
+      "message": "Fictional quote request written for Confam testing."
+    }
+  },
+  "expectations": [
+    {
+      "id": "validQuoteAccepted",
+      "statement": "A valid quote request is accepted.",
+      "provenance": "report"
+    },
+    {
+      "id": "spamLimitSurvivesRestart",
+      "statement": "After 5 quote requests from one visitor within a minute, a 6th is refused with \"Too many requests\", even if the function restarts in between.",
+      "provenance": "report"
+    },
+    {
+      "id": "spoofedHeaderBypass",
+      "statement": "A visitor cannot avoid the 5-per-minute limit by changing forwarding headers.",
+      "provenance": "developer"
+    },
+    {
+      "id": "invalidDoesNotConsumeQuota",
+      "statement": "Quote requests rejected for invalid input do not count toward the 5-per-minute spam limit.",
+      "provenance": "developer"
+    },
+    {
+      "id": "failClosedOnLimitCheckFailure",
+      "statement": "When the recent-request count cannot be checked, further quote requests are refused rather than accepted without limit.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "spoofedHeaderBypass",
+    "invalidDoesNotConsumeQuota",
+    "failClosedOnLimitCheckFailure"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}
