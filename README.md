@@ -75,6 +75,12 @@ For your own application, review its project configuration, case and workflow be
 - It runs local web applications that can start from a command with isolated test data. It is not a sandbox for hostile code.
 - Supported setups are validated case by case. An external Next.js app was rejected at setup because its assets exceeded the snapshot limit; that result is kept, not hidden.
 
+## Built during the Meta Global AI Developer Hackathon
+
+Everything in this repository was written during the hackathon, from the first commit on October 28, 2026. That includes the engine, the web interface, the salon, task board and quote tool specimen apps, and every check, decoy and probe.
+
+Mosaic was built by the author before the hackathon. It is used only as a test subject: its source is not in this repository, and `specimens/mosaic/` contains only the setup script, runtime wrapper, configuration, bug reports, workflows and probes written during the hackathon to test it.
+
 ## More
 
 [Usage and supported boundaries](confam/README.md) · [Measured results](confam/EVALUATION.md) · [Release checks](confam/RELEASE.md) · [Roadmap](confam/ROADMAP.md)
