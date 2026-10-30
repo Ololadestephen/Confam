@@ -76,9 +76,14 @@ These proposals require review and independent runtime qualification; generated 
   }));
   const decoys = patches.map(({ spec }) => spec);
   validateDecoys(decoys, loaded.definition, probes);
+  // Stage the reference control so each normalized decoy diff is relative to it.
+  await git(reference, "add", "-A");
   for (const { spec, contents } of patches) {
+    const raw = path.join(directory, `raw-${spec.patch}`);
+    await writeFile(raw, contents, { flag: "wx" });
+    await guardPatch(reference, raw, { recount: true });
     const file = path.join(directory, spec.patch);
-    await writeFile(file, contents, { flag: "wx" });
+    await writeFile(file, await normalizeModelPatch(reference, raw), { flag: "wx" });
     await guardPatch(reference, file);
     await git(reference, "apply", "--check", "--", file);
   }
@@ -93,4 +98,16 @@ These proposals require review and independent runtime qualification; generated 
     note: "No application executed; no generated decoy has been independently qualified."
   }, null, 2) + "\n", { flag: "wx" });
   return { manifestPath, directory, usage: ledger.snapshot() };
+}
+
+// Model-written diffs often omit git headers or carry wrong hunk line counts. Let git recount
+// the hunks against the staged worktree, keep git's canonical diff, then restore the worktree.
+export async function normalizeModelPatch(worktree: string, rawPatch: string): Promise<string> {
+  try {
+    await git(worktree, "apply", "--recount", "--", rawPatch);
+    return await git(worktree, "diff");
+  } finally {
+    await git(worktree, "checkout", "--", ".");
+    await git(worktree, "clean", "-fdq");
+  }
 }

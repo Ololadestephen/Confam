@@ -2,7 +2,8 @@ import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promis
 import os from "node:os";
 import path from "node:path";
 import { afterEach, expect, it } from "vitest";
-import { proposeDecoys } from "./generic-decoys.js";
+import { normalizeModelPatch, proposeDecoys } from "./generic-decoys.js";
+import { git } from "../engine/process.js";
 import type { ModelTransport } from "../models/client.js";
 
 const directories: string[] = [];
@@ -89,4 +90,18 @@ it.each(["probe", "expectation", "positive-only"])("rejects invalid model eviden
     return { ...response, text: JSON.stringify(proposal) };
   };
   await expect(propose(directory, injected)).rejects.toThrow();
+});
+
+it("normalizes a model diff with wrong hunk counts and no git header, leaving the worktree clean", async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "confam-normalize-")); directories.push(directory);
+  await writeFile(path.join(directory, "main.js"), "one\ntwo\nthree\nfour\n");
+  await git(directory, "init", "-q");
+  await git(directory, "add", "-A");
+  const raw = path.join(directory, "..", `${path.basename(directory)}-raw.patch`); directories.push(raw);
+  // Header claims 7/8 lines but the hunk has 4/5, as model-written diffs often do.
+  await writeFile(raw, "--- a/main.js\n+++ b/main.js\n@@ -1,7 +1,8 @@\n one\n two\n+inserted\n three\n four\n");
+  const normalized = await normalizeModelPatch(directory, raw);
+  expect(normalized).toContain("diff --git a/main.js b/main.js");
+  expect(normalized).toContain("@@ -1,4 +1,5 @@");
+  expect(await readFile(path.join(directory, "main.js"), "utf8")).toBe("one\ntwo\nthree\nfour\n");
 });

@@ -6,10 +6,11 @@ import { confinedPath, isProtectedPath, projectConfigSchema, type ProjectConfig 
 import { legacyProjectConfig } from "../project/legacy.js";
 import { PROJECT_SNAPSHOT, readProjectSnapshot } from "../project/snapshot.js";
 
-export async function guardPatch(repository: string, patch: string): Promise<void> {
+// `recount` lets git ignore hunk line counts, for checking model-written diffs before normalization.
+export async function guardPatch(repository: string, patch: string, options: { recount?: boolean } = {}): Promise<void> {
   const config = await readProjectSnapshot(repository);
   const allowedFiles = new Set(config.sourceFiles);
-  const summary = await git(repository, "apply", "--numstat", "-z", patch);
+  const summary = await git(repository, "apply", "--numstat", "-z", ...(options.recount ? ["--recount"] : []), patch);
   const paths = summary.split("\0").filter(Boolean).map((entry) => entry.split("\t").slice(2).join("\t"));
   if (paths.length === 0) throw new Error("Patch has no file changes.");
   for (const file of paths) {
