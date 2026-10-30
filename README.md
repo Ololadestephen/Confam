@@ -26,7 +26,7 @@ Two moments from building those checks:
 Confam also runs on **real applications**, each bug reproduced against the commit before its real fix, with the real fix passing:
 
 - **Mosaic**, the author's own Next.js and PostgreSQL app: two real bugs.
-- **Bluemax**, a real solar installer's website in Nigeria built with an AI app builder: the quote form's spam limit reset whenever the function restarted. The fix itself was AI-written. Spark wrote three wrong fixes for it after the checks were agreed, and the checks caught all three, each confirmed wrong by reading the database. It runs on a local Supabase stack, never the live site.
+- **Bluemax**, a real solar installer's website in Nigeria built with an AI app builder: the quote form's spam limit reset whenever the function restarted. The fix itself was AI-written. Spark wrote three wrong fixes for it after the checks were agreed, and the checks caught all three, each confirmed wrong by reading the database. Muse Wonder's own fix, built a different way, passed. It runs on a local Supabase stack, never the live site.
 
 Full numbers, including what wasn't counted and why: [measured results](confam/EVALUATION.md).
 
