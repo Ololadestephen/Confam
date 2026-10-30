@@ -39,3 +39,29 @@ it("stops before generation when the verifier budget cannot cover it", async () 
     expect(generated).toBe(false);
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
+it("decodes the Meta wire format returned by the verifier into a native workflow", async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "confam-verifier-wire-"));
+  try {
+    const wire = {
+      schemaVersion: 1, steps: [
+        { action: "navigate", path: "/" },
+        { action: "click", locator: { kind: "role", value: "button", name: null } },
+        { action: "select", locator: { kind: "label", value: "Time" }, value: "2:00 PM", by: null },
+        { action: "reached" },
+      ]
+    };
+    const transport: ModelTransport = {
+      mode: "fixture", count: async () => 100,
+      generate: async () => ({ text: JSON.stringify({ plan: wire, reason: "Appended nothing", reviewReasons: [] }), completed: true, usage: { input: 100, output: 100, cached: 0 } }),
+    };
+    const proposal = await modelStrengthener(directory, 0.25, transport).strengthen({ round: 1, plan, survivors: [] });
+    expect(proposal.plan).toEqual({
+      schemaVersion: 1, steps: [
+        { action: "navigate", path: "/" },
+        { action: "click", locator: { kind: "role", value: "button" } },
+        { action: "select", locator: { kind: "label", value: "Time" }, value: "2:00 PM" },
+        { action: "reached" },
+      ]
+    });
+  } finally { await rm(directory, { recursive: true, force: true }); }
+});
