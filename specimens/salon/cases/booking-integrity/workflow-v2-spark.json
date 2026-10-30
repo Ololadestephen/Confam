@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "context",
+      "name": "owner"
+    },
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Phone number"
+      },
+      "value": {
+        "fixture": "phone"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Continue"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "Book an appointment"
+      }
+    },
+    {
+      "action": "select",
+      "locator": {
+        "kind": "label",
+        "value": "Service"
+      },
+      "value": {
+        "fixture": "serviceId"
+      },
+      "by": "value"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Date"
+      },
+      "value": {
+        "fixture": "date"
+      }
+    },
+    {
+      "action": "select",
+      "locator": {
+        "kind": "label",
+        "value": "Time"
+      },
+      "value": {
+        "fixture": "time"
+      },
+      "by": "label"
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Book appointment"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "status"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#booking-status"
+      },
+      "kind": "text",
+      "capture": "statusText"
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#appointments li"
+      },
+      "kind": "count",
+      "capture": "immediateCount"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "reopen"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "Book an appointment"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#appointments li"
+      },
+      "kind": "count",
+      "capture": "persistedCount"
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#appointments li"
+      },
+      "kind": "count",
+      "capture": "savedCount"
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#appointments li"
+      },
+      "kind": "text",
+      "capture": "bookedText"
+    },
+    {
+      "action": "context",
+      "name": "other"
+    },
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Phone number"
+      },
+      "value": {
+        "fixture": "otherPhone"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Continue"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "Book an appointment"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#appointments li"
+      },
+      "kind": "count",
+      "capture": "otherCount"
+    },
+    {
+      "action": "context",
+      "name": "owner"
+    },
+    {
+      "action": "restart"
+    },
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "role",
+        "value": "heading",
+        "name": "Book an appointment"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#appointments li"
+      },
+      "kind": "count",
+      "capture": "afterRestartCount"
+    },
+    {
+      "action": "assert",
+      "expectationId": "appointmentPersists",
+      "actual": {
+        "variable": "persistedCount"
+      },
+      "operator": "gte",
+      "expected": 1
+    },
+    {
+      "action": "assert",
+      "expectationId": "ownerOnly",
+      "actual": {
+        "variable": "persistedCount"
+      },
+      "operator": "gte",
+      "expected": 1
+    },
+    {
+      "action": "assert",
+      "expectationId": "ownerOnly",
+      "actual": {
+        "variable": "otherCount"
+      },
+      "operator": "eq",
+      "expected": 0
+    },
+    {
+      "action": "assert",
+      "expectationId": "confirmationMeansSaved",
+      "actual": {
+        "variable": "statusText"
+      },
+      "operator": "eq",
+      "expected": "Booking confirmed"
+    },
+    {
+      "action": "assert",
+      "expectationId": "confirmationMeansSaved",
+      "actual": {
+        "variable": "savedCount"
+      },
+      "operator": "gte",
+      "expected": 1
+    },
+    {
+      "action": "assert",
+      "expectationId": "survivesRestart",
+      "actual": {
+        "variable": "afterRestartCount"
+      },
+      "operator": "gte",
+      "expected": 1
+    },
+    {
+      "action": "assert",
+      "expectationId": "bookedTimeShown",
+      "actual": {
+        "variable": "bookedText"
+      },
+      "operator": "eq",
+      "expected": "Sat, 5 Jan · 2:00 PM — Box braids"
+    }
+  ]
+}

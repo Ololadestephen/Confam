@@ -151,7 +151,8 @@
       "baseControl": "control-a",
       "violation": "Saves the booking for the customer but at 2 a.m. instead of 2 p.m.",
       "expectationIds": [
-        "appointmentPersists"
+        "appointmentPersists",
+        "bookedTimeShown"
       ],
       "requirements": [
         {

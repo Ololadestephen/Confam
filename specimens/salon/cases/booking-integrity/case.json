@@ -12,15 +12,44 @@
     "startsAt": "2030-01-05T14:00"
   },
   "expectations": [
-    { "id": "appointmentPersists", "statement": "After a booking is confirmed and the page is reopened, the appointment is still listed.", "provenance": "developer" },
-    { "id": "ownerOnly", "statement": "The appointment appears under the customer who booked it, and not under any other customer.", "provenance": "developer" },
-    { "id": "confirmationMeansSaved", "statement": "\"Booking confirmed\" is shown only when the booking has actually been saved by the salon's system.", "provenance": "developer" },
-    { "id": "survivesRestart", "statement": "A saved appointment is still there after the server restarts.", "provenance": "developer" }
+    {
+      "id": "appointmentPersists",
+      "statement": "After a booking is confirmed and the page is reopened, the appointment is still listed.",
+      "provenance": "developer"
+    },
+    {
+      "id": "ownerOnly",
+      "statement": "The appointment appears under the customer who booked it, and not under any other customer.",
+      "provenance": "developer"
+    },
+    {
+      "id": "confirmationMeansSaved",
+      "statement": "\"Booking confirmed\" is shown only when the booking has actually been saved by the salon's system.",
+      "provenance": "developer"
+    },
+    {
+      "id": "survivesRestart",
+      "statement": "A saved appointment is still there after the server restarts.",
+      "provenance": "developer"
+    },
+    {
+      "id": "bookedTimeShown",
+      "statement": "The listed appointment shows the date and time that was booked.",
+      "provenance": "developer"
+    }
   ],
-  "reproductionTargets": ["appointmentPersists"],
+  "reproductionTargets": [
+    "appointmentPersists"
+  ],
   "controls": [
-    { "id": "control-a", "patch": "control-a.patch" },
-    { "id": "control-b", "patch": "control-b.patch" }
+    {
+      "id": "control-a",
+      "patch": "control-a.patch"
+    },
+    {
+      "id": "control-b",
+      "patch": "control-b.patch"
+    }
   ],
   "mode": "benchmark",
   "purpose": "fixture"
