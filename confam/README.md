@@ -4,6 +4,14 @@ Confam verifies proposed repairs against reviewed behavioral expectations and re
 
 See the root [clean setup](../README.md), [release checks](RELEASE.md) and [measured prototype results](EVALUATION.md). The [general verification roadmap](ROADMAP.md) tracks implementation. TR1–TR3 project runtimes, general browser workflows, and reviewed decoy challenges are implemented. Genuine independent evaluation still requires an owner-prepared private pack.
 
+## Pacing recordings for viewing
+
+Workflows run at machine speed, so their recordings can be a second long. For recordings people will watch, set `CONFAM_VIEWING_SLOW_MO_MS` (an integer from 0 to 1000) to slow each browser action. It changes timing only, never what is checked; the run records the value and the comparison page says the footage was paced.
+
+```sh
+CONFAM_VIEWING_SLOW_MO_MS=300 npm run confam -- challenge ...
+```
+
 ## Local evidence review and recording intake (TR4)
 
 Build the UI, then open the saved-run library (or select one existing run directory):

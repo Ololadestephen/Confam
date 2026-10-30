@@ -1,5 +1,5 @@
 import path from "node:path";
-import { readFile, lstat } from "node:fs/promises";
+import { readFile, readdir, lstat } from "node:fs/promises";
 import { ArtifactRegistry, boundedJson, redact } from "./artifacts.js";
 
 type ObjectValue = Record<string, unknown>;
@@ -41,6 +41,48 @@ export class RunView {
       }
     }
     throw new Error("No supported run report in the selected directory.");
+  }
+  // Comparisons written by `compare` into this run's own evaluations folder. Held-out results are also
+  // promoted into the run report; known-fault comparisons exist only here.
+  private async comparisons() {
+    const root = path.join(this.directory, "evaluations");
+    let names: string[];
+    try {
+      names = await readdir(root);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
+      throw error;
+    }
+    const found = [];
+    for (const name of names.sort()) {
+      const file = path.join(root, name, "comparison.json");
+      try {
+        if (!(await lstat(path.join(root, name))).isDirectory() || !(await lstat(file)).isFile()) continue;
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code === "ENOENT") continue;
+        throw error;
+      }
+      const report = object(await boundedJson(file));
+      if (report.status !== "completed") continue;
+      const purpose = text(report.purpose);
+      await this.artifacts.add(file, purpose === "held-out" ? "Held-out comparison" : "Known-fault comparison");
+      found.push({
+        purpose,
+        arms: array(report.arms).map((value) => {
+          const arm = object(value);
+          const counts = object(arm.counts);
+          const count = (key: string) => (typeof counts[key] === "number" ? counts[key] : 0);
+          return {
+            role: text(arm.role),
+            provenance: text(arm.provenance, ""),
+            counts: { total: count("total"), caught: count("caught"), survived: count("survived"), uncounted: count("uncounted") },
+            falseRejections: typeof arm.falseRejections === "number" ? arm.falseRejections : 0,
+            controls: array(arm.controls).length,
+          };
+        }),
+      });
+    }
+    return found;
   }
   private async variants(report: ObjectValue) {
     const records: { value: ObjectValue; kind?: string; outcome?: string }[] =
@@ -119,6 +161,7 @@ export class RunView {
         traces,
         logs,
         error: value.error ?? checks.error,
+        viewingSlowMoMs: typeof checks.viewingSlowMoMs === "number" ? checks.viewingSlowMoMs : undefined,
       });
     }
     return variants;
@@ -256,6 +299,7 @@ export class RunView {
             ? "Independent evaluation recorded; inspect its completeness and counts."
             : "Independent evaluation not performed.",
       },
+      comparisons: redact(await this.comparisons()),
       modelUsage: redact(report.modelUsage),
       versions: redact(report.versions ?? report.checkVersions),
       recording,

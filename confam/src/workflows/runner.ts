@@ -23,6 +23,8 @@ export interface WorkflowResult {
   trace: string;
   traces: string[];
   videos: string[];
+  // Present only when recordings were deliberately paced for viewing.
+  viewingSlowMoMs?: number;
 }
 export interface WorkflowLifecycle {
   restartApp?: () => Promise<string>;
@@ -32,6 +34,15 @@ export interface WorkflowLifecycle {
   onStep?: (event: { stepIndex: number; action: string }) => void;
 }
 const MAX_WORKFLOW_TIMEOUT_MS = 120_000;
+
+// Opt-in pacing so recordings are watchable in a demo. It slows browser actions only; it never
+// changes what is asserted, and the result records that it was used.
+export function viewingSlowMo(value = process.env.CONFAM_VIEWING_SLOW_MO_MS): number {
+  if (value === undefined || value === "") return 0;
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 0 || parsed > 1000) throw new Error("CONFAM_VIEWING_SLOW_MO_MS must be an integer from 0 to 1000.");
+  return parsed;
+}
 
 class AssertionFailure extends Error {
   constructor(readonly expectationId: string) { super(`Expectation ${expectationId} failed.`); }
@@ -143,7 +154,9 @@ export async function runWorkflow(
   lifecycle.signal?.addEventListener("abort", onAbort, { once: true });
   try {
     if (cancelled) throw new Error("Workflow cancelled.");
-    const browser = await chromium.launch({ timeout: Math.min(timeoutMs, 30000) });
+    const slowMo = viewingSlowMo();
+    if (slowMo > 0) result.viewingSlowMoMs = slowMo;
+    const browser = await chromium.launch({ timeout: Math.min(timeoutMs, 30000), slowMo });
     execution = new WorkflowExecution(browser, fixtures, projectUrl.origin, evidence, result, lifecycle);
     const active = execution;
     if (cancelled) { await browser.close(); throw new Error("Workflow cancelled."); }

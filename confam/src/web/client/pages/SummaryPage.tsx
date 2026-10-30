@@ -3,7 +3,17 @@ import { Link, PageTitle } from "../shared.js";
 import { runPath } from "../routing.js";
 import type { RunView } from "../types.js";
 
+// A client reads the candidate's actual result first; the full technical verdict stays below it.
+export function plainHeadline(run: RunView): string {
+  const outcome = run.variants.find((v) => v.kind === "candidate")?.outcome ?? "";
+  if (outcome.startsWith("passed")) return "The proposed fix passed every check listed below.";
+  if (outcome.includes("failed")) return "The proposed fix did not pass the checks listed below.";
+  return run.verdict;
+}
+
 export function Summary({ run }: { run: RunView }) {
+  const headline = plainHeadline(run);
+  const development = run.development;
   return (
     <>
       <PageTitle
@@ -18,7 +28,20 @@ export function Summary({ run }: { run: RunView }) {
         <p className="eyebrow">
           {run.project} / {run.caseId}
         </p>
-        <h2>{run.verdict}</h2>
+        <h2>{headline}</h2>
+        {headline !== run.verdict ? <p className="muted">{run.verdict}</p> : null}
+        {development && development.total > 0 ? (
+          <p>
+            Before trusting these checks, Confam tried {development.total}{" "}
+            deliberately wrong fixes that looked plausible. The checks caught{" "}
+            {development.caught}
+            {development.uncounted > 0
+              ? `; ${development.uncounted} could not be counted`
+              : ""}
+            . These were used while building the checks, so they are
+            development evidence.
+          </p>
+        ) : null}
         {run.fixture ? (
           <p className="fixture-note">
             Scripted fixture inputs. Independent evaluation is separate.

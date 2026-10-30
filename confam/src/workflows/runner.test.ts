@@ -3,7 +3,7 @@ import { mkdtemp, rm, stat } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, expect, it } from "vitest";
-import { runWorkflow } from "./runner.js";
+import { runWorkflow, viewingSlowMo } from "./runner.js";
 import { validateWorkflow, type WorkflowPlan } from "./schema.js";
 
 let url: string;
@@ -136,4 +136,11 @@ it("interrupts a pending HTTP request on cancellation", async () => {
   });
   expect(result.status).toBe("cancelled");
   expect(result.reached).toBe(false);
+});
+
+it("accepts only a bounded, explicit viewing pace", () => {
+  expect(viewingSlowMo(undefined)).toBe(0);
+  expect(viewingSlowMo("")).toBe(0);
+  expect(viewingSlowMo("250")).toBe(250);
+  for (const value of ["-1", "1001", "2.5", "fast"]) expect(() => viewingSlowMo(value)).toThrow("CONFAM_VIEWING_SLOW_MO_MS");
 });

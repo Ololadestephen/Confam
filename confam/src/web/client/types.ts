@@ -16,6 +16,7 @@ export interface VariantView {
   patch?: ArtifactLink;
   logs?: ArtifactLink;
   error?: string;
+  viewingSlowMoMs?: number;
 }
 export interface RunView {
   runId: string;
@@ -43,9 +44,21 @@ export interface RunView {
     label: string;
   };
   variants: VariantView[];
+  comparisons?: ComparisonView[];
   files: ArtifactLink[];
   modelUsage?: unknown;
   versions?: unknown;
   recording?: ArtifactLink;
   observations?: unknown;
+}
+
+export interface ComparisonView {
+  purpose: string;
+  arms: {
+    role: string;
+    provenance: string;
+    counts: { total: number; caught: number; survived: number; uncounted: number };
+    falseRejections: number;
+    controls: number;
+  }[];
 }

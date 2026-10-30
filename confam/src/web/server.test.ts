@@ -51,6 +51,32 @@ async function fixture() {
   return { root, server, endpoint, report };
 }
 describe("local evidence review boundaries", () => {
+  it("reads completed comparisons from the run's own evaluations folder and skips links and unfinished ones", async () => {
+    const { root } = await fixture();
+    const arm = (role: string, caught: number, falseRejections: number) => ({
+      role, provenance: `${role} arm`, counts: { total: 6, caught, survived: 6 - caught, uncounted: 0 },
+      falseRejections, controls: [{}, {}],
+    });
+    await mkdir(path.join(root, "evaluations", "fixture-a"), { recursive: true });
+    await writeFile(path.join(root, "evaluations", "fixture-a", "comparison.json"), JSON.stringify({
+      status: "completed", purpose: "integration-fixture", arms: [arm("existing", 0, 0), arm("direct-ai", 2, 2)],
+    }));
+    await mkdir(path.join(root, "evaluations", "fixture-running"));
+    await writeFile(path.join(root, "evaluations", "fixture-running", "comparison.json"), JSON.stringify({ status: "running", arms: [] }));
+    const outside = await mkdtemp(path.join(os.tmpdir(), "confam-outside-"));
+    cleanup.push(() => rm(outside, { recursive: true, force: true }));
+    await writeFile(path.join(outside, "comparison.json"), JSON.stringify({ status: "completed", purpose: "held-out", arms: [arm("confam-final", 6, 0)] }));
+    await symlink(outside, path.join(root, "evaluations", "linked"));
+    const view = await new RunView(root, "test").read();
+    expect(view.comparisons).toEqual([{
+      purpose: "integration-fixture",
+      arms: [
+        { role: "existing", provenance: "existing arm", counts: { total: 6, caught: 0, survived: 6, uncounted: 0 }, falseRejections: 0, controls: 2 },
+        { role: "direct-ai", provenance: "direct-ai arm", counts: { total: 6, caught: 2, survived: 4, uncounted: 0 }, falseRejections: 2, controls: 2 },
+      ],
+    }]);
+    expect(view.files.map(({ label }) => label)).toContain("Known-fault comparison");
+  });
   it("preserves evaluated counts, recording fallback reasons and absence of observations", async () => {
     const { root, report } = await fixture();
     await writeFile(

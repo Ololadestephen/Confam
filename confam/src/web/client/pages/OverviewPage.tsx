@@ -1,7 +1,7 @@
 import { AssertionList, Artifact, Status, VariantDetail } from "../evidence.js";
 import { Data, Icon, Link, Metrics, Scope } from "../shared.js";
 import { runPath } from "../routing.js";
-import type { RunView } from "../types.js";
+import type { ComparisonView, RunView } from "../types.js";
 
 export function Overview({ run }: { run: RunView }) {
   const candidate = run.variants.find((v) => v.kind === "candidate");
@@ -33,6 +33,9 @@ export function Overview({ run }: { run: RunView }) {
       </div>
       <Metrics run={run} />
       <Scope run={run} />
+      {run.comparisons?.map((comparison, index) => (
+        <ComparisonTable key={index} comparison={comparison} />
+      ))}
       <div className="two-columns section-block">
         <div className="panel">
           <span className="eyebrow">The reproduction</span>
@@ -106,5 +109,66 @@ export function Overview({ run }: { run: RunView }) {
         <Data title="Model usage record" value={run.modelUsage} />
       </section>
     </>
+  );
+}
+
+const ARM_LABELS: Record<string, string> = {
+  existing: "Existing tests",
+  "direct-ai": "AI-written tests, used as generated",
+  "confam-v1": "Confam initial checks",
+  "confam-final": "Confam final checks",
+};
+
+function ComparisonTable({ comparison }: { comparison: ComparisonView }) {
+  const heldOut = comparison.purpose === "held-out";
+  return (
+    <section className="panel section-block comparison-panel">
+      <span className="eyebrow">
+        {heldOut ? "Held-out faults" : "Known development faults"}
+      </span>
+      <h2>The same faults, every set of checks.</h2>
+      <p className="comparison-note">
+        {heldOut
+          ? "Faults withheld from building these checks, run once after the freeze."
+          : "These faults were used while building Confam's checks, so this is development evidence, not independent evaluation."}
+      </p>
+      <div className="comparison-scroll">
+        <table className="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col">Checks</th>
+              <th scope="col">Caught</th>
+              <th scope="col">Survived</th>
+              <th scope="col">Uncounted</th>
+              <th scope="col">Correct fixes wrongly rejected</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparison.arms.map((arm) => (
+              <tr key={arm.role}>
+                <th scope="row">
+                  {ARM_LABELS[arm.role] ?? arm.role}
+                  {arm.provenance ? <small>{arm.provenance}</small> : null}
+                </th>
+                <td data-label="Caught">
+                  {arm.counts.caught} of {arm.counts.total}
+                </td>
+                <td data-label="Survived">{arm.counts.survived}</td>
+                <td data-label="Uncounted">{arm.counts.uncounted}</td>
+                <td
+                  data-label="Correct fixes wrongly rejected"
+                  className={arm.falseRejections > 0 ? "comparison-bad" : undefined}
+                >
+                  {arm.falseRejections} of {arm.controls}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="comparison-note">
+        A catch only means something if the same checks pass the correct fixes.
+      </p>
+    </section>
   );
 }

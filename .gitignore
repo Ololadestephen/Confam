@@ -45,3 +45,4 @@ blob-report/
 specimens/mosaic/source/
 specimens/mosaic/generated/
 specimens/mosaic/source-workspace/
+.claude/launch.json

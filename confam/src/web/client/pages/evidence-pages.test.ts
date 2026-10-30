@@ -4,6 +4,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import { Activity } from "./ActivityPage.js";
 import { Decoy } from "./DecoyPage.js";
 import { Overview } from "./OverviewPage.js";
+import { Summary, plainHeadline } from "./SummaryPage.js";
 import type { RunView } from "../types.js";
 const run: RunView = {
   runId: "verify-example",
@@ -72,4 +73,18 @@ it("displays a qualified surviving challenge without relabeling it caught", () =
   expect(html).toContain(
     "No independent observations recorded for this variant.",
   );
+});
+
+it("leads the client summary with the candidate's actual result and keeps development counts labelled", () => {
+  localWindow();
+  const candidate = (outcome: string) => ({ id: "candidate", kind: "candidate", outcome, assertions: [], probes: {}, steps: [], videos: [], traces: [] });
+  expect(plainHeadline({ ...run, variants: [candidate("passed-checks-and-probes")] })).toBe("The proposed fix passed every check listed below.");
+  expect(plainHeadline({ ...run, variants: [candidate("assertion-failed")] })).toBe("The proposed fix did not pass the checks listed below.");
+  expect(plainHeadline(run)).toBe(run.verdict);
+  const html = renderToStaticMarkup(createElement(Summary, {
+    run: { ...run, variants: [candidate("passed-checks-and-probes")], development: { total: 6, caught: 5, survived: 0, uncounted: 1 } },
+  }));
+  expect(html).toContain("The proposed fix passed every check listed below.");
+  expect(html).toContain(run.verdict);
+  expect(html).toContain("development evidence");
 });

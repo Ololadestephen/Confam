@@ -14,6 +14,7 @@ export function Compare({ run }: { run: RunView }) {
       ["development", "decoy", "held-out"].includes(v.kind),
     ) ??
     alternatives[0];
+  const paced = run.variants.find((v) => v.viewingSlowMoMs)?.viewingSlowMoMs;
   return (
     <>
       <PageTitle
@@ -42,6 +43,13 @@ export function Compare({ run }: { run: RunView }) {
           variant={run.variants.find((v) => v.kind === "candidate")}
         />
       </div>
+      {paced ? (
+        <p className="notice">
+          These recordings were paced for viewing: each browser action was
+          slowed by {paced}ms. Pacing changes timing only, not what was
+          checked.
+        </p>
+      ) : null}
       <p className="notice">
         Playback is deliberately independent. Workflow timestamps and video
         timestamps are not assumed to align. HTTP-only workflows may have blank
