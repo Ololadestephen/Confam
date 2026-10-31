@@ -1,0 +1,9 @@
+[
+  {
+    "id": "noInternalRequest",
+    "kind": "json-file",
+    "path": "observations.json",
+    "pointer": ["internalRequests"],
+    "expected": 0
+  }
+]

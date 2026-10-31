@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "method": "GET",
+      "path": "/api/bookmarks/check/?url=http%3A%2F%2F127.0.0.1%3A47901%2Finternal-admin",
+      "headers": { "Authorization": { "fixture": "apiAuthorization" } },
+      "capture": "check"
+    },
+    { "action": "request", "method": "GET", "path": "/confam-observations", "capture": "observed" },
+    { "action": "reached" },
+    { "action": "assert", "expectationId": "checkStillAnswers", "actual": { "variable": "check.status" }, "operator": "eq", "expected": 200 },
+    { "action": "assert", "expectationId": "internalAddressNotFetched", "actual": { "variable": "observed.body.internalRequests" }, "operator": "eq", "expected": 0 }
+  ]
+}

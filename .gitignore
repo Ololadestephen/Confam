@@ -52,3 +52,9 @@ DEMO-SCRIPT.md
 specimens/bluemax/source/
 specimens/bluemax/generated/
 specimens/bluemax/source-latest/
+specimens/linkding/upstream/
+specimens/linkding/source/
+specimens/linkding/source-fixed/
+specimens/linkding/source-latest/
+specimens/linkding/generated/
+specimens/linkding/.venv/

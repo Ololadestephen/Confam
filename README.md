@@ -60,6 +60,17 @@ The other three proposals were checked against the code and rejected, with reaso
 
 Each test copy gets its own PostgreSQL database and Next.js server. Spark's decoys were harder to count here: of 4 that applied to the sign-in fix, all 4 failed the check they targeted, but only 1 matched every database value Spark predicted, so 1 is counted as caught and 3 are reported as uncounted. The workspace bug only affects the screen, so there is no independent database reading to confirm a decoy against.
 
+### Linkding: an unfamiliar open-source Django app
+
+[Linkding](https://github.com/sissbruecker/linkding) is a popular self-hosted bookmark manager, written in Python, that the author has no connection to. It was set up with configuration only, no engine changes. Its real security bug: checking a bookmark made the server fetch any URL, including addresses on its internal network. A probe standing in for an internal admin panel counts the requests it receives:
+
+| Version | Internal requests made |
+|---|---|
+| Before the fix | 1: the bug |
+| Linkding's real fix (AI co-authored) | 0 |
+
+Spark then reviewed the current protection and proposed five gaps. One was confirmed and fails: behind an HTTP proxy configured in the environment, the internal address is still requested. Linkding's own code already lists that as a known limitation. Spark also claimed certain IPv6 addresses get through; testing showed they are blocked, so that claim was rejected. Details: [specimens/linkding](specimens/linkding/README.md).
+
 ## The controlled comparison
 
 Real apps have one real fix, so they can't show whether a set of checks wrongly rejects *correct* fixes. For that, Confam was measured on a purpose-built salon booking app with two independently written correct fixes and six known wrong ones:
@@ -150,7 +161,7 @@ This repository's own CI uses the action on the quote tool. It reviews a correct
 
 Everything in this repository was written during the hackathon, from the first commit on October 28, 2026. That includes the engine, the web interface, the salon, task board and quote tool specimen apps, and every check, decoy and probe.
 
-Mosaic and Bluemax were built by the author before the hackathon. They are used only as test subjects: their source is not in this repository, and `specimens/mosaic/` and `specimens/bluemax/` contain only the setup scripts, runtime wrappers, configuration, bug reports, workflows and probes written during the hackathon to test them.
+Mosaic and Bluemax were built by the author before the hackathon, and Linkding is an independent open-source project. They are used only as test subjects: their source is not in this repository, and `specimens/mosaic/`, `specimens/bluemax/` and `specimens/linkding/` contain only the setup scripts, runtime wrappers, configuration, bug reports, workflows and probes written during the hackathon to test them.
 
 ## More
 

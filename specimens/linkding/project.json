@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "linkding",
+  "root": "source",
+  "sourceFiles": [
+    "bookmarks/services/assets.py",
+    "bookmarks/services/favicon_loader.py",
+    "bookmarks/services/http_client.py",
+    "bookmarks/services/preview_image_loader.py",
+    "bookmarks/services/website_loader.py",
+    "bookmarks/settings/base.py",
+    "bookmarks/views/settings.py"
+  ],
+  "protectedPaths": [
+    "confam-runtime.mjs",
+    ".confam-deps.json",
+    "bookmarks/tests",
+    "bookmarks/migrations",
+    "manage.py"
+  ],
+  "runtime": {
+    "command": ["node", "confam-runtime.mjs"],
+    "readinessPath": "/health",
+    "timeoutMs": 120000,
+    "portVariable": "PORT",
+    "dataVariable": "CONFAM_DATA",
+    "restart": false,
+    "workflowTimeoutMs": 60000
+  }
+}

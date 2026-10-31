@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "internalAddressFetchLatest",
+  "projectId": "linkding-latest",
+  "report": "report-latest.md",
+  "fixtures": {
+    "apiAuthorization": "Token c0nfam0000000000000000000000000000000001"
+  },
+  "expectations": [
+    {
+      "id": "checkStillAnswers",
+      "statement": "Checking a bookmark URL that points at an internal address still answers normally, without an error.",
+      "provenance": "report"
+    },
+    {
+      "id": "internalAddressNotFetched",
+      "statement": "Checking a bookmark URL that points at an internal address does not make the server request that address.",
+      "provenance": "report"
+    }
+  ],
+  "reproductionTargets": [
+    "internalAddressNotFetched"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}
