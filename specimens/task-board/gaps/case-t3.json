@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "t3",
+  "projectId": "task-board-gaps",
+  "report": "report.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "t3",
+      "statement": "A failed completion says Update failed rather than confirmed",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "t3"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

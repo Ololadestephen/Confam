@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "t2",
+  "projectId": "task-board-gaps",
+  "report": "report.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "t2",
+      "statement": "A failed completion leaves the task as Todo",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "t2"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

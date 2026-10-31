@@ -59,3 +59,9 @@ it("retains every supported workflow action without recursive JSON references", 
     }),
   ).toThrow();
 });
+
+it("decodes nested parallel request bodies and headers", () => {
+  const request = { method: "POST", path: "/api", capture: "first", bodyJson: '{"value":1}', headersJson: '{"X-Test":"yes"}' };
+  const result = decodeModelWorkflow({ schemaVersion: 1, steps: [{ action: "parallel", requests: [request, { ...request, capture: "second", bodyJson: null, headersJson: null }] }] });
+  expect(result.steps[0]).toMatchObject({ requests: [{ body: { value: 1 }, headers: { "X-Test": "yes" } }, { capture: "second" }] });
+});

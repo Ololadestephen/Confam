@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "t4",
+  "projectId": "task-board-gaps",
+  "report": "report.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "t4",
+      "statement": "A task load failure is visible",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "t4"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

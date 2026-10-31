@@ -51,3 +51,16 @@ it("permits approved fixture expectations but refuses app-derived expected value
     }]
   }).success).toBe(false);
 });
+
+it("validates bounded parallel requests against only earlier captures", () => {
+  const request = { method: "POST", path: "/", capture: "one", body: { variable: "two.body" } };
+  const steps = [{ action: "parallel", requests: [request, { method: "GET", path: "/", capture: "two" }] }, { action: "reached" }, { action: "assert", expectationId: "E1", actual: { variable: "one.status" }, operator: "eq", expected: 200 }];
+  const validate = (input: unknown) => validateWorkflow(input, [{ id: "E1", statement: "Works" }], {}, { restart: false });
+  expect(() => validate({ schemaVersion: 1, steps })).toThrow("captured");
+  request.body = { variable: "prior.body" };
+  const prior = { action: "request", method: "GET", path: "/", capture: "prior" };
+  expect(() => validate({ schemaVersion: 1, steps: [prior, ...steps] })).not.toThrow();
+  expect(() => validate({ schemaVersion: 1, steps: [prior, { ...steps[0], requests: [{ ...request, capture: "prior" }, { method: "GET", path: "/", capture: "two" }] }, ...steps.slice(1)] })).toThrow("Duplicate capture");
+  expect(() => validate({ schemaVersion: 1, steps: [prior, { ...steps[0], requests: [{ method: "GET", path: "/", capture: "two" }, { method: "GET", path: "/", capture: "two" }] }, ...steps.slice(1)] })).toThrow("Duplicate capture");
+  expect(workflowSchema.safeParse({ schemaVersion: 1, steps: [{ action: "parallel", requests: [request] }] }).success).toBe(false);
+});

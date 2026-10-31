@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "t5",
+  "projectId": "task-board-gaps",
+  "report": "report.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "t5",
+      "statement": "Repeated completion remains completed after reopening",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "t5"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}

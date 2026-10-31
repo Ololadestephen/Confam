@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "task-board-gaps",
+  "root": "source",
+  "sourceFiles": [
+    "backend/main.cjs",
+    "frontend/view.html"
+  ],
+  "runtime": {
+    "command": [
+      "node",
+      "harness.cjs",
+      "normal"
+    ],
+    "readinessPath": "/ready",
+    "timeoutMs": 10000,
+    "portVariable": "APP_PORT",
+    "dataVariable": "STATE_FILE",
+    "restart": true
+  }
+}

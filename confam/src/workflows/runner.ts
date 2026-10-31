@@ -82,16 +82,18 @@ class WorkflowExecution {
         this.baseUrl = next.origin; break;
       }
       case "request": {
-        const response = await context.request.fetch(localUrl(this.baseUrl, step.path), {
-          method: step.method, data: step.body === undefined ? undefined : resolveBody(step.body, this.fixtures, this.variables), maxRedirects: 0, timeout: 5000,
-          headers: step.headers === undefined ? undefined : Object.fromEntries(Object.entries(step.headers)
-            .map(([name, value]) => [name, String(resolveValue(value, this.fixtures, this.variables))])),
-        });
-        try {
-          if (response.status() >= 300 && response.status() < 400) throw new Error("HTTP redirects are unsupported in workflow requests.");
-          const contentType = response.headers()["content-type"] ?? "";
-          this.variables[step.capture] = { status: response.status(), body: contentType.includes("json") ? await response.json() : await response.text() };
-        } finally { await response.dispose(); }
+        const [resolved] = this.prepareRequests([step]);
+        this.variables[step.capture] = await this.request(context, resolved!);
+        break;
+      }
+      case "parallel": {
+        const requests = this.prepareRequests(step.requests);
+        const results = await Promise.allSettled(requests.map((request) => this.request(context, request)));
+        const failed = results.find((result) => result.status === "rejected");
+        if (failed?.status === "rejected") throw failed.reason;
+        for (const [index, result] of results.entries()) {
+          if (result.status === "fulfilled") this.variables[step.requests[index]!.capture] = result.value;
+        }
         break;
       }
       case "capture": this.variables[step.capture] = await capture(locate(page, step.locator), step.kind); break;
@@ -109,6 +111,24 @@ class WorkflowExecution {
     const currentUrl = this.current?.page.url();
     const usesPage = ["navigate", "click", "fill", "select", "wait", "reload", "reopen", "capture"].includes(step.action);
     if (usesPage && currentUrl && currentUrl !== "about:blank" && new URL(currentUrl).origin !== new URL(this.baseUrl).origin) throw new Error("Page left the project origin.");
+  }
+  private prepareRequests(requests: Array<Extract<WorkflowStep, { action: "parallel" }>["requests"][number]>) {
+    return requests.map((request) => ({
+      path: localUrl(this.baseUrl, request.path), method: request.method,
+      data: request.body === undefined ? undefined : resolveBody(request.body, this.fixtures, this.variables),
+      headers: request.headers === undefined ? undefined : Object.fromEntries(Object.entries(request.headers)
+        .map(([name, value]) => [name, String(resolveValue(value, this.fixtures, this.variables))])),
+    }));
+  }
+  private async request(context: PageState["context"], request: ReturnType<WorkflowExecution["prepareRequests"]>[number]) {
+    const response = await context.request.fetch(request.path, {
+      method: request.method, data: request.data, headers: request.headers, maxRedirects: 0, timeout: 5000,
+    });
+    try {
+      if (response.status() >= 300 && response.status() < 400) throw new Error("HTTP redirects are unsupported in workflow requests.");
+      const contentType = response.headers()["content-type"] ?? "";
+      return { status: response.status(), body: contentType.includes("json") ? await response.json() : await response.text() };
+    } finally { await response.dispose(); }
   }
   async close(): Promise<void> {
     let index = 0;

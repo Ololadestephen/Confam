@@ -22,6 +22,8 @@ export const locatorSchema = z.discriminatedUnion("kind", [
   z.strictObject({ kind: z.literal("css"), value: z.string().min(1).max(2000) }),
 ]);
 const locator = { locator: locatorSchema };
+const requestFields = { path: localPath, method: z.enum(["GET", "POST"]), headers: headersSchema.optional(), body: z.json().optional(), capture: identifier };
+const parallelRequest = z.strictObject(requestFields);
 export const workflowSchema = z.strictObject({
   schemaVersion: z.literal(1),
   steps: z.array(z.discriminatedUnion("action", [
@@ -34,7 +36,8 @@ export const workflowSchema = z.strictObject({
     z.strictObject({ action: z.literal("reopen") }),
     z.strictObject({ action: z.literal("context"), name: identifier }),
     z.strictObject({ action: z.literal("restart") }),
-    z.strictObject({ action: z.literal("request"), path: localPath, method: z.enum(["GET", "POST"]), headers: headersSchema.optional(), body: z.json().optional(), capture: identifier }),
+    z.strictObject({ action: z.literal("request"), ...requestFields }),
+    z.strictObject({ action: z.literal("parallel"), requests: z.array(parallelRequest).min(2).max(20) }),
     z.strictObject({ action: z.literal("capture"), ...locator, kind: z.enum(["text", "count", "visible", "number"]), capture: identifier }),
     z.strictObject({ action: z.literal("reached") }),
     z.strictObject({ action: z.literal("assert"), expectationId: identifier, actual: actualSchema, operator: z.enum(["eq", "gte", "lte"]), expected: expectedSchema }),
@@ -106,7 +109,14 @@ export function validateWorkflow(
       if (captured.has(step.capture)) throw new Error(`Duplicate capture name: ${step.capture}`);
       captured.add(step.capture);
     }
-    if (step.action === "request" && step.method === "GET" && step.body !== undefined) throw new Error("GET request bodies are unsupported.");
+    const requests = step.action === "parallel" ? step.requests : step.action === "request" ? [step] : [];
+    for (const request of requests) {
+      if (request.method === "GET" && request.body !== undefined) throw new Error("GET request bodies are unsupported.");
+      if (step.action === "parallel") {
+        if (captured.has(request.capture)) throw new Error(`Duplicate capture name: ${request.capture}`);
+        captured.add(request.capture);
+      }
+    }
   }
   if (!reached || expected.size !== asserted.size) throw new Error("Workflow must reach and assert every confirmed expectation.");
   return plan;

@@ -2,7 +2,7 @@ import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promis
 import os from "node:os";
 import path from "node:path";
 import { afterEach, expect, it } from "vitest";
-import { proposeGaps } from "./generic-gaps.js";
+import { proposeGaps, type GapOptions } from "./generic-gaps.js";
 import type { ModelTransport } from "../models/client.js";
 
 const directories: string[] = [];
@@ -70,4 +70,50 @@ it("reviews the source with a proposed fix applied and refuses fixes outside con
   const outside = path.join(directory, "outside.patch");
   await writeFile(outside, "diff --git a/package.json b/package.json\n--- a/package.json\n+++ b/package.json\n@@ -0,0 +1 @@\n+{}\n");
   await expect(run(directory, true, transport(), outside)).rejects.toThrow();
+});
+
+it("binds the outgoing export to the approved preview before even counting provider tokens", async () => {
+  const directory = await fixture();
+  const preview = await run(directory, true, transport());
+  const options: GapOptions = { approvedExport: preview.exportPath, budget: 0.25, transport: transport() };
+  const invoke = () => proposeGaps(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "runs"), options);
+  const accepted = await invoke();
+  expect(await readFile(accepted.exportPath)).toEqual(await readFile(preview.exportPath));
+  expect(JSON.parse(await readFile(accepted.proposalPath!, "utf8")).approvedExportHash).toMatch(/^[a-f0-9]{64}$/);
+
+  let calls = 0;
+  options.transport = { ...transport(), count: async () => { calls++; return 100; } };
+  await writeFile(path.join(directory, "app", "main.js"), "changed source\n");
+  await expect(invoke()).rejects.toThrow("differs from the approved preview");
+  expect(calls).toBe(0);
+});
+
+it("refuses a live request without a reviewed preview before any provider call", async () => {
+  const directory = await fixture();
+  let calls = 0;
+  await expect(proposeGaps(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "runs"), {
+    transport: { ...transport(), mode: "live", count: async () => { calls++; return 100; } },
+  })).rejects.toThrow("requires an approved export preview");
+  expect(calls).toBe(0);
+});
+
+it("rejects an altered approval artifact, report or candidate before model calls", async () => {
+  const directory = await fixture();
+  const preview = await run(directory, true, transport());
+  let calls = 0;
+  const options: GapOptions = { approvedExport: preview.exportPath, transport: {
+    ...transport(), count: async () => { calls++; return 100; },
+  } };
+  const invoke = () => proposeGaps(path.join(directory, "project.json"), path.join(directory, "case.json"), path.join(directory, "runs"), options);
+  const original = await readFile(preview.exportPath);
+  await writeFile(preview.exportPath, Buffer.concat([original, Buffer.from(" ")]));
+  await expect(invoke()).rejects.toThrow("differs from the approved preview");
+  await writeFile(preview.exportPath, original);
+  await writeFile(path.join(directory, "report.md"), "A changed report");
+  await expect(invoke()).rejects.toThrow("differs from the approved preview");
+  await writeFile(path.join(directory, "report.md"), "Spam gets through.");
+  options.candidate = path.join(directory, "fix.patch");
+  await writeFile(options.candidate, "--- a/main.js\n+++ b/main.js\n@@ -1 +1 @@\n-limit by first forwarded address\n+limit by connection address\n");
+  await expect(invoke()).rejects.toThrow("differs from the approved preview");
+  expect(calls).toBe(0);
 });

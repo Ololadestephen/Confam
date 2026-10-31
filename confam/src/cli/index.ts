@@ -8,6 +8,7 @@ import { challengeProject } from "../challenges/harness.js";
 import { evaluateChallengePack } from "../challenges/evaluate-pack.js";
 import { DEFAULT_BUDGET_USD } from "../models/config.js";
 import { verifyProject } from "../project/verify.js";
+import { reviewProject } from "../review/index.js";
 import { proposeWorkflow } from "../authoring/generic.js";
 import { checkProject } from "../project/check.js";
 import path from "node:path";
@@ -64,6 +65,7 @@ async function main(): Promise<void> {
   } else if (args.command === "draft-gaps") {
     const draft = await proposeGaps(path.resolve(args.project!), path.resolve(args.subject), path.join(root, "runs"), {
       budget: args.budget, preview: args.preview, candidate: args.candidate ? path.resolve(args.candidate) : undefined,
+      approvedExport: args.approvedExport ? path.resolve(args.approvedExport) : undefined,
     });
     console.log(draft.proposalPath
       ? `Proposed expectations require review: ${draft.proposalPath}\nNothing executed; confirm any you want added to the case.`
@@ -90,6 +92,20 @@ async function main(): Promise<void> {
     console.log(`${report.purpose}: ${report.status}\nEvidence: ${reportPath}`);
     for (const arm of (report.arms ?? []) as { role: string; counts: unknown; falseRejections: number }[]) console.log(`${arm.role}: ${JSON.stringify(arm.counts)}, false rejections: ${arm.falseRejections}`);
     if (report.status !== "completed") { console.error(report.error); process.exitCode = 1; }
+  } else if (args.command === "review") {
+    // Exit 1 means the candidate failed, so a review that cannot be written is incomplete (2), never 1.
+    try {
+      const review = await reviewProject({
+        project: path.resolve(args.project!), caseFile: path.resolve(args.subject), workflow: path.resolve(args.workflow!),
+        candidate: candidate!, manifest: args.manifest ? path.resolve(args.manifest) : undefined,
+        runsDirectory: path.join(root, "runs"), confirmation: args.fixture ? "fixture" : "developer-cli",
+      });
+      console.log(`Review: ${review.markdownPath}\nExit code: ${review.exitCode} (0 passed, 1 candidate failed, 2 incomplete)`);
+      process.exitCode = review.exitCode;
+    } catch (error) {
+      console.error(`Review incomplete: ${error instanceof Error ? error.message : String(error)}`);
+      process.exitCode = 2;
+    }
   } else if (args.command === "verify") {
     const { report, reportPath } = await verifyProject({
       project: path.resolve(args.project!), caseFile: path.resolve(args.subject),

@@ -21,6 +21,11 @@ const modelOptions = options.map((option) => {
     return (option as (typeof options)[9])
       .omit({ body: true, headers: true })
       .extend({ bodyJson: z.string().max(10000).nullable(), headersJson: z.string().max(10000).nullable() });
+  if (action === "parallel") {
+    const parallel = option as Extract<(typeof options)[number], { shape: { action: z.ZodLiteral<"parallel"> } }>;
+    const request = parallel.shape.requests.element;
+    return parallel.extend({ requests: z.array(request.omit({ body: true, headers: true }).extend({ bodyJson: z.string().max(10000).nullable(), headersJson: z.string().max(10000).nullable() })).min(2).max(20) });
+  }
   if (action === "select")
     return option.extend({
       locator: wireLocator,
@@ -43,32 +48,37 @@ export const modelWorkflowSchema = workflowSchema.extend({
     .max(200),
 });
 
+function decodeRequest(value: Record<string, unknown>): void {
+  const bodyJson = value.bodyJson;
+  delete value.bodyJson;
+  if (bodyJson !== null) {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(bodyJson as string);
+    } catch {
+      throw new Error("Invalid workflow request body JSON.");
+    }
+    value.body = modelJsonSchema.parse(parsed);
+  }
+  const headersJson = value.headersJson;
+  delete value.headersJson;
+  if (headersJson !== null) {
+    try {
+      value.headers = JSON.parse(headersJson as string);
+    } catch {
+      throw new Error("Invalid workflow request headers JSON.");
+    }
+  }
+}
+
 export function decodeModelWorkflow(input: unknown): WorkflowPlan {
   const wire = modelWorkflowSchema.parse(input);
   const steps = wire.steps.map((step) => {
     const value = { ...step } as Record<string, unknown>;
-    if (value.action === "request") {
-      const bodyJson = value.bodyJson;
-      delete value.bodyJson;
-      if (bodyJson !== null) {
-        let parsed: unknown;
-        try {
-          parsed = JSON.parse(bodyJson as string);
-        } catch {
-          throw new Error("Invalid workflow request body JSON.");
-        }
-        value.body = modelJsonSchema.parse(parsed);
-      }
-      const headersJson = value.headersJson;
-      delete value.headersJson;
-      if (headersJson !== null) {
-        try {
-          value.headers = JSON.parse(headersJson as string);
-        } catch {
-          throw new Error("Invalid workflow request headers JSON.");
-        }
-      }
-    }
+    if (value.action === "request") decodeRequest(value);
+    if (value.action === "parallel") value.requests = (value.requests as Record<string, unknown>[]).map((request) => {
+      const decoded = { ...request }; decodeRequest(decoded); return decoded;
+    });
     if (value.by === null) delete value.by;
     if (value.locator && typeof value.locator === "object") {
       const locator = { ...(value.locator as Record<string, unknown>) };

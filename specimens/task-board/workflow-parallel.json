@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/api/tasks/1/complete",
+      "method": "POST",
+      "capture": "update"
+    },
+    {
+      "action": "parallel",
+      "requests": [
+        {
+          "path": "/api/tasks",
+          "method": "GET",
+          "capture": "first"
+        },
+        {
+          "path": "/api/tasks",
+          "method": "GET",
+          "capture": "second"
+        }
+      ]
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "completionPersists",
+      "actual": {
+        "variable": "first.body.tasks.0.completed"
+      },
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "action": "assert",
+      "expectationId": "completionPersists",
+      "actual": {
+        "variable": "second.body.tasks.0.completed"
+      },
+      "operator": "eq",
+      "expected": true
+    }
+  ]
+}

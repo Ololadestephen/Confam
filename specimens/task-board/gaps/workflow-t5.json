@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#task[data-loaded=\"true\"]"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Complete task"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#confirmation:text-is(\"Update confirmed\")"
+      }
+    },
+    {
+      "action": "request",
+      "method": "POST",
+      "path": "/api/tasks/1/complete",
+      "capture": "secondCompletion"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "reopen"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#task[data-loaded=\"true\"]"
+      }
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#task-state"
+      },
+      "kind": "text",
+      "capture": "status"
+    },
+    {
+      "action": "assert",
+      "expectationId": "t5",
+      "actual": {
+        "variable": "status"
+      },
+      "operator": "eq",
+      "expected": "Completed"
+    }
+  ]
+}

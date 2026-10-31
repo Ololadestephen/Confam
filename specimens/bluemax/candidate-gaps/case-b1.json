@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "b1",
+  "projectId": "bluemax-candidate-gaps",
+  "report": "report.md",
+  "fixtures": {
+    "quote": {
+      "name": "Test Customer",
+      "email": "test.customer@example.test",
+      "phone": "08000000000",
+      "location": "Fictional test address",
+      "recommended_system": "5kVA",
+      "monthly_bill": "50000",
+      "message": "Fictional quote request written for Confam testing."
+    }
+  },
+  "expectations": [
+    {
+      "id": "b1",
+      "statement": "Ten overlapping valid requests from one visitor accept at most five.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "b1"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

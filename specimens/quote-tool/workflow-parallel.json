@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/quantity",
+      "method": "POST",
+      "capture": "update",
+      "body": {
+        "quantity": 3
+      }
+    },
+    {
+      "action": "parallel",
+      "requests": [
+        {
+          "path": "/quote",
+          "method": "GET",
+          "capture": "first"
+        },
+        {
+          "path": "/quote",
+          "method": "GET",
+          "capture": "second"
+        }
+      ]
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "recalculatedTotal",
+      "actual": {
+        "variable": "first.body.total"
+      },
+      "operator": "eq",
+      "expected": 36
+    },
+    {
+      "action": "assert",
+      "expectationId": "recalculatedTotal",
+      "actual": {
+        "variable": "second.body.total"
+      },
+      "operator": "eq",
+      "expected": 36
+    }
+  ]
+}

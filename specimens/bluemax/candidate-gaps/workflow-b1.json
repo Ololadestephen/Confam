@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "parallel",
+      "requests": [
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r0",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r1",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r2",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r3",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r4",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r5",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r6",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r7",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r8",
+          "body": {
+            "fixture": "quote"
+          }
+        },
+        {
+          "path": "/functions/v1/submit-lead",
+          "method": "POST",
+          "capture": "r9",
+          "body": {
+            "fixture": "quote"
+          }
+        }
+      ]
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "request",
+      "path": "/confam-observations",
+      "method": "GET",
+      "capture": "observed"
+    },
+    {
+      "action": "assert",
+      "expectationId": "b1",
+      "actual": {
+        "variable": "observed.body.acceptedSubmissions"
+      },
+      "operator": "lte",
+      "expected": 5
+    }
+  ]
+}

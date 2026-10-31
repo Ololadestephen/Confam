@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
@@ -30,6 +30,8 @@ export interface GapOptions {
   candidate?: string;
   // Write the exact export and stop before any model call.
   preview?: boolean;
+  // Bind a live request to the exact export the developer reviewed, before any provider call.
+  approvedExport?: string;
   transport?: ModelTransport;
 }
 
@@ -56,8 +58,15 @@ The source already has a proposed fix applied, shown as proposedFix. Look especi
   const input = JSON.stringify(payload);
   if (Buffer.byteLength(input) > MAX_AUTHORING_BYTES) throw new Error("Gap-finding context exceeds 250KB; narrow the configured source files.");
   const exportPath = path.join(directory, "export.json");
-  await writeFile(exportPath, JSON.stringify({ stage: "gaps", instructions, input: payload }, null, 2) + "\n", { flag: "wx" });
+  const exportContents = JSON.stringify({ stage: "gaps", instructions, input: payload }, null, 2) + "\n";
+  await writeFile(exportPath, exportContents, { flag: "wx" });
   if (options?.preview) return { exportPath, directory, proposalPath: undefined, usage: undefined };
+  if (!options?.approvedExport && options?.transport?.mode !== "fixture") {
+    throw new Error("Live gap drafting requires an approved export preview. Use --preview, review it, then pass --approved-export.");
+  }
+  if (options?.approvedExport && !Buffer.from(exportContents).equals(await readFile(options.approvedExport))) {
+    throw new Error("Gap export differs from the approved preview. Review a fresh preview before sending.");
+  }
 
   const transport = options?.transport ?? createMetaTransport(process.env.MODEL_API_KEY ?? "");
   const ledger = await CostLedger.create(path.join(directory, "model-usage.json"), options?.budget ?? DEFAULT_BUDGET_USD, transport.mode);
@@ -68,6 +77,7 @@ The source already has a proposed fix applied, shown as proposedFix. Look especi
   await writeFile(proposalPath, JSON.stringify({
     schemaVersion: 1, status: "needs-review", mode: transport.mode, project: loaded.project.config.id, caseId: loaded.definition.id,
     reviewedCandidate: Boolean(proposedFix),
+    approvedExportHash: options?.approvedExport ? createHash("sha256").update(exportContents).digest("hex") : undefined,
     gaps: result.gaps.filter(({ id }) => !confirmed.has(id)),
     note: "Proposed expectations only. Nothing executed; the developer decides which, if any, to confirm.",
   }, null, 2) + "\n", { flag: "wx" });

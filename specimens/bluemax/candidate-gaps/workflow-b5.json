@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "malformed",
+      "body": "{",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "b5",
+      "actual": {
+        "variable": "malformed.status"
+      },
+      "operator": "eq",
+      "expected": 400
+    }
+  ]
+}

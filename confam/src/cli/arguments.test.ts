@@ -2,6 +2,18 @@ import { describe, expect, it } from "vitest";
 import { parseArguments } from "./arguments.js";
 
 describe("CLI confirmation and cost arguments", () => {
+  it("requires an explicit candidate and reviewed inputs for the review command", () => {
+    const args = ["review", "case.json", "--project", "p", "--workflow", "w", "--accept"];
+    expect(() => parseArguments(args)).toThrow("--candidate");
+    expect(parseArguments([...args, "--candidate", "fix.patch", "--manifest", "faults.json"]).manifest).toBe("faults.json");
+    expect(() => parseArguments([...args, "--candidate", "fix.patch", "--strengthen"])).toThrow("Invalid");
+  });
+  it("binds gap drafting to a reviewed export and rejects competing preview mode", () => {
+    expect(parseArguments(["draft-gaps", "case.json", "--project", "project.json", "--approved-export", "export.json"]).approvedExport).toBe("export.json");
+    expect(() => parseArguments(["draft-gaps", "case.json", "--project", "p", "--preview", "--approved-export", "e"])).toThrow("not both");
+    expect(() => parseArguments(["draft-fix", "case.json", "--project", "p", "--approved-export", "e"])).toThrow("Invalid");
+    expect(() => parseArguments(["draft-gaps", "case.json", "--project", "p"])).toThrow("requires --approved-export");
+  });
   it("requires a written recording report and bounds the local review port", () => {
     expect(() => parseArguments(["recording-intake", "video.mp4"])).toThrow("report");
     expect(parseArguments(["recording-intake", "video.mp4", "--report", "report.md", "--budget", "0.25"]).report).toBe("report.md");

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "bluemax-candidate-gaps",
+  "root": "source",
+  "sourceFiles": [
+    "supabase/functions/submit-lead/index.ts"
+  ],
+  "protectedPaths": [
+    "confam-runtime.mjs",
+    "supabase/config.toml"
+  ],
+  "runtime": {
+    "command": [
+      "node",
+      "confam-runtime.mjs"
+    ],
+    "readinessPath": "/confam-ready",
+    "timeoutMs": 120000,
+    "portVariable": "PORT",
+    "dataVariable": "CONFAM_DATA",
+    "restart": true,
+    "workflowTimeoutMs": 90000
+  }
+}

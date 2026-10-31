@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "request",
+      "path": "/confam-fault/leads-unavailable",
+      "method": "POST",
+      "capture": "disable"
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "failed",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/confam-fault/leads-restore",
+      "method": "POST",
+      "capture": "restore"
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "assert",
+      "expectationId": "b4",
+      "actual": {
+        "variable": "disable.status"
+      },
+      "operator": "eq",
+      "expected": 200
+    },
+    {
+      "action": "assert",
+      "expectationId": "b4",
+      "actual": {
+        "variable": "failed.status"
+      },
+      "operator": "eq",
+      "expected": 500
+    },
+    {
+      "action": "assert",
+      "expectationId": "b4",
+      "actual": {
+        "variable": "restore.status"
+      },
+      "operator": "eq",
+      "expected": 200
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "valid0",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "valid1",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "valid2",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "valid3",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "request",
+      "path": "/functions/v1/submit-lead",
+      "method": "POST",
+      "capture": "valid4",
+      "body": {
+        "fixture": "quote"
+      }
+    },
+    {
+      "action": "assert",
+      "expectationId": "b4",
+      "actual": {
+        "variable": "valid4.status"
+      },
+      "operator": "eq",
+      "expected": 200
+    }
+  ]
+}

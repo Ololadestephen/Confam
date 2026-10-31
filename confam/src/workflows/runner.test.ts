@@ -10,10 +10,13 @@ import { validateWorkflow, type WorkflowPlan } from "./schema.js";
 let url: string;
 let directory: string;
 let server: ReturnType<typeof createServer>;
+let waiting: Array<import("node:http").ServerResponse> = [];
 beforeEach(async () => {
+  waiting = [];
   directory = await mkdtemp(path.join(os.tmpdir(), "confam-workflow-"));
   server = createServer((req, res) => {
     if (req.url === "/pending") return;
+    if (req.url === "/barrier") { waiting.push(res); if (waiting.length === 2) for (const response of waiting) { response.setHeader("Content-Type", "application/json"); response.end(JSON.stringify({ ok: true })); } return; }
     if (req.url === "/redirect") { res.writeHead(302, { location: "http://external.invalid/" }); res.end(); return; }
     if (req.url === "/forwarded") { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify({ forwarded: req.headers["x-forwarded-for"] ?? "none" })); return; }
     if (req.url === "/identity") { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify({ cookie: req.headers.cookie ?? "none" })); return; }
@@ -155,4 +158,49 @@ it("accepts only a bounded, explicit viewing pace", () => {
   expect(viewingSlowMo("")).toBe(0);
   expect(viewingSlowMo("250")).toBe(250);
   for (const value of ["-1", "1001", "2.5", "fast"]) expect(() => viewingSlowMo(value)).toThrow("CONFAM_VIEWING_SLOW_MO_MS");
+});
+
+
+it("dispatches parallel requests before waiting and captures both responses", async () => {
+  const plan = validateWorkflow({ schemaVersion: 1, steps: [
+    { action: "parallel", requests: [{ method: "GET", path: "/barrier", capture: "first" }, { method: "GET", path: "/barrier", capture: "second" }] },
+    { action: "reached" },
+    { action: "assert", expectationId: "both", actual: { variable: "second.body.ok" }, operator: "eq", expected: true },
+  ] }, [{ id: "both", statement: "Both arrive" }], {}, { restart: false });
+  const result = await runWorkflow(plan, {}, url, directory);
+  expect(result.status).toBe("passed");
+  expect(waiting).toHaveLength(2);
+});
+
+it("cancels pending parallel requests and does not continue", async () => {
+  const controller = new AbortController();
+  const plan: WorkflowPlan = { schemaVersion: 1, steps: [
+    { action: "parallel", requests: [{ method: "GET", path: "/pending", capture: "one" }, { method: "GET", path: "/pending", capture: "two" }] },
+    { action: "reached" },
+  ] };
+  const result = await runWorkflow(plan, {}, url, directory, { signal: controller.signal, onStep() { setTimeout(() => controller.abort(), 100); } });
+  expect(result.status).toBe("cancelled");
+  expect(result.reached).toBe(false);
+});
+
+
+it("reports a parallel request failure and never runs later assertions", async () => {
+  const plan: WorkflowPlan = { schemaVersion: 1, steps: [
+    { action: "parallel", requests: [{ method: "GET", path: "/redirect", capture: "one" }, { method: "GET", path: "/forwarded", capture: "two" }] },
+    { action: "reached" },
+  ] };
+  const result = await runWorkflow(plan, {}, url, directory);
+  expect(result.status).toBe("unreached");
+  expect(result.error).toContain("redirect");
+  expect(result.reached).toBe(false);
+});
+
+it("times out a parallel request group and stops the workflow", async () => {
+  const plan: WorkflowPlan = { schemaVersion: 1, steps: [
+    { action: "parallel", requests: [{ method: "GET", path: "/pending", capture: "one" }, { method: "GET", path: "/pending", capture: "two" }] },
+    { action: "reached" },
+  ] };
+  const result = await runWorkflow(plan, {}, url, directory, { timeoutMs: 1000 });
+  expect(result.status).toBe("timeout");
+  expect(result.reached).toBe(false);
 });

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "b5",
+  "projectId": "bluemax-candidate-gaps",
+  "report": "report.md",
+  "fixtures": {
+    "quote": {
+      "name": "Test Customer",
+      "email": "test.customer@example.test",
+      "phone": "08000000000",
+      "location": "Fictional test address",
+      "recommended_system": "5kVA",
+      "monthly_bill": "50000",
+      "message": "Fictional quote request written for Confam testing."
+    }
+  },
+  "expectations": [
+    {
+      "id": "b5",
+      "statement": "Malformed JSON returns 400 rather than 500.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "b5"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

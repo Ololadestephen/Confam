@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "navigate",
+      "path": "/"
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "#confirmation:text-is(\"Could not load tasks\")"
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "#confirmation"
+      },
+      "kind": "text",
+      "capture": "message"
+    },
+    {
+      "action": "assert",
+      "expectationId": "t4",
+      "actual": {
+        "variable": "message"
+      },
+      "operator": "eq",
+      "expected": "Could not load tasks"
+    }
+  ]
+}

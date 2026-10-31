@@ -30,7 +30,17 @@ Muse Spark then wrote three wrong fixes against the real one: bring back the in-
 | Mistyped requests don't use up the limit | Fails: after five rejected typos, the customer's real request was refused |
 | If the limit can't be checked, spam is refused, not let through | Fails: with the rate-limit table unavailable, every request was accepted |
 
-Muse Wonder then wrote a fix that passes all five expectations. It still needs human review: behind a production gateway, its choice of visitor address could put every customer on one shared limit, which these local checks cannot distinguish. All of this ran on a local copy; the live site was not tested, and Supabase's production gateway may handle the forwarding header differently.
+Muse Wonder then wrote a fix that passes all five expectations. It still needs human review: behind a production gateway, its choice of visitor address could put every customer on one shared limit, which these local checks cannot distinguish.
+
+**Then Spark reviewed Wonder's fix before anyone accepted it.** Given the proposed patch, Spark proposed five more expectations. The site owner confirmed three, and two of them **fail against Wonder's fix**:
+
+| Expectation Spark proposed and the owner confirmed | Muse Wonder's fix |
+|---|---|
+| Ten quote requests sent at the same moment accept at most five | Fails: all 10 of 10 were accepted, because the limit is checked and recorded in separate steps |
+| A request that fails to save because of a server problem doesn't use up the limit | Fails: after one failed save, the customer's fifth real request was refused |
+| A garbled submission is reported as a bad request, not a server error | Passes |
+
+So one AI model's fix passed every agreed check, and another found two ways it still lets customers down, both confirmed by running the app. The overlapping requests use Confam's general `parallel` workflow step, which sends every request before waiting for any answer. All of this ran on a local copy; the live site was not tested, and Supabase's production gateway may handle the forwarding header differently. Details: [specimens/bluemax/candidate-gaps](specimens/bluemax/candidate-gaps/README.md).
 
 ### Mosaic: the author's own Next.js and PostgreSQL app
 
@@ -71,7 +81,7 @@ The same engine runs each application through configuration: start command, read
 
 | Model | Job |
 |---|---|
-| Muse Spark | Turns reports and recordings into expectations, drafts checks, writes decoys, and strengthens checks from surviving decoys |
+| Muse Spark | Turns reports and recordings into expectations, drafts checks, writes decoys, strengthens checks from surviving decoys, and reviews code or a proposed fix for expectations the developer missed |
 | Muse Wonder | Optional built-in fixer that proposes a repair |
 
 Models never decide whether anything passed: results come only from running the app. The fixer cannot edit checks or probes, and no model writes or approves its own probe. Every model call goes through a cost ledger with a per-run cap.

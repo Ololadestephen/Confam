@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "t1",
+  "projectId": "task-board-gaps",
+  "report": "report.md",
+  "fixtures": {},
+  "expectations": [
+    {
+      "id": "t1",
+      "statement": "Initial load shows the server task title and status",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "t1"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "fixture"
+}
