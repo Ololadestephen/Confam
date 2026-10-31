@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "npm ci",
-  "buildCommand": "npm run web:build:site -w confam",
-  "outputDirectory": "confam/dist/web",
+  "buildCommand": "npm run web:build:site -w confam && rm -rf public && cp -R confam/dist/web public",
+  "outputDirectory": "public",
   "framework": null,
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

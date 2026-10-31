@@ -58,3 +58,6 @@ specimens/linkding/source-fixed/
 specimens/linkding/source-latest/
 specimens/linkding/generated/
 specimens/linkding/.venv/
+
+# Vercel build output for the evidence site
+/public/
