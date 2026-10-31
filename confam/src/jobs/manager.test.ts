@@ -126,6 +126,22 @@ it("serializes all servers and cancels during real readiness with process cleanu
   expect(() => process.kill(state.pid, 0)).toThrow();
   expect(await f.manager.store.lease()).toBeUndefined();
 }, 30000);
+it("never overwrites a terminal result that lands while the job is being read", async () => {
+  const f = await executionFixture({});
+  cleanups.push(() => f.cleanup());
+  const job = await f.manager.prepare(f.draft.id);
+  await f.manager.store.write({ ...job, status: "cancelling", startedAt: new Date().toISOString() });
+  // The worker finishes between the manager's two reads: it writes its result, then releases the lease.
+  const store = f.manager.store;
+  const lease = store.lease.bind(store);
+  store.lease = async () => {
+    const current = await store.read(job.id);
+    await store.write({ ...current, status: "cancelled", cleanupComplete: true, finishedAt: new Date().toISOString() });
+    return lease();
+  };
+  expect((await f.manager.get(job.id)).status).toBe("cancelled");
+  expect((await store.read(job.id)).status).toBe("cancelled");
+});
 it("parent crash interrupts the worker, cleans app resources and leaves restartable evidence", async () => {
   const { spawn } = await import("node:child_process");
   const { fileURLToPath } = await import("node:url");

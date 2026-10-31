@@ -116,9 +116,11 @@ export class ExecutionManager {
     return job;
   }
   async get(id: string) {
+    // The worker writes its terminal result before releasing the lease, so read the lease first: a job that is
+    // still active after its lease is gone really was abandoned, not just finishing between the two reads.
+    const lease = await this.store.lease();
     const job = await this.store.read(id);
     if (activeStatuses.has(job.status)) {
-      const lease = await this.store.lease();
       if (
         !lease ||
         lease.id !== id ||
