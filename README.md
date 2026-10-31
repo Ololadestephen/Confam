@@ -75,13 +75,15 @@ Spark then reviewed the current protection and proposed five gaps. One was confi
 
 Real apps have one real fix, so they can't show whether a set of checks wrongly rejects *correct* fixes. For that, Confam was measured on a purpose-built salon booking app with two independently written correct fixes and six known wrong ones:
 
-| Checks | Wrong fixes caught (of 6) | Correct fixes wrongly rejected (of 2) |
-|---|---|---|
-| The app's existing smoke test | 0 | 0 |
-| AI-written tests used exactly as generated | 2 | 2 |
-| Confam's checks | 5 | 0 |
+| Checks | Known wrong fixes caught (of 6) | Unseen wrong fixes caught (of 4) | Correct fixes wrongly rejected (of 2) |
+|---|---|---|---|
+| The app's existing smoke test | 0 | 0 | 0 |
+| AI-written tests used exactly as generated | 2 | 2 (2 more hit unrelated errors) | 2 |
+| Confam's checks | 5 | **4** | 0 |
 
-The existing test only checks the "Booking confirmed" message, so every wrong fix passes it. The raw AI tests reject both correct fixes, so their two catches don't show they can tell right from wrong. These six decoys were used while building Confam's checks, so this is development evidence; an independent comparison on unseen decoys has not been run yet.
+The existing test only checks the "Booking confirmed" message, so every wrong fix passes it. The raw AI tests reject both correct fixes, so their catches don't show they can tell right from wrong. The six known wrong fixes were used while building Confam's checks, so that column is development evidence.
+
+The four unseen wrong fixes were written after the checks were sealed, by a separate AI agent that was never shown the checks, decoys or results; the author did not write any of them, and they were evaluated once, with the sealed engine. Every one was confirmed wrong by reading the database, and every one passes the app's existing test. They are held out from the checks, but they come from the same family of model that helped build them, and by their database signatures three resemble the broad kinds of wrong fix used in development (a booking stored under the wrong time, lost on restart, or also stored under another customer). Treat this as a first held-out result on 4 faults, not as proof.
 
 Building those checks produced the moment that best shows how Spark is used: its first checks missed a fix that saves the booking at 2 a.m. instead of 2 p.m. Asked to strengthen them, Spark didn't invent a test. It reported that none of the agreed expectations mentioned the booked time. The developer added that expectation, and the new checks catch it.
 
@@ -153,7 +155,7 @@ This repository's own CI uses the action on the quote tool. It reviews a correct
 ## Limits
 
 - Evidence covers the confirmed expectations under the recorded conditions. It is not proof that an application is correct.
-- Independent evaluation on unseen decoys has not been run yet, and no developers other than the author have used it.
+- The only held-out evaluation is 4 unseen salon faults written by a blind AI agent, not by an independent person; no developers other than the author have used Confam.
 - It runs local web applications that can start from a command with isolated test data. It is not a sandbox for hostile code.
 - Supported setups are validated case by case. An external Next.js app was rejected at setup because its assets exceeded the snapshot limit; that result is kept, not hidden.
 

@@ -81,7 +81,20 @@ All four arms were frozen together, then run against the same six known decoys a
 | Confam initial checks | 5 | 0 | 1 | 0 of 2 |
 | Confam final checks | 5 | 0 | 1 | 0 of 2 |
 
-The existing smoke test only checks that the page says "Booking confirmed", so every decoy passes it. The direct-AI suite rejects both correct fixes (it reads the status message before it appears), so its two catches do not show that it can tell right from wrong. Genuine comparison on unseen faults requires the owner's held-out pack, which has not been run.
+The existing smoke test only checks that the page says "Booking confirmed", so every decoy passes it. The direct-AI suite rejects both correct fixes (it reads the status message before it appears), so its two catches do not show that it can tell right from wrong. Genuine comparison on unseen faults is reported in the next section.
+
+### Held-out comparison on unseen faults (salon, October 31)
+
+Four wrong fixes were written after the arms were sealed, by a separate AI agent that could read only the salon app, the correct fix it built on, the five expectations and the three probe definitions. It never saw the checks, workflows, development decoys, comparators or results. The owner authorised this instead of writing the faults; none was written by the owner. The lead did not open the pack. Pack hash and patch bytes are archived in `runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/comparison.json`. The one genuine attempt ran with the sealed engine: the current engine refused because its identity changed, so the evaluation used a worktree at commit `41bf903`, whose engine identity matches the seal exactly (`abb5bfb6…`).
+
+| Arm | Caught | Survived | Uncounted | Correct fixes wrongly rejected |
+|---|---|---|---|---|
+| Existing smoke test | 0 | 4 | 0 | 0 of 2 |
+| Direct AI | 2 | 0 | 2 (unrelated assertion) | 2 of 2 |
+| Confam initial checks | 4 | 0 | 0 | 0 of 2 |
+| Confam final checks | 4 | 0 | 0 | 0 of 2 |
+
+Each fault was confirmed wrong by the probes and caught on a different expectation mix: owner only (1), booked time shown (1), survives restart (2). Because Confam caught all four, the faults' validity was checked as RULES require: all are probe-confirmed and all pass the existing test, so none is trivially broken. Caveats: they come from the same model family that helped build the checks, and by probe signature three resemble development fault classes (booking stored at a different time; nothing stored after restart; booking also stored under another customer), although the writer was told not to reuse those types. 4 of 4 is a raw count on a small, agent-written pack, not a general detection rate.
 
 ### Real application: Mosaic
 
@@ -137,7 +150,7 @@ All live calls used `muse-spark-1.3` through the shared ledger, with estimated c
 
 ### Not yet measured
 
-- Independent evaluation: the owner's held-out pack has not been run.
+- Independent evaluation by a person: no owner-written or third-party held-out faults have been run; the only held-out pack was written by a blind AI agent (see above).
 - Developer adoption and setup effort for people other than the author.
 - Broader video intake accuracy beyond the single October 29 clip.
 
