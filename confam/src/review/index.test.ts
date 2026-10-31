@@ -14,6 +14,8 @@ describe("review reporting", () => {
     expect(renderReview({ ...base, candidate: { outcome: "incomplete" } }, undefined, true).exitCode).toBe(2);
     expect(renderReview({ ...base, candidate: { outcome: "failed-probes" } }, undefined, true).exitCode).toBe(1);
     expect(renderReview({ ...base, cleanupComplete: false, candidate: "passed" }, undefined, false).exitCode).toBe(2);
+    expect(renderReview({ ...base, candidate: "failed" }, undefined, false).markdown).toContain("Candidate: failed the required checks");
+    expect(renderReview({ ...base, candidate: { outcome: "failed-probes" } }, undefined, true).markdown).toContain("Candidate: failed (failed-probes)");
   });
   it("escapes untrusted text and distinguishes development from independent evidence", () => {
     const result = renderReview({ ...base, project: "a\n# forged", candidate: { outcome: "passed-checks-and-probes" }, development: { caught: 1, survived: 2, uncounted: 3, total: 6 }, limitations: ["[unsafe](link)"] }, "/tmp/a (b).json", true);

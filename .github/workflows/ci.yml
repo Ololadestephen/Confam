@@ -29,3 +29,36 @@ jobs:
           --workflow specimens/salon/cases/booking-integrity/workflow-v2-reviewed.json
           --manifest specimens/salon/cases/booking-integrity/challenges.json --fixture
       - run: npm run web:build -w confam
+
+  # Uses this repository's reusable action the way another project would, on a correct and a faulty fix.
+  review-action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Review a correct fix
+        uses: ./
+        with:
+          case: specimens/quote-tool/case-invalid.json
+          project: specimens/quote-tool/project.json
+          workflow: specimens/quote-tool/workflow-invalid.json
+          candidate: specimens/quote-tool/patches/good.patch
+          confirmation: fixture
+      - name: Review a faulty fix
+        id: faulty
+        continue-on-error: true
+        uses: ./
+        with:
+          case: specimens/quote-tool/case-invalid.json
+          project: specimens/quote-tool/project.json
+          workflow: specimens/quote-tool/workflow-invalid.json
+          candidate: specimens/quote-tool/patches/faulty.patch
+          confirmation: fixture
+      - name: The faulty fix must be reported as a candidate failure
+        env:
+          CODE: ${{ steps.faulty.outputs.exit-code }}
+        run: test "$CODE" = "1"

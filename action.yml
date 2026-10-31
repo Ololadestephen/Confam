@@ -1,0 +1,70 @@
+name: Confam review
+description: Check a proposed fix against confirmed expectations by running the app, and write the evidence to the job summary.
+inputs:
+  case:
+    description: Path to the reviewed case JSON, relative to the repository root.
+    required: true
+  project:
+    description: Path to the project configuration JSON.
+    required: true
+  workflow:
+    description: Path to the reviewed workflow JSON.
+    required: true
+  candidate:
+    description: Path to the candidate patch to review.
+    required: true
+  manifest:
+    description: Optional reviewed challenge manifest; when given, decoys are run as well.
+    required: false
+    default: ""
+  confirmation:
+    description: >
+      "accept" treats the committed case and workflow as the developer's confirmed inputs.
+      "fixture" labels them as scripted sample inputs in the evidence.
+    required: false
+    default: accept
+outputs:
+  exit-code:
+    description: 0 when the candidate passed, 1 when it failed, 2 when the review was incomplete.
+    value: ${{ steps.review.outputs.exit-code }}
+  report:
+    description: Path to the Markdown review.
+    value: ${{ steps.review.outputs.report }}
+runs:
+  using: composite
+  steps:
+    - name: Install Confam
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: |
+        npm ci --no-audit --no-fund
+        npx playwright install --with-deps chromium
+    - name: Review the candidate
+      id: review
+      shell: bash
+      env:
+        CONFAM_CASE: ${{ inputs.case }}
+        CONFAM_PROJECT: ${{ inputs.project }}
+        CONFAM_WORKFLOW: ${{ inputs.workflow }}
+        CONFAM_CANDIDATE: ${{ inputs.candidate }}
+        CONFAM_MANIFEST: ${{ inputs.manifest }}
+        CONFAM_CONFIRMATION: ${{ inputs.confirmation }}
+        ACTION_PATH: ${{ github.action_path }}
+      run: |
+        case "$CONFAM_CONFIRMATION" in accept|fixture) ;; *) echo "confirmation must be accept or fixture" >&2; exit 2 ;; esac
+        # npm runs the CLI from Confam's own folder, so every input path is made absolute first.
+        absolute() { case "$1" in /*) printf '%s' "$1" ;; *) printf '%s/%s' "$GITHUB_WORKSPACE" "$1" ;; esac; }
+        args=(review "$(absolute "$CONFAM_CASE")" --project "$(absolute "$CONFAM_PROJECT")" --workflow "$(absolute "$CONFAM_WORKFLOW")"
+          --candidate "$(absolute "$CONFAM_CANDIDATE")" "--$CONFAM_CONFIRMATION")
+        if [ -n "$CONFAM_MANIFEST" ]; then args+=(--manifest "$(absolute "$CONFAM_MANIFEST")"); fi
+        set +e
+        npm --prefix "$ACTION_PATH" run --silent confam -- "${args[@]}" | tee "$RUNNER_TEMP/confam-review.log"
+        code=${PIPESTATUS[0]}
+        set -e
+        report=$(sed -n 's/^Review: //p' "$RUNNER_TEMP/confam-review.log" | tail -1)
+        if [ -n "$report" ] && [ -f "$report" ]; then cat "$report" >> "$GITHUB_STEP_SUMMARY"; else echo "Confam review did not produce a report." >> "$GITHUB_STEP_SUMMARY"; fi
+        # Anything other than a clean pass or a candidate failure is an incomplete review.
+        case "$code" in 0|1) ;; *) code=2 ;; esac
+        echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+        echo "report=$report" >> "$GITHUB_OUTPUT"
+        exit "$code"

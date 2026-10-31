@@ -35,7 +35,7 @@ export function renderReview(report: RecordValue, reportPath: string | undefined
   const controls = challenge ? list(challengeResults.controls) : variants.filter((v) => object(v).kind === "control");
   const counts = object(report.development);
   const lines = ["# Confam review", "", `- Project: ${safe(report.project)}`, `- Case: ${safe(report.caseId)}`,
-    `- Status: ${safe(report.status)}`, `- Candidate: ${passed ? "passed the required checks under the recorded conditions" : failed ? `failed ${safe(candidate)}` : "incomplete; no candidate verdict"}`,
+    `- Status: ${safe(report.status)}`, `- Candidate: ${passed ? "passed the required checks under the recorded conditions" : failed ? (challenge ? `failed (${safe(candidate)})` : "failed the required checks under the recorded conditions") : "incomplete; no candidate verdict"}`,
     `- Reproduction: ${safe(outcome(original))}${report.status === "blocked" ? " (required gate unresolved)" : ""}`,
     `- Controls: ${controls.length ? controls.slice(0, 50).map((v) => `${safe(object(v).id)}: ${safe(outcome(v))}`).join(", ") : "none evaluated; false-rejection calibration unavailable"}`,
     challenge && complete ? `- Development decoys: ${safe(counts.caught)} caught, ${safe(counts.survived)} survived, ${safe(counts.uncounted)} uncounted (of ${safe(counts.total)}).` : "- Development decoys: not completed.",

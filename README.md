@@ -108,6 +108,28 @@ Open the printed URL. In Apps you can register a local project, review its detec
 
 For your own application, review its project configuration, case and workflow before using `--accept`. The included `--fixture` cases use scripted confirmation and are not an independent evaluation set.
 
+## Use it in CI
+
+`confam review` checks one proposed fix and writes a Markdown review. It exits 0 when the fix passed, 1 when it failed, and 2 when the review was incomplete (for example, the bug didn't reproduce or the app didn't start). An incomplete review is never reported as a pass or a failure. It makes no model calls.
+
+```sh
+npm run confam -- review specimens/quote-tool/case-invalid.json --project specimens/quote-tool/project.json --workflow specimens/quote-tool/workflow-invalid.json --candidate specimens/quote-tool/patches/faulty.patch --fixture
+```
+
+The same command is a reusable GitHub Action, which posts the review to the job summary. Commit the reviewed case, project and workflow, then:
+
+```yaml
+- uses: Ololadestephen/Confam@main
+  with:
+    case: confam/case.json
+    project: confam/project.json
+    workflow: confam/workflow.json
+    candidate: fix.patch
+    manifest: confam/challenges.json   # optional: also run decoys
+```
+
+This repository's own CI uses the action on the quote tool. It reviews a correct fix, which must pass, and a faulty fix, which must be reported as a failure.
+
 ## Limits
 
 - Evidence covers the confirmed expectations under the recorded conditions. It is not proof that an application is correct.
