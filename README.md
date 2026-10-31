@@ -8,7 +8,11 @@ Confam answers that question. It reproduces the reported bug on the real app, ch
 
 ## Results on real applications
 
-Every bug below is real, taken from the app's own history and reproduced against the commit before its real fix. Neither app's source is in this repository, and neither app was built during the hackathon; they are test subjects.
+Every reproduced bug below is real, taken from the app's own history and reproduced against the commit before its real fix. The "gaps" are different: expectations proposed by Muse Spark and confirmed by the author that fail on the current code. Gap results are ordinary verification runs, without independent correct controls, decoys or held-out faults.
+
+**What you can re-run:** the salon, task board, quote tool and Linkding results run from a fresh clone with no API key. Bluemax and Mosaic can't be re-run by a reader, because their source is private; their folders show exactly how they were tested. The Spark and Wonder steps need a Meta API key.
+
+None of these apps' source is in this repository, and none was built during the hackathon; they are test subjects.
 
 ### Bluemax: a real solar installer's website in Nigeria
 
@@ -22,9 +26,9 @@ Bluemax was built with an AI app builder; 106 of its 114 commits were written by
 
 Muse Spark then wrote three wrong fixes against the real one: bring back the in-memory limit, an off-by-one limit check, and a time-window query that never matches stored rows. **The checks caught 3 of 3**, and reading the database confirmed each one really let the spam through. Everything runs on a local Supabase stack in Docker, never the live site.
 
-**Then Spark looked for what the developer missed.** Asked to review Bluemax's *current* code against the agreed expectations, Muse Spark proposed five missing ones. The site owner confirmed three, and all three **fail on the latest code**, which nobody had fixed:
+**Then Spark looked for what the developer missed.** Asked to review Bluemax's *current* code against the agreed expectations, Muse Spark proposed five missing ones. The author confirmed three, and all three **fail on the latest code**, which nobody had fixed:
 
-| Expectation Spark proposed and the owner confirmed | Bluemax's current code |
+| Expectation Spark proposed and the author confirmed | Bluemax's current code |
 |---|---|
 | A visitor can't get around the limit by changing a request header | Fails: six requests with six made-up forwarding addresses were all accepted |
 | Mistyped requests don't use up the limit | Fails: after five rejected typos, the customer's real request was refused |
@@ -32,9 +36,9 @@ Muse Spark then wrote three wrong fixes against the real one: bring back the in-
 
 Muse Wonder then wrote a fix that passes all five expectations. It still needs human review: behind a production gateway, its choice of visitor address could put every customer on one shared limit, which these local checks cannot distinguish.
 
-**Then Spark reviewed Wonder's fix before anyone accepted it.** Given the proposed patch, Spark proposed five more expectations. The site owner confirmed three, and two of them **fail against Wonder's fix**:
+**Then Spark reviewed Wonder's fix before anyone accepted it.** Given the proposed patch, Spark proposed five more expectations. The author confirmed three, and two of them **fail against Wonder's fix**:
 
-| Expectation Spark proposed and the owner confirmed | Muse Wonder's fix |
+| Expectation Spark proposed and the author confirmed | Muse Wonder's fix |
 |---|---|
 | Ten quote requests sent at the same moment accept at most five | Fails: all 10 of 10 were accepted, because the limit is checked and recorded in separate steps |
 | A request that fails to save because of a server problem doesn't use up the limit | Fails: after one failed save, the customer's fifth real request was refused |
@@ -110,7 +114,7 @@ Models never decide whether anything passed: results come only from running the 
 
 ## Try it
 
-Requires Node 24 LTS, npm, Git and Playwright's Chromium. These commands make no model calls and need no API key:
+Requires Node 24 LTS (tested on Node 24 in CI and Node 25 locally; on Node 25, `npm ci` prints a harmless `EBADENGINE` warning), npm, Git and Playwright's Chromium. These commands make no model calls and need no API key:
 
 ```sh
 npm ci
@@ -119,16 +123,27 @@ npm test
 npm run confam -- challenge specimens/salon/cases/booking-integrity/case.json --project specimens/salon/project.json --workflow specimens/salon/cases/booking-integrity/workflow-v2-reviewed.json --manifest specimens/salon/cases/booking-integrity/challenges.json --fixture
 ```
 
-The last command runs the salon decoy challenge: the original app, two correct fixes and six decoys, each in its own isolated copy. To browse the evidence (recordings, assertions, database observations and version history):
+The last command runs the salon decoy challenge: the original app, two correct fixes and six decoys, each in its own isolated copy. It should print `Development: {"total":6,"caught":5,"survived":0,"uncounted":1}`. To browse the evidence (recordings, assertions, database observations and version history):
 
 ```sh
 npm run web:build -w confam
 npm run confam -- serve runs
 ```
 
-Open the printed URL. In Apps you can register a local project, review its detected setup, turn a report into editable expectations and a workflow (model calls need a key and explicit approval of exactly what is sent), then approve a verification run.
+Keep `serve` running and open the printed URL, including its `?token=` part; the token stops other local pages from reaching your evidence. In Apps you can register a local project, review its detected setup, turn a report into editable expectations and a workflow (model calls need a key and explicit approval of exactly what is sent), then approve a verification run.
 
 For your own application, review its project configuration, case and workflow before using `--accept`. The included `--fixture` cases use scripted confirmation and are not an independent evaluation set.
+
+## Use it on your own app
+
+Confam runs on your machine, or in your CI, against your own copy of the app. It isn't a hosted service: it has to start your app, give each test copy its own data and read that data directly.
+
+1. **Describe how to run the app, once.** A project file names the start command, a readiness URL, the folder where the app keeps its data, and the source files a fix may change. `npm run confam -- serve runs`, then **Apps**, detects a setup for you to review. Apps with a database or cloud services also need a short wrapper script; Linkding's ([specimens/linkding](specimens/linkding/README.md)) is a worked example on a project the author has no connection to.
+2. **Turn the bug into confirmed expectations.** In **New run**, paste the report. Muse Spark proposes plain expectations and a browser or HTTP workflow; you see exactly what will be sent before it is sent, then edit and confirm.
+3. **Reproduce the bug.** Confam runs the workflow on the unfixed app. It must fail for the reported reason before anything else happens.
+4. **Check a fix.** Approve a run with your fix, Muse Wonder's (`draft-fix`), or any agent's patch. The run pages show the verdict with recordings, assertions and database readings.
+5. **Optionally challenge and extend.** `challenge` plants Spark-written wrong fixes to show whether the checks would wave them through; `draft-gaps` asks Spark what the expectations, or a proposed fix, still miss. These are command-line only for now.
+6. **Keep it in CI** with `confam review` and the GitHub Action below.
 
 ## Use it in CI
 
@@ -138,7 +153,9 @@ For your own application, review its project configuration, case and workflow be
 npm run confam -- review specimens/quote-tool/case-invalid.json --project specimens/quote-tool/project.json --workflow specimens/quote-tool/workflow-invalid.json --candidate specimens/quote-tool/patches/faulty.patch --fixture
 ```
 
-The same command is a reusable GitHub Action, which posts the review to the job summary. Commit the reviewed case, project and workflow, then:
+That example deliberately reviews the faulty patch, so it exits 1 and writes a review saying the candidate failed the required checks.
+
+The same command is a reusable GitHub Action, which posts the review to the job summary. Commit the reviewed case, project and workflow, then (pin a commit SHA instead of `main` for stable results):
 
 ```yaml
 - uses: Ololadestephen/Confam@main

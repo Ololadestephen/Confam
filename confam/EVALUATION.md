@@ -140,7 +140,7 @@ Wonder's fix ($0.0953) also kept both original expectations. These results are l
 
 ### Cases and engine fixes
 
-Reproducible cases now span four applications: salon, task board, quote tool and Mosaic. A new quote case checks the saved total rather than the update response; both quote candidate patches pass it, because the faulty patch's defect is input validation.
+Reproducible cases spanned four applications at this point: salon, task board, quote tool and Mosaic (Bluemax and Linkding were added on October 30 and 31; see below). A new quote case checks the saved total rather than the update response; both quote candidate patches pass it, because the faulty patch's defect is input validation.
 
 Running these cases live exposed five engine bugs, each fixed with a test: `reload` after `restart` reloaded the old port; workflow drafting and decoy drafting were cut off at 4,096 output tokens; live strengthening sent a schema format Meta's structured output rejects, so it had never run against the real API; and model-written diffs with missing headers or wrong hunk counts were rejected (now normalized by git's own recount, after protected-path checks).
 
@@ -217,3 +217,23 @@ Separately, the external repository's unchanged test suite passed 505 tests with
 Preparation also exposed requirements for dependency/build preparation and a configured application origin matching the isolated runtime port. These are source-inspection findings, not additional observed execution failures: snapshot preparation stopped first. No defect or candidate repair was supplied, no independent fault pack was used, and no project data was sent to Meta ($0 application API spend). Human setup time was not measured; interrupted session wall time is not a setup benchmark.
 
 The next integration work should address bounded runtime snapshots, explicit dependency/build preparation and runtime environment binding as shared capabilities. This attempt is preserved as an unsupported result; improving support cannot retroactively make the frozen transfer successful.
+
+## October 31: gap finder on three real apps, a third-party app, and new tooling
+
+The gap finder asks Muse Spark what confirmed expectations, or a proposed fix, still miss. Every proposal was checked against the code before the author confirmed any; confirmed gaps were then built as cases and run. These are ordinary verification runs, without independent correct controls, decoys or held-out faults, unless stated. Each exact export was previewed and approved, and the live request was refused unless it matched byte for byte.
+
+| App | Reviewed | Proposed | Confirmed | Confirmed gaps that fail |
+|---|---|---|---|---|
+| Bluemax (Deno on Supabase, local only) | Current code | 5 | 3 | 3 |
+| Bluemax | Muse Wonder's proposed fix for those gaps | 5 | 3 | 2 (10 of 10 overlapping requests accepted against a limit of 5; a failed save used up the allowance) |
+| Task board | Muse Wonder's FS2 fix | 5 | 5 | 0 |
+| Mosaic (Next.js, PostgreSQL) | Current sign-in code | 5 | 2 | 2 (15 sign-up attempts locked the owner out with no wrong password; 7 typos, a correct sign-in, 8 typos, then refused) |
+| Linkding (Python, Django) | Current SSRF protection | 5 | 1 | 1 (an environment proxy gets around the protection; Linkding documents this limitation) |
+
+Rejected proposals are listed with reasons in each specimen's README. One Spark claim (IPv6 transition addresses get through Linkding's protection) was tested with Linkding's own Python 3.13 and shown false.
+
+Linkding is an independent MIT-licensed project, onboarded with configuration only: a setup script, a runtime wrapper, a project file, a case and a two-request workflow. Its real SSRF bug (fixed upstream in `2ffc8bb`) reproduced: 1 internal request before the fix, 0 with the real fix and on the latest code, with the check still answering normally. Evidence folders are local and not committed.
+
+New tooling: a general `parallel` workflow action (2 to 20 HTTP requests sent before any answer is awaited; used for the Bluemax burst gap, the quote tool and the task board), `confam review` (Markdown review, exit 0 passed, 1 failed, 2 incomplete) and a reusable GitHub Action that CI exercises on a correct and a faulty quote-tool fix. A real race in the job manager, where reading a job's status while it finished could overwrite its result with "interrupted", was found through a flaky CI run and fixed with a test that forces the interleaving.
+
+Spend for October 31: about $0.07. Recorded live spend across all runs: about $0.84 over 39 calls.

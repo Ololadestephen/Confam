@@ -39,6 +39,7 @@ git -C "$tmp" -c core.fsmonitor=false diff > "$here/generated/real-fix.patch"
 rm -rf "$tmp" 2>/dev/null || true  # a background Git process can briefly hold the folder; the system cleans it up
 echo "Prepared source at $(git -C "$upstream" rev-parse --short "$fix^") (pre-fix) with generated/real-fix.patch"
 
-# The latest code, for reviewing gaps the fixed version may still have.
-export_source origin/HEAD source-latest
-echo "Prepared source-latest at $(git -C "$upstream" rev-parse --short origin/HEAD)"
+# The latest code when the gaps were reviewed (October 31, 2026), pinned so results stay reproducible.
+latest=27b7303
+export_source "$latest" source-latest
+echo "Prepared source-latest at $latest"

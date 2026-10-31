@@ -14,7 +14,7 @@ The runtime wrapper starts a probe on `127.0.0.1:47901` that stands in for an in
 | Linkding's real fix (`2ffc8bb`) | Yes | 0 |
 | Latest code (`27b7303`) | Yes | 0 |
 
-The owner confirmed both expectations on October 31. Evidence: `runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/` and `runs/verify-790d48f1-eb71-4228-bb08-f7a8c4cfc516/` (local, not committed).
+The owner confirmed both expectations on October 31. Evidence: `runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/` and `runs/verify-790d48f1-eb71-4228-bb08-f7a8c4cfc516/` on the author's machine; these folders are not in the repository, so re-run the commands below to see your own. The verify command prints `original: assertion-failed [internalAddressNotFetched]` and `control-real-fix: passed`; the internal request count is in the run's `verification.json`.
 
 ## Gaps in the current protection
 
@@ -40,7 +40,7 @@ npm run confam -- verify specimens/linkding/case.json --project specimens/linkdi
 npm run confam -- verify specimens/linkding/gaps/case-proxyStillRefusesInternal.json --project specimens/linkding/project-proxy.json --workflow specimens/linkding/gaps/workflow-proxyStillRefusesInternal.json --accept
 ```
 
-`prepare.sh` clones Linkding into the ignored `upstream/` folder, installs its locked runtime packages (without `uwsgi` and `supervisor`) into an ignored virtual environment with `uv`, and exports the pre-fix and latest commits. Linkding's source is not committed to Confam. The real fix adds a new module, so the pre-fix copy gets it as an empty file and the fix patch fills it in.
+Requires [`uv`](https://docs.astral.sh/uv/) and network access; preparation takes about 10 seconds after the first download. `prepare.sh` clones Linkding into the ignored `upstream/` folder, installs its locked runtime packages (without `uwsgi` and `supervisor`) into an ignored virtual environment with `uv`, and exports the pre-fix and latest commits. Linkding's source is not committed to Confam. The real fix adds a new module, so the pre-fix copy gets it as an empty file and the fix patch fills it in.
 
 ## Limits
 

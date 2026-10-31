@@ -149,4 +149,5 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((error: unknown) => { console.error(errorMessage(error)); process.exitCode = 1; return; });
+// For review, exit 1 means the candidate failed, so any crash (including bad arguments) is an incomplete review (2).
+main().catch((error: unknown) => { console.error(errorMessage(error)); process.exitCode = process.argv[2] === "review" ? 2 : 1; return; });

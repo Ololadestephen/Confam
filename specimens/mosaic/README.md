@@ -21,3 +21,5 @@ npm run confam -- verify specimens/mosaic/case.json --project specimens/mosaic/p
 ```
 
 The workflow signs in 32 times with real password hashing, so the project sets `workflowTimeoutMs` to 90 seconds.
+
+Note on the read-only rule: the Mosaic repository itself is only read (`git archive` and `git diff`). To avoid a second install, each test copy uses Mosaic's existing `node_modules` folder through `.confam-deps.json`, and the Next.js development server may write caches there. Mosaic's source and history are never changed.
