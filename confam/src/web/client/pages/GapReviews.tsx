@@ -1,3 +1,4 @@
+import { STATIC_SITE } from "../api.js";
 import { Icon, Link, PageTitle } from "../shared.js";
 import { statusText } from "../format.js";
 import {
@@ -29,8 +30,9 @@ export default function GapReviews() {
   return (
     <main id="main" className="workspace">
       <PageTitle eyebrow="Missed expectations" title="Gap reviews.">
-        Muse Spark suggests expectations your report may have missed. You
-        decide which ones count.
+        {STATIC_SITE
+          ? "Muse Spark's reviews of current code and of proposed fixes, with the developer's decision on every proposal, and the repair sessions that alternate Muse Wonder and Muse Spark."
+          : "Muse Spark suggests expectations your report may have missed. You decide which ones count."}
       </PageTitle>
       <section className="library-panel" aria-label="Gap reviews">
         {error ? (

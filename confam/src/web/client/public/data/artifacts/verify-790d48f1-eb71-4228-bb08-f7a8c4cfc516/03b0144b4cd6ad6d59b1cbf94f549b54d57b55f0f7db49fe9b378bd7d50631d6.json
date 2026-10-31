@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "blocked",
+  "project": "linkding-latest",
+  "caseId": "internalAddressFetchLatest",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "checkStillAnswers",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "internalAddressNotFetched",
+            "actual": 0,
+            "expected": 0,
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 143
+          },
+          {
+            "name": "request",
+            "elapsedMs": 155
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 157
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 157
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 157
+          }
+        ],
+        "durationMs": 248,
+        "trace": "runs/verify-790d48f1-eb71-4228-bb08-f7a8c4cfc516/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-790d48f1-eb71-4228-bb08-f7a8c4cfc516/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-790d48f1-eb71-4228-bb08-f7a8c4cfc516/variants/original/evidence/page@af57fc30bd64d2aef5b2df6ffc945cd4.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was not reproduced on its designated expectation; no candidate verdict.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-790d48f1-eb71-4228-bb08-f7a8c4cfc516/checks",
+    "sha256": "68c58403227ca76ee48b4096ec9748cc1d3fc476bc566cd5f5d0b2da8daf8694"
+  },
+  "baselineRevision": "8c2994348a1d115af8eb362e91c60fbd33b3df2e"
+}

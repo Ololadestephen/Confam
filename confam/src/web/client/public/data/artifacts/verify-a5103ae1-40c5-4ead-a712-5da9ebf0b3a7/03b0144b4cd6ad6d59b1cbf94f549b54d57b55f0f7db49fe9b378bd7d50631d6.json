@@ -1,0 +1,835 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "mosaic-latest",
+  "caseId": "earlyFailuresDoNotLockNewOwner",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "earlyFailuresDoNotLockNewOwner",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "context",
+            "elapsedMs": 579
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 633
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1637
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1702
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1731
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1772
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 2558
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 3554
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 3566
+          },
+          {
+            "name": "click",
+            "elapsedMs": 3572
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 3616
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 3691
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4597
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4611
+          },
+          {
+            "name": "click",
+            "elapsedMs": 4615
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 4643
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 4719
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5594
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5607
+          },
+          {
+            "name": "click",
+            "elapsedMs": 5611
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 5652
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 5729
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6659
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6673
+          },
+          {
+            "name": "click",
+            "elapsedMs": 6677
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 6714
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 6790
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7741
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7754
+          },
+          {
+            "name": "click",
+            "elapsedMs": 7759
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 7803
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 7878
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8777
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8789
+          },
+          {
+            "name": "click",
+            "elapsedMs": 8794
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 8835
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 8911
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9792
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9806
+          },
+          {
+            "name": "click",
+            "elapsedMs": 9810
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 9850
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 9925
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10782
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10796
+          },
+          {
+            "name": "click",
+            "elapsedMs": 10803
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 10844
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 10920
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11771
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11785
+          },
+          {
+            "name": "click",
+            "elapsedMs": 11789
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 11827
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 11910
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12803
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12819
+          },
+          {
+            "name": "click",
+            "elapsedMs": 12824
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 12860
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 12935
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13804
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13815
+          },
+          {
+            "name": "click",
+            "elapsedMs": 13819
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 13852
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 13928
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14926
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14940
+          },
+          {
+            "name": "click",
+            "elapsedMs": 14944
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 14972
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 15047
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15946
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15960
+          },
+          {
+            "name": "click",
+            "elapsedMs": 15964
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 15996
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 16072
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16959
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16974
+          },
+          {
+            "name": "click",
+            "elapsedMs": 16978
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 17011
+          },
+          {
+            "name": "context",
+            "elapsedMs": 17087
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 17179
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18090
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18108
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18112
+          },
+          {
+            "name": "click",
+            "elapsedMs": 18208
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 18251
+          },
+          {
+            "name": "context",
+            "elapsedMs": 18276
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 18314
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19194
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19212
+          },
+          {
+            "name": "click",
+            "elapsedMs": 19246
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 19282
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 19308
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 19308
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 19310
+          }
+        ],
+        "durationMs": 20393,
+        "trace": "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/trace.zip",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/trace-2.zip",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/trace-3.zip",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/trace-4.zip"
+        ],
+        "videos": [
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/page@33f4e9a8740e65c48ad52cbf59c14e03.webm",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/page@b464612276526820915c8e186f6a411b.webm",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/page@aa6d09df73c68e35ece411ae1bff9448.webm",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/original/evidence/page@ebd1031f35623cfd19efbad230502d51.webm"
+        ],
+        "error": "Expectation earlyFailuresDoNotLockNewOwner failed.",
+        "expectationId": "earlyFailuresDoNotLockNewOwner",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "earlyFailuresDoNotLockNewOwner",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "context",
+            "elapsedMs": 269
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 309
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1491
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1537
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1566
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1594
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 2376
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 3340
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 3352
+          },
+          {
+            "name": "click",
+            "elapsedMs": 3357
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 3395
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 3472
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4342
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4353
+          },
+          {
+            "name": "click",
+            "elapsedMs": 4357
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 4390
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 4466
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5331
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5343
+          },
+          {
+            "name": "click",
+            "elapsedMs": 5347
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 5382
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 5458
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6405
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6420
+          },
+          {
+            "name": "click",
+            "elapsedMs": 6436
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 6477
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 6553
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7483
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7495
+          },
+          {
+            "name": "click",
+            "elapsedMs": 7503
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 7536
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 7611
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8471
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8484
+          },
+          {
+            "name": "click",
+            "elapsedMs": 8488
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 8528
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 8604
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9458
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9472
+          },
+          {
+            "name": "click",
+            "elapsedMs": 9476
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 9525
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 9601
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10453
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10464
+          },
+          {
+            "name": "click",
+            "elapsedMs": 10468
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 10498
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 10573
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11415
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11427
+          },
+          {
+            "name": "click",
+            "elapsedMs": 11431
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 11469
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 11544
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12436
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12449
+          },
+          {
+            "name": "click",
+            "elapsedMs": 12452
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 12502
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 12577
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13437
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13448
+          },
+          {
+            "name": "click",
+            "elapsedMs": 13453
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 13493
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 13570
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14452
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14465
+          },
+          {
+            "name": "click",
+            "elapsedMs": 14469
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 14498
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 14573
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15415
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15427
+          },
+          {
+            "name": "click",
+            "elapsedMs": 15431
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 15478
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 15562
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16419
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16432
+          },
+          {
+            "name": "click",
+            "elapsedMs": 16436
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 16477
+          },
+          {
+            "name": "context",
+            "elapsedMs": 16551
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 16623
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17496
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17511
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17514
+          },
+          {
+            "name": "click",
+            "elapsedMs": 17545
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 17576
+          },
+          {
+            "name": "context",
+            "elapsedMs": 17921
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 17962
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18943
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18960
+          },
+          {
+            "name": "click",
+            "elapsedMs": 18993
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 19039
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 19065
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 19065
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 19067
+          }
+        ],
+        "durationMs": 19537,
+        "trace": "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/trace.zip",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/trace-2.zip",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/trace-3.zip",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/trace-4.zip"
+        ],
+        "videos": [
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/page@02b368d14bf8bf8619c7ff4b4b3933e0.webm",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/page@ab90818be8cc53bf1ba7cc8bbd366efb.webm",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/page@84126bb8b5b4c1b44c4b0f609f1e8ea4.webm",
+          "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/variants/candidate/evidence/page@ae645ee0c2619fb7f934497cadb1039f.webm"
+        ],
+        "error": "Expectation earlyFailuresDoNotLockNewOwner failed.",
+        "expectationId": "earlyFailuresDoNotLockNewOwner",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "Candidate failed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/checks",
+    "sha256": "340dd9effb9b6ccf3520e08e8ba2adb45d18e9fc61a877400cc2b7703912af7c"
+  },
+  "baselineRevision": "1440ad79221d4adb0e87d3ca3f2b87228fb245e7",
+  "candidate": "failed"
+}

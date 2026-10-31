@@ -1,0 +1,4480 @@
+{
+  "schemaVersion": 3,
+  "status": "completed",
+  "startedAt": "2026-10-30T09:50:11.530Z",
+  "caseId": "signInLockout",
+  "project": "mosaic",
+  "purpose": "development",
+  "confirmation": "developer-cli",
+  "independentEvaluation": {
+    "evaluated": false
+  },
+  "comparatorProvenance": "Supplied role labels and metadata are unverified; no model-performance comparison can be inferred from a role name alone.",
+  "limitations": [
+    "Development results are not independent evaluation.",
+    "Missing comparator roles are absent, not invented baselines.",
+    "Local execution is not a hostile-code sandbox.",
+    "Fault qualification assumes reviewed probe requirements correctly establish the declared violation."
+  ],
+  "versions": {
+    "status": "ready",
+    "reason": "no-survivors",
+    "rounds": 0,
+    "versions": [
+      {
+        "version": 1,
+        "plan": {
+          "schemaVersion": 1,
+          "steps": [
+            {
+              "action": "context",
+              "name": "regular"
+            },
+            {
+              "action": "navigate",
+              "path": "/login?mode=register"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Your name"
+              },
+              "value": {
+                "fixture": "nameA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Create account"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailA"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "reached"
+            },
+            {
+              "action": "capture",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"]"
+              },
+              "kind": "count",
+              "capture": "lockoutAfterSuccesses"
+            },
+            {
+              "action": "assert",
+              "expectationId": "repeatedSignInAllowed",
+              "actual": {
+                "variable": "lockoutAfterSuccesses"
+              },
+              "operator": "eq",
+              "expected": 0
+            },
+            {
+              "action": "context",
+              "name": "attacker"
+            },
+            {
+              "action": "navigate",
+              "path": "/login?mode=register"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Your name"
+              },
+              "value": {
+                "fixture": "nameB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Create account"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "wrongPassword"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "navigate",
+              "path": "/login"
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Email"
+              },
+              "value": {
+                "fixture": "emailB"
+              }
+            },
+            {
+              "action": "fill",
+              "locator": {
+                "kind": "label",
+                "value": "Password"
+              },
+              "value": {
+                "fixture": "password"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Sign in"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+              }
+            },
+            {
+              "action": "capture",
+              "locator": {
+                "kind": "css",
+                "value": "p.error[role=\"alert\"]:has-text(\"Too many sign-in attempts\")"
+              },
+              "kind": "count",
+              "capture": "lockedAfterFailures"
+            },
+            {
+              "action": "assert",
+              "expectationId": "failuresStillLock",
+              "actual": {
+                "variable": "lockedAfterFailures"
+              },
+              "operator": "eq",
+              "expected": 1
+            }
+          ]
+        },
+        "gatePassed": true,
+        "survivors": [],
+        "results": {
+          "original": {
+            "id": "original",
+            "kind": "original",
+            "phase": "probes",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "repeatedSignInAllowed",
+                  "actual": 1,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 587
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 637
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 1607
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 1659
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 1663
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 1691
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 1730
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 3014
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 3951
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 3964
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 3969
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 3999
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 4232
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 5159
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 5174
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 5178
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 5216
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 5446
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 6324
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 6338
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 6342
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 6375
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 6605
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 7468
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 7482
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 7486
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 7514
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 7761
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 8747
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 8759
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 8768
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 8799
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 9019
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 9902
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 9916
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 9919
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 9948
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 10175
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 11058
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 11071
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 11075
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 11105
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 11332
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 12197
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 12211
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 12215
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 12249
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 12582
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 13426
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 13440
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 13445
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 13481
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 13819
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 14700
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 14716
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 14724
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 14771
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 15098
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 16068
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 16081
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 16085
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 16121
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 16468
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 17309
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 17322
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 17326
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 17353
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 17578
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 18502
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 18515
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 18519
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 18550
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 18871
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 19879
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 19893
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 19897
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 19932
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 20289
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 21203
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 21215
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 21219
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 21248
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 21273
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 21273
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 21276
+                }
+              ],
+              "durationMs": 22244,
+              "trace": "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/original/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/original/evidence/trace.zip",
+                "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/original/evidence/trace-2.zip"
+              ],
+              "videos": [
+                "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/original/evidence/page@46b62412012c641751d95c9159a73877.webm",
+                "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/original/evidence/page@3f17a6aa61d6be886acc8d8f87b903ab.webm"
+              ],
+              "error": "Expectation repeatedSignInAllowed failed.",
+              "expectationId": "repeatedSignInAllowed",
+              "cleanupComplete": true
+            },
+            "probes": {
+              "successfulSignInsNotCounted": {
+                "holds": false,
+                "observed": 16
+              },
+              "failedSignInsCounted": {
+                "holds": false,
+                "observed": null,
+                "error": "Missing observation pointer: rateLimits.09d9add9a60e72d3055d323715dba620133085d29ac0eaf8ab0de9f8fd5aa902"
+              },
+              "lockedSignInCreatesNoSession": {
+                "holds": false,
+                "observed": null,
+                "error": "Missing observation pointer: sessionsByEmail.second.user@example.test"
+              }
+            },
+            "cleanupComplete": true
+          },
+          "controls": [
+            {
+              "id": "control-real-fix",
+              "kind": "control",
+              "phase": "probes",
+              "result": {
+                "status": "passed",
+                "reached": true,
+                "assertions": [
+                  {
+                    "expectationId": "repeatedSignInAllowed",
+                    "actual": 0,
+                    "expected": 0,
+                    "operator": "eq",
+                    "passed": true
+                  },
+                  {
+                    "expectationId": "failuresStillLock",
+                    "actual": 1,
+                    "expected": 1,
+                    "operator": "eq",
+                    "passed": true
+                  }
+                ],
+                "steps": [
+                  {
+                    "name": "context",
+                    "elapsedMs": 317
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 349
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 1531
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 1578
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 1583
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 1618
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 1661
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 2944
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 3905
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 3919
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 3922
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 3954
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 4287
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 5143
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 5154
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 5157
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 5187
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 5410
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 6288
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 6300
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 6304
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 6339
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 6679
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 7520
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 7534
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 7537
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 7580
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 7804
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 8695
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 8709
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 8713
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 8743
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 8975
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 9851
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 9865
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 9869
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 9908
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 10134
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 11048
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 11060
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 11063
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 11091
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 11324
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 12200
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 12214
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 12218
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 12246
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 12477
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 13438
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 13450
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 13454
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 13489
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 13825
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 14683
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 14697
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 14702
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 14742
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 15029
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 15903
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 15915
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 15919
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 15959
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 16185
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 17115
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 17129
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 17134
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 17173
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 17393
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 18314
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 18327
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 18331
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 18359
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 18701
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 19604
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 19617
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 19621
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 19663
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 19884
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 20768
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 20781
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 20785
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 20819
+                  },
+                  {
+                    "name": "reached",
+                    "elapsedMs": 21163
+                  },
+                  {
+                    "name": "capture",
+                    "elapsedMs": 21163
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 21166
+                  },
+                  {
+                    "name": "context",
+                    "elapsedMs": 21167
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 21288
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 22207
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 22221
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 22224
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 22273
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 22309
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 22641
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 23503
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 23515
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 23519
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 23547
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 23622
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 24551
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 24566
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 24569
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 24612
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 24688
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 25589
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 25604
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 25606
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 25635
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 25710
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 26636
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 26652
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 26657
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 26705
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 26783
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 27653
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 27667
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 27670
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 27697
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 27772
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 28808
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 28833
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 28837
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 28874
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 28949
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 29837
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 29853
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 29862
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 29897
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 29974
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 30952
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 30966
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 30975
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 31008
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 31084
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 31981
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 32001
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 32004
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 32036
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 32110
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 32998
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 33012
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 33016
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 33052
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 33127
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 34003
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 34015
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 34018
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 34074
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 34151
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 35008
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 35022
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 35027
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 35063
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 35139
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 36042
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 36053
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 36057
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 36104
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 36180
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 37035
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 37048
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 37051
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 37094
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 37170
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 38049
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 38064
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 38068
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 38111
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 38148
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 38989
+                  },
+                  {
+                    "name": "fill",
+                    "elapsedMs": 39003
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 39006
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 39045
+                  },
+                  {
+                    "name": "capture",
+                    "elapsedMs": 39069
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 39070
+                  }
+                ],
+                "durationMs": 41587,
+                "trace": "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/control-real-fix/evidence/trace.zip",
+                "traces": [
+                  "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/control-real-fix/evidence/trace.zip",
+                  "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/control-real-fix/evidence/trace-2.zip",
+                  "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/control-real-fix/evidence/trace-3.zip"
+                ],
+                "videos": [
+                  "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/control-real-fix/evidence/page@048c1b00c400b08c72ce3176e9574522.webm",
+                  "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/control-real-fix/evidence/page@c273815ce376be2dbb743a04a475b953.webm",
+                  "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/control-real-fix/evidence/page@c21e15041db09765937eef465cab21ff.webm"
+                ],
+                "cleanupComplete": true
+              },
+              "probes": {
+                "successfulSignInsNotCounted": {
+                  "holds": true,
+                  "observed": 1
+                },
+                "failedSignInsCounted": {
+                  "holds": true,
+                  "observed": 15
+                },
+                "lockedSignInCreatesNoSession": {
+                  "holds": true,
+                  "observed": 1
+                }
+              },
+              "cleanupComplete": true
+            }
+          ],
+          "decoys": [
+            {
+              "id": "countSuccesses",
+              "outcome": "unconfirmed",
+              "variant": {
+                "id": "decoy-countSuccesses",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "repeatedSignInAllowed",
+                      "actual": 1,
+                      "expected": 0,
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "context",
+                      "elapsedMs": 316
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 352
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1509
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1660
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1664
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 1696
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 1733
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 3016
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 3975
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 3986
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 3990
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 4019
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 4253
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 5110
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 5124
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 5129
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 5164
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 5499
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 6346
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 6360
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 6364
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 6402
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 6627
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 7484
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 7495
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 7500
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 7540
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 7870
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 8698
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 8709
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 8713
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 8754
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 8983
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 9909
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 9923
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 9927
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 9957
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 10194
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 11050
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 11062
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 11066
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 11098
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 11339
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 12217
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 12228
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 12232
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 12263
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 12595
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 13416
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 13429
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 13433
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 13463
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 13686
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 14627
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 14638
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 14643
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 14681
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 14898
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 15757
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 15769
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 15772
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 15814
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 16057
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 16920
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 16933
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 16939
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 16972
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 17194
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 18049
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 18063
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 18066
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 18095
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 18323
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 19161
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 19174
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 19178
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 19213
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 19448
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 20310
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 20323
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 20327
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 20363
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 20386
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 20386
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 20387
+                    }
+                  ],
+                  "durationMs": 21297,
+                  "trace": "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-countSuccesses/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-countSuccesses/evidence/trace.zip",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-countSuccesses/evidence/trace-2.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-countSuccesses/evidence/page@dae9556722fc611cdf27f16526a9e140.webm",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-countSuccesses/evidence/page@1bd204791f58580877b1e5c113c5c61a.webm"
+                  ],
+                  "error": "Expectation repeatedSignInAllowed failed.",
+                  "expectationId": "repeatedSignInAllowed",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "successfulSignInsNotCounted": {
+                    "holds": false,
+                    "observed": 16
+                  },
+                  "failedSignInsCounted": {
+                    "holds": false,
+                    "observed": null,
+                    "error": "Missing observation pointer: rateLimits.09d9add9a60e72d3055d323715dba620133085d29ac0eaf8ab0de9f8fd5aa902"
+                  },
+                  "lockedSignInCreatesNoSession": {
+                    "holds": false,
+                    "observed": null,
+                    "error": "Missing observation pointer: sessionsByEmail.second.user@example.test"
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            },
+            {
+              "id": "noFailureCounting",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-noFailureCounting",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "repeatedSignInAllowed",
+                      "actual": 0,
+                      "expected": 0,
+                      "operator": "eq",
+                      "passed": true
+                    },
+                    {
+                      "expectationId": "failuresStillLock",
+                      "actual": 0,
+                      "expected": 1,
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "context",
+                      "elapsedMs": 188
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 223
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1384
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1406
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1410
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 1436
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 1479
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 2764
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 3770
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 3782
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 3788
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 3830
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 4165
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 5019
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 5033
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 5037
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 5070
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 5405
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 6267
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 6279
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 6284
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 6322
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 6655
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 7518
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 7532
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 7538
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 7565
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 7799
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 8668
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 8681
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 8687
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 8714
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 8948
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 9898
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 9912
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 9916
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 9949
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 10279
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 11120
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 11131
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 11137
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 11163
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 11540
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 12380
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 12393
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 12396
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 12428
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 12763
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 13635
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 13647
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 13655
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 13695
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 14031
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 14886
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 14899
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 14904
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 14937
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 15270
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 16156
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 16168
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 16172
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 16202
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 16535
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 17373
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 17386
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 17390
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 17417
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 17638
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 18588
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 18601
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 18605
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 18646
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 18878
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 19917
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 19950
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 19955
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 19998
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 20314
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 21251
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 21265
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 21272
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 21300
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 21638
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 21638
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 21639
+                    },
+                    {
+                      "name": "context",
+                      "elapsedMs": 21639
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 21877
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 22809
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 22827
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 22830
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 22904
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 22942
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 23300
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 24320
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 24334
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 24337
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 24365
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 24441
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 25355
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 25368
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 25371
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 25411
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 25485
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 26366
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 26381
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 26385
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 26426
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 26502
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 27369
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 27385
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 27388
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 27416
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 27492
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 28416
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 28427
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 28430
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 28460
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 28536
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 29397
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 29409
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 29412
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 29452
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 29528
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 30556
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 30578
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 30581
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 30620
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 30698
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 31722
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 31739
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 31742
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 31777
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 31854
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 32859
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 32878
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 32881
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 32911
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 32987
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 33867
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 33880
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 33883
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 33921
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 33994
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 34856
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 34871
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 34873
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 34910
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 34985
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 35841
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 35855
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 35859
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 35899
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 35973
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 36844
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 36858
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 36862
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 36894
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 36970
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 37915
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 37931
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 37934
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 37975
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 38050
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 38936
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 38951
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 38954
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 38999
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 39076
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 39996
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 40012
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 40015
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 40044
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 40403
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 40407
+                    }
+                  ],
+                  "durationMs": 43132,
+                  "trace": "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-noFailureCounting/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-noFailureCounting/evidence/trace.zip",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-noFailureCounting/evidence/trace-2.zip",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-noFailureCounting/evidence/trace-3.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-noFailureCounting/evidence/page@8e93818315c95ac16a384a9985ae31f0.webm",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-noFailureCounting/evidence/page@cf7b4771d6f79a9356da66e4da7f04cd.webm",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-noFailureCounting/evidence/page@223000923e0d227d4d6acd03a792507b.webm"
+                  ],
+                  "error": "Expectation failuresStillLock failed.",
+                  "expectationId": "failuresStillLock",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "successfulSignInsNotCounted": {
+                    "holds": true,
+                    "observed": 1
+                  },
+                  "failedSignInsCounted": {
+                    "holds": false,
+                    "observed": 1
+                  },
+                  "lockedSignInCreatesNoSession": {
+                    "holds": false,
+                    "observed": 2
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            },
+            {
+              "id": "missingPrecheck",
+              "outcome": "unconfirmed",
+              "variant": {
+                "id": "decoy-missingPrecheck",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "repeatedSignInAllowed",
+                      "actual": 0,
+                      "expected": 0,
+                      "operator": "eq",
+                      "passed": true
+                    },
+                    {
+                      "expectationId": "failuresStillLock",
+                      "actual": 0,
+                      "expected": 1,
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "context",
+                      "elapsedMs": 245
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 275
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1409
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1452
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 1454
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 1480
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 1517
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 2800
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 3734
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 3748
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 3752
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 3793
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 4023
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 4871
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 4884
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 4888
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 4920
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 5147
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 6028
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 6039
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 6043
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 6075
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 6300
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 7168
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 7180
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 7186
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 7226
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 7453
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 8301
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 8313
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 8318
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 8349
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 8680
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 9554
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 9568
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 9571
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 9602
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 9844
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 10688
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 10700
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 10704
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 10731
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 10988
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 11843
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 11857
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 11860
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 11892
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 12226
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 13104
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 13118
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 13122
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 13159
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 13490
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 14321
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 14335
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 14339
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 14374
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 14721
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 15662
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 15676
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 15680
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 15713
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 16061
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 16955
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 16968
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 16971
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 17007
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 17232
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 18211
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 18226
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 18231
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 18259
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 18584
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 19580
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 19594
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 19602
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 19643
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 19968
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 20889
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 20902
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 20907
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 20934
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 21272
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 21272
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 21274
+                    },
+                    {
+                      "name": "context",
+                      "elapsedMs": 21274
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 21379
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 22283
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 22296
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 22300
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 22363
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 22399
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 22735
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 23589
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 23604
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 23607
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 23643
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 23717
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 24629
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 24642
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 24645
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 24685
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 24761
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 25660
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 25674
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 25678
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 25713
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 25787
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 26668
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 26682
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 26685
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 26726
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 26802
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 27656
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 27671
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 27675
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 27716
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 27791
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 28656
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 28671
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 28674
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 28708
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 28783
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 29744
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 29762
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 29764
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 29800
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 29876
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 30797
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 30809
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 30812
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 30844
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 30919
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 31912
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 31924
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 31927
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 31953
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 32030
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 33049
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 33064
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 33068
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 33099
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 33174
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 34133
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 34150
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 34153
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 34191
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 34267
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 35132
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 35146
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 35149
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 35184
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 35259
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 36163
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 36179
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 36182
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 36237
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 36321
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 37182
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 37196
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 37199
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 37233
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 37308
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 38170
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 38191
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 38195
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 38240
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 38317
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 39216
+                    },
+                    {
+                      "name": "fill",
+                      "elapsedMs": 39231
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 39234
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 39270
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 39606
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 39609
+                    }
+                  ],
+                  "durationMs": 42232,
+                  "trace": "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-missingPrecheck/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-missingPrecheck/evidence/trace.zip",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-missingPrecheck/evidence/trace-2.zip",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-missingPrecheck/evidence/trace-3.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-missingPrecheck/evidence/page@51d69cbf26446f5d34631a4720fafa45.webm",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-missingPrecheck/evidence/page@9be7eeec26fd07496516b619755bdc38.webm",
+                    "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/versions/v1/variants/decoy-missingPrecheck/evidence/page@fa6aabbe0233a10e56ef0a28f495008e.webm"
+                  ],
+                  "error": "Expectation failuresStillLock failed.",
+                  "expectationId": "failuresStillLock",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "successfulSignInsNotCounted": {
+                    "holds": true,
+                    "observed": 1
+                  },
+                  "failedSignInsCounted": {
+                    "holds": false,
+                    "observed": 16
+                  },
+                  "lockedSignInCreatesNoSession": {
+                    "holds": false,
+                    "observed": 2
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            }
+          ],
+          "counts": {
+            "total": 3,
+            "caught": 1,
+            "survived": 0,
+            "uncounted": 2
+          }
+        }
+      }
+    ]
+  },
+  "seal": {
+    "schemaVersion": 3,
+    "checks": {
+      "directory": "runs/challenge-cce4bb53-0a29-4938-8f14-284428fa23fb/seal",
+      "sha256": "e6d9ab1eb7e0f6af8b4e6c048a79b925d8add0c42427180a332c651e20df0eac"
+    },
+    "revision": "cec5850975035d3db4e215fd0a30e04a451cb445",
+    "identity": "abb5bfb6bf2a5b7f0e944cdb33dbdd7d613537873f9150638a09a827154fd543"
+  },
+  "absentComparators": [
+    "existing",
+    "direct-ai"
+  ],
+  "development": {
+    "total": 3,
+    "caught": 1,
+    "survived": 0,
+    "uncounted": 2
+  },
+  "verdict": "Development challenges completed; independent evaluation remains pending. Candidate and check-strength evidence are separate.",
+  "finishedAt": "2026-10-30T09:53:42.944Z",
+  "durationMs": 211414,
+  "modelUsage": {
+    "estimatedSpendUsd": 0,
+    "note": "No live model verifier configured."
+  }
+}

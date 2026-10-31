@@ -1,0 +1,3 @@
+Real Bluemax bug (a solar installer's site in Nigeria; commit 3ee44d2 fixes it)
+
+The free-quote form posts to the `submit-lead` function, which is meant to refuse more than 5 quote requests per minute from one visitor so the business is not flooded with spam leads. The limit is kept in the function's memory, and the code itself notes that it "resets on function cold start". When the function restarts, the count starts again from zero, so a spammer who keeps sending gets through again. The limit should hold across a restart: a 6th request within the minute should still be refused with "Too many requests".

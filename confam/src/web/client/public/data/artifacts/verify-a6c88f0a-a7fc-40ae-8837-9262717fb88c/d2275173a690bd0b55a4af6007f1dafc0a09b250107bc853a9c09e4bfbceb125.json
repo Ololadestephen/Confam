@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-31T15:40:22.034Z",
+  "expectations": [
+    {
+      "id": "successForgivesFailures",
+      "statement": "After a correct sign-in, earlier failed attempts no longer count toward the lockout.",
+      "provenance": "developer"
+    }
+  ]
+}

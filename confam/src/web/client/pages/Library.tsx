@@ -1,3 +1,4 @@
+import { STATIC_SITE } from "../api.js";
 import { useState } from "react";
 import { useRuns } from "../hooks.js";
 import { Icon, Link, PageTitle } from "../shared.js";
@@ -19,19 +20,24 @@ export default function Library() {
   return (
     <main id="main" className="workspace">
       <PageTitle
-        eyebrow="Your local workspace"
+        eyebrow={STATIC_SITE ? "Recorded runs" : "Your local workspace"}
         title="A record worth keeping."
         action={
-          <Link to="/runs/new" className="button button-dark">
-            Prepare a run +
-          </Link>
+          STATIC_SITE ? undefined : (
+            <Link to="/runs/new" className="button button-dark">
+              Prepare a run +
+            </Link>
+          )
         }
       >
-        Revisit a report. Inspect a repair. Pick up the thread.
+        {STATIC_SITE
+          ? "The runs behind each result in the README: reproductions, decoy challenges, gaps and repairs on six applications."
+          : "Revisit a report. Inspect a repair. Pick up the thread."}
       </PageTitle>
       <div className="library-stats">
         <div>
-          <span className="tiny-dot" /> Local evidence library
+          <span className="tiny-dot" />{" "}
+          {STATIC_SITE ? "Recorded evidence" : "Local evidence library"}
         </div>
         <span>
           {runs.length} readable saved {runs.length === 1 ? "run" : "runs"}

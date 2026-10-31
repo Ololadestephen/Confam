@@ -1,0 +1,162 @@
+diff --git a/bookmarks/services/http_client.py b/bookmarks/services/http_client.py
+index 718b689..661b672 100644
+--- a/bookmarks/services/http_client.py
++++ b/bookmarks/services/http_client.py
+@@ -19,6 +19,12 @@ useful properties compared to validating URLs up front:
+ - TLS verification and the Host header keep working, because the URL itself
+   is never rewritten.
+ 
++When an HTTP proxy is configured, urllib3 connects to the proxy rather than
++to the target host, so the guarded connection classes cannot check the
++target address. In that case the target hostname is resolved and validated
++before each request, including every redirect hop, and the request is
++refused before it is sent to the proxy if it resolves to a non-public address.
++
+ Which addresses are considered public is decided by the IANA special-purpose
+ address registries, as implemented by the ``ipaddress`` module in the standard
+ library. This requires Python 3.13 or newer, which correctly classifies
+@@ -29,9 +35,6 @@ the options documentation for details.
+ 
+ Limitations:
+ 
+-- If an HTTP proxy is configured through environment variables, requests
+-  bypass the guarded connection classes and connect to the proxy instead,
+-  which circumvents the protection.
+ - Subprocesses, such as single-file for HTML snapshots, use their own network
+   stack and are not covered.
+ """
+@@ -42,6 +45,7 @@ import logging
+ import socket
+ import sys
+ from dataclasses import dataclass, field
++from urllib.parse import urljoin, urlparse
+ 
+ import requests  # noqa: TID251 - this module wraps requests with SSRF protection
+ from django.conf import settings
+@@ -283,6 +287,117 @@ class GuardedHTTPAdapter(HTTPAdapter):
+         }
+ 
+ 
++def _proxy_for_url(url: str, session: requests.Session, kwargs: dict) -> str | None:
++    """
++    Returns the proxy that requests would use for this URL, taking proxy
++    keyword arguments, session proxies and environment variables into
++    account, including no_proxy bypasses.
++    """
++    proxies: dict = {}
++    # Environment proxies have the lowest precedence in requests'
++    # merge_environment_settings, session and per-request proxies override
++    # individual entries.
++    if session.trust_env:
++        try:
++            proxies.update(requests.utils.get_environ_proxies(url))
++        except Exception:
++            pass
++    proxies.update(session.proxies or {})
++    request_proxies = kwargs.get("proxies")
++    if request_proxies:
++        proxies.update(request_proxies)
++    if not proxies:
++        return None
++    return requests.utils.select_proxy(url, proxies)
++
++
++def _validate_target_host(url: str) -> None:
++    """
++    Raises BlockedAddressError if the URL's host resolves to a non-public
++    address. Used when a proxy is configured, in which case the guarded
++    connection classes only see the proxy's address, not the target's.
++    DNS failures are ignored here; the actual request will surface them.
++    """
++    parsed = urlparse(url)
++    host = parsed.hostname
++    if not host:
++        return
++    allowlist = get_allowlist()
++    if allowlist.allow_all or allowlist.matches_host(host):
++        return
++    try:
++        port = parsed.port
++    except ValueError:
++        port = None
++    if port is None:
++        port = 443 if parsed.scheme == "https" else 80
++    try:
++        resolved = socket.getaddrinfo(
++            host, port, urllib3_util_connection.allowed_gai_family(), socket.SOCK_STREAM
++        )
++    except OSError:
++        return
++    for _, _, _, _, sockaddr in resolved:
++        resolved_address = _parse_resolved_address(sockaddr)
++        if not allowlist.matches_address(resolved_address) and not is_public_address(
++            resolved_address
++        ):
++            blocked_error = BlockedAddressError(host, resolved_address)
++            logger.warning(f"Blocked request to {url}: {blocked_error}")
++            raise blocked_error
++
++
++def _request_through_proxy(
++    session: requests.Session, method: str, url: str, **kwargs
++) -> requests.Response:
++    """
++    Performs a request that goes through a proxy, validating the target
++    host before every request. Redirects are followed manually so that a
++    redirect to a non-public address is refused before the proxy is asked
++    to fetch it. Hops that bypass the proxy fall back to the normal
++    (connection-guarded) request handling.
++    """
++    allow_redirects = kwargs.pop("allow_redirects", True)
++    current_method = method
++    current_url = url
++    # requests allows at most 30 redirects by default
++    for _ in range(31):
++        if not _proxy_for_url(current_url, session, kwargs):
++            return session.request(
++                current_method,
++                current_url,
++                allow_redirects=allow_redirects,
++                **kwargs,
++            )
++        _validate_target_host(current_url)
++        response = session.request(
++            current_method, current_url, allow_redirects=False, **kwargs
++        )
++        if not allow_redirects or not response.is_redirect:
++            return response
++        location = response.headers.get("Location")
++        if not location:
++            return response
++        next_url = urljoin(current_url, location)
++        response.close()
++        if response.status_code == 303 and current_method.upper() not in (
++            "GET",
++            "HEAD",
++        ):
++            current_method = "GET"
++            kwargs.pop("data", None)
++            kwargs.pop("json", None)
++            headers = kwargs.get("headers")
++            if headers:
++                kwargs["headers"] = {
++                    key: value
++                    for key, value in headers.items()
++                    if key.lower() not in ("content-length", "content-type")
++                }
++        current_url = next_url
++    raise requests.TooManyRedirects(f"Exceeded 30 redirects for {url}")
++
++
+ def request(method: str, url: str, **kwargs) -> requests.Response:
+     # Use a new session per request, as background tasks run in multiple
+     # threads and sessions are not guaranteed to be thread-safe
+@@ -291,6 +406,8 @@ def request(method: str, url: str, **kwargs) -> requests.Response:
+     session.mount("http://", adapter)
+     session.mount("https://", adapter)
+     try:
++        if _proxy_for_url(url, session, kwargs):
++            return _request_through_proxy(session, method, url, **kwargs)
+         return session.request(method, url, **kwargs)
+     except _BlockedAddress as error:
+         blocked_error = BlockedAddressError(error.host, error.address)

@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax-latest",
+  "caseId": "failClosedOnLimitCheckFailure",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "failClosedOnLimitCheckFailure",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "failClosedOnLimitCheckFailure",
+            "actual": 200,
+            "expected": 400,
+            "operator": "gte",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 849
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 949
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 949
+          },
+          {
+            "name": "request",
+            "elapsedMs": 950
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1090
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1199
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1292
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1466
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1564
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1659
+          }
+        ],
+        "durationMs": 1731,
+        "trace": "runs/verify-cf6617b8-3bbc-45fd-8282-30623a7dd57b/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-cf6617b8-3bbc-45fd-8282-30623a7dd57b/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-cf6617b8-3bbc-45fd-8282-30623a7dd57b/variants/original/evidence/page@c5db5140df741967b903368da180e98d.webm"
+        ],
+        "error": "Expectation failClosedOnLimitCheckFailure failed.",
+        "expectationId": "failClosedOnLimitCheckFailure",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-cf6617b8-3bbc-45fd-8282-30623a7dd57b/checks",
+    "sha256": "71332974f6a597cdd86417a5815c0ab243dccfc6eb9ace7559ae069bd3af2d35"
+  },
+  "baselineRevision": "ea392ca1f0a0e754b2e526fbecda2d05c3226643"
+}

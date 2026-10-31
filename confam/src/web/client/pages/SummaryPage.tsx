@@ -1,4 +1,4 @@
-import { apiUrl } from "../api.js";
+import { STATIC_SITE, apiUrl } from "../api.js";
 import { Link, PageTitle } from "../shared.js";
 import { runPath } from "../routing.js";
 import type { RunView } from "../types.js";
@@ -66,17 +66,22 @@ export function Summary({ run }: { run: RunView }) {
           ))}
         </ul>
         <p>{run.independent.label}</p>
-        <a
-          className="button button-dark"
-          href={apiUrl("/api/export", run.runId)}
-          download
-        >
-          Export redacted summary
-        </a>
-        <p className="small muted">
-          The JSON summary excludes recordings, traces, logs, source and local
-          links. Redaction is best effort. Review the file before sharing it.
-        </p>
+        {STATIC_SITE ? null : (
+          <>
+            <a
+              className="button button-dark"
+              href={apiUrl("/api/export", run.runId)}
+              download
+            >
+              Export redacted summary
+            </a>
+            <p className="small muted">
+              The JSON summary excludes recordings, traces, logs, source and
+              local links. Redaction is best effort. Review the file before
+              sharing it.
+            </p>
+          </>
+        )}
       </section>
       <Link to={runPath(run.runId)} className="text-link">
         Back to the full evidence

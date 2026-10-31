@@ -1,0 +1,32 @@
+{
+  "source": "developer-cli",
+  "reviewScope": "Case expectations, workflow, source policy, probes and decoy requirements; definitions must establish the declared violation.",
+  "expectations": [
+    {
+      "id": "appointmentPersists",
+      "statement": "After a booking is confirmed and the page is reopened, the appointment is still listed.",
+      "provenance": "developer"
+    },
+    {
+      "id": "ownerOnly",
+      "statement": "The appointment appears under the customer who booked it, and not under any other customer.",
+      "provenance": "developer"
+    },
+    {
+      "id": "confirmationMeansSaved",
+      "statement": "\"Booking confirmed\" is shown only when the booking has actually been saved by the salon's system.",
+      "provenance": "developer"
+    },
+    {
+      "id": "survivesRestart",
+      "statement": "A saved appointment is still there after the server restarts.",
+      "provenance": "developer"
+    },
+    {
+      "id": "bookedTimeShown",
+      "statement": "The listed appointment shows the date and time that was booked.",
+      "provenance": "developer"
+    }
+  ],
+  "at": "2026-10-30T09:18:40.379Z"
+}

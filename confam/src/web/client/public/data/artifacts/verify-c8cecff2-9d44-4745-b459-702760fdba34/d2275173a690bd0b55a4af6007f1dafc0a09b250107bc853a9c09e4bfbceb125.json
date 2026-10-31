@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-30T22:01:34.331Z",
+  "expectations": [
+    {
+      "id": "b1",
+      "statement": "Ten overlapping valid requests from one visitor accept at most five.",
+      "provenance": "developer"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "source": "developer-cli",
+  "reviewScope": "Case expectations, workflow, source policy, probes and decoy requirements; definitions must establish the declared violation.",
+  "expectations": [
+    {
+      "id": "repeatedSignInAllowed",
+      "statement": "A user who signs in with the correct password 15 times in a row is never refused.",
+      "provenance": "report"
+    },
+    {
+      "id": "failuresStillLock",
+      "statement": "After 15 failed sign-in attempts for an email, even the correct password is refused with the lockout message.",
+      "provenance": "report"
+    }
+  ],
+  "at": "2026-10-30T09:50:11.826Z"
+}

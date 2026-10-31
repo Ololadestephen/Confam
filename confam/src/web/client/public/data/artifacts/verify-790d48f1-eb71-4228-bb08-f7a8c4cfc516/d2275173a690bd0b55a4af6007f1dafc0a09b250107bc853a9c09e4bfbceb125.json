@@ -1,0 +1,16 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-31T15:52:39.979Z",
+  "expectations": [
+    {
+      "id": "checkStillAnswers",
+      "statement": "Checking a bookmark URL that points at an internal address still answers normally, without an error.",
+      "provenance": "report"
+    },
+    {
+      "id": "internalAddressNotFetched",
+      "statement": "Checking a bookmark URL that points at an internal address does not make the server request that address.",
+      "provenance": "report"
+    }
+  ]
+}

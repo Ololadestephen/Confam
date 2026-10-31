@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "Real local runs on October 30 and 31, 2026, selected to back each result in the README.",
+  "runs": [
+    "challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b",
+    "challenge-42f287f3-6cd0-46c9-a084-90289b66c9f3",
+    "challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51",
+    "verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84",
+    "verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5",
+    "challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d",
+    "verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4",
+    "verify-9033125c-aad9-441a-bfd0-ba203f1893f0",
+    "verify-cf6617b8-3bbc-45fd-8282-30623a7dd57b",
+    "verify-c8cecff2-9d44-4745-b459-702760fdba34",
+    "verify-dfb29bda-4681-4e60-847e-0fb6013ebce7",
+    "verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0",
+    "verify-41ad9c70-1afc-460d-b39f-760cfe14bf81",
+    "challenge-cce4bb53-0a29-4938-8f14-284428fa23fb",
+    "verify-3de13e51-84cd-40d7-aa6e-f06635e15213",
+    "verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c",
+    "verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7",
+    "verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9",
+    "verify-790d48f1-eb71-4228-bb08-f7a8c4cfc516",
+    "verify-c5270923-ab3b-48f6-8c90-b22d0f0f1583",
+    "verify-830ce22c-6f30-4630-a032-3db62312a77c",
+    "verify-65880741-375e-4b59-b9d9-73b313b0bbfb"
+  ],
+  "privateProjects": ["mosaic", "bluemax"]
+}

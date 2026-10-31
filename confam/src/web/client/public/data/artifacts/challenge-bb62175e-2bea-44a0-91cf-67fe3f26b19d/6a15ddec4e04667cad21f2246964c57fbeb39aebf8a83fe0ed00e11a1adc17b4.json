@@ -1,0 +1,630 @@
+{
+  "schemaVersion": 3,
+  "status": "completed",
+  "startedAt": "2026-10-30T19:57:10.412Z",
+  "caseId": "quoteSpamLimit",
+  "project": "bluemax",
+  "purpose": "development",
+  "confirmation": "developer-cli",
+  "independentEvaluation": {
+    "evaluated": false
+  },
+  "comparatorProvenance": "Supplied role labels and metadata are unverified; no model-performance comparison can be inferred from a role name alone.",
+  "limitations": [
+    "Development results are not independent evaluation.",
+    "Missing comparator roles are absent, not invented baselines.",
+    "Local execution is not a hostile-code sandbox.",
+    "Fault qualification assumes reviewed probe requirements correctly establish the declared violation."
+  ],
+  "versions": {
+    "status": "ready",
+    "reason": "no-survivors",
+    "rounds": 0,
+    "versions": [
+      {
+        "version": 1,
+        "plan": {
+          "schemaVersion": 1,
+          "steps": [
+            {
+              "action": "request",
+              "path": "/functions/v1/submit-lead",
+              "method": "POST",
+              "body": {
+                "fixture": "quote"
+              },
+              "capture": "first"
+            },
+            {
+              "action": "reached"
+            },
+            {
+              "action": "assert",
+              "expectationId": "validQuoteAccepted",
+              "actual": {
+                "variable": "first.status"
+              },
+              "operator": "eq",
+              "expected": 200
+            },
+            {
+              "action": "request",
+              "path": "/functions/v1/submit-lead",
+              "method": "POST",
+              "body": {
+                "fixture": "quote"
+              },
+              "capture": "request2"
+            },
+            {
+              "action": "request",
+              "path": "/functions/v1/submit-lead",
+              "method": "POST",
+              "body": {
+                "fixture": "quote"
+              },
+              "capture": "request3"
+            },
+            {
+              "action": "request",
+              "path": "/functions/v1/submit-lead",
+              "method": "POST",
+              "body": {
+                "fixture": "quote"
+              },
+              "capture": "request4"
+            },
+            {
+              "action": "request",
+              "path": "/functions/v1/submit-lead",
+              "method": "POST",
+              "body": {
+                "fixture": "quote"
+              },
+              "capture": "request5"
+            },
+            {
+              "action": "restart"
+            },
+            {
+              "action": "request",
+              "path": "/functions/v1/submit-lead",
+              "method": "POST",
+              "body": {
+                "fixture": "quote"
+              },
+              "capture": "sixth"
+            },
+            {
+              "action": "assert",
+              "expectationId": "spamLimitSurvivesRestart",
+              "actual": {
+                "variable": "sixth.status"
+              },
+              "operator": "eq",
+              "expected": 429
+            },
+            {
+              "action": "assert",
+              "expectationId": "spamLimitSurvivesRestart",
+              "actual": {
+                "variable": "sixth.body.error"
+              },
+              "operator": "eq",
+              "expected": "Too many requests. Please try again later."
+            }
+          ]
+        },
+        "gatePassed": true,
+        "survivors": [],
+        "results": {
+          "original": {
+            "id": "original",
+            "kind": "original",
+            "phase": "probes",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "validQuoteAccepted",
+                  "actual": 200,
+                  "expected": 200,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "spamLimitSurvivesRestart",
+                  "actual": 200,
+                  "expected": 429,
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "request",
+                  "elapsedMs": 973
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 1340
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 1340
+                },
+                {
+                  "name": "request",
+                  "elapsedMs": 1341
+                },
+                {
+                  "name": "request",
+                  "elapsedMs": 1446
+                },
+                {
+                  "name": "request",
+                  "elapsedMs": 1543
+                },
+                {
+                  "name": "request",
+                  "elapsedMs": 1662
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 1873
+                },
+                {
+                  "name": "request",
+                  "elapsedMs": 4069
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 4227
+                }
+              ],
+              "durationMs": 4496,
+              "trace": "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/original/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/original/evidence/trace.zip"
+              ],
+              "videos": [
+                "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/original/evidence/page@d32879192389cdae62e1d2ce0e056715.webm"
+              ],
+              "error": "Expectation spamLimitSurvivesRestart failed.",
+              "expectationId": "spamLimitSurvivesRestart",
+              "cleanupComplete": true
+            },
+            "probes": {
+              "sixthRequestNotStored": {
+                "holds": false,
+                "observed": 6
+              },
+              "requestsRecorded": {
+                "holds": false,
+                "observed": null
+              }
+            },
+            "cleanupComplete": true
+          },
+          "controls": [
+            {
+              "id": "control-real-fix",
+              "kind": "control",
+              "phase": "probes",
+              "result": {
+                "status": "passed",
+                "reached": true,
+                "assertions": [
+                  {
+                    "expectationId": "validQuoteAccepted",
+                    "actual": 200,
+                    "expected": 200,
+                    "operator": "eq",
+                    "passed": true
+                  },
+                  {
+                    "expectationId": "spamLimitSurvivesRestart",
+                    "actual": 429,
+                    "expected": 429,
+                    "operator": "eq",
+                    "passed": true
+                  },
+                  {
+                    "expectationId": "spamLimitSurvivesRestart",
+                    "actual": "Too many requests. Please try again later.",
+                    "expected": "Too many requests. Please try again later.",
+                    "operator": "eq",
+                    "passed": true
+                  }
+                ],
+                "steps": [
+                  {
+                    "name": "request",
+                    "elapsedMs": 563
+                  },
+                  {
+                    "name": "reached",
+                    "elapsedMs": 943
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 943
+                  },
+                  {
+                    "name": "request",
+                    "elapsedMs": 943
+                  },
+                  {
+                    "name": "request",
+                    "elapsedMs": 1104
+                  },
+                  {
+                    "name": "request",
+                    "elapsedMs": 1247
+                  },
+                  {
+                    "name": "request",
+                    "elapsedMs": 1504
+                  },
+                  {
+                    "name": "restart",
+                    "elapsedMs": 1633
+                  },
+                  {
+                    "name": "request",
+                    "elapsedMs": 3634
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 3810
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 3810
+                  }
+                ],
+                "durationMs": 3964,
+                "trace": "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/control-real-fix/evidence/trace.zip",
+                "traces": [
+                  "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/control-real-fix/evidence/trace.zip"
+                ],
+                "videos": [
+                  "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/control-real-fix/evidence/page@ca90eddd22d41134829ff2fd202a2dd1.webm"
+                ],
+                "cleanupComplete": true
+              },
+              "probes": {
+                "sixthRequestNotStored": {
+                  "holds": true,
+                  "observed": 5
+                },
+                "requestsRecorded": {
+                  "holds": true,
+                  "observed": 5
+                }
+              },
+              "cleanupComplete": true
+            }
+          ],
+          "decoys": [
+            {
+              "id": "decoyInMemoryReset",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-decoyInMemoryReset",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "validQuoteAccepted",
+                      "actual": 200,
+                      "expected": 200,
+                      "operator": "eq",
+                      "passed": true
+                    },
+                    {
+                      "expectationId": "spamLimitSurvivesRestart",
+                      "actual": 200,
+                      "expected": 429,
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "request",
+                      "elapsedMs": 835
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 1011
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 1011
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1011
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1154
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1290
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1545
+                    },
+                    {
+                      "name": "restart",
+                      "elapsedMs": 1683
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 3587
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 3777
+                    }
+                  ],
+                  "durationMs": 3918,
+                  "trace": "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyInMemoryReset/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyInMemoryReset/evidence/trace.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyInMemoryReset/evidence/page@51625230b44c3eb0942a98ba274faca3.webm"
+                  ],
+                  "error": "Expectation spamLimitSurvivesRestart failed.",
+                  "expectationId": "spamLimitSurvivesRestart",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "sixthRequestNotStored": {
+                    "holds": false,
+                    "observed": 6
+                  },
+                  "requestsRecorded": {
+                    "holds": false,
+                    "observed": 0
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            },
+            {
+              "id": "decoyOffByOne",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-decoyOffByOne",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "validQuoteAccepted",
+                      "actual": 200,
+                      "expected": 200,
+                      "operator": "eq",
+                      "passed": true
+                    },
+                    {
+                      "expectationId": "spamLimitSurvivesRestart",
+                      "actual": 200,
+                      "expected": 429,
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "request",
+                      "elapsedMs": 690
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 1040
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 1040
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1040
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1192
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1459
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1601
+                    },
+                    {
+                      "name": "restart",
+                      "elapsedMs": 1737
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 3485
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 3656
+                    }
+                  ],
+                  "durationMs": 3927,
+                  "trace": "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyOffByOne/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyOffByOne/evidence/trace.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyOffByOne/evidence/page@47ca62e754496d66009529170eacc9ba.webm"
+                  ],
+                  "error": "Expectation spamLimitSurvivesRestart failed.",
+                  "expectationId": "spamLimitSurvivesRestart",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "sixthRequestNotStored": {
+                    "holds": false,
+                    "observed": 6
+                  },
+                  "requestsRecorded": {
+                    "holds": false,
+                    "observed": 6
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            },
+            {
+              "id": "decoyExactWindowMatch",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-decoyExactWindowMatch",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "validQuoteAccepted",
+                      "actual": 200,
+                      "expected": 200,
+                      "operator": "eq",
+                      "passed": true
+                    },
+                    {
+                      "expectationId": "spamLimitSurvivesRestart",
+                      "actual": 200,
+                      "expected": 429,
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "request",
+                      "elapsedMs": 710
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 1069
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 1069
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1069
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1213
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1515
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 1677
+                    },
+                    {
+                      "name": "restart",
+                      "elapsedMs": 1844
+                    },
+                    {
+                      "name": "request",
+                      "elapsedMs": 3500
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 3703
+                    }
+                  ],
+                  "durationMs": 3851,
+                  "trace": "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyExactWindowMatch/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyExactWindowMatch/evidence/trace.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/versions/v1/variants/decoy-decoyExactWindowMatch/evidence/page@ce044e3dd15eb38ff5f7ee6b83e0dd54.webm"
+                  ],
+                  "error": "Expectation spamLimitSurvivesRestart failed.",
+                  "expectationId": "spamLimitSurvivesRestart",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "sixthRequestNotStored": {
+                    "holds": false,
+                    "observed": 6
+                  },
+                  "requestsRecorded": {
+                    "holds": false,
+                    "observed": 6
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            }
+          ],
+          "counts": {
+            "total": 3,
+            "caught": 3,
+            "survived": 0,
+            "uncounted": 0
+          }
+        }
+      }
+    ]
+  },
+  "seal": {
+    "schemaVersion": 3,
+    "checks": {
+      "directory": "runs/challenge-bb62175e-2bea-44a0-91cf-67fe3f26b19d/seal",
+      "sha256": "dc3dfc82186596df05a5920e7b30472a512134565837ccd164d1c25c108da3b0"
+    },
+    "revision": "25fd42ae39f4ae7bd62593b388f7a56d5fa7386e",
+    "identity": "2af457057534c7bf0be68f8c7c0176495c3411ba01cb320fc08c843372bffe3f"
+  },
+  "absentComparators": [
+    "existing",
+    "direct-ai"
+  ],
+  "development": {
+    "total": 3,
+    "caught": 3,
+    "survived": 0,
+    "uncounted": 0
+  },
+  "verdict": "Development challenges completed; independent evaluation remains pending. Candidate and check-strength evidence are separate.",
+  "finishedAt": "2026-10-30T20:00:36.042Z",
+  "durationMs": 205630,
+  "modelUsage": {
+    "estimatedSpendUsd": 0,
+    "note": "No live model verifier configured."
+  }
+}

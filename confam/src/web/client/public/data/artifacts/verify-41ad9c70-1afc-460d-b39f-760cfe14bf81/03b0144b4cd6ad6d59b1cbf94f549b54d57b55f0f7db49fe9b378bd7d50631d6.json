@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "mosaic-workspace",
+  "caseId": "workspaceReselect",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "workspaceStaysOpen",
+            "actual": 0,
+            "expected": 1,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "navigate",
+            "elapsedMs": 766
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1762
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1823
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1827
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1859
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1911
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 3193
+          },
+          {
+            "name": "click",
+            "elapsedMs": 3198
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 3234
+          },
+          {
+            "name": "select",
+            "elapsedMs": 3310
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 3318
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 3318
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 3321
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 3322
+          }
+        ],
+        "durationMs": 3432,
+        "trace": "runs/verify-41ad9c70-1afc-460d-b39f-760cfe14bf81/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-41ad9c70-1afc-460d-b39f-760cfe14bf81/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-41ad9c70-1afc-460d-b39f-760cfe14bf81/variants/original/evidence/page@55f36ab5cf5e7b73539f24e8ae492f98.webm"
+        ],
+        "error": "Expectation workspaceStaysOpen failed.",
+        "expectationId": "workspaceStaysOpen",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "workspaceStaysOpen",
+            "actual": 1,
+            "expected": 1,
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "navigate",
+            "elapsedMs": 309
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1495
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1521
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1526
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1563
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1601
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 2885
+          },
+          {
+            "name": "click",
+            "elapsedMs": 2898
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 2933
+          },
+          {
+            "name": "select",
+            "elapsedMs": 3014
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 3019
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 3019
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 3021
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 3022
+          }
+        ],
+        "durationMs": 3150,
+        "trace": "runs/verify-41ad9c70-1afc-460d-b39f-760cfe14bf81/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-41ad9c70-1afc-460d-b39f-760cfe14bf81/variants/candidate/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-41ad9c70-1afc-460d-b39f-760cfe14bf81/variants/candidate/evidence/page@19a3a54747685088327b689a00a1e78a.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "Candidate passed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-41ad9c70-1afc-460d-b39f-760cfe14bf81/checks",
+    "sha256": "ea52b363fb4a77274a63fbd23adc9dc2ab8a96296a4ae0445c0fe75e739e44df"
+  },
+  "baselineRevision": "393f9fa8b183f4c64512f8f7fa7590eae7970d79",
+  "candidate": "passed"
+}

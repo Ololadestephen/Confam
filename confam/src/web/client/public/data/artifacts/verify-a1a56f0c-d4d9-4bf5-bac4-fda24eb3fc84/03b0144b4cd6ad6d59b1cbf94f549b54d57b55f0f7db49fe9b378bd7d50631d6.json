@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 2,
+  "status": "completed",
+  "project": "quote-tool",
+  "caseId": "quantityRecalculation",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "quantity-change-updates-total",
+            "actual": {
+              "quantity": 3,
+              "unitPrice": 12,
+              "total": 12
+            },
+            "expected": {
+              "quantity": 3,
+              "unitPrice": 12,
+              "total": 36
+            },
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 522
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 532
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 532
+          }
+        ],
+        "durationMs": 607,
+        "trace": "runs/verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84/variants/original/evidence/page@5be26b95a7ad09fd2da1b1a088776497.webm"
+        ],
+        "error": "Expectation quantity-change-updates-total failed.",
+        "expectationId": "quantity-change-updates-total"
+      }
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "quantity-change-updates-total",
+            "actual": {
+              "quantity": 3,
+              "unitPrice": 12,
+              "total": 36
+            },
+            "expected": {
+              "quantity": 3,
+              "unitPrice": 12,
+              "total": 36
+            },
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "quote-total-consistency",
+            "actual": {
+              "quantity": 3,
+              "unitPrice": 12,
+              "total": 36
+            },
+            "expected": {
+              "quantity": 3,
+              "unitPrice": 12,
+              "total": 36
+            },
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 109
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 112
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 112
+          },
+          {
+            "name": "request",
+            "elapsedMs": 112
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 114
+          }
+        ],
+        "durationMs": 221,
+        "trace": "runs/verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84/variants/candidate/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84/variants/candidate/evidence/page@56a35525a18c1668e1fd04190e6ffbe6.webm"
+        ]
+      }
+    }
+  ],
+  "verdict": "Candidate passed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-a1a56f0c-d4d9-4bf5-bac4-fda24eb3fc84/checks",
+    "sha256": "73320ffcfb2eaec0e4952c7b90d292b0d94609c00607db5373f629bf7e44bef4"
+  },
+  "baselineRevision": "4bf9afe2420f09c7d0f3b191168d4f480bead5bd",
+  "candidate": "passed"
+}

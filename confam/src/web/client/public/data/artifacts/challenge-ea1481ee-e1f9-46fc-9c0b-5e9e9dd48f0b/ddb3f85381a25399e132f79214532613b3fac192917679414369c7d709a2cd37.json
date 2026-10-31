@@ -1,0 +1,5165 @@
+{
+  "schemaVersion": 3,
+  "status": "completed",
+  "startedAt": "2026-10-31T19:46:30.777Z",
+  "purpose": "held-out",
+  "qualification": [
+    {
+      "id": "fault-1",
+      "outcome": "caught",
+      "variant": {
+        "id": "decoy-fault-1",
+        "kind": "candidate",
+        "phase": "probes",
+        "result": {
+          "status": "assertion-failed",
+          "reached": true,
+          "assertions": [
+            {
+              "expectationId": "appointmentPersists",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 1,
+              "expected": 0,
+              "operator": "eq",
+              "passed": false
+            }
+          ],
+          "steps": [
+            {
+              "name": "context",
+              "elapsedMs": 103
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 132
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 158
+            },
+            {
+              "name": "click",
+              "elapsedMs": 175
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 198
+            },
+            {
+              "name": "select",
+              "elapsedMs": 223
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 225
+            },
+            {
+              "name": "select",
+              "elapsedMs": 227
+            },
+            {
+              "name": "click",
+              "elapsedMs": 253
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 281
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 304
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 305
+            },
+            {
+              "name": "reached",
+              "elapsedMs": 306
+            },
+            {
+              "name": "reopen",
+              "elapsedMs": 306
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 407
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 427
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 429
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 429
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 430
+            },
+            {
+              "name": "context",
+              "elapsedMs": 432
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 468
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 490
+            },
+            {
+              "name": "click",
+              "elapsedMs": 504
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 531
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 607
+            },
+            {
+              "name": "context",
+              "elapsedMs": 608
+            },
+            {
+              "name": "restart",
+              "elapsedMs": 608
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 768
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 785
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 797
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 798
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 798
+            }
+          ],
+          "durationMs": 990,
+          "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/trace.zip",
+          "traces": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/trace.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/trace-2.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/trace-3.zip"
+          ],
+          "videos": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/page@31adff2a522947bb80ced4796e3cf58d.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/page@a946612139ca1db500b34651c87adb4f.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/page@87ae9fe8457cd6c3d5f251583dbab9f1.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-1/evidence/page@7600a52683505a1906deab2e6f9d0093.webm"
+          ],
+          "error": "Expectation ownerOnly failed.",
+          "expectationId": "ownerOnly",
+          "cleanupComplete": true
+        },
+        "probes": {
+          "savedRow": {
+            "holds": true,
+            "observed": 1
+          },
+          "customerHasBooking": {
+            "holds": true,
+            "observed": 1
+          },
+          "otherOwnerRow": {
+            "holds": false,
+            "observed": 2
+          }
+        },
+        "cleanupComplete": true
+      }
+    },
+    {
+      "id": "fault-2",
+      "outcome": "caught",
+      "variant": {
+        "id": "decoy-fault-2",
+        "kind": "candidate",
+        "phase": "probes",
+        "result": {
+          "status": "assertion-failed",
+          "reached": true,
+          "assertions": [
+            {
+              "expectationId": "appointmentPersists",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 0,
+              "expected": 0,
+              "operator": "eq",
+              "passed": true
+            },
+            {
+              "expectationId": "confirmationMeansSaved",
+              "actual": "Booking confirmed",
+              "expected": "Booking confirmed",
+              "operator": "eq",
+              "passed": true
+            },
+            {
+              "expectationId": "confirmationMeansSaved",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "survivesRestart",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "bookedTimeShown",
+              "actual": "Invalid Date · 2:00 PM — Box braids",
+              "expected": "Sat 5 Jan · 2:00 PM — Box braids",
+              "operator": "eq",
+              "passed": false
+            }
+          ],
+          "steps": [
+            {
+              "name": "context",
+              "elapsedMs": 101
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 131
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 157
+            },
+            {
+              "name": "click",
+              "elapsedMs": 174
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 214
+            },
+            {
+              "name": "select",
+              "elapsedMs": 290
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 292
+            },
+            {
+              "name": "select",
+              "elapsedMs": 296
+            },
+            {
+              "name": "click",
+              "elapsedMs": 299
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 330
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 353
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 354
+            },
+            {
+              "name": "reached",
+              "elapsedMs": 355
+            },
+            {
+              "name": "reopen",
+              "elapsedMs": 355
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 463
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 497
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 498
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 498
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 499
+            },
+            {
+              "name": "context",
+              "elapsedMs": 500
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 529
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 549
+            },
+            {
+              "name": "click",
+              "elapsedMs": 563
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 590
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 615
+            },
+            {
+              "name": "context",
+              "elapsedMs": 616
+            },
+            {
+              "name": "restart",
+              "elapsedMs": 616
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 775
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 790
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 800
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 802
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 802
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 802
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 802
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 802
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 802
+            }
+          ],
+          "durationMs": 988,
+          "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/trace.zip",
+          "traces": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/trace.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/trace-2.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/trace-3.zip"
+          ],
+          "videos": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/page@fd0cbc29e9b7aa75ef3ffe3525c2e83a.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/page@ca7177f75f60cd2a6e1a843da6b00bcf.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/page@4d982d8e2a195585faacc21044fbe66a.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-2/evidence/page@090a129f440d1a0417dccc9cb49175dc.webm"
+          ],
+          "error": "Expectation bookedTimeShown failed.",
+          "expectationId": "bookedTimeShown",
+          "cleanupComplete": true
+        },
+        "probes": {
+          "savedRow": {
+            "holds": false,
+            "observed": 0
+          },
+          "customerHasBooking": {
+            "holds": true,
+            "observed": 1
+          },
+          "otherOwnerRow": {
+            "holds": true,
+            "observed": 0
+          }
+        },
+        "cleanupComplete": true
+      }
+    },
+    {
+      "id": "fault-3",
+      "outcome": "caught",
+      "variant": {
+        "id": "decoy-fault-3",
+        "kind": "candidate",
+        "phase": "probes",
+        "result": {
+          "status": "assertion-failed",
+          "reached": true,
+          "assertions": [
+            {
+              "expectationId": "appointmentPersists",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 0,
+              "expected": 0,
+              "operator": "eq",
+              "passed": true
+            },
+            {
+              "expectationId": "confirmationMeansSaved",
+              "actual": "Booking confirmed",
+              "expected": "Booking confirmed",
+              "operator": "eq",
+              "passed": true
+            },
+            {
+              "expectationId": "confirmationMeansSaved",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "survivesRestart",
+              "actual": 0,
+              "expected": 1,
+              "operator": "gte",
+              "passed": false
+            }
+          ],
+          "steps": [
+            {
+              "name": "context",
+              "elapsedMs": 108
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 139
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 164
+            },
+            {
+              "name": "click",
+              "elapsedMs": 181
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 205
+            },
+            {
+              "name": "select",
+              "elapsedMs": 231
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 233
+            },
+            {
+              "name": "select",
+              "elapsedMs": 258
+            },
+            {
+              "name": "click",
+              "elapsedMs": 261
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 288
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 311
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 312
+            },
+            {
+              "name": "reached",
+              "elapsedMs": 313
+            },
+            {
+              "name": "reopen",
+              "elapsedMs": 313
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 415
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 435
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 436
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 436
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 438
+            },
+            {
+              "name": "context",
+              "elapsedMs": 439
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 470
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 490
+            },
+            {
+              "name": "click",
+              "elapsedMs": 503
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 530
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 556
+            },
+            {
+              "name": "context",
+              "elapsedMs": 557
+            },
+            {
+              "name": "restart",
+              "elapsedMs": 557
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 718
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 735
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 746
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 747
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 747
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 747
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 747
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 747
+            }
+          ],
+          "durationMs": 933,
+          "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/trace.zip",
+          "traces": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/trace.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/trace-2.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/trace-3.zip"
+          ],
+          "videos": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/page@cc7beb6e35a7fbeeb51f26637d4c09f7.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/page@4126931cb3fe4de682dd96ca0846be71.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/page@46285a346067db0c9db8797418fea719.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-3/evidence/page@c050d26b8e558d46bc68cdccf2f0edfd.webm"
+          ],
+          "error": "Expectation survivesRestart failed.",
+          "expectationId": "survivesRestart",
+          "cleanupComplete": true
+        },
+        "probes": {
+          "savedRow": {
+            "holds": false,
+            "observed": 0
+          },
+          "customerHasBooking": {
+            "holds": false,
+            "observed": 0
+          },
+          "otherOwnerRow": {
+            "holds": true,
+            "observed": 0
+          }
+        },
+        "cleanupComplete": true
+      }
+    },
+    {
+      "id": "fault-4",
+      "outcome": "caught",
+      "variant": {
+        "id": "decoy-fault-4",
+        "kind": "candidate",
+        "phase": "probes",
+        "result": {
+          "status": "assertion-failed",
+          "reached": true,
+          "assertions": [
+            {
+              "expectationId": "appointmentPersists",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "ownerOnly",
+              "actual": 0,
+              "expected": 0,
+              "operator": "eq",
+              "passed": true
+            },
+            {
+              "expectationId": "confirmationMeansSaved",
+              "actual": "Booking confirmed",
+              "expected": "Booking confirmed",
+              "operator": "eq",
+              "passed": true
+            },
+            {
+              "expectationId": "confirmationMeansSaved",
+              "actual": 1,
+              "expected": 1,
+              "operator": "gte",
+              "passed": true
+            },
+            {
+              "expectationId": "survivesRestart",
+              "actual": 0,
+              "expected": 1,
+              "operator": "gte",
+              "passed": false
+            }
+          ],
+          "steps": [
+            {
+              "name": "context",
+              "elapsedMs": 115
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 144
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 171
+            },
+            {
+              "name": "click",
+              "elapsedMs": 188
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 227
+            },
+            {
+              "name": "select",
+              "elapsedMs": 304
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 307
+            },
+            {
+              "name": "select",
+              "elapsedMs": 310
+            },
+            {
+              "name": "click",
+              "elapsedMs": 312
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 343
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 366
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 367
+            },
+            {
+              "name": "reached",
+              "elapsedMs": 368
+            },
+            {
+              "name": "reopen",
+              "elapsedMs": 368
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 470
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 490
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 492
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 492
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 493
+            },
+            {
+              "name": "context",
+              "elapsedMs": 495
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 526
+            },
+            {
+              "name": "fill",
+              "elapsedMs": 546
+            },
+            {
+              "name": "click",
+              "elapsedMs": 559
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 586
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 611
+            },
+            {
+              "name": "context",
+              "elapsedMs": 612
+            },
+            {
+              "name": "restart",
+              "elapsedMs": 612
+            },
+            {
+              "name": "navigate",
+              "elapsedMs": 774
+            },
+            {
+              "name": "wait",
+              "elapsedMs": 791
+            },
+            {
+              "name": "capture",
+              "elapsedMs": 804
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 805
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 805
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 805
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 805
+            },
+            {
+              "name": "assert",
+              "elapsedMs": 805
+            }
+          ],
+          "durationMs": 984,
+          "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/trace.zip",
+          "traces": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/trace.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/trace-2.zip",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/trace-3.zip"
+          ],
+          "videos": [
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/page@f06e090d5ba0028df6a353f762400585.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/page@933e1ad69101b40a6ae9d25c96cd00ff.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/page@290906013b446a41072da6fc38d01fbe.webm",
+            "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/qualification/variants/decoy-fault-4/evidence/page@903e51853edf158a472ecc4a0e4c4beb.webm"
+          ],
+          "error": "Expectation survivesRestart failed.",
+          "expectationId": "survivesRestart",
+          "cleanupComplete": true
+        },
+        "probes": {
+          "savedRow": {
+            "holds": false,
+            "observed": 0
+          },
+          "customerHasBooking": {
+            "holds": false,
+            "observed": 0
+          },
+          "otherOwnerRow": {
+            "holds": true,
+            "observed": 0
+          }
+        },
+        "cleanupComplete": true
+      }
+    }
+  ],
+  "arms": [
+    {
+      "role": "existing",
+      "provenance": "The salon app's existing smoke test (app/tests/smoke.spec.js) translated step for step: sign in, book, check the page says Booking confirmed. Its fixed date replaced by the case's booking fixtures.",
+      "provenanceVerified": false,
+      "controls": [
+        {
+          "id": "control-control-a",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "passed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "Booking confirmed",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": true
+              }
+            ],
+            "steps": [
+              {
+                "name": "navigate",
+                "elapsedMs": 102
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 127
+              },
+              {
+                "name": "click",
+                "elapsedMs": 144
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 183
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 260
+              },
+              {
+                "name": "select",
+                "elapsedMs": 263
+              },
+              {
+                "name": "click",
+                "elapsedMs": 266
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 299
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 322
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 323
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 323
+              }
+            ],
+            "durationMs": 390,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/control-control-a/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/control-control-a/evidence/trace.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/control-control-a/evidence/page@71e82aab069e4479f1a7388322341f1b.webm"
+            ],
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        },
+        {
+          "id": "control-control-b",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "passed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "Booking confirmed",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": true
+              }
+            ],
+            "steps": [
+              {
+                "name": "navigate",
+                "elapsedMs": 108
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 133
+              },
+              {
+                "name": "click",
+                "elapsedMs": 149
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 189
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 215
+              },
+              {
+                "name": "select",
+                "elapsedMs": 218
+              },
+              {
+                "name": "click",
+                "elapsedMs": 220
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 272
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 294
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 295
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 295
+              }
+            ],
+            "durationMs": 368,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/control-control-b/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/control-control-b/evidence/trace.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/control-control-b/evidence/page@cc769e20fe75e8f2ae4c9d9b4b6b8107.webm"
+            ],
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        }
+      ],
+      "falseRejections": 0,
+      "controlErrors": 0,
+      "results": [
+        {
+          "id": "fault-1",
+          "outcome": "survived",
+          "checks": {
+            "id": "decoy-fault-1",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "passed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                }
+              ],
+              "steps": [
+                {
+                  "name": "navigate",
+                  "elapsedMs": 113
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 142
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 159
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 182
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 206
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 209
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 211
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 236
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 260
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 261
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 261
+                }
+              ],
+              "durationMs": 336,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-1/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-1/evidence/trace.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-1/evidence/page@f76f9949db76df57201a5ac02126ac73.webm"
+              ],
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-2",
+          "outcome": "survived",
+          "checks": {
+            "id": "decoy-fault-2",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "passed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                }
+              ],
+              "steps": [
+                {
+                  "name": "navigate",
+                  "elapsedMs": 104
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 130
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 147
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 187
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 211
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 214
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 216
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 240
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 265
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 266
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 266
+                }
+              ],
+              "durationMs": 335,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-2/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-2/evidence/trace.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-2/evidence/page@36465122ac071aa4e4100f9bb7fde804.webm"
+              ],
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-3",
+          "outcome": "survived",
+          "checks": {
+            "id": "decoy-fault-3",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "passed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                }
+              ],
+              "steps": [
+                {
+                  "name": "navigate",
+                  "elapsedMs": 111
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 137
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 155
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 176
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 253
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 256
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 259
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 292
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 315
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 316
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 316
+                }
+              ],
+              "durationMs": 386,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-3/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-3/evidence/trace.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-3/evidence/page@8e01d1ca4d2a030525d1ecfb1f3deea8.webm"
+              ],
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-4",
+          "outcome": "survived",
+          "checks": {
+            "id": "decoy-fault-4",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "passed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                }
+              ],
+              "steps": [
+                {
+                  "name": "navigate",
+                  "elapsedMs": 113
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 138
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 155
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 196
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 273
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 275
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 279
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 312
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 335
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 337
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 337
+                }
+              ],
+              "durationMs": 406,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-4/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-4/evidence/trace.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/existing/variants/decoy-fault-4/evidence/page@85924c6c9e47190b36858bcdea87145e.webm"
+              ],
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        }
+      ],
+      "counts": {
+        "total": 4,
+        "caught": 0,
+        "survived": 4,
+        "uncounted": 0
+      }
+    },
+    {
+      "role": "direct-ai",
+      "provenance": "Muse Spark draft from the same report and confirmed expectations, used exactly as generated: no developer review, no reproduction or control gates, no decoy feedback. Same file as workflow-v2-spark.json.",
+      "metadata": {
+        "modelId": "muse-spark-1.3",
+        "modelVersion": null,
+        "prompt": null,
+        "inputHash": null,
+        "budgetUsd": 0.5,
+        "authoringMs": 27748
+      },
+      "provenanceVerified": false,
+      "controls": [
+        {
+          "id": "control-control-a",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "assertion-failed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "appointmentPersists",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 0,
+                "expected": 0,
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": false
+              }
+            ],
+            "steps": [
+              {
+                "name": "context",
+                "elapsedMs": 109
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 137
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 164
+              },
+              {
+                "name": "click",
+                "elapsedMs": 181
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 221
+              },
+              {
+                "name": "select",
+                "elapsedMs": 247
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 250
+              },
+              {
+                "name": "select",
+                "elapsedMs": 278
+              },
+              {
+                "name": "click",
+                "elapsedMs": 281
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 304
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 305
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 306
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 307
+              },
+              {
+                "name": "reopen",
+                "elapsedMs": 307
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 404
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 427
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 429
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 430
+              },
+              {
+                "name": "context",
+                "elapsedMs": 432
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 461
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 482
+              },
+              {
+                "name": "click",
+                "elapsedMs": 496
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 524
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 550
+              },
+              {
+                "name": "context",
+                "elapsedMs": 551
+              },
+              {
+                "name": "restart",
+                "elapsedMs": 551
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 714
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 742
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 756
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 759
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 759
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 759
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 759
+              }
+            ],
+            "durationMs": 968,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/trace.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/trace-2.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/trace-3.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/page@d701c18c532001c44f280c80123e3d11.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/page@eff2c8e175cbaf02d4c4d46d31c8c585.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/page@172c65bdba61ddeb76be521cbd6ce2fc.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-a/evidence/page@b2d044cd81c41aceda0ce9b259445532.webm"
+            ],
+            "error": "Expectation confirmationMeansSaved failed.",
+            "expectationId": "confirmationMeansSaved",
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        },
+        {
+          "id": "control-control-b",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "assertion-failed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "appointmentPersists",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 0,
+                "expected": 0,
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": false
+              }
+            ],
+            "steps": [
+              {
+                "name": "context",
+                "elapsedMs": 144
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 180
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 210
+              },
+              {
+                "name": "click",
+                "elapsedMs": 228
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 265
+              },
+              {
+                "name": "select",
+                "elapsedMs": 290
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 293
+              },
+              {
+                "name": "select",
+                "elapsedMs": 317
+              },
+              {
+                "name": "click",
+                "elapsedMs": 320
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 347
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 348
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 350
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 350
+              },
+              {
+                "name": "reopen",
+                "elapsedMs": 350
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 453
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 474
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 476
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 477
+              },
+              {
+                "name": "context",
+                "elapsedMs": 479
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 509
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 529
+              },
+              {
+                "name": "click",
+                "elapsedMs": 543
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 569
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 594
+              },
+              {
+                "name": "context",
+                "elapsedMs": 595
+              },
+              {
+                "name": "restart",
+                "elapsedMs": 595
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 754
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 768
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 780
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 781
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 781
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 781
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 781
+              }
+            ],
+            "durationMs": 966,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/trace.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/trace-2.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/trace-3.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/page@78e62f275ffa9f0ecbfe6ce13f26c465.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/page@3652ca27dfc492435a25a0630180ccf0.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/page@b28092bc38ca5d92a6b4197ed4a040c0.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/control-control-b/evidence/page@403ac49f28757374065dce3740de38a0.webm"
+            ],
+            "error": "Expectation confirmationMeansSaved failed.",
+            "expectationId": "confirmationMeansSaved",
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        }
+      ],
+      "falseRejections": 2,
+      "controlErrors": 0,
+      "results": [
+        {
+          "id": "fault-1",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-1",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 104
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 133
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 159
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 176
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 199
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 225
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 227
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 229
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 254
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 281
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 282
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 283
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 284
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 284
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 382
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 404
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 406
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 407
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 409
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 438
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 458
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 471
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 500
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 526
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 527
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 527
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 689
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 706
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 718
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 719
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 719
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 719
+                }
+              ],
+              "durationMs": 904,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/page@d3d0d03c1df44aad887d8dc2347aa4ef.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/page@395de7c7d4b11a6bae6ccb654eab7a96.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/page@8ded5cb0cdbc769dd70aae79f4d92ea7.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-1/evidence/page@371546c7e5fa121c9b59e0927982dc1f.webm"
+              ],
+              "error": "Expectation ownerOnly failed.",
+              "expectationId": "ownerOnly",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-2",
+          "outcome": "unrelated-assertion",
+          "checks": {
+            "id": "decoy-fault-2",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 113
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 142
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 168
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 185
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 225
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 251
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 253
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 255
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 285
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 308
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 309
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 310
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 311
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 311
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 409
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 429
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 431
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 433
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 434
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 463
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 483
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 495
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 524
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 547
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 549
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 549
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 708
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 723
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 734
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 736
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 736
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 736
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 736
+                }
+              ],
+              "durationMs": 913,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/page@db007791a84b8981fbd8511722de8dd9.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/page@131f2e609e5c4dbdc3cc89e6aceaff8e.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/page@3906346da1e526b103990aff8105a4bf.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-2/evidence/page@b856ef05ad6d41228535c63b2fb05bf5.webm"
+              ],
+              "error": "Expectation confirmationMeansSaved failed.",
+              "expectationId": "confirmationMeansSaved",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-3",
+          "outcome": "unrelated-assertion",
+          "checks": {
+            "id": "decoy-fault-3",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 113
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 142
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 169
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 186
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 226
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 254
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 287
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 293
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 296
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 324
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 326
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 328
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 329
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 329
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 439
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 460
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 462
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 464
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 465
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 495
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 518
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 532
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 560
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 584
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 586
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 586
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 746
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 763
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 774
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 776
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 776
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 776
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 776
+                }
+              ],
+              "durationMs": 953,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/page@82d0fdfac6d4495685516f8eb6a80879.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/page@a17a007b8dbdd8d20b60903c5d60169f.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/page@7dfaf2bf68eabce86392377c3a59a14f.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-3/evidence/page@7f615afe887cabb403cf937483567779.webm"
+              ],
+              "error": "Expectation confirmationMeansSaved failed.",
+              "expectationId": "confirmationMeansSaved",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-4",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-4",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 105
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 135
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 161
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 179
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 216
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 242
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 244
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 270
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 272
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 299
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 301
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 302
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 303
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 303
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 416
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 436
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 437
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 438
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 440
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 472
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 492
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 506
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 533
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 557
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 559
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 559
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 721
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 737
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 749
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 750
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 750
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 750
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 750
+                }
+              ],
+              "durationMs": 936,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/page@5070fb1d73400227c869b5a9ccf7db9d.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/page@b8dd565f8cd31bda9abe6d43e0026bd7.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/page@ba97fcd7e1e4c7a6ed68aa20229775ec.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/direct-ai/variants/decoy-fault-4/evidence/page@233af32b9fed8a6091f69b65e0252af6.webm"
+              ],
+              "error": "Expectation confirmationMeansSaved failed.",
+              "expectationId": "confirmationMeansSaved",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        }
+      ],
+      "counts": {
+        "total": 4,
+        "caught": 2,
+        "survived": 0,
+        "uncounted": 2
+      }
+    },
+    {
+      "role": "confam-v1",
+      "provenance": "Initial workflow, before development feedback.",
+      "provenanceVerified": false,
+      "controls": [
+        {
+          "id": "control-control-a",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "passed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "appointmentPersists",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 0,
+                "expected": 0,
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "Booking confirmed",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "survivesRestart",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "bookedTimeShown",
+                "actual": "Sat 5 Jan · 2:00 PM — Box braids",
+                "expected": "Sat 5 Jan · 2:00 PM — Box braids",
+                "operator": "eq",
+                "passed": true
+              }
+            ],
+            "steps": [
+              {
+                "name": "context",
+                "elapsedMs": 119
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 152
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 181
+              },
+              {
+                "name": "click",
+                "elapsedMs": 198
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 220
+              },
+              {
+                "name": "select",
+                "elapsedMs": 297
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 300
+              },
+              {
+                "name": "select",
+                "elapsedMs": 302
+              },
+              {
+                "name": "click",
+                "elapsedMs": 305
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 338
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 362
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 363
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 364
+              },
+              {
+                "name": "reopen",
+                "elapsedMs": 364
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 463
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 499
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 500
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 500
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 501
+              },
+              {
+                "name": "context",
+                "elapsedMs": 502
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 530
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 550
+              },
+              {
+                "name": "click",
+                "elapsedMs": 564
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 591
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 666
+              },
+              {
+                "name": "context",
+                "elapsedMs": 668
+              },
+              {
+                "name": "restart",
+                "elapsedMs": 668
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 830
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 846
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 877
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 878
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 878
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 878
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 878
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 878
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 878
+              }
+            ],
+            "durationMs": 1071,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/trace.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/trace-2.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/trace-3.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/page@29b07a7a47f41ba7e54c9c6015cb9866.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/page@f70a8d8dfc0bcdc510a1b7ff45864759.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/page@1bb7a40ecd3ce996b9f38df214a63872.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-a/evidence/page@7f6991de6117e82c4a6a1459ad420933.webm"
+            ],
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        },
+        {
+          "id": "control-control-b",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "passed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "appointmentPersists",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 0,
+                "expected": 0,
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "Booking confirmed",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "survivesRestart",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "bookedTimeShown",
+                "actual": "Sat 5 Jan · 2:00 PM — Box braids",
+                "expected": "Sat 5 Jan · 2:00 PM — Box braids",
+                "operator": "eq",
+                "passed": true
+              }
+            ],
+            "steps": [
+              {
+                "name": "context",
+                "elapsedMs": 107
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 136
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 162
+              },
+              {
+                "name": "click",
+                "elapsedMs": 179
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 219
+              },
+              {
+                "name": "select",
+                "elapsedMs": 295
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 298
+              },
+              {
+                "name": "select",
+                "elapsedMs": 300
+              },
+              {
+                "name": "click",
+                "elapsedMs": 302
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 334
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 356
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 357
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 358
+              },
+              {
+                "name": "reopen",
+                "elapsedMs": 358
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 461
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 481
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 482
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 482
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 483
+              },
+              {
+                "name": "context",
+                "elapsedMs": 485
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 514
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 534
+              },
+              {
+                "name": "click",
+                "elapsedMs": 547
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 574
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 651
+              },
+              {
+                "name": "context",
+                "elapsedMs": 652
+              },
+              {
+                "name": "restart",
+                "elapsedMs": 652
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 811
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 827
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 839
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 840
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 840
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 840
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 840
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 840
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 840
+              }
+            ],
+            "durationMs": 1029,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/trace.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/trace-2.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/trace-3.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/page@a00640a7993f67669a5343bacf28d75e.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/page@7e8069e78c724f975dcff3c86c4f818a.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/page@e5fe268f0aa4b4c2f3d4257f04f1b7e5.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/control-control-b/evidence/page@8fd940d7bf2b6188c8eac0b3e25d8d89.webm"
+            ],
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        }
+      ],
+      "falseRejections": 0,
+      "controlErrors": 0,
+      "results": [
+        {
+          "id": "fault-1",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-1",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 107
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 137
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 163
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 179
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 203
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 280
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 283
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 285
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 288
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 319
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 342
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 343
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 344
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 344
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 447
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 467
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 469
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 469
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 470
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 471
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 500
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 520
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 533
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 560
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 635
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 636
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 636
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 796
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 811
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 822
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 823
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 823
+                }
+              ],
+              "durationMs": 1009,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/page@ba5995a6c25dc23aaf7dc8b98dcb28e6.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/page@bf22deb19d365525eb5c9ef1f525ea34.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/page@2869ee821510db2de9ef2fd70e1cd3ef.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-1/evidence/page@2d84fa1426fc6222787d77e2f38074f0.webm"
+              ],
+              "error": "Expectation ownerOnly failed.",
+              "expectationId": "ownerOnly",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-2",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-2",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "survivesRestart",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "bookedTimeShown",
+                  "actual": "Invalid Date · 2:00 PM — Box braids",
+                  "expected": "Sat 5 Jan · 2:00 PM — Box braids",
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 109
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 137
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 163
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 180
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 204
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 228
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 231
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 257
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 260
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 287
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 310
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 311
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 312
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 312
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 416
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 435
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 436
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 436
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 438
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 439
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 469
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 489
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 501
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 529
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 606
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 607
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 607
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 765
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 780
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 790
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 791
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 791
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 791
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 791
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 791
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 791
+                }
+              ],
+              "durationMs": 970,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/page@822bfdabbc52a8062d31a77a1c7b8670.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/page@707aaf4f9ea9fe0482a5c85c81626913.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/page@7a0d111832dd3fcc3c9bb73939bcc187.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-2/evidence/page@4b7826aaba3a293d8706a5468076b499.webm"
+              ],
+              "error": "Expectation bookedTimeShown failed.",
+              "expectationId": "bookedTimeShown",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-3",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-3",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "survivesRestart",
+                  "actual": 0,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 119
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 147
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 177
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 194
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 216
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 293
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 296
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 298
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 301
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 333
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 357
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 358
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 359
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 359
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 457
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 478
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 479
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 479
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 480
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 482
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 510
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 531
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 544
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 572
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 597
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 598
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 598
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 757
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 775
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 785
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 786
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 786
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 786
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 786
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 786
+                }
+              ],
+              "durationMs": 968,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/page@720eb0ad981e7f29c0ef748a4cf9400d.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/page@1e45ffdea417bfec76c4794c9102b201.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/page@5a0663967434b33134294edb7b86b7c8.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-3/evidence/page@f5771e0829eb1110958b96a791b5b2be.webm"
+              ],
+              "error": "Expectation survivesRestart failed.",
+              "expectationId": "survivesRestart",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-4",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-4",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "survivesRestart",
+                  "actual": 0,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 111
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 140
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 169
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 186
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 226
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 251
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 254
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 281
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 283
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 308
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 332
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 333
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 334
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 334
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 435
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 470
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 472
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 472
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 473
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 474
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 503
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 523
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 535
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 562
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 587
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 588
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 588
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 751
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 767
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 777
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 779
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 779
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 779
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 779
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 779
+                }
+              ],
+              "durationMs": 957,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/page@f46aef9fb338494d983aa02ae162dcb3.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/page@2e2c80dc282a158d3e3d0cd4b698cc07.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/page@4cf7ae0d16611125bd64e2978c9ba940.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-v1/variants/decoy-fault-4/evidence/page@a48e456bc7d6a5e6f0c4169a2b6ef45a.webm"
+              ],
+              "error": "Expectation survivesRestart failed.",
+              "expectationId": "survivesRestart",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        }
+      ],
+      "counts": {
+        "total": 4,
+        "caught": 4,
+        "survived": 0,
+        "uncounted": 0
+      }
+    },
+    {
+      "role": "confam-final",
+      "provenance": "Final workflow after 0 strengthening rounds.",
+      "provenanceVerified": false,
+      "controls": [
+        {
+          "id": "control-control-a",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "passed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "appointmentPersists",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 0,
+                "expected": 0,
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "Booking confirmed",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "survivesRestart",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "bookedTimeShown",
+                "actual": "Sat 5 Jan · 2:00 PM — Box braids",
+                "expected": "Sat 5 Jan · 2:00 PM — Box braids",
+                "operator": "eq",
+                "passed": true
+              }
+            ],
+            "steps": [
+              {
+                "name": "context",
+                "elapsedMs": 112
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 141
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 168
+              },
+              {
+                "name": "click",
+                "elapsedMs": 184
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 208
+              },
+              {
+                "name": "select",
+                "elapsedMs": 285
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 288
+              },
+              {
+                "name": "select",
+                "elapsedMs": 290
+              },
+              {
+                "name": "click",
+                "elapsedMs": 293
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 323
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 345
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 346
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 347
+              },
+              {
+                "name": "reopen",
+                "elapsedMs": 347
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 443
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 463
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 465
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 465
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 466
+              },
+              {
+                "name": "context",
+                "elapsedMs": 467
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 496
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 517
+              },
+              {
+                "name": "click",
+                "elapsedMs": 531
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 558
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 584
+              },
+              {
+                "name": "context",
+                "elapsedMs": 585
+              },
+              {
+                "name": "restart",
+                "elapsedMs": 585
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 745
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 759
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 770
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 771
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 771
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 771
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 771
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 771
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 771
+              }
+            ],
+            "durationMs": 944,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/trace.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/trace-2.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/trace-3.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/page@0f976d54f1ede57acb4a83d34b7d1744.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/page@72e4a0b294895c3cb2a8b77ee300dc1b.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/page@9fa0b268bae8dc2a962cff1fee19a699.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-a/evidence/page@6e375a5130a7a2a246751088d9693d9d.webm"
+            ],
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        },
+        {
+          "id": "control-control-b",
+          "kind": "control",
+          "phase": "workflow",
+          "result": {
+            "status": "passed",
+            "reached": true,
+            "assertions": [
+              {
+                "expectationId": "appointmentPersists",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "ownerOnly",
+                "actual": 0,
+                "expected": 0,
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": "Booking confirmed",
+                "expected": "Booking confirmed",
+                "operator": "eq",
+                "passed": true
+              },
+              {
+                "expectationId": "confirmationMeansSaved",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "survivesRestart",
+                "actual": 1,
+                "expected": 1,
+                "operator": "gte",
+                "passed": true
+              },
+              {
+                "expectationId": "bookedTimeShown",
+                "actual": "Sat 5 Jan · 2:00 PM — Box braids",
+                "expected": "Sat 5 Jan · 2:00 PM — Box braids",
+                "operator": "eq",
+                "passed": true
+              }
+            ],
+            "steps": [
+              {
+                "name": "context",
+                "elapsedMs": 120
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 148
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 174
+              },
+              {
+                "name": "click",
+                "elapsedMs": 191
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 213
+              },
+              {
+                "name": "select",
+                "elapsedMs": 291
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 294
+              },
+              {
+                "name": "select",
+                "elapsedMs": 296
+              },
+              {
+                "name": "click",
+                "elapsedMs": 299
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 331
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 354
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 355
+              },
+              {
+                "name": "reached",
+                "elapsedMs": 356
+              },
+              {
+                "name": "reopen",
+                "elapsedMs": 356
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 460
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 480
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 481
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 482
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 483
+              },
+              {
+                "name": "context",
+                "elapsedMs": 484
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 513
+              },
+              {
+                "name": "fill",
+                "elapsedMs": 533
+              },
+              {
+                "name": "click",
+                "elapsedMs": 547
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 573
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 598
+              },
+              {
+                "name": "context",
+                "elapsedMs": 599
+              },
+              {
+                "name": "restart",
+                "elapsedMs": 599
+              },
+              {
+                "name": "navigate",
+                "elapsedMs": 762
+              },
+              {
+                "name": "wait",
+                "elapsedMs": 781
+              },
+              {
+                "name": "capture",
+                "elapsedMs": 793
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 795
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 795
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 795
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 795
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 795
+              },
+              {
+                "name": "assert",
+                "elapsedMs": 795
+              }
+            ],
+            "durationMs": 990,
+            "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/trace.zip",
+            "traces": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/trace.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/trace-2.zip",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/trace-3.zip"
+            ],
+            "videos": [
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/page@8ed34d6207f5f14007726c05054ab7e2.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/page@d8c510f935ba1741c122eac7295073c1.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/page@ece02d030b9cef96fd922972e4baf90f.webm",
+              "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/control-control-b/evidence/page@24fa91f31e9109c1fa857d5ef0590beb.webm"
+            ],
+            "cleanupComplete": true
+          },
+          "cleanupComplete": true
+        }
+      ],
+      "falseRejections": 0,
+      "controlErrors": 0,
+      "results": [
+        {
+          "id": "fault-1",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-1",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 117
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 154
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 190
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 215
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 246
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 270
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 272
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 299
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 301
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 326
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 348
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 350
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 350
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 350
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 459
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 495
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 496
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 496
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 497
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 499
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 528
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 548
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 562
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 588
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 613
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 614
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 614
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 779
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 795
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 806
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 807
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 807
+                }
+              ],
+              "durationMs": 989,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/page@6a0743e8e7671898390d53462dd1d12a.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/page@63d82835c3b16f0b6d454a6eb2c15a62.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/page@8053f0f37cec2185e4b17edabf103d2f.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-1/evidence/page@e7215ef0e520f8f20c1a1343d7bc1bf1.webm"
+              ],
+              "error": "Expectation ownerOnly failed.",
+              "expectationId": "ownerOnly",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-2",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-2",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "survivesRestart",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "bookedTimeShown",
+                  "actual": "Invalid Date · 2:00 PM — Box braids",
+                  "expected": "Sat 5 Jan · 2:00 PM — Box braids",
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 113
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 143
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 169
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 187
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 226
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 303
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 305
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 308
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 311
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 342
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 365
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 366
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 367
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 367
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 470
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 488
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 491
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 491
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 492
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 494
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 526
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 549
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 563
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 589
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 666
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 667
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 667
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 826
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 842
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 853
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 854
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 854
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 854
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 854
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 854
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 854
+                }
+              ],
+              "durationMs": 1039,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/page@1dbb1f9cb42a74508bda604351c8eaef.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/page@1a9933e1f294f4bcf1468eda3f2f7e12.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/page@3a637e2a30a09668dddc604460ae3c3a.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-2/evidence/page@29d78ca814346e367e2809ec9983c66a.webm"
+              ],
+              "error": "Expectation bookedTimeShown failed.",
+              "expectationId": "bookedTimeShown",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-3",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-3",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "survivesRestart",
+                  "actual": 0,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 147
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 198
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 226
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 254
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 283
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 309
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 311
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 338
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 340
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 365
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 386
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 387
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 388
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 388
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 491
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 527
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 528
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 528
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 529
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 530
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 560
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 580
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 593
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 621
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 646
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 647
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 647
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 808
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 823
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 855
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 856
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 856
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 856
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 856
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 856
+                }
+              ],
+              "durationMs": 1034,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/page@b4721fd4101076032b520e51928c7ca1.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/page@e3527f80785ade3d96f130ba7baca3d0.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/page@edbf36a57b935d43a509db710691a0b9.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-3/evidence/page@e85739f744821cbacf1a3dd6721db2c7.webm"
+              ],
+              "error": "Expectation survivesRestart failed.",
+              "expectationId": "survivesRestart",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        },
+        {
+          "id": "fault-4",
+          "outcome": "caught",
+          "checks": {
+            "id": "decoy-fault-4",
+            "kind": "candidate",
+            "phase": "workflow",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "appointmentPersists",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "ownerOnly",
+                  "actual": 0,
+                  "expected": 0,
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": "Booking confirmed",
+                  "expected": "Booking confirmed",
+                  "operator": "eq",
+                  "passed": true
+                },
+                {
+                  "expectationId": "confirmationMeansSaved",
+                  "actual": 1,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": true
+                },
+                {
+                  "expectationId": "survivesRestart",
+                  "actual": 0,
+                  "expected": 1,
+                  "operator": "gte",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "context",
+                  "elapsedMs": 107
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 138
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 170
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 190
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 227
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 302
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 305
+                },
+                {
+                  "name": "select",
+                  "elapsedMs": 307
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 310
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 343
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 366
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 367
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 368
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 368
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 468
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 486
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 488
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 488
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 489
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 490
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 521
+                },
+                {
+                  "name": "fill",
+                  "elapsedMs": 543
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 556
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 584
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 609
+                },
+                {
+                  "name": "context",
+                  "elapsedMs": 610
+                },
+                {
+                  "name": "restart",
+                  "elapsedMs": 610
+                },
+                {
+                  "name": "navigate",
+                  "elapsedMs": 774
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 791
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 803
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 804
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 804
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 804
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 804
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 804
+                }
+              ],
+              "durationMs": 992,
+              "trace": "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/trace.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/trace-2.zip",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/trace-3.zip"
+              ],
+              "videos": [
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/page@57138fe29a9596cae2640a4da6376445.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/page@43dd16183a73bbe0a9d5227e50a5d58e.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/page@b14224fb81fc075eb9a9cda0c0c168c3.webm",
+                "runs/challenge-ea1481ee-e1f9-46fc-9c0b-5e9e9dd48f0b/evaluations/held-out/confam-final/variants/decoy-fault-4/evidence/page@285e6ef8f3980605e817e31884a2f879.webm"
+              ],
+              "error": "Expectation survivesRestart failed.",
+              "expectationId": "survivesRestart",
+              "cleanupComplete": true
+            },
+            "cleanupComplete": true
+          }
+        }
+      ],
+      "counts": {
+        "total": 4,
+        "caught": 4,
+        "survived": 0,
+        "uncounted": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Raw counts on this pack only; no general correctness guarantee.",
+    "Independent probes label faults; only workflow assertions score check detection.",
+    "Comparator provenance is supplied and unverified; absent metadata cannot support model-performance claims."
+  ],
+  "packHash": "f17941572f2efdb950482b804b0107e0928dfdf26e71792db314a9b54a69ca76",
+  "finishedAt": "2026-10-31T19:47:06.469Z",
+  "durationMs": 35692
+}

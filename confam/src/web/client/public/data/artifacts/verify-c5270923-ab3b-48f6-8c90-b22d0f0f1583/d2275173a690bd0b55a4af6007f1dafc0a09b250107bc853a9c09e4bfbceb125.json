@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-31T15:54:13.052Z",
+  "expectations": [
+    {
+      "id": "proxyStillRefusesInternal",
+      "statement": "Even when the server is configured to use an HTTP proxy, checking a bookmark URL that points at an internal address does not make the server request that address.",
+      "provenance": "developer"
+    }
+  ]
+}

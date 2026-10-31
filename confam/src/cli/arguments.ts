@@ -14,6 +14,7 @@ export const USAGE = `Commands:
   repair <suite.json> (starts a repair session: writes Muse Wonder's export for review and stops; nothing is sent)
   repair-continue <session-directory> --approved-export export.json [--budget USD] (sends the approved export, runs every case against the fix, then writes the next export for review)
   repair-recheck <session-directory> (after an execution error, re-runs every case on the last fix; no model call)
+  export-site <evidence.json> (writes the read-only evidence site's data from selected local runs into the web build's public folder)
   project-check <project.json>
   run <case> [--candidate patch]
   intake <case> [--budget USD]
@@ -25,7 +26,7 @@ export const USAGE = `Commands:
 The demo uses scripted fixture responses and confirmation; it makes no model calls.`;
 
 interface CliArguments {
-  command: "serve" | "recording-intake" | "draft-decoys" | "draft-gaps" | "draft-fix" | "repair" | "repair-continue" | "repair-recheck" | "challenge" | "compare" | "verify" | "review" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
+  command: "serve" | "recording-intake" | "draft-decoys" | "draft-gaps" | "draft-fix" | "repair" | "repair-continue" | "repair-recheck" | "export-site" | "challenge" | "compare" | "verify" | "review" | "draft-workflow" | "project-check" | "run" | "intake" | "confirm" | "execute" | "recheck" | "heldout" | "demo";
   subject: string;
   report?: string;
   port?: number;
@@ -49,7 +50,7 @@ interface CliArguments {
 
 export function parseArguments(argv: string[]): CliArguments {
   const [command, subject, ...flags] = argv;
-  if (!command || !["serve", "recording-intake", "draft-decoys", "draft-gaps", "draft-fix", "repair", "repair-continue", "repair-recheck", "challenge", "compare", "verify", "review", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
+  if (!command || !["serve", "recording-intake", "draft-decoys", "draft-gaps", "draft-fix", "repair", "repair-continue", "repair-recheck", "export-site", "challenge", "compare", "verify", "review", "draft-workflow", "project-check", "run", "intake", "confirm", "execute", "recheck", "heldout", "demo"].includes(command) || !subject || subject.startsWith("--")) throw new Error(USAGE);
   const values = new Map<string, string>();
   const allowed: Record<string, string[]> = {
     serve: ["--port"],
@@ -65,6 +66,7 @@ export function parseArguments(argv: string[]): CliArguments {
     repair: [],
     "repair-continue": ["--approved-export", "--budget"],
     "repair-recheck": [],
+    "export-site": [],
     "project-check": [], run: ["--candidate"], intake: ["--budget"], confirm: ["--accept", "--answer"], execute: ["--candidate", "--fix"], demo: ["--candidate", "--budget", "--fix"],
     recheck: ["--candidate", "--budget", "--fix"], heldout: ["--pack"],
   };

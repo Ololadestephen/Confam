@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "mosaic-latest",
+  "caseId": "successForgivesFailures",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "successForgivesFailures",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "context",
+            "elapsedMs": 410
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 452
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1662
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1723
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1727
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1755
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1805
+          },
+          {
+            "name": "context",
+            "elapsedMs": 3093
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 3126
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4113
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4134
+          },
+          {
+            "name": "click",
+            "elapsedMs": 4170
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 4209
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 4286
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5234
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5248
+          },
+          {
+            "name": "click",
+            "elapsedMs": 5258
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 5301
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 5376
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6266
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6281
+          },
+          {
+            "name": "click",
+            "elapsedMs": 6286
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 6325
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 6400
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7280
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7295
+          },
+          {
+            "name": "click",
+            "elapsedMs": 7298
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 7339
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 7415
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8455
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8469
+          },
+          {
+            "name": "click",
+            "elapsedMs": 8473
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 8501
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 8577
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9548
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9572
+          },
+          {
+            "name": "click",
+            "elapsedMs": 9577
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 9615
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 9691
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10559
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10572
+          },
+          {
+            "name": "click",
+            "elapsedMs": 10577
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 10613
+          },
+          {
+            "name": "context",
+            "elapsedMs": 10688
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 10782
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11649
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11666
+          },
+          {
+            "name": "click",
+            "elapsedMs": 11719
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 11756
+          },
+          {
+            "name": "context",
+            "elapsedMs": 12145
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 12186
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13099
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13113
+          },
+          {
+            "name": "click",
+            "elapsedMs": 13140
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 13181
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 13256
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14152
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14168
+          },
+          {
+            "name": "click",
+            "elapsedMs": 14172
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 14207
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 14294
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15455
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15472
+          },
+          {
+            "name": "click",
+            "elapsedMs": 15477
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 15513
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 15588
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16473
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16486
+          },
+          {
+            "name": "click",
+            "elapsedMs": 16490
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 16524
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 16599
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17529
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17543
+          },
+          {
+            "name": "click",
+            "elapsedMs": 17546
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 17581
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 17656
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18502
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18514
+          },
+          {
+            "name": "click",
+            "elapsedMs": 18517
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 18553
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 18629
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19542
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19557
+          },
+          {
+            "name": "click",
+            "elapsedMs": 19561
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 19591
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 19667
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 20584
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 20599
+          },
+          {
+            "name": "click",
+            "elapsedMs": 20601
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 20633
+          },
+          {
+            "name": "context",
+            "elapsedMs": 20657
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 20976
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 21895
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 21911
+          },
+          {
+            "name": "click",
+            "elapsedMs": 21975
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 22014
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 22040
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 22040
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 22042
+          }
+        ],
+        "durationMs": 25060,
+        "trace": "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/trace.zip",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/trace-2.zip",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/trace-3.zip",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/trace-4.zip",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/trace-5.zip",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/trace-6.zip"
+        ],
+        "videos": [
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/page@411bb8daa19df36b6535e163b7076f85.webm",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/page@2e71e7878f2130e6f20c0842507a6e0a.webm",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/page@b82b4672c35a5bd7d82e3c1966e79ddf.webm",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/page@6fb078ac1c011c22c1998cfc940dd098.webm",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/page@855f47944ea406f1578b07210fbbe22f.webm",
+          "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/variants/original/evidence/page@241337cea6a21ab900289dd4156eeb63.webm"
+        ],
+        "error": "Expectation successForgivesFailures failed.",
+        "expectationId": "successForgivesFailures",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-a6c88f0a-a7fc-40ae-8837-9262717fb88c/checks",
+    "sha256": "67127a675c7aea6f23e54c881ae8d0137f8674cf9ac2f79439408516a985fc1a"
+  },
+  "baselineRevision": "ef58f05c6447af4187e7c9a748ce8e6c1c65bd48"
+}

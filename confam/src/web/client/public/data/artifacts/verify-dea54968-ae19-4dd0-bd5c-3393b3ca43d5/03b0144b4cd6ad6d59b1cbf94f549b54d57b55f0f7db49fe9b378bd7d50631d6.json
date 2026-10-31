@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax",
+  "caseId": "quoteSpamLimit",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "validQuoteAccepted",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "spamLimitSurvivesRestart",
+            "actual": 200,
+            "expected": 429,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 659
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 887
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 887
+          },
+          {
+            "name": "request",
+            "elapsedMs": 888
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1086
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1188
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1282
+          },
+          {
+            "name": "restart",
+            "elapsedMs": 1385
+          },
+          {
+            "name": "request",
+            "elapsedMs": 3464
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 3606
+          }
+        ],
+        "durationMs": 3756,
+        "trace": "runs/verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5/variants/original/evidence/page@6e4f2046b7f04102eb564f850f63607c.webm"
+        ],
+        "error": "Expectation spamLimitSurvivesRestart failed.",
+        "expectationId": "spamLimitSurvivesRestart",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "control-real-fix",
+      "kind": "control",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "validQuoteAccepted",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "spamLimitSurvivesRestart",
+            "actual": 429,
+            "expected": 429,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "spamLimitSurvivesRestart",
+            "actual": "Too many requests. Please try again later.",
+            "expected": "Too many requests. Please try again later.",
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 909
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 1113
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1113
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1113
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1259
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1524
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1664
+          },
+          {
+            "name": "restart",
+            "elapsedMs": 1804
+          },
+          {
+            "name": "request",
+            "elapsedMs": 3517
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 3689
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 3689
+          }
+        ],
+        "durationMs": 3817,
+        "trace": "runs/verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5/variants/control-real-fix/evidence/trace.zip",
+        "traces": [
+          "runs/verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5/variants/control-real-fix/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5/variants/control-real-fix/evidence/page@a089dc172bce43ccd60f0affc3271df9.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox."
+  ],
+  "checks": {
+    "directory": "runs/verify-dea54968-ae19-4dd0-bd5c-3393b3ca43d5/checks",
+    "sha256": "b6c5aa7d225cea3d94e0b55f618213fd6913cf52b0b4bacd63dd23648cf3e0a9"
+  },
+  "baselineRevision": "e054fea5dfc08c1e0c13e09d2ca17a6f260e4a53"
+}

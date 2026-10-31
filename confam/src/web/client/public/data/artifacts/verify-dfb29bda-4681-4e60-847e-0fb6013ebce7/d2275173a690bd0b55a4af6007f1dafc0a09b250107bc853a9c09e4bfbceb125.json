@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-30T22:02:43.889Z",
+  "expectations": [
+    {
+      "id": "b4",
+      "statement": "A failed lead save does not consume the allowance for five valid requests.",
+      "provenance": "developer"
+    }
+  ]
+}

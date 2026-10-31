@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "linkding",
+  "caseId": "internalAddressFetch",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "checkStillAnswers",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "internalAddressNotFetched",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 610
+          },
+          {
+            "name": "request",
+            "elapsedMs": 631
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 632
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 632
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 633
+          }
+        ],
+        "durationMs": 697,
+        "trace": "runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/variants/original/evidence/page@647842ee293e6cee602d3e3417a5ad40.webm"
+        ],
+        "error": "Expectation internalAddressNotFetched failed.",
+        "expectationId": "internalAddressNotFetched",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "control-real-fix",
+      "kind": "control",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "checkStillAnswers",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "internalAddressNotFetched",
+            "actual": 0,
+            "expected": 0,
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 136
+          },
+          {
+            "name": "request",
+            "elapsedMs": 146
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 148
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 148
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 148
+          }
+        ],
+        "durationMs": 245,
+        "trace": "runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/variants/control-real-fix/evidence/trace.zip",
+        "traces": [
+          "runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/variants/control-real-fix/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/variants/control-real-fix/evidence/page@6d397bff343eb58261ffd140ceedecc8.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox."
+  ],
+  "checks": {
+    "directory": "runs/verify-3424bf91-b2cf-4708-a106-7c01e5b96dc9/checks",
+    "sha256": "40d6bb9bfaf027f809f87b80dc5c1e0e6b86e217beaa37ff371ead33b2256498"
+  },
+  "baselineRevision": "679c93644e5faad631234885066a2e7be43da341"
+}

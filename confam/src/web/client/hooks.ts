@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiUrl, readRun } from "./api.js";
+import { STATIC_SITE, apiUrl, readRun } from "./api.js";
 import type { RunView } from "./types.js";
 export interface RunSummary {
   runId: string;
@@ -61,6 +61,12 @@ export function useRun(id: string) {
       .catch((cause) => {
         if (active && !abort.signal.aborted) setError(cause.message);
       });
+    // A recorded site has no live updates to follow.
+    if (STATIC_SITE)
+      return () => {
+        active = false;
+        abort.abort();
+      };
     const events = new EventSource(apiUrl("/api/events", id));
     events.onopen = () => {
       if (active) setConnected(true);

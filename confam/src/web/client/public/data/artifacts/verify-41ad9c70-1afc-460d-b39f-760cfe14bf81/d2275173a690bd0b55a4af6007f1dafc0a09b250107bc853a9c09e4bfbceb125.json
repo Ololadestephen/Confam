@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-30T10:10:43.978Z",
+  "expectations": [
+    {
+      "id": "workspaceStaysOpen",
+      "statement": "Re-selecting the workspace that is already open keeps its board on screen.",
+      "provenance": "report"
+    }
+  ]
+}

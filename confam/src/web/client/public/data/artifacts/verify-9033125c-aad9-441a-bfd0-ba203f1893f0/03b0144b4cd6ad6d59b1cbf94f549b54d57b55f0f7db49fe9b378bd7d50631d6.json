@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax-latest",
+  "caseId": "invalidDoesNotConsumeQuota",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "invalidDoesNotConsumeQuota",
+            "actual": 400,
+            "expected": 400,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "invalidDoesNotConsumeQuota",
+            "actual": 429,
+            "expected": 200,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 765
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 988
+          },
+          {
+            "name": "request",
+            "elapsedMs": 988
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1128
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1268
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1536
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1665
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1666
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1802
+          }
+        ],
+        "durationMs": 1893,
+        "trace": "runs/verify-9033125c-aad9-441a-bfd0-ba203f1893f0/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-9033125c-aad9-441a-bfd0-ba203f1893f0/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-9033125c-aad9-441a-bfd0-ba203f1893f0/variants/original/evidence/page@6a3f4154e1812114b8141c681921262d.webm"
+        ],
+        "error": "Expectation invalidDoesNotConsumeQuota failed.",
+        "expectationId": "invalidDoesNotConsumeQuota",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-9033125c-aad9-441a-bfd0-ba203f1893f0/checks",
+    "sha256": "3261a591604aeed81cf7ccd75d10044683e0ca72ab9488c9284ca8208843e364"
+  },
+  "baselineRevision": "4ed96f5ea492133517ee82eb4da760ba0b6ab39e"
+}

@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-31T21:00:08.301Z",
+  "expectations": [
+    {
+      "id": "proxyRecheckAtFetch",
+      "statement": "When a proxy is configured, a bookmark hostname that resolves to a public address when checked but to an internal address when the proxy fetches it does not make the server reach that internal address.",
+      "provenance": "developer"
+    }
+  ]
+}

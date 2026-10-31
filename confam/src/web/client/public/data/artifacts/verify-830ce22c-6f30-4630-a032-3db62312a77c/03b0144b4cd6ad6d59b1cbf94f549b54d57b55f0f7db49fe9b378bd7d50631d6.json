@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "linkding-latest-proxy-dns",
+  "caseId": "proxyRecheckAtFetch",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "proxyRecheckAtFetch",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 452
+          },
+          {
+            "name": "request",
+            "elapsedMs": 467
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 468
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 468
+          }
+        ],
+        "durationMs": 530,
+        "trace": "runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/variants/original/evidence/page@153512762932a0f5b3c36b68c30d490e.webm"
+        ],
+        "error": "Expectation proxyRecheckAtFetch failed.",
+        "expectationId": "proxyRecheckAtFetch",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "proxyRecheckAtFetch",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 129
+          },
+          {
+            "name": "request",
+            "elapsedMs": 277
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 279
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 279
+          }
+        ],
+        "durationMs": 336,
+        "trace": "runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/variants/candidate/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/variants/candidate/evidence/page@16f5a7fe9dcfcfb36639210ce7156b23.webm"
+        ],
+        "error": "Expectation proxyRecheckAtFetch failed.",
+        "expectationId": "proxyRecheckAtFetch",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "Candidate failed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/checks",
+    "sha256": "73fc7ed8306f0f8d6327c3825e3887e03891e685402816a53df85b928bf4cf82"
+  },
+  "baselineRevision": "d02cbd9bf61f09df688f22ba86b159f4210ce855",
+  "candidate": "failed"
+}

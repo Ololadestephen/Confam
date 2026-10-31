@@ -1,3 +1,4 @@
+import { REPOSITORY_URL, STATIC_SITE } from "./api.js";
 import type { ReactNode } from "react";
 import { pageUrl, runPath } from "./routing.js";
 import type { RunView } from "./types.js";
@@ -84,15 +85,19 @@ export function Shell({
         <nav className="topnav" aria-label="Main navigation">
           <Link to="/" className="brand">
             <span className="brand-flower">✳</span> confam
-            <span className="beta">local beta</span>
+            <span className="beta">
+              {STATIC_SITE ? "recorded evidence" : "local beta"}
+            </span>
           </Link>
           <div className="nav-links">
-            <Link
-              to="/projects"
-              aria-current={page === "projects" ? "page" : undefined}
-            >
-              Apps
-            </Link>
+            {STATIC_SITE ? null : (
+              <Link
+                to="/projects"
+                aria-current={page === "projects" ? "page" : undefined}
+              >
+                Apps
+              </Link>
+            )}
             <Link to="/" aria-current={page === "home" ? "page" : undefined}>
               Home
             </Link>
@@ -100,7 +105,7 @@ export function Shell({
               to="/runs"
               aria-current={page === "runs" ? "page" : undefined}
             >
-              Your runs
+              {STATIC_SITE ? "Runs" : "Your runs"}
             </Link>
             <Link
               to="/gaps"
@@ -117,11 +122,25 @@ export function Shell({
               How it works
             </Link>
           </div>
-          <Link to="/projects" className="button nav-cta">
-            Prepare a run
-          </Link>
+          {STATIC_SITE ? (
+            <a href={REPOSITORY_URL} className="button nav-cta">
+              Get Confam
+            </a>
+          ) : (
+            <Link to="/projects" className="button nav-cta">
+              Prepare a run
+            </Link>
+          )}
         </nav>
       </header>
+      {STATIC_SITE ? (
+        <p className="static-banner" role="note">
+          <strong>Recorded evidence.</strong> These are real results from local
+          runs on October 30 and 31, 2026. Nothing runs on this site. To run
+          Confam on your own app, <a href={REPOSITORY_URL}>clone it from GitHub</a>{" "}
+          or use its GitHub Action.
+        </p>
+      ) : null}
       {children}
       <footer className="footer">
         <div>
@@ -137,7 +156,11 @@ export function Shell({
           <span className="eyebrow">Explore</span>
           <Link to="/runs">Run library </Link>
           <Link to="/gaps">Gap reviews </Link>
-          <Link to="/projects">Prepare a run </Link>
+          {STATIC_SITE ? (
+            <a href={REPOSITORY_URL}>Get Confam </a>
+          ) : (
+            <Link to="/projects">Prepare a run </Link>
+          )}
           <Link to="/guide">The workflow </Link>
         </div>
         <div>

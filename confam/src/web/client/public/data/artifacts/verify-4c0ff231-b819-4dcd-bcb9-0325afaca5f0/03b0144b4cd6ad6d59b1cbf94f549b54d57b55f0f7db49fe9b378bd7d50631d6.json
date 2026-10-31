@@ -1,0 +1,1134 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "mosaic",
+  "caseId": "signInLockout",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "repeatedSignInAllowed",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "context",
+            "elapsedMs": 734
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 772
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1755
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1819
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1822
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1854
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1896
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 3183
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4143
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4157
+          },
+          {
+            "name": "click",
+            "elapsedMs": 4161
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 4193
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 4421
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5305
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5321
+          },
+          {
+            "name": "click",
+            "elapsedMs": 5327
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 5360
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 5704
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6611
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6627
+          },
+          {
+            "name": "click",
+            "elapsedMs": 6632
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 6661
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 7006
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7893
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7906
+          },
+          {
+            "name": "click",
+            "elapsedMs": 7910
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 7944
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 8283
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9126
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9138
+          },
+          {
+            "name": "click",
+            "elapsedMs": 9145
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 9183
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 9422
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10320
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10334
+          },
+          {
+            "name": "click",
+            "elapsedMs": 10338
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 10366
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 10602
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11484
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11495
+          },
+          {
+            "name": "click",
+            "elapsedMs": 11499
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 11532
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 11869
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12752
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12765
+          },
+          {
+            "name": "click",
+            "elapsedMs": 12769
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 12804
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 13146
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14000
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14016
+          },
+          {
+            "name": "click",
+            "elapsedMs": 14020
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 14050
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 14387
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15249
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15262
+          },
+          {
+            "name": "click",
+            "elapsedMs": 15266
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 15309
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 15656
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16543
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16567
+          },
+          {
+            "name": "click",
+            "elapsedMs": 16571
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 16617
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 16952
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17798
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17812
+          },
+          {
+            "name": "click",
+            "elapsedMs": 17816
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 17855
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 18080
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19005
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19019
+          },
+          {
+            "name": "click",
+            "elapsedMs": 19023
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 19054
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 19273
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 20166
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 20177
+          },
+          {
+            "name": "click",
+            "elapsedMs": 20182
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 20225
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 20579
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 21484
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 21497
+          },
+          {
+            "name": "click",
+            "elapsedMs": 21501
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 21538
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 21563
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 21563
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 21566
+          }
+        ],
+        "durationMs": 22923,
+        "trace": "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/original/evidence/trace.zip",
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/original/evidence/trace-2.zip"
+        ],
+        "videos": [
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/original/evidence/page@ad4184b9934de979ed9e084550fb29fe.webm",
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/original/evidence/page@e67cad52e74a9803414abd8bf366787f.webm"
+        ],
+        "error": "Expectation repeatedSignInAllowed failed.",
+        "expectationId": "repeatedSignInAllowed",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "repeatedSignInAllowed",
+            "actual": 0,
+            "expected": 0,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "failuresStillLock",
+            "actual": 1,
+            "expected": 1,
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "context",
+            "elapsedMs": 347
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 384
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1518
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1564
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1566
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1592
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1627
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 2909
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 3858
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 3872
+          },
+          {
+            "name": "click",
+            "elapsedMs": 3876
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 3906
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 4242
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5085
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5096
+          },
+          {
+            "name": "click",
+            "elapsedMs": 5100
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 5141
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 5475
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6354
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6367
+          },
+          {
+            "name": "click",
+            "elapsedMs": 6371
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 6398
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 6734
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7575
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7587
+          },
+          {
+            "name": "click",
+            "elapsedMs": 7590
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 7632
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 7856
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8726
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8738
+          },
+          {
+            "name": "click",
+            "elapsedMs": 8742
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 8773
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 9016
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9957
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9970
+          },
+          {
+            "name": "click",
+            "elapsedMs": 9974
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 10014
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 10364
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11231
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11244
+          },
+          {
+            "name": "click",
+            "elapsedMs": 11249
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 11289
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 11622
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12493
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12506
+          },
+          {
+            "name": "click",
+            "elapsedMs": 12510
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 12544
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 12782
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13692
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13705
+          },
+          {
+            "name": "click",
+            "elapsedMs": 13709
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 13739
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 14073
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14933
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14945
+          },
+          {
+            "name": "click",
+            "elapsedMs": 14949
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 14987
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 15215
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16128
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16140
+          },
+          {
+            "name": "click",
+            "elapsedMs": 16148
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 16187
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 16524
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17375
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17388
+          },
+          {
+            "name": "click",
+            "elapsedMs": 17392
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 17428
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 17644
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18559
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18571
+          },
+          {
+            "name": "click",
+            "elapsedMs": 18574
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 18609
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 18831
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19714
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19727
+          },
+          {
+            "name": "click",
+            "elapsedMs": 19731
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 19771
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 20106
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 20999
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 21013
+          },
+          {
+            "name": "click",
+            "elapsedMs": 21018
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 21055
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 21272
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 21272
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 21276
+          },
+          {
+            "name": "context",
+            "elapsedMs": 21277
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 21461
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 22353
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 22366
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 22369
+          },
+          {
+            "name": "click",
+            "elapsedMs": 22427
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 22461
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 22785
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 23675
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 23689
+          },
+          {
+            "name": "click",
+            "elapsedMs": 23692
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 23732
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 23807
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 24647
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 24661
+          },
+          {
+            "name": "click",
+            "elapsedMs": 24664
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 24706
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 24782
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 25657
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 25669
+          },
+          {
+            "name": "click",
+            "elapsedMs": 25671
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 25710
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 25785
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 26626
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 26639
+          },
+          {
+            "name": "click",
+            "elapsedMs": 26642
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 26686
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 26762
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 27622
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 27635
+          },
+          {
+            "name": "click",
+            "elapsedMs": 27638
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 27674
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 27750
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 28581
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 28595
+          },
+          {
+            "name": "click",
+            "elapsedMs": 28598
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 28629
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 28704
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 29588
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 29599
+          },
+          {
+            "name": "click",
+            "elapsedMs": 29602
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 29637
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 29714
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 30548
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 30558
+          },
+          {
+            "name": "click",
+            "elapsedMs": 30561
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 30592
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 30667
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 31729
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 31745
+          },
+          {
+            "name": "click",
+            "elapsedMs": 31748
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 31786
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 31862
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 32737
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 32753
+          },
+          {
+            "name": "click",
+            "elapsedMs": 32756
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 32796
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 32870
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 33726
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 33739
+          },
+          {
+            "name": "click",
+            "elapsedMs": 33742
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 33769
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 33843
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 34692
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 34707
+          },
+          {
+            "name": "click",
+            "elapsedMs": 34710
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 34739
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 34815
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 35658
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 35671
+          },
+          {
+            "name": "click",
+            "elapsedMs": 35674
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 35722
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 35807
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 36706
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 36721
+          },
+          {
+            "name": "click",
+            "elapsedMs": 36724
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 36754
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 36828
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 37679
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 37694
+          },
+          {
+            "name": "click",
+            "elapsedMs": 37697
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 37725
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 37748
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 38623
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 38638
+          },
+          {
+            "name": "click",
+            "elapsedMs": 38640
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 38677
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 38701
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 38703
+          }
+        ],
+        "durationMs": 41188,
+        "trace": "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/candidate/evidence/trace.zip",
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/candidate/evidence/trace-2.zip",
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/candidate/evidence/trace-3.zip"
+        ],
+        "videos": [
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/candidate/evidence/page@9b03d87cc2bf689f3d1c22f955faeb5e.webm",
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/candidate/evidence/page@a283b248b5fcfeb85a3eb795f3f91bc0.webm",
+          "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/variants/candidate/evidence/page@e62298c8ce3ab538d1074ac816a34bbc.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "Candidate passed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-4c0ff231-b819-4dcd-bcb9-0325afaca5f0/checks",
+    "sha256": "c5c469af5ad7524a2fea8df90747240ba0672f42367b7e82644d7f469e922069"
+  },
+  "baselineRevision": "38c6a0814c1a6a2dfb766dcde97782aaeb8c3c47",
+  "candidate": "passed"
+}

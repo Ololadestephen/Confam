@@ -12,6 +12,27 @@ import { RunLayout } from "./pages/RunPages.js";
 import { useRun } from "./hooks.js";
 import { routeFor, type Route } from "./routing.js";
 import { Link, PageTitle, Shell } from "./shared.js";
+import { REPOSITORY_URL, STATIC_SITE } from "./api.js";
+// Preparing apps and running checks need Confam on your own machine.
+function RunsLocally() {
+  return (
+    <main id="main" className="workspace">
+      <PageTitle eyebrow="Runs on your machine" title="This part needs Confam locally.">
+        Adding an app, turning a report into expectations and running checks all
+        happen on your own machine or in your CI, because Confam starts your app
+        and reads its data directly. This site only shows recorded results.
+      </PageTitle>
+      <div className="button-row">
+        <a href={REPOSITORY_URL} className="button button-dark">
+          Get Confam on GitHub
+        </a>
+        <Link to="/runs" className="button button-outline">
+          Browse recorded runs
+        </Link>
+      </div>
+    </main>
+  );
+}
 function SavedRun({ route }: { route: Route }) {
   const { run, error, connected } = useRun(route.runId!);
   if (!run)
@@ -59,6 +80,8 @@ export default function App() {
         <Landing />
       ) : route.page === "runs" ? (
         <Library />
+      ) : STATIC_SITE && ["projects", "new", "job"].includes(route.page) ? (
+        <RunsLocally />
       ) : route.page === "projects" ? (
         <Projects />
       ) : route.page === "new" ? (

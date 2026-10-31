@@ -10,6 +10,7 @@ import { DEFAULT_BUDGET_USD } from "../models/config.js";
 import { verifyProject } from "../project/verify.js";
 import { reviewProject } from "../review/index.js";
 import { continueRepair, recheckRepair, startRepair, type RepairState } from "../repair/index.js";
+import { exportSite } from "../web/export-site.js";
 import { proposeWorkflow } from "../authoring/generic.js";
 import { checkProject } from "../project/check.js";
 import path from "node:path";
@@ -90,6 +91,10 @@ async function main(): Promise<void> {
     const state = await recheckRepair(sessionDirectory);
     printRepair(sessionDirectory, state);
     if (state.outcome === "incomplete") process.exitCode = 2;
+  } else if (args.command === "export-site") {
+    const out = path.join(root, "confam/src/web/client/public/data");
+    const result = await exportSite({ runsRoot: path.join(root, "runs"), manifest: path.resolve(args.subject), out });
+    console.log(`Evidence site data: ${out}\n${result.runs} runs, ${result.gaps} gap reviews, ${result.repairs} repair sessions, ${result.artifacts} files published; ${result.unavailable} links kept local.`);
   } else if (args.command === "challenge") {
     const { report, reportPath } = await challengeProject({
       project: path.resolve(args.project!), caseFile: path.resolve(args.subject),

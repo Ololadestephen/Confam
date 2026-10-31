@@ -1,0 +1,16 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-30T19:28:49.485Z",
+  "expectations": [
+    {
+      "id": "validQuoteAccepted",
+      "statement": "A valid quote request is accepted.",
+      "provenance": "report"
+    },
+    {
+      "id": "spamLimitSurvivesRestart",
+      "statement": "After 5 quote requests from one visitor within a minute, a 6th is refused with \"Too many requests\", even if the function restarts in between.",
+      "provenance": "report"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "source": "developer-cli",
+  "reviewScope": "Case expectations, workflow, source policy, probes and decoy requirements; definitions must establish the declared violation.",
+  "expectations": [
+    {
+      "id": "completionPersists",
+      "statement": "A completed task remains completed after reopening the page",
+      "provenance": "developer"
+    }
+  ],
+  "at": "2026-10-30T10:06:37.361Z"
+}

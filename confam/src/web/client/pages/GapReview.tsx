@@ -1,5 +1,6 @@
 import { useId, useState } from "react";
 import { Link, PageTitle } from "../shared.js";
+import { STATIC_SITE } from "../api.js";
 import {
   dollars,
   reviewedLabel,
@@ -10,7 +11,7 @@ import {
 function DecisionState({ gap }: { gap: GapItem }) {
   const [tone, icon, text] =
     gap.decision === "confirmed"
-      ? ["review", "✓", "Confirmed. Not reproduced yet."]
+      ? ["review", "✓", STATIC_SITE ? "Confirmed by the developer" : "Confirmed. Not reproduced yet."]
       : gap.decision === "rejected"
         ? ["muted", "×", "Rejected"]
         : ["review", "?", "Waiting for your decision"];
@@ -59,6 +60,8 @@ function GapCard({
           {gap.decisionNote ? `. Note: ${gap.decisionNote}` : "."}
         </p>
       ) : null}
+      {STATIC_SITE ? null : (
+      <>
       <label className="field" htmlFor={noteId}>
         <span>Note (optional)</span>
         <textarea
@@ -97,6 +100,8 @@ function GapCard({
           </span>
         ) : null}
       </div>
+      </>
+      )}
     </article>
   );
 }
@@ -132,7 +137,9 @@ export default function GapReviewPage({ folderId }: { folderId: string }) {
       >
         {review.previewOnly
           ? "This folder holds a preview of what would be sent to Muse Spark. It was never sent, so there are no gaps to decide."
-          : "Muse Spark proposed these missed expectations. Nothing counts until you confirm it, and a confirmed gap still has to be reproduced."}
+          : STATIC_SITE
+            ? "Muse Spark proposed these missed expectations. The developer confirmed or rejected each one; confirmed gaps were then built as cases and run."
+            : "Muse Spark proposed these missed expectations. Nothing counts until you confirm it, and a confirmed gap still has to be reproduced."}
       </PageTitle>
       {!review.previewOnly ? (
         <div className="library-stats">

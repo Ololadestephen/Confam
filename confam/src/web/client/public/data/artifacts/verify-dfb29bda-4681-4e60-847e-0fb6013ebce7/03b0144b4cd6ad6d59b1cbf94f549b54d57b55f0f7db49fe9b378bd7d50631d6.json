@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax-candidate-gaps",
+  "caseId": "b4",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "b4",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "b4",
+            "actual": 500,
+            "expected": 500,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "b4",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "b4",
+            "actual": 429,
+            "expected": 200,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 865
+          },
+          {
+            "name": "request",
+            "elapsedMs": 939
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1112
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 1162
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1162
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1163
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1163
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1163
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1450
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1598
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1740
+          },
+          {
+            "name": "request",
+            "elapsedMs": 2037
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 2184
+          }
+        ],
+        "durationMs": 2284,
+        "trace": "runs/verify-dfb29bda-4681-4e60-847e-0fb6013ebce7/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-dfb29bda-4681-4e60-847e-0fb6013ebce7/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-dfb29bda-4681-4e60-847e-0fb6013ebce7/variants/original/evidence/page@359deead42a5823405403c002da67daf.webm"
+        ],
+        "error": "Expectation b4 failed.",
+        "expectationId": "b4",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-dfb29bda-4681-4e60-847e-0fb6013ebce7/checks",
+    "sha256": "258e5d52b43c0b039b1fbb861e5a42d7f8dd323cb374a8a962064f8415e8be48"
+  },
+  "baselineRevision": "09b19a2582890f709172304d51935e956e68b178"
+}

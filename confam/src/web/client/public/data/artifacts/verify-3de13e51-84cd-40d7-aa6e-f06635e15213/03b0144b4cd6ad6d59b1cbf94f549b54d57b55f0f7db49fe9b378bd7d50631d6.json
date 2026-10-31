@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "mosaic-latest",
+  "caseId": "signUpDoesNotLockSignIn",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "signUpDoesNotLockSignIn",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "context",
+            "elapsedMs": 527
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 588
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1595
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1731
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 1735
+          },
+          {
+            "name": "click",
+            "elapsedMs": 1766
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 1874
+          },
+          {
+            "name": "context",
+            "elapsedMs": 3161
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 3193
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4222
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4238
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 4242
+          },
+          {
+            "name": "click",
+            "elapsedMs": 4278
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 4308
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 4385
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5310
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5324
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 5327
+          },
+          {
+            "name": "click",
+            "elapsedMs": 5334
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 5366
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 5440
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6283
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6296
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 6300
+          },
+          {
+            "name": "click",
+            "elapsedMs": 6305
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 6338
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 6414
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7285
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7298
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 7301
+          },
+          {
+            "name": "click",
+            "elapsedMs": 7305
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 7350
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 7425
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8351
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8366
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 8376
+          },
+          {
+            "name": "click",
+            "elapsedMs": 8383
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 8412
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 8489
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9347
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9361
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 9364
+          },
+          {
+            "name": "click",
+            "elapsedMs": 9368
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 9406
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 9482
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10342
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10357
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 10359
+          },
+          {
+            "name": "click",
+            "elapsedMs": 10367
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 10398
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 10474
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11398
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11412
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 11415
+          },
+          {
+            "name": "click",
+            "elapsedMs": 11419
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 11457
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 11532
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12378
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12392
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 12395
+          },
+          {
+            "name": "click",
+            "elapsedMs": 12399
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 12429
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 12504
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13392
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13406
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 13409
+          },
+          {
+            "name": "click",
+            "elapsedMs": 13417
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 13448
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 13524
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14378
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14391
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 14394
+          },
+          {
+            "name": "click",
+            "elapsedMs": 14399
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 14446
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 14524
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15384
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15397
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 15400
+          },
+          {
+            "name": "click",
+            "elapsedMs": 15404
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 15437
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 15513
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16373
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16384
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 16388
+          },
+          {
+            "name": "click",
+            "elapsedMs": 16392
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 16426
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 16501
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17606
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17620
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 17627
+          },
+          {
+            "name": "click",
+            "elapsedMs": 17636
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 17668
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 17743
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18697
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18710
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 18713
+          },
+          {
+            "name": "click",
+            "elapsedMs": 18717
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 18758
+          },
+          {
+            "name": "context",
+            "elapsedMs": 18782
+          },
+          {
+            "name": "navigate",
+            "elapsedMs": 18970
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19856
+          },
+          {
+            "name": "fill",
+            "elapsedMs": 19870
+          },
+          {
+            "name": "click",
+            "elapsedMs": 20039
+          },
+          {
+            "name": "wait",
+            "elapsedMs": 20075
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 20098
+          },
+          {
+            "name": "capture",
+            "elapsedMs": 20098
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 20100
+          }
+        ],
+        "durationMs": 22353,
+        "trace": "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/trace.zip",
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/trace-2.zip",
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/trace-3.zip",
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/trace-4.zip"
+        ],
+        "videos": [
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/page@df2d617bc800c37a542c4ab4b7e5e8fa.webm",
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/page@f3277eb2f3b47ff6e3e8e14066be947b.webm",
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/page@7f644c2d0955ceac8b2c44ab0f046ddb.webm",
+          "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/variants/original/evidence/page@fe05a939c8d66283a8b0079f89455eeb.webm"
+        ],
+        "error": "Expectation signUpDoesNotLockSignIn failed.",
+        "expectationId": "signUpDoesNotLockSignIn",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-3de13e51-84cd-40d7-aa6e-f06635e15213/checks",
+    "sha256": "827236beedc4df81071cbb86255c76ee4b85369fbc7507abbd0bfd3b696e0dc0"
+  },
+  "baselineRevision": "b5b8fa83885853c58516da0616aff9e4b5ddbe1e"
+}

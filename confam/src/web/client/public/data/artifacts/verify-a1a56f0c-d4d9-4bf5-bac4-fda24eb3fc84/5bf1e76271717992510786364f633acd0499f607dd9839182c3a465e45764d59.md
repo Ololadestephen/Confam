@@ -1,0 +1,1 @@
+Fixture report: changing the quantity from one to three should produce a total of 36 at a unit price of 12. The displayed response retains the old total.

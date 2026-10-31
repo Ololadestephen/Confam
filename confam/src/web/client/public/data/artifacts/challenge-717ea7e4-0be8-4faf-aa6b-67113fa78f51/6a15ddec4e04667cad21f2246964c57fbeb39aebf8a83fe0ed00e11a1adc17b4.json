@@ -1,0 +1,840 @@
+{
+  "schemaVersion": 3,
+  "status": "completed",
+  "startedAt": "2026-10-30T10:06:37.270Z",
+  "caseId": "statusPersists",
+  "project": "task-board",
+  "purpose": "development",
+  "confirmation": "developer-cli",
+  "independentEvaluation": {
+    "evaluated": false
+  },
+  "comparatorProvenance": "Supplied role labels and metadata are unverified; no model-performance comparison can be inferred from a role name alone.",
+  "limitations": [
+    "Development results are not independent evaluation.",
+    "Missing comparator roles are absent, not invented baselines.",
+    "Local execution is not a hostile-code sandbox.",
+    "Fault qualification assumes reviewed probe requirements correctly establish the declared violation."
+  ],
+  "versions": {
+    "status": "ready",
+    "reason": "no-survivors",
+    "rounds": 0,
+    "versions": [
+      {
+        "version": 1,
+        "plan": {
+          "schemaVersion": 1,
+          "steps": [
+            {
+              "action": "navigate",
+              "path": "/"
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "#task[data-loaded=\"true\"]"
+              }
+            },
+            {
+              "action": "click",
+              "locator": {
+                "kind": "role",
+                "value": "button",
+                "name": "Complete task"
+              }
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "#confirmation:text-is(\"Update confirmed\")"
+              }
+            },
+            {
+              "action": "reached"
+            },
+            {
+              "action": "reopen"
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "#task[data-loaded=\"true\"]"
+              }
+            },
+            {
+              "action": "capture",
+              "locator": {
+                "kind": "css",
+                "value": "#task-state"
+              },
+              "kind": "text",
+              "capture": "savedStatus"
+            },
+            {
+              "action": "assert",
+              "expectationId": "completionPersists",
+              "actual": {
+                "variable": "savedStatus"
+              },
+              "operator": "eq",
+              "expected": "Completed"
+            },
+            {
+              "action": "restart"
+            },
+            {
+              "action": "context",
+              "name": "fresh"
+            },
+            {
+              "action": "navigate",
+              "path": "/"
+            },
+            {
+              "action": "wait",
+              "locator": {
+                "kind": "css",
+                "value": "#task[data-loaded=\"true\"]"
+              }
+            },
+            {
+              "action": "capture",
+              "locator": {
+                "kind": "css",
+                "value": "#task-state"
+              },
+              "kind": "text",
+              "capture": "finalStatus"
+            },
+            {
+              "action": "assert",
+              "expectationId": "completionPersists",
+              "actual": {
+                "variable": "finalStatus"
+              },
+              "operator": "eq",
+              "expected": "Completed"
+            }
+          ]
+        },
+        "gatePassed": true,
+        "survivors": [],
+        "results": {
+          "original": {
+            "id": "original",
+            "kind": "original",
+            "phase": "probes",
+            "result": {
+              "status": "assertion-failed",
+              "reached": true,
+              "assertions": [
+                {
+                  "expectationId": "completionPersists",
+                  "actual": "Todo",
+                  "expected": "Completed",
+                  "operator": "eq",
+                  "passed": false
+                }
+              ],
+              "steps": [
+                {
+                  "name": "navigate",
+                  "elapsedMs": 420
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 475
+                },
+                {
+                  "name": "click",
+                  "elapsedMs": 496
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 542
+                },
+                {
+                  "name": "reached",
+                  "elapsedMs": 544
+                },
+                {
+                  "name": "reopen",
+                  "elapsedMs": 545
+                },
+                {
+                  "name": "wait",
+                  "elapsedMs": 627
+                },
+                {
+                  "name": "capture",
+                  "elapsedMs": 636
+                },
+                {
+                  "name": "assert",
+                  "elapsedMs": 638
+                }
+              ],
+              "durationMs": 704,
+              "trace": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/original/evidence/trace.zip",
+              "traces": [
+                "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/original/evidence/trace.zip"
+              ],
+              "videos": [
+                "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/original/evidence/page@d14f3b7fc8a446390233ed83f5e10009.webm",
+                "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/original/evidence/page@1ed51c49ad3661eeb18d54656ba8a25f.webm"
+              ],
+              "error": "Expectation completionPersists failed.",
+              "expectationId": "completionPersists",
+              "cleanupComplete": true
+            },
+            "probes": {
+              "stateCompleted": {
+                "holds": false,
+                "observed": false
+              }
+            },
+            "cleanupComplete": true
+          },
+          "controls": [
+            {
+              "id": "control-control-a",
+              "kind": "control",
+              "phase": "probes",
+              "result": {
+                "status": "passed",
+                "reached": true,
+                "assertions": [
+                  {
+                    "expectationId": "completionPersists",
+                    "actual": "Completed",
+                    "expected": "Completed",
+                    "operator": "eq",
+                    "passed": true
+                  },
+                  {
+                    "expectationId": "completionPersists",
+                    "actual": "Completed",
+                    "expected": "Completed",
+                    "operator": "eq",
+                    "passed": true
+                  }
+                ],
+                "steps": [
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 125
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 176
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 189
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 230
+                  },
+                  {
+                    "name": "reached",
+                    "elapsedMs": 260
+                  },
+                  {
+                    "name": "reopen",
+                    "elapsedMs": 260
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 353
+                  },
+                  {
+                    "name": "capture",
+                    "elapsedMs": 366
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 369
+                  },
+                  {
+                    "name": "restart",
+                    "elapsedMs": 369
+                  },
+                  {
+                    "name": "context",
+                    "elapsedMs": 503
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 540
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 558
+                  },
+                  {
+                    "name": "capture",
+                    "elapsedMs": 570
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 573
+                  }
+                ],
+                "durationMs": 682,
+                "trace": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-a/evidence/trace.zip",
+                "traces": [
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-a/evidence/trace.zip",
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-a/evidence/trace-2.zip"
+                ],
+                "videos": [
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-a/evidence/page@aab2e4cb9d387b85d6d880fee2afc37b.webm",
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-a/evidence/page@f0a3d91de07927cd7bbb7477a992c5d1.webm",
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-a/evidence/page@8d3b566dcd634265e40fd60d2ffaaaed.webm"
+                ],
+                "cleanupComplete": true
+              },
+              "probes": {
+                "stateCompleted": {
+                  "holds": true,
+                  "observed": true
+                }
+              },
+              "cleanupComplete": true
+            },
+            {
+              "id": "control-control-b",
+              "kind": "control",
+              "phase": "probes",
+              "result": {
+                "status": "passed",
+                "reached": true,
+                "assertions": [
+                  {
+                    "expectationId": "completionPersists",
+                    "actual": "Completed",
+                    "expected": "Completed",
+                    "operator": "eq",
+                    "passed": true
+                  },
+                  {
+                    "expectationId": "completionPersists",
+                    "actual": "Completed",
+                    "expected": "Completed",
+                    "operator": "eq",
+                    "passed": true
+                  }
+                ],
+                "steps": [
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 120
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 136
+                  },
+                  {
+                    "name": "click",
+                    "elapsedMs": 147
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 174
+                  },
+                  {
+                    "name": "reached",
+                    "elapsedMs": 198
+                  },
+                  {
+                    "name": "reopen",
+                    "elapsedMs": 198
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 276
+                  },
+                  {
+                    "name": "capture",
+                    "elapsedMs": 285
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 286
+                  },
+                  {
+                    "name": "restart",
+                    "elapsedMs": 286
+                  },
+                  {
+                    "name": "context",
+                    "elapsedMs": 415
+                  },
+                  {
+                    "name": "navigate",
+                    "elapsedMs": 447
+                  },
+                  {
+                    "name": "wait",
+                    "elapsedMs": 461
+                  },
+                  {
+                    "name": "capture",
+                    "elapsedMs": 474
+                  },
+                  {
+                    "name": "assert",
+                    "elapsedMs": 475
+                  }
+                ],
+                "durationMs": 575,
+                "trace": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-b/evidence/trace.zip",
+                "traces": [
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-b/evidence/trace.zip",
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-b/evidence/trace-2.zip"
+                ],
+                "videos": [
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-b/evidence/page@7f3ae76ed2388c5f1908171805c70371.webm",
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-b/evidence/page@29ddb4a8bbf5d03e21fdc6c344e10d9f.webm",
+                  "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/control-control-b/evidence/page@af50ef3d3b4e4127706cc79349f5a256.webm"
+                ],
+                "cleanupComplete": true
+              },
+              "probes": {
+                "stateCompleted": {
+                  "holds": true,
+                  "observed": true
+                }
+              },
+              "cleanupComplete": true
+            }
+          ],
+          "decoys": [
+            {
+              "id": "undo-save",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-undo-save",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "completionPersists",
+                      "actual": "Todo",
+                      "expected": "Completed",
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 111
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 127
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 136
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 178
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 200
+                    },
+                    {
+                      "name": "reopen",
+                      "elapsedMs": 200
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 279
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 288
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 290
+                    }
+                  ],
+                  "durationMs": 376,
+                  "trace": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-undo-save/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-undo-save/evidence/trace.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-undo-save/evidence/page@8078c09b7d4a0aeba293aab9ffd11d42.webm",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-undo-save/evidence/page@b924590150f556ebfb5eb852633cc32e.webm"
+                  ],
+                  "error": "Expectation completionPersists failed.",
+                  "expectationId": "completionPersists",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "stateCompleted": {
+                    "holds": false,
+                    "observed": false
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            },
+            {
+              "id": "wrong-field",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-wrong-field",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "completionPersists",
+                      "actual": "Todo",
+                      "expected": "Completed",
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 108
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 121
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 131
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 157
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 180
+                    },
+                    {
+                      "name": "reopen",
+                      "elapsedMs": 180
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 257
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 266
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 267
+                    }
+                  ],
+                  "durationMs": 358,
+                  "trace": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-wrong-field/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-wrong-field/evidence/trace.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-wrong-field/evidence/page@32ce976f66843c53e38203a67b68fb3b.webm",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-wrong-field/evidence/page@9ffd444b84581e64071f41ae44cb8efd.webm"
+                  ],
+                  "error": "Expectation completionPersists failed.",
+                  "expectationId": "completionPersists",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "stateCompleted": {
+                    "holds": false,
+                    "observed": false
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            },
+            {
+              "id": "memory-only",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-memory-only",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "completionPersists",
+                      "actual": "Completed",
+                      "expected": "Completed",
+                      "operator": "eq",
+                      "passed": true
+                    },
+                    {
+                      "expectationId": "completionPersists",
+                      "actual": "Todo",
+                      "expected": "Completed",
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 108
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 121
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 130
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 157
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 180
+                    },
+                    {
+                      "name": "reopen",
+                      "elapsedMs": 180
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 258
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 267
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 268
+                    },
+                    {
+                      "name": "restart",
+                      "elapsedMs": 268
+                    },
+                    {
+                      "name": "context",
+                      "elapsedMs": 396
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 427
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 441
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 451
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 452
+                    }
+                  ],
+                  "durationMs": 549,
+                  "trace": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-memory-only/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-memory-only/evidence/trace.zip",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-memory-only/evidence/trace-2.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-memory-only/evidence/page@8c5c7660ee642e00e9bdc43eeb1b09bd.webm",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-memory-only/evidence/page@dfcde5faf431d14f49d3504e1f27f0e6.webm",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-memory-only/evidence/page@43eccf37105eecd812923f071ed19273.webm"
+                  ],
+                  "error": "Expectation completionPersists failed.",
+                  "expectationId": "completionPersists",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "stateCompleted": {
+                    "holds": false,
+                    "observed": false
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            },
+            {
+              "id": "browser-only",
+              "outcome": "caught",
+              "variant": {
+                "id": "decoy-browser-only",
+                "kind": "candidate",
+                "phase": "probes",
+                "result": {
+                  "status": "assertion-failed",
+                  "reached": true,
+                  "assertions": [
+                    {
+                      "expectationId": "completionPersists",
+                      "actual": "Completed",
+                      "expected": "Completed",
+                      "operator": "eq",
+                      "passed": true
+                    },
+                    {
+                      "expectationId": "completionPersists",
+                      "actual": "Todo",
+                      "expected": "Completed",
+                      "operator": "eq",
+                      "passed": false
+                    }
+                  ],
+                  "steps": [
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 100
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 113
+                    },
+                    {
+                      "name": "click",
+                      "elapsedMs": 123
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 149
+                    },
+                    {
+                      "name": "reached",
+                      "elapsedMs": 174
+                    },
+                    {
+                      "name": "reopen",
+                      "elapsedMs": 174
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 252
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 262
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 264
+                    },
+                    {
+                      "name": "restart",
+                      "elapsedMs": 264
+                    },
+                    {
+                      "name": "context",
+                      "elapsedMs": 392
+                    },
+                    {
+                      "name": "navigate",
+                      "elapsedMs": 421
+                    },
+                    {
+                      "name": "wait",
+                      "elapsedMs": 434
+                    },
+                    {
+                      "name": "capture",
+                      "elapsedMs": 443
+                    },
+                    {
+                      "name": "assert",
+                      "elapsedMs": 444
+                    }
+                  ],
+                  "durationMs": 541,
+                  "trace": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-browser-only/evidence/trace.zip",
+                  "traces": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-browser-only/evidence/trace.zip",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-browser-only/evidence/trace-2.zip"
+                  ],
+                  "videos": [
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-browser-only/evidence/page@fb2378799c16cee0aafd986d07427e12.webm",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-browser-only/evidence/page@1a9b39e8c99ceaa616583c1d633b2789.webm",
+                    "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/versions/v1/variants/decoy-browser-only/evidence/page@8651dc0e7bb310712511c6714c99ec48.webm"
+                  ],
+                  "error": "Expectation completionPersists failed.",
+                  "expectationId": "completionPersists",
+                  "cleanupComplete": true
+                },
+                "probes": {
+                  "stateCompleted": {
+                    "holds": false,
+                    "observed": false
+                  }
+                },
+                "cleanupComplete": true
+              },
+              "oracleOnlyDetected": false
+            }
+          ],
+          "counts": {
+            "total": 4,
+            "caught": 4,
+            "survived": 0,
+            "uncounted": 0
+          }
+        }
+      }
+    ]
+  },
+  "seal": {
+    "schemaVersion": 3,
+    "checks": {
+      "directory": "runs/challenge-717ea7e4-0be8-4faf-aa6b-67113fa78f51/seal",
+      "sha256": "c63fd3970802f5353d90e1ee14501f57081ed06338a939ad34179b70f65c69ad"
+    },
+    "revision": "1cd53a45ae7f6ab7d38b8c7e1adf1fcbad1ac75c",
+    "identity": "abb5bfb6bf2a5b7f0e944cdb33dbdd7d613537873f9150638a09a827154fd543"
+  },
+  "absentComparators": [
+    "existing",
+    "direct-ai"
+  ],
+  "development": {
+    "total": 4,
+    "caught": 4,
+    "survived": 0,
+    "uncounted": 0
+  },
+  "verdict": "Development challenges completed; independent evaluation remains pending. Candidate and check-strength evidence are separate.",
+  "finishedAt": "2026-10-30T10:06:42.959Z",
+  "durationMs": 5689,
+  "modelUsage": {
+    "estimatedSpendUsd": 0,
+    "note": "No model generation requested."
+  }
+}

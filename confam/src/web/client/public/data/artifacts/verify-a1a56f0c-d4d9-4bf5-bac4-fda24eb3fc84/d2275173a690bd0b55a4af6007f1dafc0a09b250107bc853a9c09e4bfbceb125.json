@@ -1,0 +1,16 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-29T21:30:07.313Z",
+  "expectations": [
+    {
+      "id": "quantity-change-updates-total",
+      "statement": "With initial quantity 1 and fixed unit price 12, POST /quantity with quantity 3 returns quantity 3, unitPrice 12, and total 36.",
+      "provenance": "developer"
+    },
+    {
+      "id": "quote-total-consistency",
+      "statement": "Following that update, GET /quote returns quantity 3, unitPrice 12, and total 36.",
+      "provenance": "developer"
+    }
+  ]
+}

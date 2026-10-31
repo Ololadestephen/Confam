@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-31T15:39:49.215Z",
+  "expectations": [
+    {
+      "id": "signUpDoesNotLockSignIn",
+      "statement": "Repeated sign-up attempts with an existing account's email never stop its owner signing in with the correct password.",
+      "provenance": "developer"
+    }
+  ]
+}

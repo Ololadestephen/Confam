@@ -1,0 +1,3 @@
+Real Linkding security bug (fixed upstream in 2ffc8bb, "Add SSRF protection for server-side requests", PR #1488)
+
+When a user adds or checks a bookmark, Linkding fetches the bookmark's page on the server to read its title, description and preview image. It fetched whatever URL it was given, including addresses on the server's own internal network, such as an admin panel or a cloud metadata service that is not reachable from the internet. Anyone with an account could use Linkding to make requests inside that network and read back the page title. Checking a URL should still answer normally; it should simply not reach internal addresses.

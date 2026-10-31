@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax-latest",
+  "caseId": "spoofedHeaderBypass",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "validQuoteAccepted",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "spoofedHeaderBypass",
+            "actual": 200,
+            "expected": 429,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 967
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 1184
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1184
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1187
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1483
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1623
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1800
+          },
+          {
+            "name": "request",
+            "elapsedMs": 2079
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 2281
+          }
+        ],
+        "durationMs": 2424,
+        "trace": "runs/verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4/variants/original/evidence/page@24687261415fd4051d3d247cc2934763.webm"
+        ],
+        "error": "Expectation spoofedHeaderBypass failed.",
+        "expectationId": "spoofedHeaderBypass",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "validQuoteAccepted",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "spoofedHeaderBypass",
+            "actual": 429,
+            "expected": 429,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "spamLimitSurvivesRestart",
+            "actual": 429,
+            "expected": 429,
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 636
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 921
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 921
+          },
+          {
+            "name": "request",
+            "elapsedMs": 921
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1221
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1363
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1527
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1812
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1939
+          },
+          {
+            "name": "restart",
+            "elapsedMs": 1939
+          },
+          {
+            "name": "request",
+            "elapsedMs": 3908
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 4088
+          }
+        ],
+        "durationMs": 4310,
+        "trace": "runs/verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4/variants/candidate/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4/variants/candidate/evidence/page@3c679af2b59ad8e633ce264359a25916.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "Candidate passed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-db4395d0-7023-4b83-9f1c-2046a9ff10e4/checks",
+    "sha256": "51361e4a8a84dd0c0dc3c77b77c63832208521cc6964baddcaac3c6248aed6d1"
+  },
+  "baselineRevision": "858b58c720ab875b03f9075957675364c9cd37a3",
+  "candidate": "passed"
+}

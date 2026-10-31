@@ -1,0 +1,16 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-30T09:37:00.494Z",
+  "expectations": [
+    {
+      "id": "repeatedSignInAllowed",
+      "statement": "A user who signs in with the correct password 15 times in a row is never refused.",
+      "provenance": "report"
+    },
+    {
+      "id": "failuresStillLock",
+      "statement": "After 15 failed sign-in attempts for an email, even the correct password is refused with the lockout message.",
+      "provenance": "report"
+    }
+  ]
+}

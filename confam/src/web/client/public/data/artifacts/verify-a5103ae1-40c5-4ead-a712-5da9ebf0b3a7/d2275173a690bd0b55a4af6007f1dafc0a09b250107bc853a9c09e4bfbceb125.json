@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-31T20:58:05.056Z",
+  "expectations": [
+    {
+      "id": "earlyFailuresDoNotLockNewOwner",
+      "statement": "Failed sign-ins recorded before an email is registered do not lock out the person who then registers it and signs in with the correct password.",
+      "provenance": "developer"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax-candidate-gaps",
+  "caseId": "b1",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "b1",
+            "actual": 10,
+            "expected": 5,
+            "operator": "lte",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "parallel",
+            "elapsedMs": 740
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 2398
+          },
+          {
+            "name": "request",
+            "elapsedMs": 2398
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 2521
+          }
+        ],
+        "durationMs": 2628,
+        "trace": "runs/verify-c8cecff2-9d44-4745-b459-702760fdba34/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-c8cecff2-9d44-4745-b459-702760fdba34/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-c8cecff2-9d44-4745-b459-702760fdba34/variants/original/evidence/page@ba1828192c1ac6ee5e8d0744ff1f132c.webm"
+        ],
+        "error": "Expectation b1 failed.",
+        "expectationId": "b1",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-c8cecff2-9d44-4745-b459-702760fdba34/checks",
+    "sha256": "e394327bcb0fad2063ab8afcdcd9e79a13995fdceb0205ddeaf380efe61701e4"
+  },
+  "baselineRevision": "3920d8ba00549a4707d08201d3ff7f8279304e1b"
+}

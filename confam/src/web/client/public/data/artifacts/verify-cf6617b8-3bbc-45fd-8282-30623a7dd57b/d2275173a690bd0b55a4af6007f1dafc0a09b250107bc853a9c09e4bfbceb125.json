@@ -1,0 +1,11 @@
+{
+  "source": "developer-cli",
+  "confirmedAt": "2026-10-30T21:03:40.959Z",
+  "expectations": [
+    {
+      "id": "failClosedOnLimitCheckFailure",
+      "statement": "When the recent-request count cannot be checked, further quote requests are refused rather than accepted without limit.",
+      "provenance": "developer"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "linkding-latest-proxy",
+  "caseId": "proxyStillRefusesInternal",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "proxyStillRefusesInternal",
+            "actual": 1,
+            "expected": 0,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 614
+          },
+          {
+            "name": "request",
+            "elapsedMs": 632
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 633
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 633
+          }
+        ],
+        "durationMs": 699,
+        "trace": "runs/verify-c5270923-ab3b-48f6-8c90-b22d0f0f1583/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-c5270923-ab3b-48f6-8c90-b22d0f0f1583/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-c5270923-ab3b-48f6-8c90-b22d0f0f1583/variants/original/evidence/page@c12ab1e1c8ca7f4f1e8c9af0f736cce8.webm"
+        ],
+        "error": "Expectation proxyStillRefusesInternal failed.",
+        "expectationId": "proxyStillRefusesInternal",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was reproduced; no candidate repair was evaluated.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-c5270923-ab3b-48f6-8c90-b22d0f0f1583/checks",
+    "sha256": "78feaf068571e1ac9fc62e222e5b2f8dd2676c0005ec4f64ba6f536a6ee25f20"
+  },
+  "baselineRevision": "63725d4042d1bcf3eb4769a6d17b6b2e59ead516"
+}
