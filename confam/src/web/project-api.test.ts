@@ -1,5 +1,7 @@
 import { afterEach, expect, it } from "vitest";
 import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
+import { realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { startReviewServer } from "./server.js";
 
@@ -8,7 +10,7 @@ afterEach(async () => {
   for (const action of cleanup.splice(0).reverse()) await action();
 });
 it("authenticates project mutations, persists detection and rejects stale review", async () => {
-  const root = await mkdtemp("/private/tmp/confam-project-api-");
+  const root = await mkdtemp(path.join(realpathSync(tmpdir()), "confam-project-api-"));
   cleanup.push(() => rm(root, { recursive: true, force: true }));
   const app = path.join(root, "app");
   const runs = path.join(root, "runs");
@@ -83,7 +85,7 @@ it("authenticates project mutations, persists detection and rejects stale review
       .status,
   ).toBe(400);
   expect(
-    (await post({ action: "add", root: "/private/tmp/evals/heldout/no-read" }))
+    (await post({ action: "add", root: path.join(root, "evals", "heldout", "no-read") }))
       .status,
   ).toBe(400);
   await server.close();

@@ -1,5 +1,7 @@
 import { afterEach, expect, it } from "vitest";
 import { mkdtemp, mkdir, writeFile, readFile, rm } from "node:fs/promises";
+import { realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { ProjectRegistry } from "../project/registry.js";
 import {
@@ -43,7 +45,7 @@ const workflow = {
   ],
 };
 async function fixture(overrides: Partial<ModelTransport> = {}) {
-  const root = await mkdtemp("/private/tmp/confam-on3-");
+  const root = await mkdtemp(path.join(realpathSync(tmpdir()), "confam-on3-"));
   cleanup.push(root);
   await mkdir(path.join(root, "app"));
   await writeFile(

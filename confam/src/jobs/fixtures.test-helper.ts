@@ -1,4 +1,6 @@
 import { mkdtemp, mkdir, readFile, writeFile, rm } from "node:fs/promises";
+import { realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
@@ -46,7 +48,7 @@ export async function executionFixture(
   } = {},
 ) {
   const root =
-    options.rootDirectory ?? (await mkdtemp("/private/tmp/confam-on4-"));
+    options.rootDirectory ?? (await mkdtemp(path.join(realpathSync(tmpdir()), "confam-on4-")));
   await mkdir(root, { recursive: true });
   const projectRoot = path.join(root, "project");
   await mkdir(projectRoot);

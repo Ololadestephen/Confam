@@ -1,5 +1,7 @@
 import { afterEach, expect, it } from "vitest";
 import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
+import { realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { startReviewServer } from "./server.js";
 import { ProjectRegistry } from "../project/registry.js";
@@ -9,7 +11,7 @@ afterEach(async () => {
   for (const action of cleanup.splice(0).reverse()) await action();
 });
 it("requires token, exact origin, schema and affirmative digest consent for model requests", async () => {
-  const root = await mkdtemp("/private/tmp/confam-on3-api-");
+  const root = await mkdtemp(path.join(realpathSync(tmpdir()), "confam-on3-api-"));
   cleanup.push(() => rm(root, { recursive: true, force: true }));
   const runs = path.join(root, "runs");
   await mkdir(runs);

@@ -7,6 +7,8 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
+import { realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, expect, it } from "vitest";
 import { captureProject } from "./snapshot.js";
@@ -18,7 +20,7 @@ afterEach(async () => {
   );
 });
 async function fixture() {
-  const dir = await mkdtemp("/private/tmp/confam-snapshot-");
+  const dir = await mkdtemp(path.join(realpathSync(tmpdir()), "confam-snapshot-"));
   dirs.push(dir);
   const root = path.join(dir, "project");
   await mkdir(root);
