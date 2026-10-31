@@ -1,28 +1,41 @@
 # Private held-out evaluation packs
 
-Prepare the independent patches outside the development process, including the owner's hand-written decoy. Store the actual pack and patches privately, normally under `evals/heldout/`. Agents must not inspect their contents while developing. This document describes the input format only.
+A held-out pack is a set of wrong fixes that nobody involved in building the checks has seen. It is the only independent test of whether frozen checks can tell a wrong fix from a right one. Write the patches outside the development process: at least one by the owner, by hand. Store the pack and its patches privately under `evals/heldout/`, which Git ignores. Agents must not read that folder.
 
-The pack is a JSON object with these fields:
+## Format
+
+The pack is a JSON file, normally `evals/heldout/pack.json`:
 
 | Field | Value |
 |---|---|
 | `schemaVersion` | `1` |
-| `purpose` | `"held-out"` for genuine independent evaluation |
-| `label` | A short description of this independent set |
-| `decoys` | An array of 1–20 entries described below |
+| `purpose` | `"held-out"` for a genuine independent evaluation |
+| `label` | A short description of this set |
+| `decoys` | 1 to 20 entries, described below |
 
-Each decoy contains `id` (lowercase letters, digits and hyphens), `patch` (a relative path to a regular `.patch` file inside the pack directory), `violation` (the declared wrong behavior), and `requirements` (curated probe results needed to confirm that wrong behavior). Each requirement has a `probe` string and a boolean `holds` value.
+Each decoy has:
 
-Available probes are `appointment-saved`, `appointment-owned-by-customer`, and `appointment-survives-restart`. Their names describe correct behavior, so at least one required result must be `false` to establish a violation. Wrong ownership additionally requires `appointment-saved: true` alongside `appointment-owned-by-customer: false`; an absent booking does not establish that it was saved under the wrong owner. Do not invent a probe or weaken its implementation to fit a patch.
+| Field | Value |
+|---|---|
+| `id` | Starts with a letter; letters, digits, `-` and `_` |
+| `patch` | Path to a `.patch` file, relative to the pack file |
+| `baseControl` | The correct fix the patch is applied on top of, for example `control-a` |
+| `violation` | One sentence: what this fix does wrong |
+| `expectationIds` | The confirmed expectations this wrong behaviour breaks |
+| `requirements` | Probe results that confirm the wrong behaviour: `{ "probe": ..., "holds": true or false }` |
 
-The command requires a completed final checks seal:
+Probes are named after correct behaviour, so at least one requirement must be `"holds": false`. Use only the case's reviewed probes, and require only results that the workflow observes before the first failed expectation, because checks stop at the first failure. A decoy whose requirements don't match what the probes observe is reported as unconfirmed, never as caught.
+
+## Running it
+
+The evaluation runs against a completed, sealed challenge run and makes no model calls:
 
 ```sh
-npm run confam -- heldout SESSION_ID --pack evals/heldout/pack.json
+npm run confam -- compare RUN_DIRECTORY --pack evals/heldout/pack.json
 ```
 
-It verifies the frozen checks and baseline, hashes and archives the pack and patch bytes, and evaluates each patch in an isolated variant. It makes no model calls. Build/start failures, unreached workflows, timeouts, execution errors, and unconfirmed violations stay outside caught/survived counts. The archived report keeps all outcomes.
+It verifies the sealed checks and baseline, archives the pack and patch bytes by hash, and evaluates every patch against every sealed arm in isolated copies. Build or start failures, unreached workflows, timeouts, execution errors and unconfirmed violations stay outside the caught and survived counts. The report keeps all outcomes.
 
-A frozen run permits one genuine evaluation attempt, including an attempt that ends in an execution error. This prevents selecting a favorable result after inspecting failures. Use new independent material for a future independently evaluated run; held-out results never feed back into strengthening, prompts or code for the same evaluation.
+A sealed run allows one genuine held-out attempt, including one that ends in an error, so a favourable result cannot be picked after looking at failures. Held-out results never feed back into strengthening, prompts or code for the same evaluation.
 
-`purpose: "integration-fixture"` is reserved for development tests using already-known patches. Those results are labelled separately and never change the run's genuine held-out counts or promote its client verdict. Scripted model runs cannot claim genuine held-out evaluation.
+`purpose: "integration-fixture"` is for development tests with already-known patches. Those results are labelled separately and never count as held-out evidence.
