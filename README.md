@@ -178,9 +178,12 @@ The same command is a reusable GitHub Action, which posts the review to the job 
     workflow: confam/workflow.json
     candidate: fix.patch
     manifest: confam/challenges.json   # optional: also run decoys
+    comment: true                      # optional: also post the review on the pull request
 ```
 
-This repository's own CI uses the action on the quote tool. It reviews a correct fix, which must pass, and a faulty fix, which must be reported as a failure.
+With `comment: true`, the job needs `permissions: pull-requests: write`. The action posts one comment per case and fix, and updates that comment on later runs instead of adding new ones. If the token cannot comment, as on pull requests from forks, it warns and the review result is unchanged.
+
+This repository's own CI uses the action on the quote tool. It reviews a correct fix, which must pass, and a faulty fix, which must be reported as a failure; on pull requests it also comments the correct fix's review.
 
 ## Limits
 

@@ -34,6 +34,9 @@ jobs:
   review-action:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -48,6 +51,7 @@ jobs:
           workflow: specimens/quote-tool/workflow-invalid.json
           candidate: specimens/quote-tool/patches/good.patch
           confirmation: fixture
+          comment: true
       - name: Review a faulty fix
         id: faulty
         continue-on-error: true
