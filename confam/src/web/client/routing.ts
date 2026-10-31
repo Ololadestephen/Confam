@@ -3,6 +3,7 @@ export interface Route {
   runId?: string;
   variantId?: string;
   jobId?: string;
+  folderId?: string;
 }
 export function routeFor(pathname: string): Route {
   const parts = pathname.split("/").filter(Boolean).map(decodeURIComponent);
@@ -12,6 +13,11 @@ export function routeFor(pathname: string): Route {
   if (parts[0] === "projects" && parts.length === 1)
     return { page: "projects" };
   if (parts[0] === "guide" && parts.length === 1) return { page: "guide" };
+  if (parts[0] === "gaps" && parts.length === 1) return { page: "gaps" };
+  if (parts[0] === "gaps" && parts.length === 2)
+    return { page: "gap", folderId: parts[1] };
+  if (parts[0] === "repairs" && parts.length === 2)
+    return { page: "repair", folderId: parts[1] };
   if (parts[0] === "share" && parts.length === 2)
     return { page: "share", runId: parts[1] };
   if (parts[0] !== "runs") return { page: "missing" };

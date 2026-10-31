@@ -15,6 +15,7 @@ import { redact } from "./artifacts.js";
 import { projectApi } from "./project-api.js";
 import { ProjectRegistry } from "../project/registry.js";
 import { confinedPath } from "../project/config.js";
+import { gapDecisionPath, reviewApi } from "./gaps-api.js";
 
 const mime: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
@@ -227,7 +228,10 @@ export async function startReviewServer(
       .pathname;
     const projectMutation =
       request.method === "POST" &&
-      ["/api/projects", "/api/onboarding", "/api/jobs"].includes(requestPath);
+      (["/api/projects", "/api/onboarding", "/api/jobs"].includes(
+        requestPath,
+      ) ||
+        gapDecisionPath.test(requestPath));
     if (request.method !== "GET" && !projectMutation) {
       json(response, 405, { error: "Unsupported request method." });
       return;
@@ -262,6 +266,7 @@ export async function startReviewServer(
           await projectApi(registry, request, response);
           return;
         }
+        if (await reviewApi(root, request, response, url.pathname)) return;
         if (url.pathname === "/api/runs") {
           if (view) {
             const {
@@ -342,7 +347,7 @@ export async function startReviewServer(
         return;
       }
       const spa =
-        /^\/(?:runs(?:\/new|\/[^/]+(?:\/(?:expectations|live|compare|checks|decoys\/[^/]+))?)?|share\/[^/]+|guide|projects|jobs\/(?:new|[a-f0-9-]+))\/?$/.test(
+        /^\/(?:runs(?:\/new|\/[^/]+(?:\/(?:expectations|live|compare|checks|decoys\/[^/]+))?)?|share\/[^/]+|guide|projects|gaps(?:\/[^/]+)?|repairs\/[^/]+|jobs\/(?:new|[a-f0-9-]+))\/?$/.test(
           url.pathname,
         );
       const route =

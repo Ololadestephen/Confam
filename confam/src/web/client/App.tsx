@@ -5,6 +5,9 @@ import Library from "./pages/Library.js";
 import Projects from "./pages/Projects.js";
 import Setup from "./pages/Setup.js";
 import Guide from "./pages/Guide.js";
+import GapReviews from "./pages/GapReviews.js";
+import GapReviewPage from "./pages/GapReview.js";
+import RepairSessionPage from "./pages/RepairSession.js";
 import { RunLayout } from "./pages/RunPages.js";
 import { useRun } from "./hooks.js";
 import { routeFor, type Route } from "./routing.js";
@@ -79,6 +82,12 @@ export default function App() {
         />
       ) : route.page === "guide" ? (
         <Guide />
+      ) : route.page === "gaps" ? (
+        <GapReviews />
+      ) : route.page === "gap" && route.folderId ? (
+        <GapReviewPage folderId={route.folderId} />
+      ) : route.page === "repair" && route.folderId ? (
+        <RepairSessionPage folderId={route.folderId} />
       ) : route.runId ? (
         <SavedRun route={route} />
       ) : (

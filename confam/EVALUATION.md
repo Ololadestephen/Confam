@@ -237,3 +237,16 @@ Linkding is an independent MIT-licensed project, onboarded with configuration on
 New tooling: a general `parallel` workflow action (2 to 20 HTTP requests sent before any answer is awaited; used for the Bluemax burst gap, the quote tool and the task board), `confam review` (Markdown review, exit 0 passed, 1 failed, 2 incomplete) and a reusable GitHub Action that CI exercises on a correct and a faulty quote-tool fix. A real race in the job manager, where reading a job's status while it finished could overwrite its result with "interrupted", was found through a flaky CI run and fixed with a test that forces the interleaving.
 
 Spend for October 31: about $0.07. Recorded live spend across all runs: about $0.84 over 39 calls.
+
+### The repair loop (October 31, evening)
+
+`confam repair` alternates the models: Muse Wonder proposes a fix for all confirmed expectations in a suite, Confam runs every case (cases that pass on the original are re-run on a patched copy as regression guards), Wonder gets at most one more attempt told only the unmet expectation statements, and a passing fix goes to Muse Spark for a gap review. Every export was previewed and approved by the owner; each live request was bound to its approved export byte for byte.
+
+| | Mosaic suite (3 cases) | Linkding suite (2 cases) |
+|---|---|---|
+| Wonder round 1 | Passed all 3 (original lockout as regression guard; both gaps fixed) | First reply was not a usable patch (its context did not match the file) and was rejected before anything ran; the same approved export was re-sent with the owner's approval; the second reply passed both cases |
+| Spark review of the fix | 5 proposals; 1 confirmed, 4 rejected with notes | 5 proposals; 1 confirmed, 4 rejected with notes |
+| Confirmed gap on current code and on Wonder's fix | Fails on both (lockout message): failures before registration lock out the new owner | Fails on both (1 internal request): a proxy whose DNS resolves a public name internally still reaches the internal service; simulated by the local proxy |
+| Model spend | $0.056 | $0.16 |
+
+A bug in the loop itself was found in the first live run (a leftover snapshot file crashed the regression copy); it was fixed and tested, and the round was re-run with `repair-recheck`, which makes no model call. These are ordinary verification runs without independent controls; the passing repairs are the only correct versions the gap workflows have been run on.

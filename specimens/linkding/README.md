@@ -32,6 +32,10 @@ So this confirms a limitation Linkding already documents rather than discovering
 
 The proxy case runs the same wrapper with `--http-proxy`: the wrapper becomes a forward proxy configured through `HTTP_PROXY`, and forwards each request to its target, as a proxy inside the same network would.
 
+## The repair loop
+
+`specimens/linkding/repair.json` holds the original protection and the proxy gap. Muse Wonder's first reply was not a usable patch and was rejected before anything ran; its second passed both cases by checking the target's address before handing a request to the proxy. Spark reviewed that fix and proposed five gaps; the author confirmed one: the fix's check and the proxy resolve the name separately, so a name that is public when checked but internal when the proxy fetches it still gets through. The wrapper's `--proxy-resolves=example.com` mode makes the local proxy resolve `example.com` to the internal probe, simulating split-horizon or rebinding DNS. With `project-proxy-dns.json`, the internal address is reached on both the current code and Wonder's fix (`runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/`, local). The check needs the machine to resolve `example.com` publicly.
+
 ## Run it
 
 ```bash

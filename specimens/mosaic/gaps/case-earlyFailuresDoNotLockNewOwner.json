@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "earlyFailuresDoNotLockNewOwner",
+  "projectId": "mosaic-latest",
+  "report": "report.md",
+  "fixtures": {
+    "nameA": "Regular User",
+    "emailA": "regular.user@example.test",
+    "nameB": "Second User",
+    "emailB": "second.user@example.test",
+    "password": "correct-horse-staple-42",
+    "wrongPassword": "not-the-right-password-1"
+  },
+  "expectations": [
+    {
+      "id": "earlyFailuresDoNotLockNewOwner",
+      "statement": "Failed sign-ins recorded before an email is registered do not lock out the person who then registers it and signs in with the correct password.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "earlyFailuresDoNotLockNewOwner"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

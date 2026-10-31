@@ -11,6 +11,10 @@ The second workflow is built so its outcome does not depend on the first gap: wi
 
 The other three proposals were reviewed and not confirmed: locking an account by failed attempts from anywhere is the confirmed design; passwords shorter than 12 characters can never match an account, so not counting them is harmless; and the access-link limit uses a header that Mosaic's hosting platform overwrites, so a local run would show a bypass that production may not have.
 
+## The repair loop
+
+`specimens/mosaic/repair.json` holds the original case and both gaps. Muse Wonder's first fix passed all three: sign-ups count against their own limit, and a correct sign-in clears the failure count. Spark reviewed that fix and proposed five more gaps; the author confirmed one: failed sign-ins recorded before an email is registered must not lock out the person who then registers it (`case-earlyFailuresDoNotLockNewOwner.json`). It fails on the current code and on Wonder's fix, both times with the lockout message (`runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/`, local).
+
 ## Run it
 
 ```bash

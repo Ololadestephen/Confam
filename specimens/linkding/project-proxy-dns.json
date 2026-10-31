@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "linkding-latest-proxy-dns",
+  "root": "source-latest",
+  "sourceFiles": [
+    "bookmarks/services/http_client.py",
+    "bookmarks/services/website_loader.py",
+    "bookmarks/services/preview_image_loader.py",
+    "bookmarks/services/favicon_loader.py",
+    "bookmarks/services/assets.py"
+  ],
+  "protectedPaths": [
+    "confam-runtime.mjs",
+    ".confam-deps.json",
+    "bookmarks/tests",
+    "bookmarks/migrations",
+    "manage.py"
+  ],
+  "runtime": {
+    "command": [
+      "node",
+      "confam-runtime.mjs",
+      "--http-proxy",
+      "--proxy-resolves=example.com"
+    ],
+    "readinessPath": "/health",
+    "timeoutMs": 120000,
+    "portVariable": "PORT",
+    "dataVariable": "CONFAM_DATA",
+    "restart": false,
+    "workflowTimeoutMs": 60000
+  }
+}

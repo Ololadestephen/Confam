@@ -17,9 +17,14 @@ const TOKEN = "c0nfam0000000000000000000000000000000001";
 // With --http-proxy, Linkding runs behind a forward proxy configured through the environment, as some deployments
 // are. The wrapper is that proxy: it forwards each request to its target, like a proxy inside the same network.
 const behindProxy = process.argv.includes("--http-proxy");
+// With --proxy-resolves=NAME, the proxy's own DNS sends NAME to the internal probe while the app's DNS still sees the
+// public address, as with split-horizon DNS or a rebinding answer that changes between two lookups.
+const proxyResolves = process.argv.find((argument) => argument.startsWith("--proxy-resolves="))?.slice("--proxy-resolves=".length);
 const listen = (server) => new Promise((resolve, reject) => server.once("error", reject).listen(0, "127.0.0.1", () => resolve(server.address().port)));
 const proxyPort = behindProxy ? await listen(http.createServer((request, response) => {
-  const upstream = http.request(request.url, { method: request.method, headers: request.headers }, (reply) => {
+  const target = new URL(request.url);
+  if (proxyResolves && target.hostname === proxyResolves) { target.hostname = "127.0.0.1"; target.port = String(PROBE_PORT); }
+  const upstream = http.request(target, { method: request.method, headers: request.headers }, (reply) => {
     response.writeHead(reply.statusCode ?? 502, reply.headers); reply.pipe(response);
   });
   upstream.on("error", () => { response.statusCode = 502; response.end(); });

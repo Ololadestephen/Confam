@@ -75,6 +75,17 @@ Each test copy gets its own PostgreSQL database and Next.js server. Spark's deco
 
 Spark then reviewed the current protection and proposed five gaps. One was confirmed and fails: behind an HTTP proxy configured in the environment, the internal address is still requested. Linkding's own code already lists that as a known limitation. Spark also claimed certain IPv6 addresses get through; testing showed they are blocked, so that claim was rejected. Details: [specimens/linkding](specimens/linkding/README.md).
 
+### The repair loop: two models checking each other
+
+`confam repair` runs Muse Wonder and Muse Spark against each other under the developer's control. Wonder proposes a fix for every confirmed expectation at once. Confam runs every case against it, including regression guards for behaviour that already worked. If anything fails, Wonder gets one more attempt and is told only which expectations it missed. A passing fix then goes to Spark for a gap review. Every model call waits for the developer to approve its exact export.
+
+| App | Muse Wonder's repair | Spark's review of that repair | Confirmed gap, run on Wonder's fix |
+|---|---|---|---|
+| Mosaic | Passed all three cases: both sign-in gaps fixed, original lockout kept | 5 proposals, 1 confirmed | **Fails:** failed sign-ins recorded before an email is registered still lock out its new owner |
+| Linkding | Passed both cases: proxy gap fixed, original protection kept (its first reply was not a usable patch and was rejected before anything ran) | 5 proposals, 1 confirmed | **Fails:** when the proxy's own DNS resolves a public name to an internal address, the internal service is still reached |
+
+Each repair passed every check it was given, and each review found something it still misses, confirmed by running the app. The Linkding gap is tested with a local proxy that resolves `example.com` to the internal probe, simulating split-horizon or rebinding DNS. Spark's proposals are reviewed on the gap review page in the local interface. Total model spend for both loops: about $0.20.
+
 ## The controlled comparison
 
 Real apps have one real fix, so they can't show whether a set of checks wrongly rejects *correct* fixes. For that, Confam was measured on a purpose-built salon booking app with two independently written correct fixes and six known wrong ones:
@@ -108,7 +119,7 @@ The same engine runs each application through configuration: start command, read
 | Model | Job |
 |---|---|
 | Muse Spark | Turns reports and recordings into expectations, drafts checks, writes decoys, strengthens checks from surviving decoys, and reviews code or a proposed fix for expectations the developer missed |
-| Muse Wonder | Optional built-in fixer that proposes a repair |
+| Muse Wonder | Built-in fixer: proposes a repair, alone or inside the repair loop, where it gets one more attempt with only the expectations it missed |
 
 Models never decide whether anything passed: results come only from running the app. The fixer cannot edit checks or probes, and no model writes or approves its own probe. Every model call goes through a cost ledger with a per-run cap.
 
@@ -142,7 +153,7 @@ Confam runs on your machine, or in your CI, against your own copy of the app. It
 2. **Turn the bug into confirmed expectations.** In **New run**, paste the report. Muse Spark proposes plain expectations and a browser or HTTP workflow; you see exactly what will be sent before it is sent, then edit and confirm.
 3. **Reproduce the bug.** Confam runs the workflow on the unfixed app. It must fail for the reported reason before anything else happens.
 4. **Check a fix.** Approve a run with your fix, Muse Wonder's (`draft-fix`), or any agent's patch. The run pages show the verdict with recordings, assertions and database readings.
-5. **Optionally challenge and extend.** `challenge` plants Spark-written wrong fixes to show whether the checks would wave them through; `draft-gaps` asks Spark what the expectations, or a proposed fix, still miss. These are command-line only for now.
+5. **Optionally challenge, extend and repair.** `challenge` plants Spark-written wrong fixes to show whether the checks would wave them through. `draft-gaps` asks Spark what the expectations, or a proposed fix, still miss, and `repair` runs the Wonder-then-Spark loop above. Spark's proposals appear on the **Gap reviews** page, where you confirm or reject each one; repair sessions show there as a timeline.
 6. **Keep it in CI** with `confam review` and the GitHub Action below.
 
 ## Use it in CI

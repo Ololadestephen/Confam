@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "proxyRecheckAtFetch",
+  "projectId": "linkding-latest-proxy-dns",
+  "report": "report.md",
+  "fixtures": {
+    "apiAuthorization": "Token c0nfam0000000000000000000000000000000001"
+  },
+  "expectations": [
+    {
+      "id": "proxyRecheckAtFetch",
+      "statement": "When a proxy is configured, a bookmark hostname that resolves to a public address when checked but to an internal address when the proxy fetches it does not make the server reach that internal address.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "proxyRecheckAtFetch"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

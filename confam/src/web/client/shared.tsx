@@ -103,6 +103,14 @@ export function Shell({
               Your runs
             </Link>
             <Link
+              to="/gaps"
+              aria-current={
+                ["gaps", "gap", "repair"].includes(page) ? "page" : undefined
+              }
+            >
+              Gap reviews
+            </Link>
+            <Link
               to="/guide"
               aria-current={page === "guide" ? "page" : undefined}
             >
@@ -128,6 +136,7 @@ export function Shell({
         <div>
           <span className="eyebrow">Explore</span>
           <Link to="/runs">Run library </Link>
+          <Link to="/gaps">Gap reviews </Link>
           <Link to="/projects">Prepare a run </Link>
           <Link to="/guide">The workflow </Link>
         </div>

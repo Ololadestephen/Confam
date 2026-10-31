@@ -9,6 +9,7 @@ import { evaluateChallengePack } from "../challenges/evaluate-pack.js";
 import { DEFAULT_BUDGET_USD } from "../models/config.js";
 import { verifyProject } from "../project/verify.js";
 import { reviewProject } from "../review/index.js";
+import { continueRepair, recheckRepair, startRepair, type RepairState } from "../repair/index.js";
 import { proposeWorkflow } from "../authoring/generic.js";
 import { checkProject } from "../project/check.js";
 import path from "node:path";
@@ -75,6 +76,20 @@ async function main(): Promise<void> {
     console.log(draft.patchPath
       ? `Candidate fix requires review: ${draft.patchPath}\nNo application executed; evaluate it with verify or challenge --candidate.`
       : `Export preview written, nothing sent: ${draft.exportPath}`);
+  } else if (args.command === "repair") {
+    const { sessionDirectory, state } = await startRepair(path.resolve(args.subject), path.join(root, "runs"));
+    console.log(`Repair session: ${sessionDirectory}`);
+    printRepair(sessionDirectory, state);
+  } else if (args.command === "repair-continue") {
+    const sessionDirectory = path.resolve(args.subject);
+    const state = await continueRepair(sessionDirectory, path.resolve(args.approvedExport!), { budget: args.budget });
+    printRepair(sessionDirectory, state);
+    if (state.outcome === "incomplete") process.exitCode = 2;
+  } else if (args.command === "repair-recheck") {
+    const sessionDirectory = path.resolve(args.subject);
+    const state = await recheckRepair(sessionDirectory);
+    printRepair(sessionDirectory, state);
+    if (state.outcome === "incomplete") process.exitCode = 2;
   } else if (args.command === "challenge") {
     const { report, reportPath } = await challengeProject({
       project: path.resolve(args.project!), caseFile: path.resolve(args.subject),
@@ -150,4 +165,17 @@ async function main(): Promise<void> {
 }
 
 // For review, exit 1 means the candidate failed, so any crash (including bad arguments) is an incomplete review (2).
+function printRepair(sessionDirectory: string, state: RepairState) {
+  for (const round of state.rounds) {
+    console.log(`Round ${round.round}: Muse Wonder's fix ${round.patchPath}`);
+    for (const result of round.results) console.log(`  ${result.caseId} (${result.mode}): ${result.outcome}${result.unmet.length ? `, unmet ${result.unmet.join(", ")}` : ""}${result.error ? `, ${result.error}` : ""}`);
+  }
+  if (state.pending) {
+    const who = state.pending.stage === "fixer" ? `Muse Wonder (round ${state.pending.round})` : "Muse Spark (gap review of the passing fix)";
+    console.log(`Waiting for approval. Review the exact export for ${who}:\n  ${state.pending.exportPath}\nThen run: npm run confam -- repair-continue ${sessionDirectory} --approved-export ${state.pending.exportPath}`);
+  }
+  if (state.review) console.log(`Muse Spark's gap review of the fix needs your decisions: ${state.review.proposalPath}`);
+  if (state.outcome) console.log(`Outcome: ${state.outcome}. Recorded model spend: $${state.spendUsd.toFixed(4)}.`);
+  if (state.outcome === "incomplete") console.log(`An execution error stopped the run; nothing was sent back to the model. After fixing the cause: npm run confam -- repair-recheck ${sessionDirectory}`);
+}
 main().catch((error: unknown) => { console.error(errorMessage(error)); process.exitCode = process.argv[2] === "review" ? 2 : 1; return; });
