@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "mosaic-latest",
+  "root": "source-latest",
+  "sourceFiles": [
+    "src/server/auth/accounts.ts",
+    "src/domain/contracts.ts"
+  ],
+  "protectedPaths": [
+    "confam-runtime.mjs",
+    ".confam-deps.json",
+    "scripts",
+    "migrations"
+  ],
+  "runtime": {
+    "command": [
+      "node",
+      "confam-runtime.mjs"
+    ],
+    "readinessPath": "/api/health",
+    "timeoutMs": 120000,
+    "portVariable": "PORT",
+    "dataVariable": "CONFAM_DATA",
+    "restart": false,
+    "workflowTimeoutMs": 90000
+  }
+}

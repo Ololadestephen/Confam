@@ -45,6 +45,7 @@ blob-report/
 specimens/mosaic/source/
 specimens/mosaic/generated/
 specimens/mosaic/source-workspace/
+specimens/mosaic/source-latest/
 .claude/launch.json
 SUBMISSION.md
 DEMO-SCRIPT.md

@@ -1,0 +1,879 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "action": "context",
+      "name": "owner"
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "context",
+      "name": "someoneElse"
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "navigate",
+      "path": "/login?mode=register"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Your name"
+      },
+      "value": {
+        "fixture": "nameB"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Create account"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "context",
+      "name": "ownerLater"
+    },
+    {
+      "action": "navigate",
+      "path": "/login"
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Email"
+      },
+      "value": {
+        "fixture": "emailA"
+      }
+    },
+    {
+      "action": "fill",
+      "locator": {
+        "kind": "label",
+        "value": "Password"
+      },
+      "value": {
+        "fixture": "password"
+      }
+    },
+    {
+      "action": "click",
+      "locator": {
+        "kind": "role",
+        "value": "button",
+        "name": "Sign in"
+      }
+    },
+    {
+      "action": "wait",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"], button[aria-label=\"Sign out\"]"
+      }
+    },
+    {
+      "action": "reached"
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"]:has-text(\"Too many sign-in attempts\")"
+      },
+      "kind": "count",
+      "capture": "lockedOut"
+    },
+    {
+      "action": "assert",
+      "expectationId": "signUpDoesNotLockSignIn",
+      "actual": {
+        "variable": "lockedOut"
+      },
+      "operator": "eq",
+      "expected": 0
+    },
+    {
+      "action": "capture",
+      "locator": {
+        "kind": "css",
+        "value": "p.error[role=\"alert\"]"
+      },
+      "kind": "count",
+      "capture": "refused"
+    },
+    {
+      "action": "assert",
+      "expectationId": "signUpDoesNotLockSignIn",
+      "actual": {
+        "variable": "refused"
+      },
+      "operator": "eq",
+      "expected": 0
+    }
+  ]
+}

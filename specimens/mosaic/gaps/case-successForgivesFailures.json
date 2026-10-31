@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "successForgivesFailures",
+  "projectId": "mosaic-latest",
+  "report": "report.md",
+  "fixtures": {
+    "nameA": "Regular User",
+    "emailA": "regular.user@example.test",
+    "nameB": "Second User",
+    "emailB": "second.user@example.test",
+    "password": "correct-horse-staple-42",
+    "wrongPassword": "not-the-right-password-1"
+  },
+  "expectations": [
+    {
+      "id": "successForgivesFailures",
+      "statement": "After a correct sign-in, earlier failed attempts no longer count toward the lockout.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "successForgivesFailures"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}

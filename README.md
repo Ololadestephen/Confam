@@ -49,6 +49,15 @@ So one AI model's fix passed every agreed check, and another found two ways it s
 | Successful sign-ins counted toward the 15-attempt lockout, so careful users got locked out | Fails: locked out after correct sign-ins | Passes | Passes |
 | Re-selecting the open workspace left the page stuck on "Opening your workspace…" | Fails: board cleared | Passes | Passes, and is the same one-line guard as the real fix |
 
+**Then Spark looked for what the fix still misses.** Asked to review Mosaic's current sign-in code, Muse Spark proposed five missing expectations. The author confirmed two, and both **fail on the current code** with the lockout message itself:
+
+| Expectation Spark proposed and the author confirmed | Mosaic's current code |
+|---|---|
+| Repeated sign-up attempts with someone's email never stop them signing in with the right password | Fails: 15 sign-up attempts from another browser locked the owner out, although no wrong password was ever entered |
+| After a correct sign-in, earlier typos no longer count toward the lockout | Fails: 7 typos, a correct sign-in, 8 more typos, and the next correct sign-in was refused |
+
+The other three proposals were checked against the code and rejected, with reasons, in [specimens/mosaic/gaps](specimens/mosaic/gaps/README.md).
+
 Each test copy gets its own PostgreSQL database and Next.js server. Spark's decoys were harder to count here: of 4 that applied to the sign-in fix, all 4 failed the check they targeted, but only 1 matched every database value Spark predicted, so 1 is counted as caught and 3 are reported as uncounted. The workspace bug only affects the screen, so there is no independent database reading to confirm a decoy against.
 
 ## The controlled comparison
