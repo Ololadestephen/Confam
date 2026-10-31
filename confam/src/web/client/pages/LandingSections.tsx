@@ -1,3 +1,4 @@
+import { REPOSITORY_URL, STATIC_SITE } from "../api.js";
 import FadeContent from "../components/reactbits/FadeContent.js";
 import SpotlightCard from "../components/reactbits/SpotlightCard.js";
 import { Icon, Link } from "../shared.js";
@@ -97,12 +98,25 @@ export function Hero() {
           evidence.
         </p>
         <div className="button-row hero-actions">
-          <Link to="/projects" className="button button-dark">
-            Prepare your first run
-          </Link>
-          <Link to="/runs" className="button button-outline">
-            Explore saved evidence
-          </Link>
+          {STATIC_SITE ? (
+            <>
+              <Link to="/runs" className="button button-dark">
+                See the results
+              </Link>
+              <a href={REPOSITORY_URL} className="button button-outline">
+                Get Confam
+              </a>
+            </>
+          ) : (
+            <>
+              <Link to="/projects" className="button button-dark">
+                Prepare your first run
+              </Link>
+              <Link to="/runs" className="button button-outline">
+                Explore saved evidence
+              </Link>
+            </>
+          )}
         </div>
         <p className="hero-footnote">
           Local first. Reviewed expectations. No magic confidence score.
@@ -323,9 +337,15 @@ export function CallToAction() {
         <br />
         Leave with a record of what happened.
       </p>
-      <Link to="/projects" className="button button-light">
-        Prepare a run
-      </Link>
+      {STATIC_SITE ? (
+        <Link to="/runs" className="button button-light">
+          See the results
+        </Link>
+      ) : (
+        <Link to="/projects" className="button button-light">
+          Prepare a run
+        </Link>
+      )}
     </section>
   );
 }

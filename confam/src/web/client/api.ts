@@ -10,7 +10,7 @@ export const REPOSITORY_URL = "https://github.com/Ololadestephen/Confam";
 export function staticDataPath(pathname: string, runId?: string): string {
   const name = (value: string) => encodeURIComponent(value);
   if (pathname === "/api/runs") return "/data/runs.json";
-  if (pathname === "/api/run" && runId) return `/data/runs/${name(runId)}.json`;
+  if (pathname === "/api/run" && runId) return `/data/run/${name(runId)}.json`;
   if (pathname === "/api/gaps") return "/data/gaps.json";
   if (pathname === "/api/repairs") return "/data/repairs.json";
   const item = /^\/api\/(gaps|repairs)\/([^/]+)$/.exec(pathname);

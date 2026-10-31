@@ -135,10 +135,8 @@ export function Shell({
       </header>
       {STATIC_SITE ? (
         <p className="static-banner" role="note">
-          <strong>Recorded evidence.</strong> These are real results from local
-          runs on October 30 and 31, 2026. Nothing runs on this site. To run
-          Confam on your own app, <a href={REPOSITORY_URL}>clone it from GitHub</a>{" "}
-          or use its GitHub Action.
+          Recorded results from real runs on October 30–31, 2026. Nothing runs
+          here. <a href={REPOSITORY_URL}>Get Confam on GitHub</a>.
         </p>
       ) : null}
       {children}

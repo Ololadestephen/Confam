@@ -45,18 +45,18 @@ it("publishes evidence only: no private patches or recordings, no local paths, l
   const privateFiles = await readdir(path.join(out, "artifacts", privateId));
   expect(privateFiles.some((file) => file.endsWith(".webm") || file.endsWith(".patch"))).toBe(false);
 
-  const privateRun = await readFile(path.join(out, "runs", `${privateId}.json`), "utf8");
+  const privateRun = await readFile(path.join(out, "run", `${privateId}.json`), "utf8");
   expect(privateRun).toContain("unavailable:recorded-locally");
   expect(privateRun).not.toContain(base);
   expect(privateRun).not.toContain("/api/artifacts/");
-  const publicRun = JSON.parse(await readFile(path.join(out, "runs", `${publicId}.json`), "utf8"));
+  const publicRun = JSON.parse(await readFile(path.join(out, "run", `${publicId}.json`), "utf8"));
   expect(JSON.stringify(publicRun)).toContain(`/data/artifacts/${publicId}/`);
   expect(JSON.parse(await readFile(path.join(out, "site.json"), "utf8")).notice).toContain("Nothing runs on this site");
 });
 
 it("maps every read the interface makes to a static file", () => {
   expect(staticDataPath("/api/runs")).toBe("/data/runs.json");
-  expect(staticDataPath("/api/run", "verify-1")).toBe("/data/runs/verify-1.json");
+  expect(staticDataPath("/api/run", "verify-1")).toBe("/data/run/verify-1.json");
   expect(staticDataPath("/api/gaps")).toBe("/data/gaps.json");
   expect(staticDataPath("/api/gaps/draft-gaps-1")).toBe("/data/gaps/draft-gaps-1.json");
   expect(staticDataPath("/api/repairs/repair-1")).toBe("/data/repairs/repair-1.json");

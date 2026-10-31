@@ -531,14 +531,15 @@
 /* Hosted evidence site: says plainly that these are recorded results. */
 .static-banner {
   max-width: 1120px;
-  margin: 12px auto 0;
-  padding: 12px 18px;
+  margin: 10px auto 0;
+  padding: 6px 14px;
   border: 1px solid var(--line);
   border-radius: 9px;
   background: var(--yellow);
   color: var(--ink);
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
 }
 .static-banner a {
   color: var(--ink);

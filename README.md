@@ -6,6 +6,8 @@ A coding agent says the bug is fixed and the tests pass. But would those tests h
 
 Confam answers that question. It reproduces the reported bug on the real app, checks a proposed fix, and then plants **decoy patches**: plausible wrong fixes, written by Muse Spark, that a weak test would wave through. Each decoy must be confirmed wrong by an independent probe, such as reading the database directly. If the checks can't tell a decoy from a real fix, the green result means nothing, and Confam says so. The developer gets a reviewable result; their client gets one plain sentence about what was checked.
 
+**Browse the recorded evidence:** [useconfam.vercel.app](https://useconfam.vercel.app/). This is a read-only copy of the interface with the real runs, gap reviews and repair sessions behind the results below. Nothing runs there; to run Confam, follow "Try it".
+
 ## Results on real applications
 
 Every reproduced bug below is real, taken from the app's own history and reproduced against the commit before its real fix. The "gaps" are different: expectations proposed by Muse Spark and confirmed by the author that fail on the current code. Gap results are ordinary verification runs, without independent correct controls, decoys or held-out faults.

@@ -74,7 +74,7 @@ export async function exportSite(options: { runsRoot: string; manifest: string; 
         if (!local) skipped.push(`${id}: ${(item as { label?: string }).label ?? match[1]}`);
         return [key, local ?? "unavailable:recorded-locally"];
       })) : item;
-    await write(`runs/${id}.json`, relink(value));
+    await write(`run/${id}.json`, relink(value));
     const { runId, project, caseId, status, verdict, fixture, durationMs } = value;
     summaries.push({ runId, project, caseId, status, verdict, fixture, durationMs });
   }
