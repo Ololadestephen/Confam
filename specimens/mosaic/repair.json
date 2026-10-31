@@ -2,8 +2,21 @@
   "schemaVersion": 1,
   "project": "project-latest.json",
   "cases": [
-    { "case": "case-latest.json", "workflow": "workflow.json" },
-    { "case": "gaps/case-signUpDoesNotLockSignIn.json", "workflow": "gaps/workflow-signUpDoesNotLockSignIn.json" },
-    { "case": "gaps/case-successForgivesFailures.json", "workflow": "gaps/workflow-successForgivesFailures.json" }
+    {
+      "case": "case-latest.json",
+      "workflow": "workflow.json"
+    },
+    {
+      "case": "gaps/case-signUpDoesNotLockSignIn.json",
+      "workflow": "gaps/workflow-signUpDoesNotLockSignIn.json"
+    },
+    {
+      "case": "gaps/case-successForgivesFailures.json",
+      "workflow": "gaps/workflow-successForgivesFailures.json"
+    },
+    {
+      "case": "gaps/case-earlyFailuresDoNotLockNewOwner.json",
+      "workflow": "gaps/workflow-earlyFailuresDoNotLockNewOwner.json"
+    }
   ]
 }

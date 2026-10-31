@@ -21,7 +21,9 @@ const behindProxy = process.argv.includes("--http-proxy");
 // public address, as with split-horizon DNS or a rebinding answer that changes between two lookups.
 const proxyResolves = process.argv.find((argument) => argument.startsWith("--proxy-resolves="))?.slice("--proxy-resolves=".length);
 const listen = (server) => new Promise((resolve, reject) => server.once("error", reject).listen(0, "127.0.0.1", () => resolve(server.address().port)));
+let proxiedRequests = 0;
 const proxyPort = behindProxy ? await listen(http.createServer((request, response) => {
+  proxiedRequests += 1;
   const target = new URL(request.url);
   if (proxyResolves && target.hostname === proxyResolves) { target.hostname = "127.0.0.1"; target.port = String(PROBE_PORT); }
   const upstream = http.request(target, { method: request.method, headers: request.headers }, (reply) => {
@@ -50,7 +52,7 @@ manage("shell", "-c", [
 const observations = path.join(path.dirname(data), "observations.json");
 let internalRequests = 0;
 const record = () => {
-  writeFileSync(`${observations}.tmp`, JSON.stringify({ internalRequests }));
+  writeFileSync(`${observations}.tmp`, JSON.stringify({ internalRequests, proxiedRequests }));
   renameSync(`${observations}.tmp`, observations);
 };
 record();
@@ -75,7 +77,7 @@ for (let attempt = 0; ; attempt += 1) {
 http.createServer((request, response) => {
   if (request.url === "/confam-observations" && request.method === "GET") {
     response.setHeader("Content-Type", "application/json");
-    response.end(JSON.stringify({ internalRequests })); return;
+    response.end(JSON.stringify({ internalRequests, proxiedRequests })); return;
   }
   const upstream = http.request(`http://127.0.0.1:${free}${request.url}`, { method: request.method, headers: request.headers }, (reply) => {
     response.writeHead(reply.statusCode ?? 502, reply.headers); reply.pipe(response);

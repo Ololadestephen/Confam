@@ -36,6 +36,8 @@ The proxy case runs the same wrapper with `--http-proxy`: the wrapper becomes a 
 
 `specimens/linkding/repair.json` holds the original protection and the proxy gap. Muse Wonder's first reply was not a usable patch and was rejected before anything ran; its second passed both cases by checking the target's address before handing a request to the proxy. Spark reviewed that fix and proposed five gaps; the author confirmed one: the fix's check and the proxy resolve the name separately, so a name that is public when checked but internal when the proxy fetches it still gets through. The wrapper's `--proxy-resolves=example.com` mode makes the local proxy resolve `example.com` to the internal probe, simulating split-horizon or rebinding DNS. With `project-proxy-dns.json`, the internal address is reached on both the current code and Wonder's fix (`runs/verify-830ce22c-6f30-4630-a032-3db62312a77c/`, local). The check needs the machine to resolve `example.com` publicly.
 
+Round two: with that gap added, Wonder's next fix passed all three cases by never using a proxy for user-supplied URLs. Spark's review flagged that deployments needing a proxy for internet access would stop loading bookmarks, and the author confirmed it (`gaps/case-proxyStillUsedForPublic.json`, which counts requests through the configured proxy for `http://example.com/`). The current code sends 1 request through the proxy and passes; Wonder's round-two fix, applied to a copy, sends 0 and fails (`runs/verify-65880741-375e-4b59-b9d9-73b313b0bbfb/`, local). This check needs internet access to example.com.
+
 ## Run it
 
 ```bash

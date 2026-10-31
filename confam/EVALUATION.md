@@ -250,3 +250,14 @@ Spend for October 31: about $0.07. Recorded live spend across all runs: about $0
 | Model spend | $0.056 | $0.16 |
 
 A bug in the loop itself was found in the first live run (a leftover snapshot file crashed the regression copy); it was fixed and tested, and the round was re-run with `repair-recheck`, which makes no model call. These are ordinary verification runs without independent controls; the passing repairs are the only correct versions the gap workflows have been run on.
+
+Round two (each confirmed gap added to its suite; new sessions, all exports approved):
+
+| | Mosaic suite (4 cases) | Linkding suite (3 cases) |
+|---|---|---|
+| Wonder round 1 | Passed all 4 (registration now also clears earlier failures) | Passed all 3, by disabling proxies for user-supplied URLs (`trust_env = False`) |
+| Spark review | 5 proposals; none confirmed (untestable here, or rejected before) | 5 proposals; 1 confirmed: public bookmarks must still load through a required proxy |
+| Confirmed gap | none | Current code: 1 request through the configured proxy (passes). Wonder's round-two fix: 0 (fails), evaluated on a copy with the patch applied |
+| Model spend | about $0.07 (review) plus the fixer call | about $0.11 (review) plus the fixer call |
+
+Mosaic converged after two rounds. Linkding's second repair met every confirmed expectation by trading the security gap for broken proxy deployments, which only the review surfaced.

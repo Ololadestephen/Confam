@@ -2,7 +2,19 @@
   "schemaVersion": 1,
   "project": "project-latest.json",
   "cases": [
-    { "case": "case-latest.json", "workflow": "workflow.json" },
-    { "case": "gaps/case-proxyStillRefusesInternal.json", "workflow": "gaps/workflow-proxyStillRefusesInternal.json", "project": "project-proxy.json" }
+    {
+      "case": "case-latest.json",
+      "workflow": "workflow.json"
+    },
+    {
+      "case": "gaps/case-proxyStillRefusesInternal.json",
+      "workflow": "gaps/workflow-proxyStillRefusesInternal.json",
+      "project": "project-proxy.json"
+    },
+    {
+      "case": "gaps/case-proxyRecheckAtFetch.json",
+      "workflow": "gaps/workflow-proxyRecheckAtFetch.json",
+      "project": "project-proxy-dns.json"
+    }
   ]
 }

@@ -15,6 +15,8 @@ The other three proposals were reviewed and not confirmed: locking an account by
 
 `specimens/mosaic/repair.json` holds the original case and both gaps. Muse Wonder's first fix passed all three: sign-ups count against their own limit, and a correct sign-in clears the failure count. Spark reviewed that fix and proposed five more gaps; the author confirmed one: failed sign-ins recorded before an email is registered must not lock out the person who then registers it (`case-earlyFailuresDoNotLockNewOwner.json`). It fails on the current code and on Wonder's fix, both times with the lockout message (`runs/verify-a5103ae1-40c5-4ead-a712-5da9ebf0b3a7/`, local).
 
+Round two: with that gap added to the suite, Wonder's next fix passed all four cases (a successful registration also clears earlier failures). Spark's review of it proposed five more; none was confirmed: the lockout lifting after 15 minutes needs a faked clock, sign-up spam blocking a registration needs requests the browser form likely prevents, and the other three were rejected in earlier reviews.
+
 ## Run it
 
 ```bash

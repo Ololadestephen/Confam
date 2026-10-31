@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "proxyStillUsedForPublic",
+  "projectId": "linkding-latest-proxy",
+  "report": "report.md",
+  "fixtures": {
+    "apiAuthorization": "Token c0nfam0000000000000000000000000000000001"
+  },
+  "expectations": [
+    {
+      "id": "proxyStillUsedForPublic",
+      "statement": "When the server is configured to reach the internet through an HTTP proxy, checking an ordinary public bookmark URL still fetches it through that proxy.",
+      "provenance": "developer"
+    }
+  ],
+  "reproductionTargets": [
+    "proxyStillUsedForPublic"
+  ],
+  "controls": [],
+  "mode": "verification",
+  "purpose": "verification"
+}
