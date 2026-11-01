@@ -205,3 +205,5 @@ Mosaic and Bluemax were built by the author before the hackathon, and Linkding i
 [Usage and supported boundaries](confam/README.md) · [Measured results](confam/EVALUATION.md) · [Release checks](confam/RELEASE.md) · [Roadmap](confam/ROADMAP.md)
 
 Distribution is a source checkout; the workspace package is not a standalone installable CLI.
+
+Released under the [MIT License](LICENSE). The test-subject applications keep their own licences: Linkding is MIT-licensed by its authors, and Mosaic's and Bluemax's source is not included.
