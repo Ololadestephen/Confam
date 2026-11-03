@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax-latest",
+  "caseId": "failClosedOnLimitCheckFailure",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "failClosedOnLimitCheckFailure",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "failClosedOnLimitCheckFailure",
+            "actual": 200,
+            "expected": 400,
+            "operator": "gte",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 824
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 908
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 908
+          },
+          {
+            "name": "request",
+            "elapsedMs": 910
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1059
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1170
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1266
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1457
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1553
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1645
+          }
+        ],
+        "durationMs": 1715,
+        "trace": "runs/verify-5f960474-798f-4dda-9fb2-0aec6939dcd6/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-5f960474-798f-4dda-9fb2-0aec6939dcd6/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-5f960474-798f-4dda-9fb2-0aec6939dcd6/variants/original/evidence/page@a38d16f2b9d792a3d8bcb947636c4e4b.webm"
+        ],
+        "error": "Expectation failClosedOnLimitCheckFailure failed.",
+        "expectationId": "failClosedOnLimitCheckFailure",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "failClosedOnLimitCheckFailure",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "failClosedOnLimitCheckFailure",
+            "actual": 503,
+            "expected": 400,
+            "operator": "gte",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 637
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 725
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 725
+          },
+          {
+            "name": "request",
+            "elapsedMs": 725
+          },
+          {
+            "name": "request",
+            "elapsedMs": 988
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1094
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1188
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1277
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1454
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1544
+          }
+        ],
+        "durationMs": 1610,
+        "trace": "runs/verify-5f960474-798f-4dda-9fb2-0aec6939dcd6/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-5f960474-798f-4dda-9fb2-0aec6939dcd6/variants/candidate/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-5f960474-798f-4dda-9fb2-0aec6939dcd6/variants/candidate/evidence/page@3e1f2119aa9670f38e1470efbec2bfc2.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "Candidate passed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-5f960474-798f-4dda-9fb2-0aec6939dcd6/checks",
+    "sha256": "f78c7ea1adb30ec80fa0fa5d12a2346dd89511eeb388a2670a84e39f4f3809d2"
+  },
+  "baselineRevision": "f4a23a36e385e4a5bf5e4823436f78c07dccb64b",
+  "candidate": "passed"
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "completed",
+  "project": "bluemax-latest",
+  "caseId": "invalidDoesNotConsumeQuota",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "assertion-failed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "invalidDoesNotConsumeQuota",
+            "actual": 400,
+            "expected": 400,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "invalidDoesNotConsumeQuota",
+            "actual": 429,
+            "expected": 200,
+            "operator": "eq",
+            "passed": false
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 789
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 1033
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1033
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1178
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1318
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1565
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1692
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1693
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1822
+          }
+        ],
+        "durationMs": 1894,
+        "trace": "runs/verify-77f3a306-3270-4181-a7e0-092d84bbdb56/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-77f3a306-3270-4181-a7e0-092d84bbdb56/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-77f3a306-3270-4181-a7e0-092d84bbdb56/variants/original/evidence/page@2cf0b4e2b77ceebaebc0ed7a1a3a1bc4.webm"
+        ],
+        "error": "Expectation invalidDoesNotConsumeQuota failed.",
+        "expectationId": "invalidDoesNotConsumeQuota",
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    },
+    {
+      "id": "candidate",
+      "kind": "candidate",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "invalidDoesNotConsumeQuota",
+            "actual": 400,
+            "expected": 400,
+            "operator": "eq",
+            "passed": true
+          },
+          {
+            "expectationId": "invalidDoesNotConsumeQuota",
+            "actual": 200,
+            "expected": 200,
+            "operator": "eq",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 664
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 853
+          },
+          {
+            "name": "request",
+            "elapsedMs": 853
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1131
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1270
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1410
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1659
+          },
+          {
+            "name": "request",
+            "elapsedMs": 1659
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 1824
+          }
+        ],
+        "durationMs": 1894,
+        "trace": "runs/verify-77f3a306-3270-4181-a7e0-092d84bbdb56/variants/candidate/evidence/trace.zip",
+        "traces": [
+          "runs/verify-77f3a306-3270-4181-a7e0-092d84bbdb56/variants/candidate/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-77f3a306-3270-4181-a7e0-092d84bbdb56/variants/candidate/evidence/page@d7cb385a355346c515e7d6a9a4940ce0.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "Candidate passed the listed checks under the recorded conditions.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-77f3a306-3270-4181-a7e0-092d84bbdb56/checks",
+    "sha256": "2f8e7a3af38061376525a4bd1c33ab2d914a2ea013d57828e8c3d95203cf2a20"
+  },
+  "baselineRevision": "c292da272c8891dd72da5c3bc828327d87623dba",
+  "candidate": "passed"
+}
