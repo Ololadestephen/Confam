@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 2,
+  "cleanupComplete": true,
+  "status": "blocked",
+  "project": "linkding-latest-proxy",
+  "caseId": "proxyStillUsedForPublic",
+  "confirmation": "developer-cli",
+  "variants": [
+    {
+      "id": "original",
+      "kind": "original",
+      "phase": "workflow",
+      "result": {
+        "status": "passed",
+        "reached": true,
+        "assertions": [
+          {
+            "expectationId": "proxyStillUsedForPublic",
+            "actual": 1,
+            "expected": 1,
+            "operator": "gte",
+            "passed": true
+          }
+        ],
+        "steps": [
+          {
+            "name": "request",
+            "elapsedMs": 451
+          },
+          {
+            "name": "request",
+            "elapsedMs": 694
+          },
+          {
+            "name": "reached",
+            "elapsedMs": 698
+          },
+          {
+            "name": "assert",
+            "elapsedMs": 698
+          }
+        ],
+        "durationMs": 774,
+        "trace": "runs/verify-6cbdd831-0e0d-4d23-93ad-6f81f517ecd5/variants/original/evidence/trace.zip",
+        "traces": [
+          "runs/verify-6cbdd831-0e0d-4d23-93ad-6f81f517ecd5/variants/original/evidence/trace.zip"
+        ],
+        "videos": [
+          "runs/verify-6cbdd831-0e0d-4d23-93ad-6f81f517ecd5/variants/original/evidence/page@96acb11c9cd0c10d9b93618f8271b8cf.webm"
+        ],
+        "cleanupComplete": true
+      },
+      "cleanupComplete": true
+    }
+  ],
+  "verdict": "The reported behavior was not reproduced on its designated expectation; no candidate verdict.",
+  "limitations": [
+    "No independently qualified decoy challenges or held-out evaluation performed.",
+    "Evidence applies only to the confirmed expectations, fixtures, and recorded runtime.",
+    "Local processes are not a hostile-code sandbox.",
+    "No independently correct controls supplied; false-rejection calibration is unavailable."
+  ],
+  "checks": {
+    "directory": "runs/verify-6cbdd831-0e0d-4d23-93ad-6f81f517ecd5/checks",
+    "sha256": "1fd05f79a98d5a29daf635bbf2a3f84d27a2ba2b96558a727b2bc2d32fb93941"
+  },
+  "baselineRevision": "1287b83e60bcfbe9125756f6fa87bbcddedba9aa"
+}
