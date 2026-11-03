@@ -61,3 +61,6 @@ specimens/linkding/.venv/
 
 # Vercel build output for the evidence site
 /public/
+
+# Local video project (HyperFrames), never committed
+.local/
