@@ -2,9 +2,14 @@
 
 > **Confam challenges AI-generated fixes before you ship them.**
 
-A coding agent says the bug is fixed and the tests pass. But would those tests have caught a fix that only *looks* right?
+A coding agent says the bug is fixed and the tests pass. But would those tests have caught a fix that only *looks* right, and what did everyone forget to check?
 
-Confam answers that question. It reproduces the reported bug on the real app, checks a proposed fix, and then plants **decoy patches**: plausible wrong fixes, written by Muse Spark, that a weak test would wave through. Each decoy must be confirmed wrong by an independent probe, such as reading the database directly. If the checks can't tell a decoy from a real fix, the green result means nothing, and Confam says so. The developer gets a reviewable result; their client gets one plain sentence about what was checked.
+Confam answers both questions by running the real app:
+
+- **It tests the tests.** It reproduces the reported bug, checks a proposed fix, and plants **decoy patches**: plausible wrong fixes, written by Muse Spark, that a weak test would wave through. Each decoy must be confirmed wrong by an independent probe, such as reading the database directly. If the checks can't tell a decoy from a real fix, the green result means nothing, and Confam says so.
+- **It sets two models against each other.** Muse Wonder writes a fix without seeing the checks. Muse Spark reviews the passing fix for what it still misses. The developer confirms the gaps that matter, and Confam runs them. On a real solar installer's quote form, a Wonder fix passed every agreed check, and Spark's review led to the case where 10 of 10 simultaneous requests got through a limit of 5.
+
+The developer gets a reviewable result, in a local interface or as a [review comment on the pull request](https://github.com/Ololadestephen/Confam/pull/1); their client gets one plain sentence about what was checked.
 
 **Browse the recorded evidence:** [useconfam.vercel.app](https://useconfam.vercel.app/). This is a read-only copy of the interface with the real runs, gap reviews and repair sessions behind the results below. Nothing runs there; to run Confam, follow "Try it".
 
@@ -12,7 +17,7 @@ Confam answers that question. It reproduces the reported bug on the real app, ch
 
 Every reproduced bug below is real, taken from the app's own history and reproduced against the commit before its real fix. The "gaps" are different: expectations proposed by Muse Spark and confirmed by the author that fail on the current code. Gap results are ordinary verification runs, without independent correct controls, decoys or held-out faults.
 
-**What you can re-run:** the salon, task board, quote tool and Linkding results run from a fresh clone with no API key. Bluemax and Mosaic can't be re-run by a reader, because their source is private; their folders show exactly how they were tested. The Spark and Wonder steps need a Meta API key.
+**What you can re-run:** the salon, task board, quote tool and Linkding results run from a fresh clone with no API key. Bluemax and Mosaic can't be re-run by a reader, because their source is private; their folders show exactly how they were tested. The Spark and Wonder steps need a Meta API key, and results on Muse Wonder's fixes depend on the patches it returned, which stay in local run folders; the evidence site shows those recorded runs.
 
 None of these apps' source is in this repository, and none was built during the hackathon; they are test subjects.
 
@@ -86,9 +91,11 @@ Spark then reviewed the current protection and proposed five gaps. One was confi
 | Mosaic | Passed all three cases: both sign-in gaps fixed, original lockout kept | 5 proposals, 1 confirmed | **Fails:** failed sign-ins recorded before an email is registered still lock out its new owner |
 | Linkding | Passed both cases: proxy gap fixed, original protection kept (its first reply was not a usable patch and was rejected before anything ran) | 5 proposals, 1 confirmed | **Fails:** when the proxy's own DNS resolves a public name to an internal address, the internal service is still reached |
 
-Each repair passed every check it was given, and each review found something it still misses, confirmed by running the app.
+Each repair passed every check it was given, and each review found something it still misses, confirmed by running the app. The Linkding gap is tested with a local proxy that resolves `example.com` to the internal probe, simulating split-horizon or rebinding DNS.
 
-**Round two.** Each confirmed gap was added to its suite and Wonder tried again. Both new repairs passed every case on the first attempt. Mosaic's closes the hole cleanly: a successful registration now also clears failures recorded before the email existed, and Spark's next review found nothing the author chose to confirm. Linkding's passes by never using a proxy for user-supplied URLs. Spark's review flagged the cost, that deployments which can only reach the internet through a proxy would stop loading bookmarks, and the author confirmed it: with a proxy configured, the current code fetches a public page through it (1 request) and Wonder's fix does not (0). A repair that passes every agreed check can still trade one problem for another; the loop surfaced that instead of reporting success. The Linkding gap is tested with a local proxy that resolves `example.com` to the internal probe, simulating split-horizon or rebinding DNS. Spark's proposals are reviewed on the gap review page in the local interface. Total model spend for both apps over two rounds: about $0.40.
+**Round two.** Each confirmed gap was added to its suite and Wonder tried again. Both new repairs passed every case on the first attempt. Mosaic's closes the hole cleanly: a successful registration now also clears failures recorded before the email existed, and Spark's next review found nothing the author chose to confirm. Linkding's passes by never using a proxy for user-supplied URLs. Spark's review flagged the cost, that deployments which can only reach the internet through a proxy would stop loading bookmarks, and the author confirmed it: with a proxy configured, the current code fetches a public page through it (1 request) and Wonder's fix does not (0). A repair that passes every agreed check can still trade one problem for another; the loop surfaced that instead of reporting success.
+
+Spark's proposals are reviewed on the gap review page in the local interface, and these sessions can be read on the [evidence site](https://useconfam.vercel.app/gaps). Total model spend for both apps over two rounds: about $0.40.
 
 ## The controlled comparison
 
@@ -115,6 +122,8 @@ Full numbers, including what wasn't counted and why: [measured results](confam/E
 3. **Challenge the checks.** Decoys are built on a known-correct fix. Each one must be confirmed wrong by an independent probe, such as reading the database directly. Decoys that can't be confirmed are reported as uncounted, never as caught.
 4. **Strengthen only where something got through.** A model sees only the surviving decoys and may add checks, or flag that the expectations themselves are incomplete. Changes to what "fixed" means always go back to the developer. At most two rounds.
 5. **Freeze, then judge the fix.** The checks are sealed by hash before the candidate fix is evaluated. Results are raw counts with their limits.
+6. **Look for what was missed.** Muse Spark reviews the code, or a proposed fix, and proposes missing expectations. Each one is only a proposal: the developer confirms or rejects it, and a confirmed gap counts only once a run reproduces it.
+7. **Repair and review again.** `confam repair` alternates Muse Wonder's fixes with full case runs and Spark's reviews, and waits for the developer to approve the exact export before every model call.
 
 The same engine runs each application through configuration: start command, readiness check, isolated test data, source files a fix may touch, and a declarative workflow of browser or HTTP steps.
 
@@ -122,10 +131,10 @@ The same engine runs each application through configuration: start command, read
 
 | Model | Job |
 |---|---|
-| Muse Spark | Turns reports and recordings into expectations, drafts checks, writes decoys, strengthens checks from surviving decoys, and reviews code or a proposed fix for expectations the developer missed |
+| Muse Spark | Turns reports and recordings into expectations, drafts checks, writes decoys, strengthens checks from surviving decoys, chooses probes from a human-curated list, and reviews code or a proposed fix for expectations the developer missed |
 | Muse Wonder | Built-in fixer: proposes a repair, alone or inside the repair loop, where it gets one more attempt with only the expectations it missed |
 
-Models never decide whether anything passed: results come only from running the app. The fixer cannot edit checks or probes, and no model writes or approves its own probe. Every model call goes through a cost ledger with a per-run cap.
+Models never decide whether anything passed: results come only from running the app. The fixer cannot edit checks or probes, and no model writes or approves its own probe. Every model call goes through a cost ledger with a per-run cap, and every gap and repair export is previewed, then refused unless the live request matches the approved preview byte for byte. Recorded Meta API spend for all the results here: about $1.35 over 48 calls.
 
 ## Try it
 
@@ -148,6 +157,8 @@ npm run confam -- serve runs
 Keep `serve` running and open the printed URL, including its `?token=` part; the token stops other local pages from reaching your evidence. In Apps you can register a local project, review its detected setup, turn a report into editable expectations and a workflow (model calls need a key and explicit approval of exactly what is sent), then approve a verification run.
 
 For your own application, review its project configuration, case and workflow before using `--accept`. The included `--fixture` cases use scripted confirmation and are not an independent evaluation set.
+
+The hosted evidence site is this same interface in read-only mode. `npm run confam -- export-site confam/site-evidence.json` writes the selected runs as static files, without application source and without Mosaic's or Bluemax's patches and recordings, and `npm run web:build:site -w confam` builds it.
 
 ## Use it on your own app
 
@@ -185,12 +196,13 @@ The same command is a reusable GitHub Action, which posts the review to the job 
 
 With `comment: true`, the job needs `permissions: pull-requests: write`. The action posts one comment per case and fix, and updates that comment on later runs instead of adding new ones. If the token cannot comment, as on pull requests from forks, it warns and the review result is unchanged.
 
-This repository's own CI uses the action on the quote tool. It reviews a correct fix, which must pass, and a faulty fix, which must be reported as a failure; on pull requests it also comments the correct fix's review.
+This repository's own CI uses the action on the quote tool. It reviews a correct fix, which must pass, and a faulty fix, which must be reported as a failure; on pull requests it also comments the correct fix's review, as on [this pull request](https://github.com/Ololadestephen/Confam/pull/1).
 
 ## Limits
 
 - Evidence covers the confirmed expectations under the recorded conditions. It is not proof that an application is correct.
 - The only held-out evaluation is 4 unseen salon faults written by a blind AI agent, not by an independent person; no developers other than the author have used Confam.
+- Muse Wonder's repairs are proposals. Confam never applies them to an app's own repository, and they have not been reviewed as production changes; the Linkding round-two repair shows why a passing result isn't enough.
 - It runs local web applications that can start from a command with isolated test data. It is not a sandbox for hostile code.
 - Supported setups are validated case by case. An external Next.js app was rejected at setup because its assets exceeded the snapshot limit; that result is kept, not hidden.
 
