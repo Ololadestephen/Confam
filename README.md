@@ -11,6 +11,8 @@ Confam answers both questions by running the real app:
 
 The developer gets a reviewable result, in a local interface or as a [review comment on the pull request](https://github.com/Ololadestephen/Confam/pull/1); their client gets one plain sentence about what was checked.
 
+**Watch the demo:** [58-second film](https://youtu.be/patd96UOovc).
+
 **Browse the recorded evidence:** [useconfam.vercel.app](https://useconfam.vercel.app/). This is a read-only copy of the interface with the real runs, gap reviews and repair sessions behind the results below. Nothing runs there; to run Confam, follow "Try it".
 
 ## Results on real applications
